@@ -5,7 +5,7 @@ class HomePageSliderSingleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Colors.transparent,
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Material(
@@ -49,8 +49,8 @@ class HomePageSliderSingleCard extends StatelessWidget {
       alignment: Alignment.center,
       child: Image.asset(
         "assets/images/google-logo.png",
-        height: 50,
-        width: 50,
+        height: 60,
+        width: 60,
         fit: BoxFit.contain,
       ),
     );

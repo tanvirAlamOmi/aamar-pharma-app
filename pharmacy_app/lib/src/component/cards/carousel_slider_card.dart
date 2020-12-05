@@ -25,7 +25,7 @@ class CarouselSliderCard extends StatelessWidget {
       options: CarouselOptions(
         height: 150,
         aspectRatio: 3,
-        viewportFraction: 0.8,
+        viewportFraction: 1,
         initialPage: 0,
         enableInfiniteScroll: true,
         reverse: false,
