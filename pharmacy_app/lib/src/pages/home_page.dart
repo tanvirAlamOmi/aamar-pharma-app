@@ -4,8 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -30,9 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: MainDrawer(),
         key: _scaffoldKey,
         appBar: AppBar(
-          leading: AppBarBackButton(),
           elevation: 1,
           centerTitle: true,
           title: Text(
@@ -45,15 +47,43 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBody(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           CarouselSliderCard(),
+          buildText(),
+          GeneralActionButton(title: "UPLOAD PRESCRIPTION"),
+          GeneralActionButton(title: "UPLOAD PRESCRIPTION"),
+          SizedBox(height: 20),
+          buildHotlineText()
         ],
       ),
     );
   }
 
+  Widget buildText() {
+    return Container(
+      padding: EdgeInsets.only(top: 20),
+      child: Text(
+        "ORDER MEDICINES AND MORE",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget buildHotlineText() {
+    return Container(
+      padding: EdgeInsets.only(top: 20),
+      child: Text(
+        "HOTLINE\n"
+        "+88-0126823410",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 
   void refreshUI() {
     if (mounted) setState(() {});

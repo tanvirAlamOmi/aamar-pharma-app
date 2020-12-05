@@ -7,7 +7,6 @@ class HomePageSliderSingleCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
@@ -32,15 +31,31 @@ class HomePageSliderSingleCard extends StatelessWidget {
 
   Widget buildTitleText() {
     return Container(
-      alignment: Alignment.centerLeft,
-      width: 120,
-      child: Text(
-        "We offer Medicines Wellness Products Devices and More",
-        softWrap:true,
-        maxLines:3,
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.grey, fontSize: 13),
-      ),
+      width: 150,
+      child: IntrinsicHeight(
+          child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "We offer Medicines Wellness ",
+                style: TextStyle(color: Colors.grey, fontSize: 11),
+              ),
+              Text(
+                "Products Devices and More ",
+                style: TextStyle(color: Colors.grey, fontSize: 11),
+              ),
+              Text(
+                "products that you wont get",
+                style: TextStyle(color: Colors.grey, fontSize: 11),
+              ),
+            ],
+          ),
+        ],
+      )),
     );
   }
 
