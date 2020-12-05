@@ -35,13 +35,8 @@ class SplashPageState extends State<SplashPage> {
   Future initAppVersionCheck() async {}
 
   void navigationPage() {
-    if (Store.instance.appState.user.id == null) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
-    } else {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          '/choose_branch', (Route<dynamic> route) => false);
-    }
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   }
 
   @override

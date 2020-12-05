@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/pages/main_page.dart';
 import 'package:pharmacy_app/src/pages/splash_page.dart';
 
 
@@ -29,7 +30,7 @@ final Map<String, RouterMethod> _definitions = {
     return MaterialPageRoute(
       settings: settings,
       builder: (context) {
-        return Container();
+        return MainPage();
       },
     );
   },

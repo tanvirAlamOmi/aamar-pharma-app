@@ -1,8 +1,7 @@
-import 'package:ezeedropcustomer/src/pages/user_page.dart';
+import 'package:pharmacy_app/src/pages/home_page.dart';
 import 'package:pharmacy_app/src/pages/user_details_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
-import 'home_page.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
