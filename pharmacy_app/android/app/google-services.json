@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "551801128348",
+    "project_id": "pharmacy-project-419ca",
+    "storage_bucket": "pharmacy-project-419ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551801128348:android:6e2c7088aa74ed5d6fb459",
+        "android_client_info": {
+          "package_name": "com.arbree.pharmacy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551801128348-0i52dc3dt8napr5p6m0cve3kkel498q3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA13yFoBFruWMdbSEcPQnmYXkcI3QqfL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551801128348-0i52dc3dt8napr5p6m0cve3kkel498q3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
