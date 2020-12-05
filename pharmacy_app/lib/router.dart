@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/pages/splash_page.dart';
 
 
 typedef RouterMethod = PageRoute Function(RouteSettings, Map<String, String>);
