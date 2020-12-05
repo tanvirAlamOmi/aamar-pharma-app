@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:tuple/tuple.dart';
+import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          HomePageSliderSingleCard()
+          CarouselSliderCard(),
         ],
       ),
     );

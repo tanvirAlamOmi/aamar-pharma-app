@@ -5,29 +5,53 @@ class HomePageSliderSingleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-      child: Row(
-        children: <Widget>[
-          Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Text(
-              "We offer Medicines\n"
-              "Wellness Products\n"
-              "Devices and More",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 13),
-            ),
-            SizedBox(height: 10),
-          ]),
-          SizedBox(height: 20),
-          Container(
-            child: Image.asset(
-              "assets/images/avatar.png",
-              height: 100,
-              width: 150,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ],
+      color: Colors.black,
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+      child: Material(
+        shadowColor: Colors.grey[100].withOpacity(0.4),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        elevation: 0,
+        clipBehavior: Clip.antiAlias, // Add This
+        child: buildBody(),
+      ),
+    );
+  }
+
+  Widget buildBody() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildTitleText(),
+        SizedBox(width: 20),
+        buildSideImage(),
+      ],
+    );
+  }
+
+  Widget buildTitleText() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      width: 120,
+      child: Text(
+        "We offer Medicines Wellness Products Devices and More",
+        softWrap:true,
+        maxLines:3,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.grey, fontSize: 13),
+      ),
+    );
+  }
+
+  Widget buildSideImage() {
+    return Container(
+      alignment: Alignment.center,
+      child: Image.asset(
+        "assets/images/google-logo.png",
+        height: 50,
+        width: 50,
+        fit: BoxFit.contain,
       ),
     );
   }
