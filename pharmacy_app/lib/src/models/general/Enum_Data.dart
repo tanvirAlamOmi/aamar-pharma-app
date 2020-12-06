@@ -21,6 +21,8 @@ class ClientEnum {
   static final String FEED_RETURNED = "Returned";
   static final String FEED_REJECTED = "Rejected";
 
+  static final String FEED_ORDER = "ORDER FEED";
+
   static final String FEED_ITEM_ORDER_CARD = "Order Card";
   static final String FEED_ITEM_SEARCH_CARD = "Search Card";
 }

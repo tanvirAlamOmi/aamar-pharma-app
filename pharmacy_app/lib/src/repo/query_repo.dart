@@ -55,7 +55,12 @@ class QueryRepo {
   }
 
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
-    return Tuple2(FeedResponse(), null);
+    return Tuple2(
+        FeedResponse(status: true, feedItems: [
+          FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD, order: Order())
+        ]),
+        ClientEnum.RESPONSE_SUCCESS);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
       return getFeedData(feedRequest);
     } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {

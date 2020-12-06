@@ -16,8 +16,6 @@ class _OrderPageState extends State<OrderPage> {
     super.initState();
   }
 
-
-
   void refreshUI() {
     if (mounted) {
       setState(() {
@@ -33,10 +31,8 @@ class _OrderPageState extends State<OrderPage> {
         elevation: 1,
         centerTitle: true,
         title: Text("ORDERS"),
-
       ),
-      body: FeedContainer(FeedInfo(
-          ClientEnum.FEED_PENDING), key: key),
+      body: FeedContainer(FeedInfo(ClientEnum.FEED_ORDER), key: key),
     );
   }
 }

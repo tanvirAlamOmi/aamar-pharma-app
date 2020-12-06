@@ -79,12 +79,12 @@ class _OrderCardState extends State<OrderCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Order ID: " + order.id,
+                "Order ID: 123",
                 style:
                 TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               Text(
-                order.orderDate + ", " + order.orderTime,
+                "29/01/15",
                 style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)),
               )
             ],
@@ -120,16 +120,7 @@ class _OrderCardState extends State<OrderCard> {
       ],
     ));
     children.add(SizedBox(height: 5));
-
-    children.add(Row(
-      children: [
-        Icon(Icons.monetization_on),
-        SizedBox(width: 15),
-        Text(
-            "${double.parse(order.grandTotal).toStringAsFixed(2)} - ${order.paymentMethod}"),
-      ],
-    ));
-    children.add(SizedBox(height: 5));
+    
 
     return Column(
       children: children,
