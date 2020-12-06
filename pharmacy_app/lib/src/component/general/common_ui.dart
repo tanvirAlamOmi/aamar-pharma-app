@@ -63,6 +63,33 @@ Widget noInternetView(dynamic refreshCallback) {
   );
 }
 
+Widget loadingSpinnerView(dynamic refreshCallback) {
+  return Container(
+    alignment: Alignment.center,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(height: 10),
+        Column(
+          children: <Widget>[
+            SizedBox(height: 20),
+            SizedBox(
+                height: 30.0,
+                width: 30.0,
+                child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.black),
+                    strokeWidth: 4.0)),
+            SizedBox(height: 20)
+          ],
+        ),
+        SizedBox(height: 10),
+      ],
+    ),
+  );
+}
+
 Widget noServerView(dynamic refreshCallback) {
   return Container(
     alignment: Alignment.center,

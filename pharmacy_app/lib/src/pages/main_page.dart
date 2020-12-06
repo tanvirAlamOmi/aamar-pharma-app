@@ -2,6 +2,7 @@ import 'package:pharmacy_app/src/pages/home_page.dart';
 import 'package:pharmacy_app/src/pages/user_details_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/pages/order_page.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
@@ -57,6 +58,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> getBottomNavPages() {
     return [
       HomePage(),
+      OrderPage(),
       AccountPage(),
     ];
   }
@@ -66,6 +68,10 @@ class _MainPageState extends State<MainPage> {
       BottomNavigationBarItem(
         title: Text('Home', style: TextStyle(fontSize: 13)),
         icon: Icon(Icons.home, size: 24),
+      ),
+      BottomNavigationBarItem(
+        title: Text('Order', style: TextStyle(fontSize: 13)),
+        icon: Icon(Icons.add_shopping_cart, size: 24),
       ),
       BottomNavigationBarItem(
         title: Text('Account', style: TextStyle(fontSize: 13)),

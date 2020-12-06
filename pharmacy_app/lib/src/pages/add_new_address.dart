@@ -14,6 +14,7 @@ import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/pages/order_page.dart';
 
 class AddNewAddressPage extends StatefulWidget {
   AddNewAddressPage({Key key}) : super(key: key);

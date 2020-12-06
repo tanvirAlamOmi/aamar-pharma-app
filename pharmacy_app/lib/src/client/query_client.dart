@@ -13,7 +13,7 @@ class QueryClient {
     final http.Response response = await http.get(
       ServerConfig.SERVER_HOST +
           ServerConfig.SERVER_PORT.toString() +
-          '/api/adminapi/orders/${feedRequest.feedInfo.feedType}/${feedRequest.feedInfo.branchId}',
+          '/api/adminapi/orders/${feedRequest.feedInfo.feedType}/',
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -22,7 +22,6 @@ class QueryClient {
 
     final jsonResponse = json.decode(response.body);
     print("PRINT IN CLIENT");
-    print('/api/adminapi/orders/${feedRequest.feedInfo.feedType}/${feedRequest.feedInfo.branchId}');
     print(jsonResponse);
     return jsonResponse;
   }
