@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,11 +12,19 @@ import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
+import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/pages/add_new_address.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
   final PickedFile prescriptionImageFile;
-  ConfirmOrderPage({this.note, this.prescriptionImageFile, Key key})
+  final List<OrderManualItem> orderManualItemList;
+
+  ConfirmOrderPage(
+      {this.note,
+      this.orderManualItemList,
+      this.prescriptionImageFile,
+      Key key})
       : super(key: key);
 
   @override
@@ -85,7 +92,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildDeliveryAddressBox(),
             buildAllAddresses(),
             buildPersonalDetails(),
-            GeneralActionButton(title: "SUBMIT",),
+            GeneralActionButton(
+              title: "SUBMIT",
+            ),
             SizedBox(height: 20)
           ],
         ),
@@ -255,6 +264,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         elevation: 3,
         clipBehavior: Clip.antiAlias, // Add This
         child: ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddNewAddressPage()),
+            );
+          },
           title: Text("Add New Address",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
           trailing: Icon(Icons.keyboard_arrow_right),

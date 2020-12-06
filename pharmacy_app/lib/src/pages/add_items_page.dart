@@ -63,6 +63,14 @@ class _AddItemsPageState extends State<AddItemsPage> {
           children: <Widget>[
             buildAddItemBox(),
             buildItemList(),
+            GeneralActionButton(
+              title: "SUBMIT",
+              height: 30,
+              padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+              color: Colors.black,
+              isProcessing: false,
+              callBack: proceedToConfirmOrderPage,
+            )
           ],
         ),
       ),
@@ -89,7 +97,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
             trailing: IconButton(
               icon: Icon(Icons.clear),
-              onPressed: (){
+              onPressed: () {
                 removeItemFromList(singleItem);
               },
             ),
@@ -223,6 +231,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
   }
 
   void addItemsToList() {
+    if (itemNameController.text.isEmpty || itemQuantityController.text.isEmpty)
+      return;
     orderManualItemList.add(OrderManualItem()
       ..itemName = itemNameController.text
       ..itemUnit = itemUnitController.text
@@ -243,7 +253,10 @@ class _AddItemsPageState extends State<AddItemsPage> {
   void proceedToConfirmOrderPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ConfirmOrderPage()),
+      MaterialPageRoute(
+          builder: (context) => ConfirmOrderPage(
+            orderManualItemList: orderManualItemList,
+          )),
     );
   }
 
