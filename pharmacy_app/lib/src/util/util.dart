@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,8 @@ class Util {
     return "https://firebasestorage.googleapis.com/v0/b/ezeedrop-c06cd.appspot.com/o/extra%2Favatar.png?alt=media&token=73d26eff-cb2f-4b94-b896-ab3f2300fb3c";
   }
 
-  static showSnackBar({GlobalKey<ScaffoldState> scaffoldKey, String message, int duration}) {
+  static showSnackBar(
+      {GlobalKey<ScaffoldState> scaffoldKey, String message, int duration}) {
     scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(message),
       duration: Duration(milliseconds: duration ?? 3000),
@@ -69,7 +71,7 @@ class Util {
   }
 
   static String formatDateToStringDateAndDay(DateTime dateTime) {
-    return Jiffy(dateTime.toUtc()).EEEE + ", "  + Jiffy(dateTime.toUtc()).yMMMMd;
+    return Jiffy(dateTime.toUtc()).EEEE + ", " + Jiffy(dateTime.toUtc()).yMMMMd;
   }
 
   static String formatDateToStringOnlyHourMinute(DateTime dateTime) {
@@ -101,6 +103,90 @@ class Util {
         DateTime.now().millisecondsSinceEpoch.toString();
   }
 
+  static imagePickAlertDialog({BuildContext context, Function(PickedFile) callBack}) {
+    showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)), //this right here
+            child: Container(
+              height: 120,
+              width: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("PICK IMAGE BY ",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 5),
+                    Divider(height: 1, color: Colors.grey[700]),
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pop(dialogContext);
+                            ImagePicker()
+                                .getImage(
+                                    source: ImageSource.camera,
+                                    maxHeight: 800,
+                                    maxWidth: 800,
+                                    imageQuality: 100)
+                                .then((value) {
+                              callBack(value);
+                            });
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.camera, color: Colors.black),
+                              Text(
+                                "Camera",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 50),
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pop(dialogContext);
+                            ImagePicker()
+                                .getImage(
+                                    source: ImageSource.gallery,
+                                    maxHeight: 800,
+                                    maxWidth: 800,
+                                    imageQuality: 100)
+                                .then((value) {
+                              callBack(value);
+                            });
+                          },
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.insert_drive_file,
+                                  color: Colors.black),
+                              Text(
+                                "File",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
   static void prettyPrintJson(String input) {
     const JsonDecoder decoder = JsonDecoder();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -108,5 +194,4 @@ class Util {
     final dynamic prettyString = encoder.convert(object);
     prettyString.split('\n').forEach((dynamic element) => print(element));
   }
-
 }

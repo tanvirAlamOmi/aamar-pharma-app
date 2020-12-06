@@ -40,18 +40,12 @@ class HomePageSliderSingleCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                "We offer Medicines Wellness ",
-                style: TextStyle(color: Colors.grey, fontSize: 11),
-              ),
-              Text(
-                "Products Devices and More ",
-                style: TextStyle(color: Colors.grey, fontSize: 11),
-              ),
-              Text(
-                "products that you wont get",
-                style: TextStyle(color: Colors.grey, fontSize: 11),
-              ),
+              Text("We offer Medicines Wellness ",
+                  style: TextStyle(color: Colors.grey, fontSize: 11)),
+              Text("Products Devices and More ",
+                  style: TextStyle(color: Colors.grey, fontSize: 11)),
+              Text("products that you wont get",
+                  style: TextStyle(color: Colors.grey, fontSize: 11)),
             ],
           ),
         ],

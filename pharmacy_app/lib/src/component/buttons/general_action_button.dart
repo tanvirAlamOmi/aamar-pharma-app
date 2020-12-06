@@ -6,14 +6,15 @@ class GeneralActionButton extends StatelessWidget {
   final bool isProcessing;
   final void Function() callBack;
   final String title;
+  final EdgeInsetsGeometry padding;
 
-  GeneralActionButton({this.isProcessing, this.callBack, this.title, Key key})
+  GeneralActionButton({this.isProcessing, this.callBack, this.title, this.padding, Key key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(25, 15, 25, 0),
+      padding: padding ?? EdgeInsets.fromLTRB(25, 15, 25, 0),
       alignment: Alignment.center,
       child: MaterialButton(
         height: 50,

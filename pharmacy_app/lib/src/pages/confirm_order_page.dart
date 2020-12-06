@@ -14,14 +14,16 @@ import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class ConfirmOrderPage extends StatefulWidget {
+  final String note;
+  final PickedFile prescriptionImageFile;
+  ConfirmOrderPage({this.note, this.prescriptionImageFile, Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _ConfirmOrderPageState createState() => _ConfirmOrderPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   PickedFile pickedImageFile;
@@ -39,13 +41,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MainDrawer(),
         key: _scaffoldKey,
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
+          leading: AppBarBackButton(),
           title: Text(
-            'HOME',
+            'CONFIRM ORDER',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -57,22 +59,12 @@ class _HomePageState extends State<HomePage> {
       alignment: Alignment.center,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          CarouselSliderCard(),
-          buildText(),
-          GeneralActionButton(
-              title: "UPLOAD PRESCRIPTION",
-              callBack: uploadPrescriptionOption,
-              isProcessing: isProcessing),
-          GeneralActionButton(title: "UPLOAD PRESCRIPTION"),
-          SizedBox(height: 20),
-          buildHotlineText()
-        ],
+        children: <Widget>[],
       ),
     );
   }
 
-  Widget buildText() {
+  Widget buildDeliveryTime() {
     return Container(
       padding: EdgeInsets.only(top: 20),
       child: Text(
@@ -95,30 +87,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void uploadPrescriptionOption() async {
-    isProcessing = true;
-    refreshUI();
-
-    var cameraStatus = await Permission.camera.status;
-    var storageStatus = await Permission.storage.status;
-    if (cameraStatus == PermissionStatus.permanentlyDenied ||
-        storageStatus == PermissionStatus.permanentlyDenied) {
-      Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message:
-              "Please provide Camera and Storage permissions from Settings");
-      isProcessing = false;
-      refreshUI();
-    } else {
-      Util.imagePickAlertDialog(
-          context: context, callBack: pushRouteToUploadPrescriptionPage);
-      isProcessing = false;
-      refreshUI();
-    }
-  }
 
   pushRouteToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
-    if (pickedPrescriptionImage == null) return ;
+
     Navigator.push(
       context,
       MaterialPageRoute(
