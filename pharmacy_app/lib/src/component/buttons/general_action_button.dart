@@ -7,8 +7,17 @@ class GeneralActionButton extends StatelessWidget {
   final void Function() callBack;
   final String title;
   final EdgeInsetsGeometry padding;
+  final double height;
+  final Color color;
 
-  GeneralActionButton({this.isProcessing, this.callBack, this.title, this.padding, Key key})
+  GeneralActionButton(
+      {this.isProcessing,
+      this.callBack,
+      this.height,
+      this.title,
+      this.color,
+      this.padding,
+      Key key})
       : super(key: key);
 
   @override
@@ -17,7 +26,7 @@ class GeneralActionButton extends StatelessWidget {
       padding: padding ?? EdgeInsets.fromLTRB(25, 15, 25, 0),
       alignment: Alignment.center,
       child: MaterialButton(
-        height: 50,
+        height: height ?? 50,
         shape: Border.all(width: 1.0, color: Colors.transparent),
         minWidth: double.infinity,
         onPressed: () => (isProcessing == false) ? callBack() : () {},
@@ -25,8 +34,19 @@ class GeneralActionButton extends StatelessWidget {
           title,
           style: TextStyle(color: Colors.white),
         ),
-        color: (isProcessing == false) ? Colors.black : Colors.grey,
+        color: getButtonColor(),
       ),
     );
+  }
+
+  Color getButtonColor() {
+    if (isProcessing == false) {
+      if (color == null) {
+        return Colors.black;
+      } else {
+        return color;
+      }
+    }
+    return Colors.grey;
   }
 }

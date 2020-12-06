@@ -86,7 +86,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildAllAddresses(),
             buildPersonalDetails(),
             GeneralActionButton(title: "SUBMIT",),
-
             SizedBox(height: 20)
           ],
         ),

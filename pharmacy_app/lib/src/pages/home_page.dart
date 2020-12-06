@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
+import 'package:pharmacy_app/src/pages/add_items_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -64,7 +65,10 @@ class _HomePageState extends State<HomePage> {
               title: "UPLOAD PRESCRIPTION",
               callBack: uploadPrescriptionOption,
               isProcessing: isProcessing),
-          GeneralActionButton(title: "UPLOAD PRESCRIPTION"),
+          GeneralActionButton(
+              title: "ADD ITEMS MANUALLY",
+              callBack: navigateToAddItems,
+              isProcessing: isProcessing),
           SizedBox(height: 20),
           buildHotlineText()
         ],
@@ -111,13 +115,13 @@ class _HomePageState extends State<HomePage> {
       refreshUI();
     } else {
       Util.imagePickAlertDialog(
-          context: context, callBack: pushRouteToUploadPrescriptionPage);
+          context: context, callBack: navigateToUploadPrescriptionPage);
       isProcessing = false;
       refreshUI();
     }
   }
 
-  pushRouteToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
+  navigateToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
     if (pickedPrescriptionImage == null) return ;
     Navigator.push(
       context,
@@ -125,6 +129,15 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => UploadPrescriptionVerifyPage(
                 prescriptionImageFile: pickedPrescriptionImage,
               )),
+    );
+  }
+
+  navigateToAddItems() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => AddItemsPage(
+          )),
     );
   }
 
