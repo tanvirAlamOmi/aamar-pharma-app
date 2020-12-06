@@ -88,8 +88,6 @@ class _UploadPrescriptionVerifyPageState
   }
 
   Widget buildNoteBox() {
-
-
     return Container(
       padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
       color: Colors.white,
@@ -108,22 +106,6 @@ class _UploadPrescriptionVerifyPageState
             borderRadius: new BorderRadius.circular(5.0),
           ),
         ),
-      ),
-    );
-
-    return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.red)),
-      child: TextField(
-        autofocus: false,
-        maxLines: 3,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: "First Name",
-        ),
-        controller: noteBoxController,
       ),
     );
   }
