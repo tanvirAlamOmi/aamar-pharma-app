@@ -30,6 +30,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
 
+  final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +82,49 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   Widget buildInvoice() {
-    return Container();
+    final children = List<TableRow>();
+
+    children.add(TableRow(children: [
+      TableCell(child: Text("Item", style: textStyle)),
+      TableCell(child: Text("Unit Cost", style: textStyle)),
+      TableCell(child: Text("Quantity", style: textStyle)),
+      TableCell(child: Text("Amount", style: textStyle)),
+    ]));
+
+    widget.order.invoice.invoiceItemList.forEach((singleItem) {
+      children.add(TableRow(children: [
+        TableCell(child: Text(singleItem.itemName, style: textStyle)),
+        TableCell(child: Text(singleItem.itemUnitPrice, style: textStyle)),
+        TableCell(child: Text(singleItem.itemQuantity, style: textStyle)),
+        TableCell(child: Text(getPrice(), style: textStyle)),
+      ]));
+    });
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+        decoration: BoxDecoration(
+          border: Border(
+            left: BorderSide(color: Colors.black, width: 2.0),
+            top: BorderSide(color: Colors.black, width: 2.0),
+            right: BorderSide(color: Colors.black, width: 2.0),
+            bottom: BorderSide(color: Colors.black, width: 2.0),
+          ),
+        ),
+        child: Table(
+          children: children,
+        ),
+      ),
+    );
+  }
+
+  void getPrice(InvoiceItem singleItem){
+
+    return 
+
   }
 
   Widget buildViewOrderDetailsButton() {
@@ -110,7 +154,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       ),
     );
   }
-
 
   void refreshUI() {
     if (mounted) setState(() {});

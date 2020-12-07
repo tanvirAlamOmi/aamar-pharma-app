@@ -130,11 +130,10 @@ class _OrderCardState extends State<OrderCard> {
         context,
         MaterialPageRoute(
             builder: (context) => ConfirmInvoicePage(
-              order: order,
-            )),
+                  order: order,
+                )),
       );
     }
-
   }
 
   void refreshUI() {
