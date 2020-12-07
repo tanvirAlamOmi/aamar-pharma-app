@@ -5,11 +5,15 @@ class ClientEnum {
   static final String RESPONSE_FAIL = "fail";
   static final String RESPONSE_UNAUTHORIZED = "Unauthorized";
 
-
-  static final String ORDER_STATUS_PENDING = "Pending";
-  static final String ORDER_STATUS_CONFIRM = "Confirm";
+  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA =
+      "Pending Invoice Response From Pharma";
+  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER =
+      "Pending Invoice Response From CUSTOMER";
+  static final String ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER = "Invoice Confirm From Customer";
+  static final String ORDER_STATUS_PROCESSING = "Processing";
+  static final String ORDER_STATUS_ON_THE_WAY = "On the way";
+  static final String ORDER_STATUS_DELIVERED = "Delivered";
   static final String ORDER_STATUS_CANCELED = "Canceled";
-  static final String ORDER_STATUS_RETURNED = "Returned";
   static final String ORDER_STATUS_REJECTED = "Rejected";
 
   static final String ORDER_PAYMENT_STATUS_PAID = "Paid";

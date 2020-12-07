@@ -61,7 +61,7 @@ class SplashPageState extends State<SplashPage> {
       height: 100,
       width: 180,
       child: Image.asset(
-        'assets/images/google-logo.png',
+        'assets/images/logo_aamarpharma.jpg',
         alignment: Alignment.center,
         fit: BoxFit.contain,
       ),

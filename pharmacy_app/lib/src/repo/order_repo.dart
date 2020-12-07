@@ -107,7 +107,6 @@ class OrderRepo {
           'delivery_date_time': order.deliveryDateTime.split(" ")[0] +
               " " +
               deliveryTime.deliveryHourMinSec.replaceAll("-", ":"),
-          'order_status': ClientEnum.ORDER_STATUS_CONFIRM,
           'id': order.id,
         });
 

@@ -33,7 +33,6 @@ class _OrderCardState extends State<OrderCard> {
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
@@ -41,8 +40,8 @@ class _OrderCardState extends State<OrderCard> {
         child: Material(
           shadowColor: Colors.grey[100].withOpacity(0.4),
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
-          elevation: 3,
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          elevation: 5,
           clipBehavior: Clip.antiAlias, // Add This
           child: buildBody(context),
         ),
@@ -54,84 +53,61 @@ class _OrderCardState extends State<OrderCard> {
     return Column(
       children: [
         buildTitle(),
-        SizedBox(height: 20),
-        Container(
-            width: double.infinity,
-            padding: EdgeInsets.only(left: 20),
-            child: buildList()),
-        SizedBox(height: 15),
+        buildOrderStatus(),
       ],
     );
   }
 
   Widget buildTitle() {
-    return Container(
-      color: new Color.fromARGB(125, 4, 150, 150),
-      padding: EdgeInsets.all(10),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.electric_car_rounded),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Order ID: 123",
-                style:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "29/01/15",
-                style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Icon(
-                Icons.av_timer,
-                color: Colors.yellow,
-              ),
-              Text(
-                order.collectionDateTime ?? "N/A",
-                style: TextStyle(
-                  color: Colors.yellow,
-                ),
-              ),
-              Icon(Icons.chevron_right, size: 28.0),
-            ],
-          )
-        ],
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 90,
+        color: Colors.white,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Order ID: " + order.id,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold)),
+                SizedBox(height: 5),
+                Text("Today: 10 AM",
+                    style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
+              ],
+            ),
+            Row(
+              children: [
+                Icon(Icons.chevron_right, size: 28.0),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget buildList() {
-    final children = List<Widget>();
-
-    children.add(Row(
-      children: [
-        Icon(Icons.location_on),
-        SizedBox(width: 15),
-        getAddress(),
-      ],
-    ));
-    children.add(SizedBox(height: 5));
-    
-
-    return Column(
-      children: children,
+  Widget buildOrderStatus() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+      width: double.infinity,
+      height: 35,
+      child: RaisedButton(
+        shape: Border.all(width: 1.0, color: Colors.transparent),
+        onPressed: () {},
+        child: Text(
+          order.orderStatus,
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+        color: Colors.black,
+      ),
     );
-  }
-
-  Widget getAddress() {
-    if (order.addressLine1 == null || order.addressLine1.isEmpty) {
-      return Text("N/A");
-    }
-    return Text(order.addressLine1);
   }
 
   void refreshUI() {

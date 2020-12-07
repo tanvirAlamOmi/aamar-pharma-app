@@ -58,7 +58,17 @@ class QueryRepo {
     return Tuple2(
         FeedResponse(status: true, feedItems: [
           FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD, order: Order())
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: "1023",
+                  orderStatus: ClientEnum
+                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA)),
+          FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: "1024",
+                  orderStatus: ClientEnum
+                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER))
         ]),
         ClientEnum.RESPONSE_SUCCESS);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {

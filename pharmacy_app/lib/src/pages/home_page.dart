@@ -54,24 +54,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          CarouselSliderCard(),
-          buildText(),
-          GeneralActionButton(
-              title: "UPLOAD PRESCRIPTION",
-              callBack: uploadPrescriptionOption,
-              isProcessing: isProcessing),
-          GeneralActionButton(
-              title: "ADD ITEMS MANUALLY",
-              callBack: navigateToAddItems,
-              isProcessing: isProcessing),
-          SizedBox(height: 20),
-          buildHotlineText()
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            CarouselSliderCard(),
+            buildText(),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildContainer("UPLOAD PRESCRIPTION/ PHOTO",
+                    Icon(Icons.add_shopping_cart), uploadPrescriptionOption),
+                SizedBox(width: 10),
+                buildContainer("ADD ITEMS MANUALLY",
+                    Icon(Icons.add_shopping_cart), navigateToAddItems)
+              ],
+            ),
+
+            // GeneralActionButton(
+            //     title: "UPLOAD PRESCRIPTION",
+            //     callBack: uploadPrescriptionOption,
+            //     isProcessing: isProcessing),
+            // GeneralActionButton(
+            //     title: "ADD ITEMS MANUALLY",
+            //     callBack: navigateToAddItems,
+            //     isProcessing: isProcessing),
+            SizedBox(height: 20),
+            buildHotlineText(),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -87,14 +103,98 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget buildContainer(String title, Icon icon, Function() callBack) {
+    final size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: callBack,
+      child: Container(
+        height: 200,
+        width: size.width / 2 - 20,
+        child: Material(
+          shadowColor: Colors.grey[100].withOpacity(0.4),
+          color: Colors.blueAccent,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          elevation: 3,
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              icon,
+              SizedBox(height: 10),
+              Container(
+                  width: 100,
+                  height: 50,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget buildHotlineText() {
+    final size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(top: 20),
-      child: Text(
-        "HOTLINE\n"
-        "+88-0126823410",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold),
+      alignment: Alignment.center,
+      width: size.width - 20,
+      height: 70,
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Material(
+        shadowColor: Colors.grey[100].withOpacity(0.4),
+        color: Colors.white,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        elevation: 3,
+        clipBehavior: Clip.antiAlias, // Add This
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              color: Colors.blueAccent,
+              width: 70,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.add_call),
+                  Text(
+                    "CALL US",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 50),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "ORDER DELIVERY TIME",
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "10 AM TO 10 PM",
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -122,7 +222,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   navigateToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
-    if (pickedPrescriptionImage == null) return ;
+    if (pickedPrescriptionImage == null) return;
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -135,9 +235,7 @@ class _HomePageState extends State<HomePage> {
   navigateToAddItems() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => AddItemsPage(
-          )),
+      MaterialPageRoute(builder: (context) => AddItemsPage()),
     );
   }
 

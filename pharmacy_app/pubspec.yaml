@@ -71,6 +71,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "0.7.3"
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/images/logo_aamarpharma.jpg"
+  image_path_android: "assets/images/logo_aamarpharma.jpg"
+  # flutter pub get; flutter pub run flutter_launcher_icons:main
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
