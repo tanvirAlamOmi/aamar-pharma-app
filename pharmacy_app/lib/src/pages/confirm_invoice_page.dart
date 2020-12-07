@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -82,14 +83,16 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     );
   }
 
-  TableCell customTableCell(Widget singleWidget) {
+  TableCell customTableCell(Widget singleWidget,
+      {AlignmentGeometry alignment}) {
     return TableCell(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: 10),
-          Center(
+          Container(
+            alignment: alignment ?? Alignment.center,
             child: singleWidget,
           )
         ],
@@ -99,20 +102,40 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
 
   Widget buildInvoice() {
     final children = List<TableRow>();
+    final TextStyle columnTextStyle = new TextStyle(
+        fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold);
+
+    final TextStyle dataTextStyle = new TextStyle(
+        fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
 
     children.add(TableRow(children: [
-      customTableCell(Text("Item", style: textStyle)),
-      customTableCell(Text("Unit Cost", style: textStyle)),
-      customTableCell(Text("Quantity", style: textStyle)),
-      customTableCell(Text("Amount", style: textStyle)),
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("Item", style: columnTextStyle),
+          alignment: Alignment.centerLeft),
+      customTableCell(Text("Unit Cost", style: columnTextStyle)),
+      customTableCell(Text("Quantity", style: columnTextStyle)),
+      customTableCell(Text("Amount", style: columnTextStyle),
+          alignment: Alignment.centerRight),
     ]));
 
     widget.order.invoice.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
-        customTableCell(Text(singleItem.itemName, style: textStyle)),
-        customTableCell(Text(singleItem.itemUnitPrice, style: textStyle)),
+        customTableCell(
+          GestureDetector(
+            child: Container(
+                width: 13,
+                height: 13,
+                child: Icon(Icons.clear, color: Colors.black, size: 8),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.blueAccent))),
+          ),
+        ),
+        customTableCell(Text(singleItem.itemName, style: dataTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
         customTableCell(Padding(
-          padding: const EdgeInsets.only(bottom:8.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -126,7 +149,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.blueAccent))),
               ),
-              Text(singleItem.itemQuantity, style: textStyle),
+              Container(
+                  alignment: Alignment.center,
+                  width: 25,
+                  child: Text(singleItem.itemQuantity, style: dataTextStyle)),
               GestureDetector(
                 child: Container(
                     width: 15,
@@ -139,30 +165,108 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             ],
           ),
         )),
-        customTableCell(Text(getPrice(singleItem), style: textStyle)),
+        customTableCell(Text(getPrice(singleItem), style: textStyle),
+            alignment: Alignment.centerRight),
       ]));
     });
 
+    children.add(TableRow(children: [
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2,
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2,
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2,
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2,
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2,
+      )),
+    ]));
+
+    children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("", style: columnTextStyle),
+          alignment: Alignment.centerLeft),
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("Subtotal", style: columnTextStyle)),
+      customTableCell(Text("100.00", style: columnTextStyle),
+          alignment: Alignment.centerRight),
+    ]));
+
+    children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("", style: columnTextStyle),
+          alignment: Alignment.centerLeft),
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("Delivery Fee", style: columnTextStyle)),
+      customTableCell(Text("20.00", style: columnTextStyle),
+          alignment: Alignment.centerRight),
+    ]));
+
+    children.add(TableRow(children: [
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2
+      )),
+      customTableCell(Divider(
+        height: 2,
+        thickness: 2
+      )),
+    ]));
+
+    children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("", style: columnTextStyle),
+          alignment: Alignment.centerLeft),
+      customTableCell(Text("", style: columnTextStyle)),
+      customTableCell(Text("Total", style: columnTextStyle)),
+      customTableCell(Text("120.00", style: columnTextStyle),
+          alignment: Alignment.centerRight),
+    ]));
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20,10,20,10),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
-        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+        padding: EdgeInsets.fromLTRB(5, 0, 10, 20),
         decoration: BoxDecoration(
           border: Border(
-            left: BorderSide(color: Colors.black, width: 2.0),
-            top: BorderSide(color: Colors.black, width: 2.0),
-            right: BorderSide(color: Colors.black, width: 2.0),
-            bottom: BorderSide(color: Colors.black, width: 2.0),
+            left: BorderSide(color: Colors.grey, width: 1.0),
+            top: BorderSide(color: Colors.grey, width: 1.0),
+            right: BorderSide(color: Colors.grey, width: 1.0),
+            bottom: BorderSide(color: Colors.grey, width: 1.0),
           ),
         ),
         child: Table(
           columnWidths: {
-            0: FlexColumnWidth(0.3),
-            1: FlexColumnWidth(0.2),
-            2: FlexColumnWidth(0.3),
-            3: FlexColumnWidth(0.2),
+            0: FlexColumnWidth(0.1),
+            1: FlexColumnWidth(0.29),
+            2: FlexColumnWidth(0.2),
+            3: FlexColumnWidth(0.3),
+            4: FlexColumnWidth(0.2),
           },
           children: children,
         ),
