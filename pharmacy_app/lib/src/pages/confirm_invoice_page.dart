@@ -144,7 +144,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     });
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(20,10,20,10),
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
