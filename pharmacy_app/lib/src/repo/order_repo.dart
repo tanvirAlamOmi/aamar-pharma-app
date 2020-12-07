@@ -104,7 +104,7 @@ class OrderRepo {
         String jwtToken = Store.instance.appState.user.token;
 
         final String deliveryTimeUpdateRequest = jsonEncode(<String, dynamic>{
-          'delivery_date_time': order.deliveryDateTime.split(" ")[0] +
+          'delivery_date_time': order.id.split(" ")[0] +
               " " +
               deliveryTime.deliveryHourMinSec.replaceAll("-", ":"),
           'id': order.id,

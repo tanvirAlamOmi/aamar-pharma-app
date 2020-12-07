@@ -16,6 +16,10 @@ class ClientEnum {
   static final String ORDER_STATUS_CANCELED = "Canceled";
   static final String ORDER_STATUS_REJECTED = "Rejected";
 
+  static final String ORDER_TYPE_LIST_ITEMS = "List Items";
+  static final String ORDER_TYPE_LIST_IMAGES = "List Images";
+
+
   static final String ORDER_PAYMENT_STATUS_PAID = "Paid";
   static final String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
 

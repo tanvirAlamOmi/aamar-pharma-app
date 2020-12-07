@@ -25,7 +25,7 @@ class Util {
   }
 
   static String getStaticImageURL() {
-    return "https://firebasestorage.googleapis.com/v0/b/ezeedrop-c06cd.appspot.com/o/extra%2Favatar.png?alt=media&token=73d26eff-cb2f-4b94-b896-ab3f2300fb3c";
+    return "https://firebasestorage.googleapis.com/v0/b/pharmacy-project-419ca.appspot.com/o/static%2Fdefault.jpg?alt=media&token=9d286a17-2bdf-4a28-8a6b-15ac30c26c09";
   }
 
   static showSnackBar(

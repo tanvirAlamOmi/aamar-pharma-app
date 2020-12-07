@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
+import 'package:pharmacy_app/src/pages/order_details_page.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -60,7 +61,7 @@ class _OrderCardState extends State<OrderCard> {
 
   Widget buildTitle() {
     return GestureDetector(
-      onTap: () {},
+      onTap: navigateToSpecificPage,
       child: Container(
         height: 90,
         color: Colors.white,
@@ -101,13 +102,26 @@ class _OrderCardState extends State<OrderCard> {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
         child: Text(
-          order.orderStatus,
-          style: TextStyle(color: Colors.white),
+          order.orderStatus.toUpperCase(),
+          style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),
         color: Colors.black,
       ),
     );
+  }
+
+  void navigateToSpecificPage() {
+    if (order.orderStatus ==
+        ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OrderDetailsPage(
+                  order: order,
+                )),
+      );
+    }
   }
 
   void refreshUI() {
