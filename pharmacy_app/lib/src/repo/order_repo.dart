@@ -4,7 +4,6 @@ import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_item.dart';
-import 'package:pharmacy_app/src/models/order/delivery_time.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
 
@@ -97,16 +96,13 @@ class OrderRepo {
   }
 
   Future<Tuple2<void, String>> deliveryTimeUpdate(
-      {DeliveryTime deliveryTime, String orderStatus, Order order}) async {
+      { String orderStatus, Order order}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
         final String deliveryTimeUpdateRequest = jsonEncode(<String, dynamic>{
-          'delivery_date_time': order.id.split(" ")[0] +
-              " " +
-              deliveryTime.deliveryHourMinSec.replaceAll("-", ":"),
           'id': order.id,
         });
 

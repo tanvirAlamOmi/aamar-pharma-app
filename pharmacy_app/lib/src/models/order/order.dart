@@ -1,4 +1,5 @@
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/order/invoice.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 
 class Order {
@@ -9,6 +10,7 @@ class Order {
   List<dynamic> itemList;
   DeliveryAddressDetails deliveryAddressDetails;
   UserDetails userDetails;
+  Invoice invoice;
 
   Order(
       {this.id,
@@ -16,7 +18,9 @@ class Order {
       this.orderStatus,
       this.imageList,
       this.itemList,
-      this.deliveryAddressDetails,this.userDetails});
+      this.deliveryAddressDetails,
+      this.userDetails,
+      this.invoice});
 
   factory Order.fromJson(Map<String, dynamic> jsonData) {
     return Order(

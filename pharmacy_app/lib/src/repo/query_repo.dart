@@ -4,6 +4,8 @@ import 'package:pharmacy_app/src/models/feed/feed_request.dart';
 import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/order/invoice.dart';
+import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
@@ -65,7 +67,12 @@ class QueryRepo {
             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
             order: Order(
                 id: "1023",
-                imageList: [Util.getStaticImageURL(), Util.getStaticImageURL()],
+                imageList: [
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL()
+                ],
                 orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
                 orderStatus: ClientEnum
                     .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
@@ -88,6 +95,20 @@ class QueryRepo {
                     OrderManualItem(
                         itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
                   ],
+                  invoice: Invoice(invoiceItemList: [
+                    InvoiceItem()
+                      ..itemName = "Napa"
+                      ..itemQuantity = "10"
+                      ..itemUnitPrice = "2",
+                    InvoiceItem()
+                      ..itemName = "Histasin"
+                      ..itemQuantity = "3"
+                      ..itemUnitPrice = "5",
+                    InvoiceItem()
+                      ..itemName = "Seclo 40"
+                      ..itemQuantity = "5"
+                      ..itemUnitPrice = "25",
+                  ]),
                   orderType: ClientEnum.ORDER_TYPE_LIST_ITEMS,
                   orderStatus: ClientEnum
                       .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,

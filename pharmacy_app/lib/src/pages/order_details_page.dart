@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -29,6 +32,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   Order order;
   final TextStyle textStyle = new TextStyle(fontSize: 11);
+  double currentScrollIndex = 0;
+  final scrollController = ScrollController();
 
   @override
   void initState() {
@@ -55,7 +60,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'CONFIRM ORDER',
+              'ORDER DETAILS',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -70,8 +75,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            buildDeliveryAddressBox(),
-            buildAllAddresses(),
+            SizedBox(height: 20),
+            buildImageList(),
+            buildItemList(),
+            SizedBox(height: 20),
+            buildDeliveryAddressDetails(),
             buildPersonalDetails(),
             SizedBox(height: 20)
           ],
@@ -80,58 +88,167 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     );
   }
 
-  Widget buildDeliveryAddressBox() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-      color: Colors.transparent,
-      width: double.infinity,
-      child: Material(
-        shadowColor: Colors.grey[100].withOpacity(0.4),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 3,
-        clipBehavior: Clip.antiAlias, // Add This
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddNewAddressPage()),
-            );
-          },
-          title: Text("Add New Address",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          trailing: Icon(Icons.keyboard_arrow_right),
+  Widget buildImageList() {
+    if (order.orderType != ClientEnum.ORDER_TYPE_LIST_IMAGES)
+      return Container();
+    final scrollQuantity = 270;
+    final size = MediaQuery.of(context).size;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () {
+              if (currentScrollIndex <= 0) {
+                currentScrollIndex = 0;
+                return;
+              }
+
+              currentScrollIndex = currentScrollIndex - scrollQuantity;
+              scrollController.animateTo(currentScrollIndex,
+                  duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+            }),
+        Container(
+          alignment: Alignment.center,
+          width: 250,
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: Colors.black, width: 2.0),
+              top: BorderSide(color: Colors.black, width: 2.0),
+              right: BorderSide(color: Colors.black, width: 2.0),
+              bottom: BorderSide(color: Colors.black, width: 2.0),
+            ),
+          ),
+          child: SingleChildScrollView(
+            controller: scrollController,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: order.imageList.map((singleImageUrl) {
+                return Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  child: CachedNetworkImage(
+                    imageUrl: singleImageUrl,
+                    placeholder: (context, url) =>
+                        new CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                    fit: BoxFit.contain,
+                    width: 250,
+                    height: 300,
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
         ),
-      ),
+        IconButton(
+            icon: Icon(Icons.chevron_right),
+            onPressed: () {
+              if (currentScrollIndex >= order.imageList.length * 270) return;
+
+              currentScrollIndex = currentScrollIndex + scrollQuantity;
+              scrollController.animateTo(currentScrollIndex,
+                  duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+            }),
+      ],
     );
   }
 
-  Widget buildAllAddresses() {
+  Widget buildItemList() {
+    if (order.orderType != ClientEnum.ORDER_TYPE_LIST_ITEMS) return Container();
+    final children = List<Widget>();
+
+    order.itemList.forEach((singleItem) {
+      children.add(Container(
+        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+        color: Colors.transparent,
+        width: double.infinity,
+        child: Material(
+          shadowColor: Colors.grey[100].withOpacity(0.4),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 3,
+          clipBehavior: Clip.antiAlias, // Add This
+          child: ListTile(
+            title: Text(singleItem.itemName,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
+          ),
+        ),
+      ));
+    });
+
+    return Column(children: children);
+  }
+
+  Widget buildDeliveryAddressDetails() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-      color: Colors.transparent,
-      width: double.infinity,
-      child: Material(
-        shadowColor: Colors.grey[100].withOpacity(0.4),
-        shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
-            borderRadius: BorderRadius.circular(10.0)),
-        elevation: 3,
-        clipBehavior: Clip.antiAlias, // Add This
-        child: ListTile(
-            title: Text(
-              "Home",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("DELIVER ADDRESS"),
+          SizedBox(height: 10),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Area"),
+                SizedBox(height: 3),
+                SizedBox(
+                  height: 35, // set this
+                  child: TextField(
+                    style: textStyle,
+                    controller: TextEditingController(
+                        text: order.deliveryAddressDetails.addressType),
+                    enabled: false,
+                    decoration: new InputDecoration(
+                      isDense: true,
+                      hintStyle: TextStyle(fontSize: 13),
+                      fillColor: Colors.white,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                    ),
+                  ),
+                )
+              ],
             ),
-            subtitle: Text(
-              "39/A Kumarpara, Sylhet Housing Estate, Kumarpara, Sylhet",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+          SizedBox(height: 20),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("Address"),
+                SizedBox(height: 3),
+                SizedBox(
+                  height: 35, // set this
+                  child: TextField(
+                    style: textStyle,
+                    controller: TextEditingController(
+                        text: order.deliveryAddressDetails.fullAddress),
+                    enabled: false,
+                    decoration: new InputDecoration(
+                      isDense: true,
+                      hintStyle: TextStyle(fontSize: 13),
+                      fillColor: Colors.white,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                    ),
+                  ),
+                )
+              ],
             ),
-            trailing: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(Icons.edit)],
-            ),
-            isThreeLine: true),
+          ),
+        ],
       ),
     );
   }
@@ -146,6 +263,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Text("PERSONAL DETAILS"),
+                SizedBox(height: 20),
                 Text("Name"),
                 SizedBox(height: 3),
                 SizedBox(
