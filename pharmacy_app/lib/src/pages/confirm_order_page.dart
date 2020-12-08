@@ -317,7 +317,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddNewAddressPage(callBack: refreshUI,)),
+              MaterialPageRoute(
+                  builder: (context) => AddNewAddressPage(
+                        callBack: refreshUI,
+                      )),
             );
           },
           title: Text("Add New Address",
@@ -333,37 +336,37 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return Container();
 
     return Column(
-      children: Store.instance.appState.allDeliveryAddress.map((singleDeliveryAddress) {
-        return Container(
-          padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-          color: Colors.transparent,
-          width: double.infinity,
-          child: Material(
-            shadowColor: Colors.grey[100].withOpacity(0.4),
-            shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
-                borderRadius: BorderRadius.circular(10.0)),
-            elevation: 3,
-            clipBehavior: Clip.antiAlias, // Add This
-            child: ListTile(
-                title: Text(
-                  singleDeliveryAddress.addressType,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                ),
-                subtitle: Text(
-                  singleDeliveryAddress.fullAddress,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                ),
-                trailing: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.edit)],
-                ),
-                isThreeLine: true),
-          ),
-        );
-      }).toList()
-    );
+        children: Store.instance.appState.allDeliveryAddress
+            .map((singleDeliveryAddress) {
+      return Container(
+        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+        color: Colors.transparent,
+        width: double.infinity,
+        child: Material(
+          shadowColor: Colors.grey[100].withOpacity(0.4),
+          shape: RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
+              borderRadius: BorderRadius.circular(10.0)),
+          elevation: 3,
+          clipBehavior: Clip.antiAlias, // Add This
+          child: ListTile(
+              title: Text(
+                singleDeliveryAddress.addressType,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              subtitle: Text(
+                singleDeliveryAddress.fullAddress,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Icon(Icons.edit)],
+              ),
+              isThreeLine: true),
+        ),
+      );
+    }).toList());
   }
 
   Widget buildPersonalDetails() {
@@ -520,16 +523,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           ),
         ],
       ),
-    );
-  }
-
-  pushRouteToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => UploadPrescriptionVerifyPage(
-                prescriptionImageFile: pickedPrescriptionImage,
-              )),
     );
   }
 

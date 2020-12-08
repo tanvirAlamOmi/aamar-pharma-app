@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
@@ -25,7 +26,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
-  PickedFile pickedImageFile;
 
   @override
   void initState() {
@@ -74,15 +74,6 @@ class _HomePageState extends State<HomePage> {
                     Icon(Icons.add_shopping_cart), navigateToAddItems)
               ],
             ),
-
-            // GeneralActionButton(
-            //     title: "UPLOAD PRESCRIPTION",
-            //     callBack: uploadPrescriptionOption,
-            //     isProcessing: isProcessing),
-            // GeneralActionButton(
-            //     title: "ADD ITEMS MANUALLY",
-            //     callBack: navigateToAddItems,
-            //     isProcessing: isProcessing),
             SizedBox(height: 20),
             buildHotlineText(),
             SizedBox(height: 20),
@@ -214,20 +205,46 @@ class _HomePageState extends State<HomePage> {
       isProcessing = false;
       refreshUI();
     } else {
-      Util.imagePickAlertDialog(
-          context: context, callBack: navigateToUploadPrescriptionPage);
-      isProcessing = false;
-      refreshUI();
+      try {
+        List<Asset> resultList = List<Asset>();
+        final List<Uint8List> prescriptionImageFileList = new List();
+
+        resultList = await MultiImagePicker.pickImages(
+          maxImages: 10,
+          enableCamera: true,
+          cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+          materialOptions: MaterialOptions(
+            actionBarColor: "#000000",
+            actionBarTitle: "Amar Pharma",
+            allViewTitle: "All Photos",
+            useDetailsView: false,
+            selectCircleStrokeColor: "#000000",
+          ),
+        );
+
+        for (int i = 0; i < resultList.length; i++) {
+          prescriptionImageFileList.add(convertToUIntListFromByTeData(
+              await resultList[i].getByteData(quality: 100)));
+        }
+
+        navigateToUploadPrescriptionPage(prescriptionImageFileList);
+      } catch (e) {}
     }
   }
 
-  navigateToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
-    if (pickedPrescriptionImage == null) return;
+  Uint8List convertToUIntListFromByTeData(ByteData imageBinaryData) {
+    Uint8List imageData = imageBinaryData.buffer.asUint8List(
+        imageBinaryData.offsetInBytes, imageBinaryData.lengthInBytes);
+    return imageData;
+  }
+
+  navigateToUploadPrescriptionPage(List<Uint8List> prescriptionImageFileList ) {
+    if (prescriptionImageFileList.length == 0) return;
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
-                prescriptionImageFile: pickedPrescriptionImage,
+            prescriptionImageFileList: prescriptionImageFileList,
               )),
     );
   }

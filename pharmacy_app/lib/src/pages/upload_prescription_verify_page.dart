@@ -15,8 +15,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 
 class UploadPrescriptionVerifyPage extends StatefulWidget {
-  final PickedFile prescriptionImageFile;
-  UploadPrescriptionVerifyPage({this.prescriptionImageFile, Key key})
+  final List<Uint8List> prescriptionImageFileList;
+  UploadPrescriptionVerifyPage({this.prescriptionImageFileList, Key key})
       : super(key: key);
 
   @override
@@ -29,6 +29,8 @@ class _UploadPrescriptionVerifyPageState
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   final TextEditingController noteBoxController = new TextEditingController();
+  double currentScrollIndex = 0;
+  final scrollController = ScrollController();
 
   @override
   void initState() {
@@ -61,35 +63,108 @@ class _UploadPrescriptionVerifyPageState
       child: Container(
         child: Column(
           children: <Widget>[
-            buildPrescriptionImage(),
+            SizedBox(height: 30),
+            buildPrescriptionImageList(),
             buildNoteBox(),
             GeneralActionButton(
                 title: "SUBMIT",
                 isProcessing: isProcessing,
                 callBack: proceedToConfirmOrderPage,
-                padding: const EdgeInsets.fromLTRB(32, 7, 32, 7)),
+                padding: const EdgeInsets.fromLTRB(32, 7, 30, 7)),
           ],
         ),
       ),
     );
   }
 
-  Widget buildPrescriptionImage() {
+  Widget buildPrescriptionImageList() {
+    final scrollQuantity = 290;
     final size = MediaQuery.of(context).size;
-    return Container(
-      padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
-      child: Image.file(
-        File(widget.prescriptionImageFile.path),
-        fit: BoxFit.contain,
-        width: double.infinity,
-        height: size.height / 2,
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: 30,
+          height: 25,
+          child: IconButton(
+              padding: EdgeInsets.only(left: 3),
+              iconSize: 25,
+              splashRadius: 10,
+              icon: Icon(Icons.chevron_left),
+              onPressed: () {
+                if (currentScrollIndex <= 0) {
+                  currentScrollIndex = 0;
+                  return;
+                }
+
+                currentScrollIndex = currentScrollIndex - scrollQuantity;
+                scrollController.animateTo(currentScrollIndex,
+                    duration: Duration(seconds: 1),
+                    curve: Curves.fastOutSlowIn);
+              }),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 2),
+          child: Container(
+            alignment: Alignment.center,
+            width: size.width - 65,
+            decoration: BoxDecoration(
+              border: Border(
+                left: BorderSide(color: Colors.black, width: 2.0),
+                top: BorderSide(color: Colors.black, width: 2.0),
+                right: BorderSide(color: Colors.black, width: 2.0),
+                bottom: BorderSide(color: Colors.black, width: 2.0),
+              ),
+            ),
+            child: SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: widget.prescriptionImageFileList
+                    .map((singleImageUInt8List) {
+                  return Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                    child: Image.memory(
+                      singleImageUInt8List,
+                      fit: BoxFit.cover,
+                      width: 280,
+                      height: 300,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          width: 25,
+          height: 25,
+          child: IconButton(
+              padding: EdgeInsets.only(right: 15),
+              iconSize: 25,
+              splashRadius: 10,
+              icon: Icon(Icons.chevron_right),
+              onPressed: () {
+                if (currentScrollIndex >=
+                    widget.prescriptionImageFileList.length * 270) return;
+
+                currentScrollIndex = currentScrollIndex + scrollQuantity;
+                scrollController.animateTo(currentScrollIndex,
+                    duration: Duration(seconds: 1),
+                    curve: Curves.fastOutSlowIn);
+              }),
+        ),
+      ],
     );
   }
 
   Widget buildNoteBox() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
+      padding: const EdgeInsets.fromLTRB(32, 7, 30, 7),
       color: Colors.white,
       width: double.infinity,
       child: TextFormField(
@@ -116,7 +191,6 @@ class _UploadPrescriptionVerifyPageState
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 note: noteBoxController.text,
-                prescriptionImageFile: widget.prescriptionImageFile,
               )),
     );
   }

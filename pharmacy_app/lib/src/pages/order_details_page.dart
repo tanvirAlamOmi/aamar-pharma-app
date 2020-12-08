@@ -356,15 +356,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     );
   }
 
-  pushRouteToUploadPrescriptionPage(PickedFile pickedPrescriptionImage) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => UploadPrescriptionVerifyPage(
-                prescriptionImageFile: pickedPrescriptionImage,
-              )),
-    );
-  }
 
   void refreshUI() {
     if (mounted) setState(() {});
