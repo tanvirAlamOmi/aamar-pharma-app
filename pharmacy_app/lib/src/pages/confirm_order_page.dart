@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -42,7 +43,20 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   List<String> deliveryTimeTime = ["ASAP", "AFTER 1 HOUR", "AFTER 2 HOURS"];
   String selectedDeliveryTimeTime;
 
-  List<String> repeatOrderCheckBox = ["Repeat Order"];
+  List<String> repeatDeliveryTime = ["Week", "15 Days", "1 Month"];
+  String selectedRepeatDeliveryTime;
+
+  List<String> repeatDeliveryDay = [
+    "Saturday",
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday"
+  ];
+  String selectedRepeatDeliveryDay;
+
   bool checkedRepeatOrder = false;
 
   @override
@@ -50,6 +64,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     super.initState();
     selectedDeliveryTimeDay = deliveryTimeDay[0];
     selectedDeliveryTimeTime = deliveryTimeTime[0];
+    selectedRepeatDeliveryTime = repeatDeliveryTime[0];
+    selectedRepeatDeliveryDay = repeatDeliveryDay[0];
   }
 
   @override
@@ -195,9 +211,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Day"),
-                    buildDropdown(deliveryTimeDay, selectedDeliveryTimeDay,
-                        CHOICE_ENUM.DELIVERY_DAY),
+                    Text("Every"),
+                    buildDropdown(
+                        repeatDeliveryTime,
+                        selectedRepeatDeliveryTime,
+                        CHOICE_ENUM.REPEAT_DELIVER_TIME),
                   ],
                 ),
               ),
@@ -206,47 +224,47 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         ),
         Row(
           children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(32, 7, 0, 7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Day"),
-                    SizedBox(height: 1),
-                    buildDropdown(deliveryTimeDay, selectedDeliveryTimeDay,
-                        CHOICE_ENUM.DELIVERY_DAY),
-                  ],
-                ),
+            Container(
+              width: 165,
+              padding: const EdgeInsets.fromLTRB(32, 7, 0, 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Day"),
+                  SizedBox(height: 1),
+                  buildDropdown(repeatDeliveryDay, selectedRepeatDeliveryDay,
+                      CHOICE_ENUM.REPEAT_DELIVERY_DAY),
+                ],
               ),
             ),
             SizedBox(width: 30),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(0, 7, 32, 7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Time"),
-                    SizedBox(
-                      height: 35, // set this
-                      child: TextField(
-                        decoration: new InputDecoration(
-                          isDense: true,
-                          hintText: "Time",
-                          hintStyle: TextStyle(fontSize: 13),
-                          fillColor: Colors.white,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
+            TimeChooseButton(),
+            // Expanded(
+            //   child: Container(
+            //     padding: const EdgeInsets.fromLTRB(0, 7, 32, 7),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       children: [
+            //         Text("Time"),
+            //         SizedBox(
+            //           height: 35, // set this
+            //           child: TextField(
+            //             decoration: new InputDecoration(
+            //               isDense: true,
+            //               hintText: "Time",
+            //               hintStyle: TextStyle(fontSize: 13),
+            //               fillColor: Colors.white,
+            //               contentPadding:
+            //                   EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+            //             ),
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         )
       ],
@@ -427,6 +445,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 if (choice_enum == CHOICE_ENUM.DELIVERY_TIME) {
                   selectedDeliveryTimeTime = value;
                 }
+
+                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVER_TIME) {
+                  selectedRepeatDeliveryTime = value;
+                }
+
+                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVERY_DAY) {
+                  selectedRepeatDeliveryDay = value;
+                }
                 if (mounted) setState(() {});
               },
               items: dropDownList.map((item) {
@@ -472,4 +498,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 }
 
-enum CHOICE_ENUM { DELIVERY_DAY, DELIVERY_TIME }
+enum CHOICE_ENUM {
+  DELIVERY_DAY,
+  DELIVERY_TIME,
+  REPEAT_DELIVER_TIME,
+  REPEAT_DELIVERY_DAY
+}

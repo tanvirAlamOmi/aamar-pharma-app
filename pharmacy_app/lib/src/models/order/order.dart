@@ -10,6 +10,7 @@ class Order {
   List<dynamic> itemList;
   DeliveryAddressDetails deliveryAddressDetails;
   UserDetails userDetails;
+  String repeatOrder;
   Invoice invoice;
 
   Order(
@@ -20,6 +21,7 @@ class Order {
       this.itemList,
       this.deliveryAddressDetails,
       this.userDetails,
+      this.repeatOrder,
       this.invoice});
 
   factory Order.fromJson(Map<String, dynamic> jsonData) {

@@ -42,16 +42,18 @@ class MainDrawer extends StatelessWidget {
         SizedBox(height: 5),
         ListTile(
             title: Text(
-              'BOOKING HISTORY',
+              'SPECIAL REQUEST',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            leading: Icon(
-              Icons.directions_car,
-              color: Colors.black,
+            leading: Icon(Icons.ac_unit_sharp, color: Colors.black),
+            onTap: () {}),
+        ListTile(
+            title: Text(
+              'SPECIAL ORDERS',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {
-              Navigator.popAndPushNamed(context, '/booking_history');
-            }),
+            leading: Icon(Icons.add_shopping_cart, color: Colors.black),
+            onTap: () {}),
         ListTile(
             title: Text(
               'LOG OUT',
