@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -46,6 +47,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   List<String> repeatDeliveryTime = ["Week", "15 Days", "1 Month"];
   String selectedRepeatDeliveryTime;
 
+  List<String> areaList = ["Mirupur", "Banani", "Gulshan"];
+  String selectedArea;
+
+  final TextEditingController fullAddressController =
+      new TextEditingController();
+
   List<String> repeatDeliveryDay = [
     "Saturday",
     "Sunday",
@@ -66,6 +73,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     selectedDeliveryTimeTime = deliveryTimeTime[0];
     selectedRepeatDeliveryTime = repeatDeliveryTime[0];
     selectedRepeatDeliveryDay = repeatDeliveryDay[0];
+    selectedArea = areaList[0];
   }
 
   @override
@@ -105,12 +113,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildDeliveryTime(),
             buildRepeatOrder(),
             buildRepeatOrderWithDropDown(),
+            buildInstantDeliveryAddressField(),
             buildDeliveryAddressBox(),
             buildAllAddresses(),
             buildPersonalDetails(),
-            GeneralActionButton(
-              title: "SUBMIT",
-            ),
+            GeneralActionButton(title: "SUBMIT"),
             SizedBox(height: 20)
           ],
         ),
@@ -240,38 +247,65 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             ),
             SizedBox(width: 30),
             TimeChooseButton(),
-            // Expanded(
-            //   child: Container(
-            //     padding: const EdgeInsets.fromLTRB(0, 7, 32, 7),
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //         Text("Time"),
-            //         SizedBox(
-            //           height: 35, // set this
-            //           child: TextField(
-            //             decoration: new InputDecoration(
-            //               isDense: true,
-            //               hintText: "Time",
-            //               hintStyle: TextStyle(fontSize: 13),
-            //               fillColor: Colors.white,
-            //               contentPadding:
-            //                   EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-            //             ),
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // )
           ],
         )
       ],
     );
   }
 
+  Widget buildInstantDeliveryAddressField() {
+    if (Store.instance.appState.allDeliveryAddress.length > 0)
+      return Container();
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(27, 5, 27, 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("Select Area"),
+              buildDropdown(areaList, selectedArea, CHOICE_ENUM.AREA_SELECTION),
+            ],
+          ),
+        ),
+        buildFullAddressTextField(),
+      ],
+    );
+  }
+
+  Widget buildFullAddressTextField() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text("Address", style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 3),
+          SizedBox(
+            height: 35, // set this
+            child: TextField(
+              controller: fullAddressController,
+              decoration: new InputDecoration(
+                isDense: true,
+                hintText: "39/A Housing Estate...",
+                hintStyle: TextStyle(fontSize: 13),
+                fillColor: Colors.white,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget buildDeliveryAddressBox() {
+    if (Store.instance.appState.allDeliveryAddress.length == 0)
+      return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       color: Colors.transparent,
@@ -297,6 +331,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   Widget buildAllAddresses() {
+    if (Store.instance.appState.allDeliveryAddress.length == 0)
+      return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       color: Colors.transparent,
@@ -439,20 +475,21 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               value: selectedItem,
               onChanged: (value) {
                 if (value == null) return;
-                if (choice_enum == CHOICE_ENUM.DELIVERY_DAY) {
+                if (choice_enum == CHOICE_ENUM.DELIVERY_DAY)
                   selectedDeliveryTimeDay = value;
-                }
-                if (choice_enum == CHOICE_ENUM.DELIVERY_TIME) {
+
+                if (choice_enum == CHOICE_ENUM.DELIVERY_TIME)
                   selectedDeliveryTimeTime = value;
-                }
 
-                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVER_TIME) {
+                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVER_TIME)
                   selectedRepeatDeliveryTime = value;
-                }
 
-                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVERY_DAY) {
+                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVERY_DAY)
                   selectedRepeatDeliveryDay = value;
-                }
+
+                if (choice_enum == CHOICE_ENUM.AREA_SELECTION)
+                  selectedArea = value;
+
                 if (mounted) setState(() {});
               },
               items: dropDownList.map((item) {
@@ -502,5 +539,6 @@ enum CHOICE_ENUM {
   DELIVERY_DAY,
   DELIVERY_TIME,
   REPEAT_DELIVER_TIME,
-  REPEAT_DELIVERY_DAY
+  REPEAT_DELIVERY_DAY,
+  AREA_SELECTION
 }
