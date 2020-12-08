@@ -7,6 +7,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -17,7 +19,8 @@ import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/pages/order_page.dart';
 
 class AddNewAddressPage extends StatefulWidget {
-  AddNewAddressPage({Key key}) : super(key: key);
+  final Function() callBack;
+  AddNewAddressPage({this.callBack, Key key}) : super(key: key);
 
   @override
   _AddNewAddressPageState createState() => _AddNewAddressPageState();
@@ -68,14 +71,13 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             buildAddressTypeTextField(),
             buildAreaSelectionDropDown(),
             buildFullAddressTextField(),
-
             GeneralActionButton(
               title: "SUBMIT",
               height: 30,
               padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
               color: Colors.black,
               isProcessing: false,
-              callBack: closePage,
+              callBack: submitData,
             )
           ],
         ),
@@ -194,6 +196,30 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         ],
       ),
     );
+  }
+
+  void submitData() async {
+    if (addressTypeController.text.isEmpty ||
+        fullAddressController.text.isEmpty) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please fill all the data",
+          duration: 1500);
+      return;
+    }
+
+    final DeliveryAddressDetails deliveryAddressDetails =
+        new DeliveryAddressDetails()
+          ..addressType = addressTypeController.text
+          ..fullAddress = fullAddressController.text
+          ..areaName = selectedArea;
+
+    Store.instance.setDeliveryAddress(deliveryAddressDetails);
+
+    widget.callBack();
+    closePage();
+
+    return;
   }
 
   void closePage() {

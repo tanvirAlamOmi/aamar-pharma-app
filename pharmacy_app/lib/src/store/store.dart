@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/states/app_state.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,6 +62,10 @@ class Store {
     return appState.user.name;
   }
 
+  setDeliveryAddress(DeliveryAddressDetails deliveryAddressDetails) async {
+    appState.allDeliveryAddress.add(deliveryAddressDetails);
+    putAppData();
+  }
 
   setFirebasePushNotificationToken(String firebasePushNotificationToken) async {
     appState.firebasePushNotificationToken = firebasePushNotificationToken;
@@ -75,7 +80,6 @@ class Store {
     appState.user = user;
     await putAppData();
   }
-
 
   // ----------------------------------------------------------------------- //
   // This is called before getting instance.

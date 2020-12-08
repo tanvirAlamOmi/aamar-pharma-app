@@ -304,8 +304,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   Widget buildDeliveryAddressBox() {
-    if (Store.instance.appState.allDeliveryAddress.length == 0)
-      return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       color: Colors.transparent,
@@ -319,7 +317,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddNewAddressPage()),
+              MaterialPageRoute(builder: (context) => AddNewAddressPage(callBack: refreshUI,)),
             );
           },
           title: Text("Add New Address",
@@ -333,33 +331,38 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   Widget buildAllAddresses() {
     if (Store.instance.appState.allDeliveryAddress.length == 0)
       return Container();
-    return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-      color: Colors.transparent,
-      width: double.infinity,
-      child: Material(
-        shadowColor: Colors.grey[100].withOpacity(0.4),
-        shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
-            borderRadius: BorderRadius.circular(10.0)),
-        elevation: 3,
-        clipBehavior: Clip.antiAlias, // Add This
-        child: ListTile(
-            title: Text(
-              "Home",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-            ),
-            subtitle: Text(
-              "39/A Kumarpara, Sylhet Housing Estate, Kumarpara, Sylhet",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-            ),
-            trailing: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Icon(Icons.edit)],
-            ),
-            isThreeLine: true),
-      ),
+
+    return Column(
+      children: Store.instance.appState.allDeliveryAddress.map((singleDeliveryAddress) {
+        return Container(
+          padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+          color: Colors.transparent,
+          width: double.infinity,
+          child: Material(
+            shadowColor: Colors.grey[100].withOpacity(0.4),
+            shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 3,
+            clipBehavior: Clip.antiAlias, // Add This
+            child: ListTile(
+                title: Text(
+                  singleDeliveryAddress.addressType,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+                subtitle: Text(
+                  singleDeliveryAddress.fullAddress,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Icon(Icons.edit)],
+                ),
+                isThreeLine: true),
+          ),
+        );
+      }).toList()
     );
   }
 
