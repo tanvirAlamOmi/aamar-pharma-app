@@ -3,11 +3,15 @@ import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:flutter/material.dart';
 
 class CircleCrossButton extends StatelessWidget {
-  final void Function() callBack;
+  final void Function(int index) callBack;
+  final Function() refreshUI;
+  final int index;
 
   final Color color;
 
-  CircleCrossButton({this.callBack, this.color, Key key}) : super(key: key);
+  CircleCrossButton(
+      {this.callBack, this.color, Key key, this.index, this.refreshUI})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,8 @@ class CircleCrossButton extends StatelessWidget {
                 color: Colors.white,
               )),
           onTap: () {
-            callBack();
+            callBack(index);
+            refreshUI();
           },
         ),
       ),

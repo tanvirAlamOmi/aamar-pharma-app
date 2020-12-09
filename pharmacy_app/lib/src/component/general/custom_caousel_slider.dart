@@ -10,7 +10,7 @@ class CustomCarouselSlider extends StatefulWidget {
   final bool showRemoveImageButton;
   final double height;
   final bool autoPlay;
-  final Function() removeItemFunction;
+  final Function(int itemIndex) removeItemFunction;
   final Function() refreshUI;
 
   const CustomCarouselSlider(
@@ -75,6 +75,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                 autoPlay: widget.autoPlay,
                 onPageChanged: (index, reason) {
                   currentIndex = index;
+                  widget.refreshUI();
                 }),
             items: widget.carouselListWidget,
           ),
@@ -108,7 +109,9 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleCrossButton(
-            callBack: () {},
+            callBack: widget.removeItemFunction,
+            refreshUI: widget.refreshUI,
+            index: currentIndex,
           ),
           SizedBox(width: 5),
           Text(
@@ -120,9 +123,6 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
     );
   }
 }
-// widget.carouselListWidget
-//     .remove(widget.carouselListWidget[currentIndex]);
-// widget.refreshUI();
 
 //
 // widget.carouselListWidget.map((listSingleItem) {

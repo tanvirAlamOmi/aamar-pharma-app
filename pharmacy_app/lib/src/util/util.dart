@@ -41,6 +41,18 @@ class Util {
     return Color(int.parse('FF$hexCode', radix: 16));
   }
 
+  static Color greenishColor() {
+    String hexColor  = "#1BC0CB";
+    final hexCode = hexColor.replaceAll('#', '');
+    return Color(int.parse('FF$hexCode', radix: 16));
+  }
+
+  static Color purplishColor() {
+    String hexColor  = "#473FA8";
+    final hexCode = hexColor.replaceAll('#', '');
+    return Color(int.parse('FF$hexCode', radix: 16));
+  }
+
   static Future<void> getPermissions() async {
     if (Platform.isAndroid) {
       await Permission.locationAlways.request();
