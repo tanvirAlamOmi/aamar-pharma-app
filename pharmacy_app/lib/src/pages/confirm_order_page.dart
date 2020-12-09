@@ -16,6 +16,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/pages/add_new_address.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
@@ -37,6 +38,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   PickedFile pickedImageFile;
+  int currentINdex = 0;
 
   List<String> deliveryTimeDay = ["Today"];
   String selectedDeliveryTimeDay;
@@ -338,35 +340,53 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     return Column(
         children: Store.instance.appState.allDeliveryAddress
             .map((singleDeliveryAddress) {
-      return Container(
-        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-        color: Colors.transparent,
-        width: double.infinity,
-        child: Material(
-          shadowColor: Colors.grey[100].withOpacity(0.4),
-          shape: RoundedRectangleBorder(
-              side: const BorderSide(color: Colors.purpleAccent, width: 0.5),
-              borderRadius: BorderRadius.circular(10.0)),
-          elevation: 3,
-          clipBehavior: Clip.antiAlias, // Add This
-          child: ListTile(
-              title: Text(
-                singleDeliveryAddress.addressType,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              ),
-              subtitle: Text(
-                singleDeliveryAddress.fullAddress,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-              ),
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(Icons.edit)],
-              ),
-              isThreeLine: true),
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            currentINdex = Store.instance.appState.allDeliveryAddress
+                .indexOf(singleDeliveryAddress);
+            print(currentINdex);
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+          color: Colors.transparent,
+          width: double.infinity,
+          child: Material(
+            shadowColor: Colors.grey[100].withOpacity(0.4),
+            shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: getSelectedColor(singleDeliveryAddress), width: 0.5),
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 3,
+            clipBehavior: Clip.antiAlias, // Add This
+            child: ListTile(
+                title: Text(
+                  singleDeliveryAddress.addressType,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+                subtitle: Text(
+                  singleDeliveryAddress.fullAddress,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Icon(Icons.edit)],
+                ),
+                isThreeLine: true),
+          ),
         ),
       );
     }).toList());
+  }
+
+  Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
+    if (currentINdex ==
+        Store.instance.appState.allDeliveryAddress
+            .indexOf(deliveryAddressDetails)) return Colors.purpleAccent;
+
+    return Colors.transparent;
   }
 
   Widget buildPersonalDetails() {

@@ -33,20 +33,18 @@ class _CarouselSliderCardState extends State<CarouselSliderCard> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            height: 150,
-            aspectRatio: 3,
-            viewportFraction: 1,
-            initialPage: 0,
-            enableInfiniteScroll: true,
-            reverse: false,
-            autoPlay: true,
-            onPageChanged: (index,reason){
-              setState(() {
-                _currentIndex = index;
-              });
-            }
-
-          ),
+              height: 150,
+              aspectRatio: 3,
+              viewportFraction: 1,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
           items: listItems.map((i) {
             return Builder(
               builder: (BuildContext context) {
@@ -57,19 +55,20 @@ class _CarouselSliderCardState extends State<CarouselSliderCard> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: listItems.map((image) {       //these two lines
-            int index=listItems.indexOf(image); //are changed
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentIndex == index
-                      ? Color.fromRGBO(0, 0, 0, 0.9)
-                      : Color.fromRGBO(0, 0, 0, 0.4)),
-            );
-          },
+          children: listItems.map(
+            (image) {
+              int index = listItems.indexOf(image);
+              return Container(
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentIndex == index
+                        ? Color.fromRGBO(0, 0, 0, 0.9)
+                        : Color.fromRGBO(0, 0, 0, 0.4)),
+              );
+            },
           ).toList(),
         ),
       ],
