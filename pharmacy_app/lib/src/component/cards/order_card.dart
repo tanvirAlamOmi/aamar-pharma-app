@@ -5,6 +5,7 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -130,6 +131,17 @@ class _OrderCardState extends State<OrderCard> {
         context,
         MaterialPageRoute(
             builder: (context) => ConfirmInvoicePage(
+                  order: order,
+                )),
+      );
+    }
+
+    if (order.orderStatus ==
+        ClientEnum.ORDER_STATUS_DELIVERED) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OrderFinalInvoicePage(
                   order: order,
                 )),
       );

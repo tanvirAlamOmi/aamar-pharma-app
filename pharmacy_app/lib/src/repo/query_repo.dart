@@ -66,6 +66,42 @@ class QueryRepo {
           FeedItem(
             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
             order: Order(
+                id: "1026",
+                imageList: [
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL(),
+                  Util.getStaticImageURL()
+                ],
+                invoice: Invoice(invoiceItemList: [
+                  InvoiceItem()
+                    ..itemName = "Napa"
+                    ..itemQuantity = "10"
+                    ..itemUnitPrice = "2",
+                  InvoiceItem()
+                    ..itemName = "Histasin"
+                    ..itemQuantity = "3"
+                    ..itemUnitPrice = "5",
+                  InvoiceItem()
+                    ..itemName = "Seclo 40"
+                    ..itemQuantity = "5"
+                    ..itemUnitPrice = "25",
+                ]),
+                orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
+                orderStatus: ClientEnum
+                    .ORDER_STATUS_DELIVERED,
+                deliveryAddressDetails: DeliveryAddressDetails(
+                    addressType: "HOME",
+                    areaName: "MIRPUR",
+                    fullAddress: "47/A Kashi Building"),
+                userDetails: UserDetails(
+                    name: "ABC",
+                    phoneNumber: "+8801528 285415",
+                    email: "abc@gmail.com")),
+          ),
+          FeedItem(
+            viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+            order: Order(
                 id: "1023",
                 imageList: [
                   Util.getStaticImageURL(),
