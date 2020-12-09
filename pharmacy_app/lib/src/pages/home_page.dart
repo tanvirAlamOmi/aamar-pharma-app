@@ -68,11 +68,15 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildContainer("UPLOAD PRESCRIPTION/ PHOTO",
-                    Icon(Icons.add_shopping_cart,color: Colors.white), uploadPrescriptionOption),
+                buildContainer(
+                    "UPLOAD PRESCRIPTION/ PHOTO",
+                    Icon(Icons.add_shopping_cart, color: Colors.white),
+                    uploadPrescriptionOption),
                 SizedBox(width: 10),
-                buildContainer("ADD ITEMS MANUALLY",
-                    Icon(Icons.add_shopping_cart,color: Colors.white), navigateToAddItems)
+                buildContainer(
+                    "ADD ITEMS MANUALLY",
+                    Icon(Icons.add_shopping_cart, color: Colors.white),
+                    navigateToAddItems)
               ],
             ),
             SizedBox(height: 20),
@@ -90,7 +94,8 @@ class _HomePageState extends State<HomePage> {
       child: Text(
         "ORDER MEDICINES AND MORE",
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold,color: Util.colorFromHex("#1BC0CB")),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: Util.colorFromHex("#1BC0CB")),
       ),
     );
   }
@@ -121,7 +126,9 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     title,
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold,fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
                     textAlign: TextAlign.center,
                   ))
             ],
@@ -156,11 +163,13 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_call,size: 18,color: Colors.white),
+                  Icon(Icons.add_call, size: 18, color: Colors.white),
                   Text(
                     "CALL US",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold,fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -239,13 +248,13 @@ class _HomePageState extends State<HomePage> {
     return imageData;
   }
 
-  navigateToUploadPrescriptionPage(List<Uint8List> prescriptionImageFileList ) {
+  navigateToUploadPrescriptionPage(List<Uint8List> prescriptionImageFileList) {
     if (prescriptionImageFileList.length == 0) return;
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
-            prescriptionImageFileList: prescriptionImageFileList,
+                prescriptionImageFileList: prescriptionImageFileList,
               )),
     );
   }

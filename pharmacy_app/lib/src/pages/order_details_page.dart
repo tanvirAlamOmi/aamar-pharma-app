@@ -18,6 +18,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/pages/add_new_address.dart';
+import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   final Order order;
@@ -91,6 +92,33 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   Widget buildImageList() {
     if (order.orderType != ClientEnum.ORDER_TYPE_LIST_IMAGES)
       return Container();
+
+    final children = order.imageList.map((singleImageUrl) {
+      return Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+        child: CachedNetworkImage(
+          imageUrl: singleImageUrl,
+          placeholder: (context, url) =>
+          new CircularProgressIndicator(
+            backgroundColor: Colors.white,
+          ),
+          errorWidget: (context, url, error) => new Icon(Icons.error),
+          fit: BoxFit.contain,
+          width: 250,
+          height: 300,
+        ),
+      );
+    }).toList();
+
+    return
+      CustomCarouselSlider(
+        carouselListWidget: children,
+        showRemoveImageButton: false,
+        height: 110,
+        autoPlay: true,
+
+      );
     final scrollQuantity = 270;
     final size = MediaQuery.of(context).size;
     return Row(

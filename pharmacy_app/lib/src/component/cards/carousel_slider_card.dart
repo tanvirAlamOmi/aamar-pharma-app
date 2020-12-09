@@ -29,12 +29,19 @@ class _CarouselSliderCardState extends State<CarouselSliderCard> {
   }
 
   Widget buildBody() {
+    final children = listItems.map((i) {
+      return Builder(
+        builder: (BuildContext context) {
+          return HomePageSliderSingleCard();
+        },
+      );
+    }).toList();
+
     return Column(
       children: [
         CarouselSlider(
           options: CarouselOptions(
               height: 110,
-              aspectRatio: 3,
               viewportFraction: 1,
               initialPage: 0,
               enableInfiniteScroll: true,

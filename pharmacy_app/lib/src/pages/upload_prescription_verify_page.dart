@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
+import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
 
 class UploadPrescriptionVerifyPage extends StatefulWidget {
   final List<Uint8List> prescriptionImageFileList;
@@ -61,6 +62,7 @@ class _UploadPrescriptionVerifyPageState
   Widget buildBody(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        color: Colors.white,
         child: Column(
           children: <Widget>[
             SizedBox(height: 30),
@@ -78,87 +80,25 @@ class _UploadPrescriptionVerifyPageState
   }
 
   Widget buildPrescriptionImageList() {
-    final scrollQuantity = 290;
-    final size = MediaQuery.of(context).size;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 30,
-          height: 25,
-          child: IconButton(
-              padding: EdgeInsets.only(left: 3),
-              iconSize: 25,
-              splashRadius: 10,
-              icon: Icon(Icons.chevron_left),
-              onPressed: () {
-                if (currentScrollIndex <= 0) {
-                  currentScrollIndex = 0;
-                  return;
-                }
+    final children =
+        widget.prescriptionImageFileList.map((singleImageUInt8List) {
+      return Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: Image.memory(
+          singleImageUInt8List,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: 200,
+        ),
+      );
+    }).toList();
 
-                currentScrollIndex = currentScrollIndex - scrollQuantity;
-                scrollController.animateTo(currentScrollIndex,
-                    duration: Duration(seconds: 1),
-                    curve: Curves.fastOutSlowIn);
-              }),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 2),
-          child: Container(
-            alignment: Alignment.center,
-            width: size.width - 65,
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(color: Colors.black, width: 2.0),
-                top: BorderSide(color: Colors.black, width: 2.0),
-                right: BorderSide(color: Colors.black, width: 2.0),
-                bottom: BorderSide(color: Colors.black, width: 2.0),
-              ),
-            ),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: widget.prescriptionImageFileList
-                    .map((singleImageUInt8List) {
-                  return Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                    child: Image.memory(
-                      singleImageUInt8List,
-                      fit: BoxFit.cover,
-                      width: 280,
-                      height: 300,
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          width: 25,
-          height: 25,
-          child: IconButton(
-              padding: EdgeInsets.only(right: 15),
-              iconSize: 25,
-              splashRadius: 10,
-              icon: Icon(Icons.chevron_right),
-              onPressed: () {
-                if (currentScrollIndex >=
-                    widget.prescriptionImageFileList.length * 270) return;
-
-                currentScrollIndex = currentScrollIndex + scrollQuantity;
-                scrollController.animateTo(currentScrollIndex,
-                    duration: Duration(seconds: 1),
-                    curve: Curves.fastOutSlowIn);
-              }),
-        ),
-      ],
+    return CustomCarouselSlider(
+      carouselListWidget: children,
+      showRemoveImageButton: true,
+      height: 110,
+      autoPlay: true,
     );
   }
 
