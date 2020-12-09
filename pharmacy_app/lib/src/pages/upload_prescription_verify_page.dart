@@ -89,7 +89,8 @@ class _UploadPrescriptionVerifyPageState
     return Container(
       alignment: Alignment.center,
       child: Text(
-        widget.prescriptionImageFileList.length.toString() + " UPLOADED PHOTO(s)",
+        widget.prescriptionImageFileList.length.toString() +
+            " UPLOADED PHOTO(s)",
         style: TextStyle(
             color: Util.greenishColor(),
             fontSize: 15,
@@ -162,8 +163,8 @@ class _UploadPrescriptionVerifyPageState
     );
   }
 
-  void removeItem(int index) {
-    if(widget.prescriptionImageFileList.length == 1) return ;
+  void removeItem(dynamic index) {
+    if (widget.prescriptionImageFileList.length == 1) return;
     widget.prescriptionImageFileList
         .remove(widget.prescriptionImageFileList[index]);
     refreshUI();

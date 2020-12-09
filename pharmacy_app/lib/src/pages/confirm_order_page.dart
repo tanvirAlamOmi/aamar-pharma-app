@@ -119,7 +119,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildDeliveryAddressBox(),
             buildAllAddresses(),
             buildPersonalDetails(),
-            GeneralActionButton(title: "SUBMIT"),
+            GeneralActionButton(title: "SUBMIT",isProcessing: false,),
             SizedBox(height: 20)
           ],
         ),

@@ -10,7 +10,7 @@ class CustomCarouselSlider extends StatefulWidget {
   final bool showRemoveImageButton;
   final double height;
   final bool autoPlay;
-  final Function(int itemIndex) removeItemFunction;
+  final Function(dynamic itemIndex) removeItemFunction;
   final Function() refreshUI;
 
   const CustomCarouselSlider(
@@ -111,7 +111,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           CircleCrossButton(
             callBack: widget.removeItemFunction,
             refreshUI: widget.refreshUI,
-            index: currentIndex,
+            objectIdentifier: currentIndex,
           ),
           SizedBox(width: 5),
           Text(

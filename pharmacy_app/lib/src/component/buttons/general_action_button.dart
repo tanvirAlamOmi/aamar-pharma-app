@@ -1,6 +1,7 @@
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class GeneralActionButton extends StatelessWidget {
   final bool isProcessing;
@@ -40,9 +41,9 @@ class GeneralActionButton extends StatelessWidget {
   }
 
   Color getButtonColor() {
-    if (isProcessing == false) {
+    if (!isProcessing) {
       if (color == null) {
-        return Colors.black;
+        return Util.purplishColor();
       } else {
         return color;
       }

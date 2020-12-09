@@ -10,10 +10,13 @@ import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 
 class AddItemsPage extends StatefulWidget {
   AddItemsPage({Key key}) : super(key: key);
@@ -42,71 +45,46 @@ class _AddItemsPageState extends State<AddItemsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          elevation: 1,
-          centerTitle: true,
-          leading: AppBarBackButton(),
-          title: Text(
-            'ADD ITEMS',
-            style: TextStyle(color: Colors.white),
+    return GestureDetector(
+      onTap: () {},
+      child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            elevation: 1,
+            centerTitle: true,
+            leading: AppBarBackButton(),
+            title: Text(
+              'ADD ITEMS',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
-        ),
-        body: buildBody(context));
-  }
-
-  Widget buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            buildAddItemBox(),
-            buildItemList(),
-            GeneralActionButton(
-              title: "SUBMIT",
-              height: 30,
-              padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-              color: Colors.black,
-              isProcessing: false,
-              callBack: proceedToConfirmOrderPage,
-            )
-          ],
-        ),
-      ),
+          body: buildBody(context)),
     );
   }
 
-  Widget buildItemList() {
-    final children = List<Widget>();
-
-    orderManualItemList.forEach((singleItem) {
-      children.add(Container(
-        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-        color: Colors.transparent,
-        width: double.infinity,
-        child: Material(
-          shadowColor: Colors.grey[100].withOpacity(0.4),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          elevation: 3,
-          clipBehavior: Clip.antiAlias, // Add This
-          child: ListTile(
-            title: Text(singleItem.itemName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
-            trailing: IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: () {
-                removeItemFromList(singleItem);
-              },
-            ),
+  Widget buildBody(BuildContext context) {
+    return Container(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: ListView(
+            children: [
+              Column(
+                children: <Widget>[
+                  buildAddItemBox(),
+                  SizedBox(height: 13),
+                  buildTitle(),
+                  SizedBox(height: 7),
+                  buildItemList(),
+                ],
+              )
+            ],
           ),
         ),
-      ));
-    });
-
-    return Column(children: children);
+        buildSubmitButton()
+      ],
+    ));
   }
 
   Widget buildAddItemBox() {
@@ -119,7 +97,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
         shape: RoundedRectangleBorder(
             side: const BorderSide(color: Colors.transparent, width: 0.5),
             borderRadius: BorderRadius.circular(5.0)),
-        elevation: 5,
+        elevation: 7,
         clipBehavior: Clip.antiAlias, // Add This
         child: Column(
           children: [
@@ -131,7 +109,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text("Item Name",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Util.purplishColor())),
                   SizedBox(height: 3),
                   SizedBox(
                     height: 35, // set this
@@ -161,7 +141,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text("Unit",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Util.purplishColor())),
                         SizedBox(height: 3),
                         SizedBox(
                           height: 35, // set this
@@ -169,7 +151,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemUnitController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: "Notes e.g. I need all the medicines",
+                              hintText: "e.g. mg,ml",
                               hintStyle: TextStyle(fontSize: 13),
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
@@ -194,10 +176,11 @@ class _AddItemsPageState extends State<AddItemsPage> {
                         SizedBox(
                           height: 35, // set this
                           child: TextField(
+                            keyboardType: TextInputType.number,
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: "Notes e.g. I need all the medicines",
+                              hintText: "e.g. 10,15",
                               hintStyle: TextStyle(fontSize: 13),
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
@@ -213,13 +196,13 @@ class _AddItemsPageState extends State<AddItemsPage> {
             ),
             Container(
               alignment: Alignment.center,
-              color: Colors.black,
+              color: Util.greenishColor(),
               height: 40,
               child: GeneralActionButton(
                 title: "ADD ITEM",
-                height: 30,
+                height: 40,
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                color: Colors.black,
+                color: Util.greenishColor(),
                 isProcessing: false,
                 callBack: addItemsToList,
               ),
@@ -228,6 +211,81 @@ class _AddItemsPageState extends State<AddItemsPage> {
         ),
       ),
     );
+  }
+
+  Widget buildTitle() {
+    if (orderManualItemList.length == 0) return Container();
+    return Container(
+      child: Text(
+        "ADDED ITEMS",
+        style:
+            TextStyle(color: Util.greenishColor(), fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget buildItemList() {
+    final children = List<Widget>();
+
+    orderManualItemList.forEach((singleItem) {
+      children.add(Container(
+        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+        color: Colors.transparent,
+        width: double.infinity,
+        child: Material(
+          shadowColor: Colors.grey[100].withOpacity(0.4),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 3,
+          clipBehavior: Clip.antiAlias, // Add This
+          child: ListTile(
+            title: Text(singleItem.itemName,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
+            trailing: buildRemoveItemButton(singleItem),
+          ),
+        ),
+      ));
+    });
+
+    return Column(children: children);
+  }
+
+  Widget buildRemoveItemButton(OrderManualItem singleItem) {
+    return Container(
+      width: 80,
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleCrossButton(
+            callBack: removeItemFromList,
+            refreshUI: refreshUI,
+            objectIdentifier: singleItem,
+          ),
+          SizedBox(height: 5),
+          Text(
+            "REMOVE",
+            style: TextStyle(color: Colors.red, fontSize: 10),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildSubmitButton() {
+    if (orderManualItemList.length == 0) return Container();
+    return GeneralActionRoundButton(
+      title: "SUBMIT",
+      height: 40,
+      isProcessing: false,
+      callBack: proceedToConfirmOrderPage,
+    );
+  }
+
+  void removeItemFromList(dynamic item) {
+    orderManualItemList.remove(item);
   }
 
   void addItemsToList() {
@@ -245,18 +303,13 @@ class _AddItemsPageState extends State<AddItemsPage> {
     if (mounted) setState(() {});
   }
 
-  void removeItemFromList(OrderManualItem item) {
-    orderManualItemList.remove(item);
-    if (mounted) setState(() {});
-  }
-
   void proceedToConfirmOrderPage() {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
-            orderManualItemList: orderManualItemList,
-          )),
+                orderManualItemList: orderManualItemList,
+              )),
     );
   }
 

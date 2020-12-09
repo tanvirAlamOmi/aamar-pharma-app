@@ -118,7 +118,15 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              icon,
+              Container(
+                decoration: BoxDecoration(
+                    color: Util.greenishColor(),
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                width: 40,
+                height: 40,
+                alignment: Alignment.center,
+                child: icon,
+              ),
               SizedBox(height: 10),
               Container(
                   width: 100,

@@ -293,7 +293,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     );
   }
 
-  void removeItem(InvoiceItem invoiceItem) {
+  void removeItem(dynamic invoiceItem) {
     widget.order.invoice.invoiceItemList.remove(invoiceItem);
     calculatePricing();
   }
