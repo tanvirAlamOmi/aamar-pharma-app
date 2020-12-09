@@ -33,7 +33,7 @@ class _CarouselSliderCardState extends State<CarouselSliderCard> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 150,
+              height: 110,
               aspectRatio: 3,
               viewportFraction: 1,
               initialPage: 0,

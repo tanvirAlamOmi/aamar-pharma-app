@@ -15,6 +15,7 @@ import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -68,10 +69,10 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buildContainer("UPLOAD PRESCRIPTION/ PHOTO",
-                    Icon(Icons.add_shopping_cart), uploadPrescriptionOption),
+                    Icon(Icons.add_shopping_cart,color: Colors.white), uploadPrescriptionOption),
                 SizedBox(width: 10),
                 buildContainer("ADD ITEMS MANUALLY",
-                    Icon(Icons.add_shopping_cart), navigateToAddItems)
+                    Icon(Icons.add_shopping_cart,color: Colors.white), navigateToAddItems)
               ],
             ),
             SizedBox(height: 20),
@@ -85,11 +86,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildText() {
     return Container(
-      padding: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 10),
       child: Text(
         "ORDER MEDICINES AND MORE",
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold,color: Util.colorFromHex("#1BC0CB")),
       ),
     );
   }
@@ -99,11 +100,11 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: callBack,
       child: Container(
-        height: 200,
-        width: size.width / 2 - 20,
+        height: 175,
+        width: size.width / 2 - 32,
         child: Material(
           shadowColor: Colors.grey[100].withOpacity(0.4),
-          color: Colors.blueAccent,
+          color: Util.colorFromHex("#473FA8"),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 3,
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     title,
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.bold,fontSize: 13),
                     textAlign: TextAlign.center,
                   ))
             ],
@@ -134,8 +135,8 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     return Container(
       alignment: Alignment.center,
-      width: size.width - 20,
-      height: 70,
+      width: size.width - 35,
+      height: 60,
       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
@@ -149,17 +150,17 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              color: Colors.blueAccent,
+              color: Util.colorFromHex("#473FA8"),
               width: 70,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add_call),
+                  Icon(Icons.add_call,size: 18,color: Colors.white),
                   Text(
                     "CALL US",
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.bold,fontSize: 13),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -214,7 +215,7 @@ class _HomePageState extends State<HomePage> {
           enableCamera: true,
           cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
           materialOptions: MaterialOptions(
-            actionBarColor: "#000000",
+            actionBarColor: "#473FA8",
             actionBarTitle: "Amar Pharma",
             allViewTitle: "All Photos",
             useDetailsView: false,

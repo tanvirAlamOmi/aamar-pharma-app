@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'router.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class App extends StatefulWidget {
   @override
@@ -30,8 +31,8 @@ class _AppSate extends State<App> {
       title: 'FOS',
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.black,
-        accentColor: Colors.black,
+        primaryColor: Util.colorFromHex("#473FA8"),
+        accentColor: Util.colorFromHex("#473FA8"),
       ),
       builder: (context, child) {
         return MediaQuery(

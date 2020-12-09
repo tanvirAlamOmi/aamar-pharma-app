@@ -36,6 +36,11 @@ class Util {
     ));
   }
 
+  static Color colorFromHex(String hexColor) {
+    final hexCode = hexColor.replaceAll('#', '');
+    return Color(int.parse('FF$hexCode', radix: 16));
+  }
+
   static Future<void> getPermissions() async {
     if (Platform.isAndroid) {
       await Permission.locationAlways.request();
