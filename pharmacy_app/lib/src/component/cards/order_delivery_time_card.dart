@@ -35,11 +35,11 @@ class OrderDeliveryAddressCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
-        elevation: 5,
+        elevation: 0,
         clipBehavior: Clip.antiAlias,
         // Add This
         child: buildBody(),
@@ -49,7 +49,6 @@ class OrderDeliveryAddressCard extends StatelessWidget {
 
   Widget buildBody() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
       width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,

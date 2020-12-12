@@ -8,7 +8,6 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class AllAddressCard extends StatelessWidget {
-
   final Function() callBackRefreshUI;
   final TextEditingController addressIndexController;
 
@@ -21,11 +20,11 @@ class AllAddressCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+      padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
-        elevation: 5,
+        elevation: 0,
         clipBehavior: Clip.antiAlias,
         // Add This
         child: buildBody(),
@@ -49,18 +48,17 @@ class AllAddressCard extends StatelessWidget {
           callBackRefreshUI();
         },
         child: Container(
-          padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+          padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           color: Colors.transparent,
           width: double.infinity,
           child: Material(
-            shadowColor: Colors.grey[100].withOpacity(0.4),
+            shadowColor: Colors.grey[100].withOpacity(0.45),
             shape: RoundedRectangleBorder(
                 side: BorderSide(
                     color: getSelectedColor(singleDeliveryAddress), width: 0.5),
                 borderRadius: BorderRadius.circular(10.0)),
             elevation: 3,
             clipBehavior: Clip.antiAlias,
-            // Add This
             child: ListTile(
               title: Text(
                 singleDeliveryAddress.addressType,
@@ -75,12 +73,25 @@ class AllAddressCard extends StatelessWidget {
                 width: 60,
                 child: Row(
                   children: [
-                    Icon(Icons.edit),
                     SizedBox(width: 5),
-                    CircleCrossButton(
-                      refreshUI: callBackRefreshUI,
-                      callBack: removeItemFromList,
-                      objectIdentifier: addressIndexController.text,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleCrossButton(
+                          refreshUI: callBackRefreshUI,
+                          callBack: removeItemFromList,
+                          objectIdentifier: addressIndexController.text,
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          "REMOVE",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: Colors.red),
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -101,7 +112,7 @@ class AllAddressCard extends StatelessWidget {
   Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
     if (int.parse(addressIndexController.text) ==
         Store.instance.appState.allDeliveryAddress
-            .indexOf(deliveryAddressDetails)) return Colors.purpleAccent;
+            .indexOf(deliveryAddressDetails)) return Util.greenishColor();
 
     return Colors.transparent;
   }

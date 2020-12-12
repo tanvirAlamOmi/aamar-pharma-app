@@ -46,7 +46,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   PickedFile pickedImageFile;
   int currentIndex = 0;
 
-  List<String> deliveryTimeDay = ["Today", " Tomorrow"];
+  List<String> deliveryTimeDay = ["Today", "Tomorrow"];
   String selectedDeliveryTimeDay;
 
   List<String> deliveryTimeTime = [];

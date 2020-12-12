@@ -22,11 +22,11 @@ class PersonalDetailsCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+      padding: EdgeInsets.fromLTRB(32, 10, 32, 10),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
-        elevation: 5,
+        elevation: 0,
         clipBehavior: Clip.antiAlias, // Add This
         child: buildBody(),
       ),
@@ -34,115 +34,112 @@ class PersonalDetailsCard extends StatelessWidget {
   }
 
   Widget buildBody() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
-      child: Column(
-        children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "PERSONAL DETAILS",
-                  style: TextStyle(
-                      color: Util.greenishColor(), fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "Name",
-                  style: TextStyle(
-                      color: Util.purplishColor(), fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 3),
-                SizedBox(
-                  height: 35, // set this
-                  child: TextField(
-                    controller: nameController,
-                    decoration: new InputDecoration(
-                      isDense: true,
-                      hintText: "Mr. XYZ",
-                      hintStyle: TextStyle(fontSize: 13),
-                      fillColor: Colors.white,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Row(
+    return Column(
+      children: [
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Email",
-                        style: TextStyle(
-                            color: Util.purplishColor(),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 3),
-                      SizedBox(
-                        height: 35, // set this
-                        child: TextField(
-                          controller: emailController,
-                          decoration: new InputDecoration(
-                            isDense: true,
-                            hintText: "Your Email",
-                            hintStyle: TextStyle(fontSize: 13),
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 5),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+              Text(
+                "PERSONAL DETAILS",
+                style: TextStyle(
+                    color: Util.greenishColor(), fontWeight: FontWeight.bold),
               ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Phone Number",
-                        style: TextStyle(
-                            color: Util.purplishColor(),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 3),
-                      SizedBox(
-                        height: 35, // set this
-                        child: TextField(
-                          controller: phoneController,
-                          decoration: new InputDecoration(
-                            isDense: true,
-                            hintText: "Your Phone Number",
-                            hintStyle: TextStyle(fontSize: 13),
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 5),
-                          ),
-                        ),
-                      )
-                    ],
+              SizedBox(height: 20),
+              Text(
+                "Name",
+                style: TextStyle(
+                    color: Util.purplishColor(), fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 3),
+              SizedBox(
+                height: 35, // set this
+                child: TextField(
+                  controller: nameController,
+                  decoration: new InputDecoration(
+                    isDense: true,
+                    hintText: "Mr. XYZ",
+                    hintStyle: TextStyle(fontSize: 13),
+                    fillColor: Colors.white,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                   ),
                 ),
               )
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+        SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Email",
+                      style: TextStyle(
+                          color: Util.purplishColor(),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 3),
+                    SizedBox(
+                      height: 35, // set this
+                      child: TextField(
+                        controller: emailController,
+                        decoration: new InputDecoration(
+                          isDense: true,
+                          hintText: "Your Email",
+                          hintStyle: TextStyle(fontSize: 13),
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 5),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Phone Number",
+                      style: TextStyle(
+                          color: Util.purplishColor(),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 3),
+                    SizedBox(
+                      height: 35, // set this
+                      child: TextField(
+                        controller: phoneController,
+                        decoration: new InputDecoration(
+                          isDense: true,
+                          hintText: "Your Phone Number",
+                          hintStyle: TextStyle(fontSize: 13),
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 5),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
