@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
+import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
@@ -56,6 +58,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   final TextEditingController fullAddressController =
       new TextEditingController();
+
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneController = new TextEditingController();
+  final TextEditingController addressIndexController =
+      new TextEditingController(text: "0");
 
   List<String> repeatDeliveryDay = [
     "Saturday",
@@ -155,9 +163,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildDeliveryTime(),
             buildRepeatOrder(),
             buildRepeatOrderWithDropDown(),
-            buildDeliveryAddressBox(),
-            buildAllAddresses(),
-            PersonalDetailsCard(),
+            AddDeliveryAddressButton(callBack: refreshUI),
+            AllAddressCard(
+                addressIndexController: addressIndexController,
+                callBackRefresehUI: refreshUI),
+            PersonalDetailsCard(
+                nameController: nameController,
+                phoneController: phoneController,
+                emailController: emailController),
             GeneralActionRoundButton(
               title: "SUBMIT",
               isProcessing: false,
@@ -174,6 +187,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     if (Store.instance.appState.allDeliveryAddress.length == 0)
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
+
+    print(addressIndexController.text);
   }
 
   Widget buildDeliveryTime() {
@@ -185,7 +200,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("DELIVERY TIME"),
+          Text(
+            "DELIVERY TIME",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Util.greenishColor()),
+          ),
           SizedBox(height: 15),
           Row(
             children: [
@@ -194,7 +213,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Day"),
+                    Text(
+                      "Day",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Util.purplishColor()),
+                    ),
                     buildDropdown(deliveryTimeDay, selectedDeliveryTimeDay,
                         CHOICE_ENUM.DELIVERY_DAY),
                   ],
@@ -206,7 +230,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Time"),
+                    Text(
+                      "Time",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Util.purplishColor()),
+                    ),
                     buildDropdown(deliveryTimeTime, selectedDeliveryTimeTime,
                         CHOICE_ENUM.DELIVERY_TIME),
                   ],
@@ -226,7 +255,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
       title: Text(
         "Repeat Order",
-        style: TextStyle(fontSize: 13),
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Util.greenishColor()),
       ),
       value: checkedRepeatOrder,
       onChanged: (newValue) {
@@ -250,7 +282,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
                 title: Text(
                   "Repeat Order",
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Util.greenishColor()),
                 ),
                 value: checkedRepeatOrder,
                 onChanged: (newValue) {
@@ -269,7 +304,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Every"),
+                    Text("Every",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Util.purplishColor())),
                     buildDropdown(
                         repeatDeliveryTime,
                         selectedRepeatDeliveryTime,
@@ -289,7 +327,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Day"),
+                  Text("Day",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Util.purplishColor())),
                   SizedBox(height: 1),
                   buildDropdown(repeatDeliveryDay, selectedRepeatDeliveryDay,
                       CHOICE_ENUM.REPEAT_DELIVERY_DAY),
@@ -302,140 +343,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         )
       ],
     );
-  }
-
-  Widget buildInstantDeliveryAddressField() {
-    if (Store.instance.appState.allDeliveryAddress.length > 0)
-      return Container();
-
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(27, 5, 27, 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("Select Area"),
-              buildDropdown(areaList, selectedArea, CHOICE_ENUM.AREA_SELECTION),
-            ],
-          ),
-        ),
-        buildFullAddressTextField(),
-      ],
-    );
-  }
-
-  Widget buildFullAddressTextField() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text("Address", style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(height: 3),
-          SizedBox(
-            height: 35, // set this
-            child: TextField(
-              controller: fullAddressController,
-              decoration: new InputDecoration(
-                isDense: true,
-                hintText: "39/A Housing Estate...",
-                hintStyle: TextStyle(fontSize: 13),
-                fillColor: Colors.white,
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget buildDeliveryAddressBox() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-      color: Colors.transparent,
-      width: double.infinity,
-      child: Material(
-        shadowColor: Colors.grey[100].withOpacity(0.4),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 3,
-        clipBehavior: Clip.antiAlias, // Add This
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AddNewAddressPage(
-                        callBack: refreshUI,
-                      )),
-            );
-          },
-          title: Text("Add New Address",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          trailing: Icon(Icons.keyboard_arrow_right),
-        ),
-      ),
-    );
-  }
-
-  Widget buildAllAddresses() {
-    if (Store.instance.appState.allDeliveryAddress.length == 0)
-      return Container();
-
-    return Column(
-        children: Store.instance.appState.allDeliveryAddress
-            .map((singleDeliveryAddress) {
-      return GestureDetector(
-        onTap: () {
-          setState(() {
-            currentIndex = Store.instance.appState.allDeliveryAddress
-                .indexOf(singleDeliveryAddress);
-            print(currentIndex);
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-          color: Colors.transparent,
-          width: double.infinity,
-          child: Material(
-            shadowColor: Colors.grey[100].withOpacity(0.4),
-            shape: RoundedRectangleBorder(
-                side: BorderSide(
-                    color: getSelectedColor(singleDeliveryAddress), width: 0.5),
-                borderRadius: BorderRadius.circular(10.0)),
-            elevation: 3,
-            clipBehavior: Clip.antiAlias, // Add This
-            child: ListTile(
-                title: Text(
-                  singleDeliveryAddress.addressType,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                ),
-                subtitle: Text(
-                  singleDeliveryAddress.fullAddress,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                ),
-                trailing: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.edit)],
-                ),
-                isThreeLine: true),
-          ),
-        ),
-      );
-    }).toList());
-  }
-
-  Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
-    if (currentIndex ==
-        Store.instance.appState.allDeliveryAddress
-            .indexOf(deliveryAddressDetails)) return Colors.purpleAccent;
-
-    return Colors.transparent;
   }
 
   Widget buildDropdown(

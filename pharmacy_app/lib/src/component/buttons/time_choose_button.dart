@@ -32,7 +32,7 @@ class _TimeChooseButtonState extends State<TimeChooseButton> {
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(width: 1, color: Colors.black),
+              bottom: BorderSide(width: 0.5, color: Colors.black),
             ),
             color: Colors.transparent,
           ),
@@ -42,7 +42,10 @@ class _TimeChooseButtonState extends State<TimeChooseButton> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 3),
-              Text("Time"),
+              Text("Time",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Util.purplishColor())),
               SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,

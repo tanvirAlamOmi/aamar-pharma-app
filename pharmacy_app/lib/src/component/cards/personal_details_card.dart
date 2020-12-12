@@ -2,12 +2,20 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class PersonalDetailsCard extends StatelessWidget {
   @override
-  final listItems;
+  final TextEditingController nameController;
+  final TextEditingController phoneController;
+  final TextEditingController emailController;
 
-  const PersonalDetailsCard({Key key, this.listItems}) : super(key: key);
+  const PersonalDetailsCard(
+      {Key key,
+      this.nameController,
+      this.phoneController,
+      this.emailController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +43,22 @@ class PersonalDetailsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("PERSONAL DETAILS"),
+                Text(
+                  "PERSONAL DETAILS",
+                  style: TextStyle(
+                      color: Util.greenishColor(), fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 20),
-                Text("Name"),
+                Text(
+                  "Name",
+                  style: TextStyle(
+                      color: Util.purplishColor(), fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 3),
                 SizedBox(
                   height: 35, // set this
                   child: TextField(
+                    controller: nameController,
                     decoration: new InputDecoration(
                       isDense: true,
                       hintText: "Mr. XYZ",
@@ -65,11 +82,17 @@ class PersonalDetailsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Email"),
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            color: Util.purplishColor(),
+                            fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
                         child: TextField(
+                          controller: emailController,
                           decoration: new InputDecoration(
                             isDense: true,
                             hintText: "Your Email",
@@ -91,11 +114,17 @@ class PersonalDetailsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Phone Number"),
+                      Text(
+                        "Phone Number",
+                        style: TextStyle(
+                            color: Util.purplishColor(),
+                            fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
                         child: TextField(
+                          controller: phoneController,
                           decoration: new InputDecoration(
                             isDense: true,
                             hintText: "Your Phone Number",
