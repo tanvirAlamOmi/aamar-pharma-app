@@ -48,6 +48,6 @@ class AuthRepo {
   }
 
   Future<void> logout() async {
-    await AuthRepo.instance.getAuthClient().logout();
+    await Store.instance.deleteAppData();
   }
 }

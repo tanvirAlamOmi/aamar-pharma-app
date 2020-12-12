@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -38,12 +40,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   PickedFile pickedImageFile;
-  int currentINdex = 0;
+  int currentIndex = 0;
 
-  List<String> deliveryTimeDay = ["Today"];
+  List<String> deliveryTimeDay = ["Today", " Tomorrow"];
   String selectedDeliveryTimeDay;
 
-  List<String> deliveryTimeTime = ["ASAP", "AFTER 1 HOUR", "AFTER 2 HOURS"];
+  List<String> deliveryTimeTime = [];
   String selectedDeliveryTimeTime;
 
   List<String> repeatDeliveryTime = ["Week", "15 Days", "1 Month"];
@@ -72,7 +74,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
     selectedDeliveryTimeDay = deliveryTimeDay[0];
-    selectedDeliveryTimeTime = deliveryTimeTime[0];
+    createDeliveryTimeTime();
     selectedRepeatDeliveryTime = repeatDeliveryTime[0];
     selectedRepeatDeliveryDay = repeatDeliveryDay[0];
     selectedArea = areaList[0];
@@ -81,6 +83,44 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void createDeliveryTimeTime() {
+    deliveryTimeTime.clear();
+    DateTime currentTime = DateTime.now();
+    DateTime officeTime = DateTime(
+        currentTime.year, currentTime.month, currentTime.day, 10, 00, 00);
+    final DateTime timeLimit = DateTime(
+        currentTime.year, currentTime.month, currentTime.day, 22, 00, 00);
+    int x = 0;
+
+    if (selectedDeliveryTimeDay == deliveryTimeDay[0]) {
+      while (currentTime.isBefore(timeLimit)) {
+        if (currentTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
+
+        deliveryTimeTime.add(
+            Util.formatDateToStringOnlyHourMinute(currentTime) +
+                "-" +
+                Util.formatDateToStringOnlyHourMinute(
+                    currentTime.add(Duration(minutes: 90))));
+        currentTime = currentTime.add(Duration(minutes: 90));
+      }
+    }
+
+    if (selectedDeliveryTimeDay == deliveryTimeDay[1]) {
+      while (officeTime.isBefore(timeLimit)) {
+        if (officeTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
+
+        deliveryTimeTime.add(Util.formatDateToStringOnlyHourMinute(officeTime) +
+            "-" +
+            Util.formatDateToStringOnlyHourMinute(
+                officeTime.add(Duration(minutes: 90))));
+        officeTime = officeTime.add(Duration(minutes: 90));
+      }
+    }
+
+    selectedDeliveryTimeTime = deliveryTimeTime[0];
+    if (mounted) setState(() {});
   }
 
   @override
@@ -115,16 +155,25 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             buildDeliveryTime(),
             buildRepeatOrder(),
             buildRepeatOrderWithDropDown(),
-            buildInstantDeliveryAddressField(),
             buildDeliveryAddressBox(),
             buildAllAddresses(),
-            buildPersonalDetails(),
-            GeneralActionButton(title: "SUBMIT",isProcessing: false,),
+            PersonalDetailsCard(),
+            GeneralActionRoundButton(
+              title: "SUBMIT",
+              isProcessing: false,
+              callBack: submitOrder,
+            ),
             SizedBox(height: 20)
           ],
         ),
       ),
     );
+  }
+
+  void submitOrder() {
+    if (Store.instance.appState.allDeliveryAddress.length == 0)
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
   }
 
   Widget buildDeliveryTime() {
@@ -343,9 +392,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return GestureDetector(
         onTap: () {
           setState(() {
-            currentINdex = Store.instance.appState.allDeliveryAddress
+            currentIndex = Store.instance.appState.allDeliveryAddress
                 .indexOf(singleDeliveryAddress);
-            print(currentINdex);
+            print(currentIndex);
           });
         },
         child: Container(
@@ -382,101 +431,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
-    if (currentINdex ==
+    if (currentIndex ==
         Store.instance.appState.allDeliveryAddress
             .indexOf(deliveryAddressDetails)) return Colors.purpleAccent;
 
     return Colors.transparent;
-  }
-
-  Widget buildPersonalDetails() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
-      child: Column(
-        children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Name"),
-                SizedBox(height: 3),
-                SizedBox(
-                  height: 35, // set this
-                  child: TextField(
-                    decoration: new InputDecoration(
-                      isDense: true,
-                      hintText: "Mr. XYZ",
-                      hintStyle: TextStyle(fontSize: 13),
-                      fillColor: Colors.white,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Email"),
-                      SizedBox(height: 3),
-                      SizedBox(
-                        height: 35, // set this
-                        child: TextField(
-                          decoration: new InputDecoration(
-                            isDense: true,
-                            hintText: "Notes e.g. I need all the medicines",
-                            hintStyle: TextStyle(fontSize: 13),
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 5),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Phone Number"),
-                      SizedBox(height: 3),
-                      SizedBox(
-                        height: 35, // set this
-                        child: TextField(
-                          decoration: new InputDecoration(
-                            isDense: true,
-                            hintText: "Notes e.g. I need all the medicines",
-                            hintStyle: TextStyle(fontSize: 13),
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 5),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
   }
 
   Widget buildDropdown(
@@ -501,8 +460,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               value: selectedItem,
               onChanged: (value) {
                 if (value == null) return;
-                if (choice_enum == CHOICE_ENUM.DELIVERY_DAY)
+                if (choice_enum == CHOICE_ENUM.DELIVERY_DAY) {
                   selectedDeliveryTimeDay = value;
+                  createDeliveryTimeTime();
+                }
 
                 if (choice_enum == CHOICE_ENUM.DELIVERY_TIME)
                   selectedDeliveryTimeTime = value;
