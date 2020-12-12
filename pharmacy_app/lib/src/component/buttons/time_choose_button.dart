@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/clock_spinner.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class TimeChooseButton extends StatefulWidget {
+class TimeChooseButton extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final Function(DateTime value) setSelectedTime;
+  final Function() callBackRefreshUI;
+  final DateTime selectedTime;
 
-  TimeChooseButton({this.scaffoldKey});
-
-  @override
-  _TimeChooseButtonState createState() => _TimeChooseButtonState();
-}
-
-class _TimeChooseButtonState extends State<TimeChooseButton> {
-  DateTime _selectedTime = DateTime.now();
+  TimeChooseButton(
+      {this.scaffoldKey,
+      this.selectedTime,
+      this.setSelectedTime,
+      this.callBackRefreshUI});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _TimeChooseButtonState extends State<TimeChooseButton> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  buildBookingTimeText(),
+                  buildTimeText(),
                   SizedBox(width: 10),
                   Icon(Icons.watch_later, size: 18)
                 ],
@@ -63,9 +63,9 @@ class _TimeChooseButtonState extends State<TimeChooseButton> {
     );
   }
 
-  Widget buildBookingTimeText() {
+  Widget buildTimeText() {
     return Text(
-      Util.formatDateToStringOnlyHourMinute(_selectedTime),
+      Util.formatDateToStringOnlyHourMinute(selectedTime),
       style: TextStyle(color: Colors.black, fontSize: 13),
     );
   }
@@ -127,10 +127,11 @@ class _TimeChooseButtonState extends State<TimeChooseButton> {
       itemHeight: 30,
       itemWidth: 50,
       spacing: 50,
-      time: _selectedTime,
+      time: selectedTime,
       is24HourMode: false,
       onTimeChange: (time) {
-        if (mounted) setState(() {});
+        setSelectedTime(time);
+        callBackRefreshUI();
       },
     );
   }

@@ -66,28 +66,37 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   ];
   String selectedRepeatDeliveryDayBar;
 
+  DateTime selectedRepeatDeliveryTime;
+
   bool checkedRepeatOrder = false;
+
+  int selectedDeliveryAddressIndex = 0;
 
   final TextEditingController fullAddressController =
       new TextEditingController();
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController phoneController = new TextEditingController();
-  final TextEditingController addressIndexController =
-      new TextEditingController(text: "0");
+
+
 
   @override
   void initState() {
     super.initState();
-    selectedDeliveryTimeDay = deliveryTimeDay[0];
-    createDeliveryTimeTime();
-    selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
-    selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
+    setSelectionData();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void setSelectionData() {
+    selectedDeliveryTimeDay = deliveryTimeDay[0];
+    createDeliveryTimeTime();
+    selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
+    selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
+    selectedRepeatDeliveryTime = DateTime.now();
   }
 
   @override
@@ -138,10 +147,13 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               repeatDeliveryDayBar: repeatDeliveryDayBar,
               selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
               setSelectedRepeatDeliveryDayBar: setSelectedRepeatDeliveryDayBar,
+              selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
+              setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
             ),
             AddDeliveryAddressButton(callBack: refreshUI),
             AllAddressCard(
-                addressIndexController: addressIndexController,
+                selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
+                setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,
                 callBackRefreshUI: refreshUI),
             PersonalDetailsCard(
                 nameController: nameController,
@@ -174,6 +186,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void setSelectedRepeatDeliveryDayBar(dynamic value) {
     selectedRepeatDeliveryDayBar = value;
+  }
+
+  void setSelectedRepeatDeliveryTime(DateTime value) {
+    selectedRepeatDeliveryTime = value;
+  }
+
+  void setSelectedDeliveryAddressIndex(int index){
+    selectedDeliveryAddressIndex = index;
   }
 
   void setRepeatOrder(value) {
@@ -219,6 +239,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void submitOrder() {
+    print(selectedDeliveryAddressIndex);
     if (Store.instance.appState.allDeliveryAddress.length == 0)
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");

@@ -23,6 +23,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
   final List<String> repeatDeliveryDayBar;
   final String selectedRepeatDeliveryDayBar;
 
+  final DateTime selectedRepeatDeliveryTime;
+  final Function(DateTime value) setSelectedRepeatDeliveryTime;
+
   const OrderRepeatOrderCard(
       {Key key,
       this.callBackRefreshUI,
@@ -33,7 +36,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
       this.repeatDeliveryLongGap,
       this.selectedRepeatDeliveryLongGap,
       this.checkedRepeatOrder,
-      this.setRepeatOrder})
+      this.setRepeatOrder,
+      this.selectedRepeatDeliveryTime,
+      this.setSelectedRepeatDeliveryTime})
       : super(key: key);
 
   @override
@@ -153,7 +158,10 @@ class OrderRepeatOrderCard extends StatelessWidget {
             ),
             SizedBox(width: 30),
             Expanded(
-              child: TimeChooseButton(),
+              child: TimeChooseButton(
+                  callBackRefreshUI: callBackRefreshUI,
+                  selectedTime: selectedRepeatDeliveryTime,
+                  setSelectedTime: setSelectedRepeatDeliveryTime),
             )
           ],
         )

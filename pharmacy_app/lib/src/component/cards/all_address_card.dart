@@ -9,10 +9,14 @@ import 'package:pharmacy_app/src/util/util.dart';
 
 class AllAddressCard extends StatelessWidget {
   final Function() callBackRefreshUI;
-  final TextEditingController addressIndexController;
+  final int selectedDeliveryAddressIndex;
+  final Function(int index) setSelectedDeliveryAddressIndex;
 
   const AllAddressCard(
-      {Key key, this.addressIndexController, this.callBackRefreshUI})
+      {Key key,
+      this.setSelectedDeliveryAddressIndex,
+      this.callBackRefreshUI,
+      this.selectedDeliveryAddressIndex})
       : super(key: key);
 
   @override
@@ -20,7 +24,7 @@ class AllAddressCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
+      padding: EdgeInsets.fromLTRB(28, 5, 28, 5),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
@@ -41,10 +45,9 @@ class AllAddressCard extends StatelessWidget {
             .map((singleDeliveryAddress) {
       return GestureDetector(
         onTap: () {
-          addressIndexController.text = Store
+          setSelectedDeliveryAddressIndex(Store
               .instance.appState.allDeliveryAddress
-              .indexOf(singleDeliveryAddress)
-              .toString();
+              .indexOf(singleDeliveryAddress));
           callBackRefreshUI();
         },
         child: Container(
@@ -52,10 +55,10 @@ class AllAddressCard extends StatelessWidget {
           color: Colors.transparent,
           width: double.infinity,
           child: Material(
-            shadowColor: Colors.grey[100].withOpacity(0.45),
+            shadowColor: Colors.grey[100].withOpacity(0.4),
             shape: RoundedRectangleBorder(
                 side: BorderSide(
-                    color: getSelectedColor(singleDeliveryAddress), width: 0.5),
+                    color: getSelectedColor(singleDeliveryAddress), width: 0.7),
                 borderRadius: BorderRadius.circular(10.0)),
             elevation: 3,
             clipBehavior: Clip.antiAlias,
@@ -81,7 +84,7 @@ class AllAddressCard extends StatelessWidget {
                         CircleCrossButton(
                           refreshUI: callBackRefreshUI,
                           callBack: removeItemFromList,
-                          objectIdentifier: addressIndexController.text,
+                          objectIdentifier: selectedDeliveryAddressIndex,
                         ),
                         SizedBox(height: 2),
                         Text(
@@ -110,7 +113,7 @@ class AllAddressCard extends StatelessWidget {
   }
 
   Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
-    if (int.parse(addressIndexController.text) ==
+    if (selectedDeliveryAddressIndex ==
         Store.instance.appState.allDeliveryAddress
             .indexOf(deliveryAddressDetails)) return Util.greenishColor();
 
