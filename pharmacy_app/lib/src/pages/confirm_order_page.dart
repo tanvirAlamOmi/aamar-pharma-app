@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -51,22 +52,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   List<String> deliveryTimeTime = [];
   String selectedDeliveryTimeTime;
 
-  List<String> repeatDeliveryTime = ["Week", "15 Days", "1 Month"];
-  String selectedRepeatDeliveryTime;
+  List<String> repeatDeliveryLongGap = ["Week", "15 Days", "1 Month"];
+  String selectedRepeatDeliveryLongGap;
 
-  List<String> areaList = ["Mirupur", "Banani", "Gulshan"];
-  String selectedArea;
-
-  final TextEditingController fullAddressController =
-      new TextEditingController();
-
-  final TextEditingController nameController = new TextEditingController();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController phoneController = new TextEditingController();
-  final TextEditingController addressIndexController =
-      new TextEditingController(text: "0");
-
-  List<String> repeatDeliveryDay = [
+  List<String> repeatDeliveryDayBar = [
     "Saturday",
     "Sunday",
     "Monday",
@@ -75,18 +64,25 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     "Thursday",
     "Friday"
   ];
-  String selectedRepeatDeliveryDay;
+  String selectedRepeatDeliveryDayBar;
 
   bool checkedRepeatOrder = false;
+
+  final TextEditingController fullAddressController =
+      new TextEditingController();
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneController = new TextEditingController();
+  final TextEditingController addressIndexController =
+      new TextEditingController(text: "0");
 
   @override
   void initState() {
     super.initState();
     selectedDeliveryTimeDay = deliveryTimeDay[0];
     createDeliveryTimeTime();
-    selectedRepeatDeliveryTime = repeatDeliveryTime[0];
-    selectedRepeatDeliveryDay = repeatDeliveryDay[0];
-    selectedArea = areaList[0];
+    selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
+    selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
   }
 
   @override
@@ -132,6 +128,17 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
               selectedDeliveryTimeTime: selectedDeliveryTimeTime,
               setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
             ),
+            OrderRepeatOrderCard(
+              callBackRefreshUI: refreshUI,
+              checkedRepeatOrder: checkedRepeatOrder,
+              setRepeatOrder: setRepeatOrder,
+              repeatDeliveryLongGap: repeatDeliveryLongGap,
+              selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
+              setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
+              repeatDeliveryDayBar: repeatDeliveryDayBar,
+              selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
+              setSelectedRepeatDeliveryDayBar: setSelectedRepeatDeliveryDayBar,
+            ),
             AddDeliveryAddressButton(callBack: refreshUI),
             AllAddressCard(
                 addressIndexController: addressIndexController,
@@ -159,6 +166,18 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void setSelectedDeliveryTimeTime(dynamic value) {
     selectedDeliveryTimeTime = value;
+  }
+
+  void setSelectedRepeatDeliveryLongGap(dynamic value) {
+    selectedRepeatDeliveryLongGap = value;
+  }
+
+  void setSelectedRepeatDeliveryDayBar(dynamic value) {
+    selectedRepeatDeliveryDayBar = value;
+  }
+
+  void setRepeatOrder(value) {
+    checkedRepeatOrder = value;
   }
 
   void createDeliveryTimeTime() {
@@ -205,186 +224,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
   }
 
-  Widget buildRepeatOrder() {
-    if (checkedRepeatOrder == true) return Container();
-    return CheckboxListTile(
-      dense: true,
-      contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
-      title: Text(
-        "Repeat Order",
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Util.greenishColor()),
-      ),
-      value: checkedRepeatOrder,
-      onChanged: (newValue) {
-        if (mounted)
-          setState(() {
-            checkedRepeatOrder = newValue;
-          });
-      },
-      controlAffinity: ListTileControlAffinity.leading,
-    );
-  }
-
-  Widget buildRepeatOrderWithDropDown() {
-    if (checkedRepeatOrder == false) return Container();
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: CheckboxListTile(
-                contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
-                title: Text(
-                  "Repeat Order",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Util.greenishColor()),
-                ),
-                value: checkedRepeatOrder,
-                onChanged: (newValue) {
-                  setState(() {
-                    checkedRepeatOrder = newValue;
-                  });
-                },
-                controlAffinity:
-                    ListTileControlAffinity.leading, //  <-- leading Checkbox
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(14, 7, 32, 7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Every",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor())),
-                    buildDropdown(
-                        repeatDeliveryTime,
-                        selectedRepeatDeliveryTime,
-                        CHOICE_ENUM.REPEAT_DELIVER_TIME),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(32, 7, 0, 7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Day",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor())),
-                    SizedBox(height: 1),
-                    buildDropdown(repeatDeliveryDay, selectedRepeatDeliveryDay,
-                        CHOICE_ENUM.REPEAT_DELIVERY_DAY),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(width: 30),
-            Expanded(
-              child: TimeChooseButton(),
-            )
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget buildDropdown(
-      List<String> dropDownList, String selectedItem, CHOICE_ENUM choice_enum) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1, color: Colors.black),
-            ),
-            color: Colors.transparent,
-          ),
-          height: 35,
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              dropdownColor: const Color.fromARGB(255, 45, 65, 89),
-              isDense: true,
-              isExpanded: true,
-              value: selectedItem,
-              onChanged: (value) {
-                if (value == null) return;
-                if (choice_enum == CHOICE_ENUM.DELIVERY_DAY) {
-                  selectedDeliveryTimeDay = value;
-                  createDeliveryTimeTime();
-                }
-
-                if (choice_enum == CHOICE_ENUM.DELIVERY_TIME)
-                  selectedDeliveryTimeTime = value;
-
-                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVER_TIME)
-                  selectedRepeatDeliveryTime = value;
-
-                if (choice_enum == CHOICE_ENUM.REPEAT_DELIVERY_DAY)
-                  selectedRepeatDeliveryDay = value;
-
-                if (choice_enum == CHOICE_ENUM.AREA_SELECTION)
-                  selectedArea = value;
-
-                if (mounted) setState(() {});
-              },
-              items: dropDownList.map((item) {
-                return buildDropDownMenuItem(item);
-              }).toList(),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  DropdownMenuItem<String> buildDropDownMenuItem(String menuItem) {
-    return DropdownMenuItem(
-      value: menuItem,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              menuItem,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey, fontSize: 13),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void refreshUI() {
     if (mounted) setState(() {});
   }
-}
-
-enum CHOICE_ENUM {
-  DELIVERY_DAY,
-  DELIVERY_TIME,
-  REPEAT_DELIVER_TIME,
-  REPEAT_DELIVERY_DAY,
-  AREA_SELECTION
 }
