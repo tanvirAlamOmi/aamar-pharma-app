@@ -8,6 +8,7 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -93,6 +94,73 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+      },
+      child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            elevation: 1,
+            centerTitle: true,
+            leading: AppBarBackButton(),
+            title: Text(
+              'CONFIRM ORDER',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          body: buildBody(context)),
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            OrderDeliveryAddressCard(
+              callBackRefreshUI: refreshUI,
+              deliveryTimeDay: deliveryTimeDay,
+              selectedDeliveryTimeDay: selectedDeliveryTimeDay,
+              setSelectedDeliveryTimeDay: setSelectedDeliveryTimeDay,
+              deliveryTimeTime: deliveryTimeTime,
+              selectedDeliveryTimeTime: selectedDeliveryTimeTime,
+              setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
+            ),
+            AddDeliveryAddressButton(callBack: refreshUI),
+            AllAddressCard(
+                addressIndexController: addressIndexController,
+                callBackRefreshUI: refreshUI),
+            PersonalDetailsCard(
+                nameController: nameController,
+                phoneController: phoneController,
+                emailController: emailController),
+            GeneralActionRoundButton(
+              title: "SUBMIT",
+              isProcessing: false,
+              callBack: submitOrder,
+            ),
+            SizedBox(height: 20)
+          ],
+        ),
+      ),
+    );
+  }
+
+  void setSelectedDeliveryTimeDay(dynamic value) {
+    selectedDeliveryTimeDay = value;
+    createDeliveryTimeTime();
+  }
+
+  void setSelectedDeliveryTimeTime(dynamic value) {
+    selectedDeliveryTimeTime = value;
+  }
+
   void createDeliveryTimeTime() {
     deliveryTimeTime.clear();
     DateTime currentTime = DateTime.now();
@@ -131,121 +199,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     if (mounted) setState(() {});
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
-      child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            elevation: 1,
-            centerTitle: true,
-            leading: AppBarBackButton(),
-            title: Text(
-              'CONFIRM ORDER',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          body: buildBody(context)),
-    );
-  }
-
-  Widget buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            buildDeliveryTime(),
-            buildRepeatOrder(),
-            buildRepeatOrderWithDropDown(),
-            AddDeliveryAddressButton(callBack: refreshUI),
-            AllAddressCard(
-                addressIndexController: addressIndexController,
-                callBackRefresehUI: refreshUI),
-            PersonalDetailsCard(
-                nameController: nameController,
-                phoneController: phoneController,
-                emailController: emailController),
-            GeneralActionRoundButton(
-              title: "SUBMIT",
-              isProcessing: false,
-              callBack: submitOrder,
-            ),
-            SizedBox(height: 20)
-          ],
-        ),
-      ),
-    );
-  }
-
   void submitOrder() {
     if (Store.instance.appState.allDeliveryAddress.length == 0)
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
-
-    print(addressIndexController.text);
-  }
-
-  Widget buildDeliveryTime() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
-      width: double.infinity,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            "DELIVERY TIME",
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Util.greenishColor()),
-          ),
-          SizedBox(height: 15),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Day",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Util.purplishColor()),
-                    ),
-                    buildDropdown(deliveryTimeDay, selectedDeliveryTimeDay,
-                        CHOICE_ENUM.DELIVERY_DAY),
-                  ],
-                ),
-              ),
-              SizedBox(width: 30),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Time",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Util.purplishColor()),
-                    ),
-                    buildDropdown(deliveryTimeTime, selectedDeliveryTimeTime,
-                        CHOICE_ENUM.DELIVERY_TIME),
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
   }
 
   Widget buildRepeatOrder() {
@@ -319,26 +276,31 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           ],
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: 165,
-              padding: const EdgeInsets.fromLTRB(32, 7, 0, 7),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("Day",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Util.purplishColor())),
-                  SizedBox(height: 1),
-                  buildDropdown(repeatDeliveryDay, selectedRepeatDeliveryDay,
-                      CHOICE_ENUM.REPEAT_DELIVERY_DAY),
-                ],
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(32, 7, 0, 7),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("Day",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Util.purplishColor())),
+                    SizedBox(height: 1),
+                    buildDropdown(repeatDeliveryDay, selectedRepeatDeliveryDay,
+                        CHOICE_ENUM.REPEAT_DELIVERY_DAY),
+                  ],
+                ),
               ),
             ),
             SizedBox(width: 30),
-            TimeChooseButton(),
+            Expanded(
+              child: TimeChooseButton(),
+            )
           ],
         )
       ],

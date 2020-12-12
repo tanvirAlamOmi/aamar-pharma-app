@@ -67,6 +67,11 @@ class Store {
     putAppData();
   }
 
+  deleteDeliveryAddress(DeliveryAddressDetails deliveryAddressDetails) async {
+    appState.allDeliveryAddress.remove(deliveryAddressDetails);
+    putAppData();
+  }
+
   setFirebasePushNotificationToken(String firebasePushNotificationToken) async {
     appState.firebasePushNotificationToken = firebasePushNotificationToken;
     await putAppData();

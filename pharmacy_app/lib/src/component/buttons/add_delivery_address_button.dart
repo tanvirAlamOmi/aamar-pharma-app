@@ -5,7 +5,6 @@ import 'package:pharmacy_app/src/pages/add_new_address.dart';
 
 class AddDeliveryAddressButton extends StatelessWidget {
   final Function() callBack;
-
   AddDeliveryAddressButton({this.callBack, Key key}) : super(key: key);
 
   @override

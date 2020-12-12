@@ -8,12 +8,12 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class AllAddressCard extends StatelessWidget {
-  @override
-  final Function() callBackRefresehUI;
+
+  final Function() callBackRefreshUI;
   final TextEditingController addressIndexController;
 
   const AllAddressCard(
-      {Key key, this.addressIndexController, this.callBackRefresehUI})
+      {Key key, this.addressIndexController, this.callBackRefreshUI})
       : super(key: key);
 
   @override
@@ -46,7 +46,7 @@ class AllAddressCard extends StatelessWidget {
               .instance.appState.allDeliveryAddress
               .indexOf(singleDeliveryAddress)
               .toString();
-          callBackRefresehUI();
+          callBackRefreshUI();
         },
         child: Container(
           padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
@@ -78,7 +78,7 @@ class AllAddressCard extends StatelessWidget {
                     Icon(Icons.edit),
                     SizedBox(width: 5),
                     CircleCrossButton(
-                      refreshUI: callBackRefresehUI,
+                      refreshUI: callBackRefreshUI,
                       callBack: removeItemFromList,
                       objectIdentifier: addressIndexController.text,
                     )
@@ -94,8 +94,8 @@ class AllAddressCard extends StatelessWidget {
   }
 
   void removeItemFromList(dynamic item) {
-    Store.instance.appState.allDeliveryAddress
-        .remove(Store.instance.appState.allDeliveryAddress[int.parse(item)]);
+    Store.instance.deleteDeliveryAddress(
+        Store.instance.appState.allDeliveryAddress[int.parse(item)]);
   }
 
   Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {
