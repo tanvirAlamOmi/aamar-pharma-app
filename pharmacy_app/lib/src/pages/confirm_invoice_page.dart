@@ -142,11 +142,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                       )),
             );
           },
-          title: Text("View OrderDetails",
+          title: Text("View Order Details",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Util.greenishColor(),
-                  fontSize: 12)),
+                  fontSize: 14)),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),

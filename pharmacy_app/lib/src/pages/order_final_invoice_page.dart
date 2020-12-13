@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_static_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -33,16 +35,12 @@ class OrderFinalInvoicePage extends StatefulWidget {
 class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
-  double subTotal = 0;
-  double deliveryFee = 20;
-  double totalAmount = 0;
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
   @override
   void initState() {
     super.initState();
-    calculatePricing();
   }
 
   @override
@@ -64,7 +62,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'CONFIRM ORDER',
+              'ORDER DETAILS',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -86,7 +84,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             buildDivider(),
             buildViewOrderDetailsButton(),
             SizedBox(height: 20),
-            buildInvoice(),
+            OrderStaticInvoiceTableCard(
+              order: widget.order,
+            ),
             SizedBox(height: 20)
           ],
         ),
@@ -97,7 +97,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   Widget buildReOrderButton() {
     if (widget.order.orderStatus != ClientEnum.ORDER_STATUS_DELIVERED)
       return Container();
-    return GeneralActionButton(
+    return GeneralActionRoundButton(
       title: "REORDER",
       isProcessing: isProcessing,
       callBack: () {},
@@ -115,7 +115,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             child: Text(
               "Amar Pharma",
               style: TextStyle(
-                  color: Colors.grey,
+                  color: Util.purplishColor(),
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
             ),
@@ -126,12 +126,13 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                width: size.width / 2 - 50,
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "31 Street, Mirpur DOHS\n"
-                  "Dhaka, Bangladesh",
+                  "31 Street, Mirpur DOHS \n"
+                  "Dhaka, Bangladesh. ",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.grey,
                       fontWeight: FontWeight.normal,
                       fontSize: 11),
                 ),
@@ -143,7 +144,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   "+88012-35359552\n"
                   "arbree@amarpharma.com",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.grey,
                       fontWeight: FontWeight.normal,
                       fontSize: 11),
                 ),
@@ -163,51 +164,54 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Invoice Number",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
+          Container(
+            width: size.width / 2 - 50,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Invoice Number",
+                    style: TextStyle(
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
+                  ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "0001",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "0001",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 11),
+                  ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Date Of Issue",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Date Of Issue",
+                    style: TextStyle(
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
+                  ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "20/02/15",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "20/02/15",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 11),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 10),
           Container(
@@ -219,11 +223,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Client Infomation",
+                    "Billed to",
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Util.purplishColor(),
                         fontWeight: FontWeight.bold,
-                        fontSize: 11),
+                        fontSize: 13),
                   ),
                 ),
                 Container(
@@ -231,7 +235,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   child: Text(
                     widget.order.deliveryAddressDetails.fullAddress,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.grey,
                         fontWeight: FontWeight.normal,
                         fontSize: 11),
                   ),
@@ -241,7 +245,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   child: Text(
                     widget.order.deliveryAddressDetails.areaName,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.grey,
                         fontWeight: FontWeight.normal,
                         fontSize: 11),
                   ),
@@ -251,7 +255,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   child: Text(
                     widget.order.userDetails.phoneNumber,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.grey,
                         fontWeight: FontWeight.normal,
                         fontSize: 11),
                   ),
@@ -265,10 +269,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildViewOrderDetailsButton() {
-    if (widget.order.orderStatus != ClientEnum.ORDER_STATUS_DELIVERED)
-      return Container();
     return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+      padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       color: Colors.transparent,
       width: double.infinity,
       child: Material(
@@ -286,129 +288,13 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                       )),
             );
           },
-          title: Text("View OrderDetails",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          title: Text("View Order Details",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Util.greenishColor(),
+                  fontSize: 14)),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
-      ),
-    );
-  }
-
-  Widget buildInvoice() {
-    final children = List<TableRow>();
-    final TextStyle columnTextStyle = new TextStyle(
-        fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold);
-
-    final TextStyle dataTextStyle = new TextStyle(
-        fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
-
-    children.add(TableRow(children: [
-      customTableCell(Text("Item", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("Unit Cost", style: columnTextStyle)),
-      customTableCell(Text("Quantity", style: columnTextStyle)),
-      customTableCell(Text("Amount", style: columnTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    widget.order.invoice.invoiceItemList.forEach((singleItem) {
-      children.add(TableRow(children: [
-        customTableCell(Text(singleItem.itemName, style: dataTextStyle),
-            alignment: Alignment.centerLeft),
-        customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
-        customTableCell(Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Container(
-              alignment: Alignment.center,
-              width: 25,
-              child: Text(singleItem.itemQuantity, style: dataTextStyle)),
-        )),
-        customTableCell(Text(getPrice(singleItem), style: textStyle),
-            alignment: Alignment.centerRight),
-      ]));
-    });
-
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Subtotal", style: columnTextStyle)),
-      customTableCell(Text(subTotal.toString(), style: columnTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-      customTableCell(Text(deliveryFee.toString(), style: columnTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Total", style: columnTextStyle)),
-      customTableCell(Text(totalAmount.toString(), style: columnTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        padding: EdgeInsets.fromLTRB(5, 0, 10, 20),
-        decoration: BoxDecoration(
-          border: Border(
-            left: BorderSide(color: Colors.grey, width: 1.0),
-            top: BorderSide(color: Colors.grey, width: 1.0),
-            right: BorderSide(color: Colors.grey, width: 1.0),
-            bottom: BorderSide(color: Colors.grey, width: 1.0),
-          ),
-        ),
-        child: Table(
-          columnWidths: {
-            0: FlexColumnWidth(0.3),
-            1: FlexColumnWidth(0.2),
-            2: FlexColumnWidth(0.3),
-            3: FlexColumnWidth(0.2),
-          },
-          children: children,
-        ),
-      ),
-    );
-  }
-
-  TableCell customTableCell(Widget singleWidget,
-      {AlignmentGeometry alignment}) {
-    return TableCell(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Container(
-            alignment: alignment ?? Alignment.center,
-            child: singleWidget,
-          )
-        ],
       ),
     );
   }
@@ -418,26 +304,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Divider(height: 3, thickness: 2),
     );
-  }
-
-  void calculatePricing() {
-    subTotal = 0;
-    totalAmount = 0;
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
-      final unitPrice = double.parse(singleItem.itemUnitPrice);
-      final quantity = double.parse(singleItem.itemQuantity);
-      subTotal = subTotal + (unitPrice * quantity);
-    }
-
-    totalAmount = subTotal + deliveryFee;
-    if (mounted) setState(() {});
-  }
-
-  String getPrice(InvoiceItem singleItem) {
-    final unitPrice = double.parse(singleItem.itemUnitPrice);
-    final quantity = double.parse(singleItem.itemQuantity);
-    final price = (unitPrice * quantity).toString();
-    return price;
   }
 
   void refreshUI() {
