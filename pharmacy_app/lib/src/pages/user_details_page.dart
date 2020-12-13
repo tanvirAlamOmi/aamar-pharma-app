@@ -50,7 +50,7 @@ class _AccountPageState extends State<AccountPage> {
 
   void setUserDetailsData() {
     user = Store.instance.appState.user;
-    print(user);
+    if (user.id == null) user = User.blank();
 
     nameController = new TextEditingController(text: user.name);
     emailController = new TextEditingController(text: user.email);
@@ -81,17 +81,37 @@ class _AccountPageState extends State<AccountPage> {
             nameController: nameController,
             phoneController: phoneController,
             emailController: emailController),
-        AddDeliveryAddressButton(callBack: refreshUI),
-        AllAddressCard(
-            selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
-            setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,
-            callBackRefreshUI: refreshUI),
-        GeneralActionRoundButton(
-          title: "SAVE",
-          isProcessing: false,
-          callBackOnSubmit: submitData,
-        )
+        buildAddDeliveryAddressButtonBasedOnLoginState(),
+        buildGeneralActionRoundButtonBasedOnLoginState(),
       ],
+    );
+  }
+
+  buildAddDeliveryAddressButtonBasedOnLoginState() {
+    if (user.id == "0") return Container();
+    return AddDeliveryAddressButton(callBack: refreshUI);
+  }
+
+  buildAllAddressCardBasedOnLoginState() {
+    if (user.id == "0") return Container();
+    return AllAddressCard(
+        selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
+        setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,
+        callBackRefreshUI: refreshUI);
+  }
+
+  buildGeneralActionRoundButtonBasedOnLoginState() {
+    if (user.id == "0")
+      return GeneralActionRoundButton(
+        title: "LOGIN",
+        isProcessing: false,
+        callBackOnSubmit: submitData,
+      );
+
+    return GeneralActionRoundButton(
+      title: "SAVE",
+      isProcessing: false,
+      callBackOnSubmit: submitData,
     );
   }
 

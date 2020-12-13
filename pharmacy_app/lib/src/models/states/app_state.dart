@@ -2,7 +2,7 @@ import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 
 class AppState {
-  User user = new User.blank();
+  User user = new User();
   List<DeliveryAddressDetails> allDeliveryAddress =
       new List<DeliveryAddressDetails>();
   String firebasePushNotificationToken = "";
