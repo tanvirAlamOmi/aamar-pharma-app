@@ -46,7 +46,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
@@ -72,6 +72,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             children: [
               Column(
                 children: <Widget>[
+                  SizedBox(height: 10),
                   buildAddItemBox(),
                   SizedBox(height: 13),
                   buildTitle(),

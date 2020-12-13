@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -82,7 +83,18 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             buildViewOrderDetailsButton(),
             buildWarningTitle(),
             SizedBox(height: 20),
-            buildInvoice(),
+            OrderInvoiceTableCard(
+              subTotal: subTotal,
+              deliveryFee: deliveryFee,
+              totalAmount: totalAmount,
+              order: widget.order,
+              dynamicTable: true,
+              callBackIncrementItemQuantity: incrementItemQuantity,
+              callBackDecrementItemQuantity: decrementItemQuantity,
+              callBackCalculatePricing: calculatePricing,
+              callBackRemoveItem: removeItem,
+              callBackRefreshUI: refreshUI,
+            ),
             SizedBox(height: 20),
             buildCashWarningTitle(),
             SizedBox(height: 20),
@@ -107,14 +119,18 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             child: Text(
               "We only accept cash on delivery.",
               style: TextStyle(
-                  color: Util.greenishColor(), fontWeight: FontWeight.bold, fontSize: 12),
+                  color: Util.greenishColor(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12),
             ),
           ),
           Container(
             child: Text(
               "Please keep cash ready upon delivery.",
               style: TextStyle(
-                  color: Util.greenishColor(), fontWeight: FontWeight.bold, fontSize: 12),
+                  color: Util.greenishColor(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12),
             ),
           )
         ],
@@ -166,177 +182,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     );
   }
 
-  Widget buildInvoice() {
-    final children = List<TableRow>();
-    final TextStyle columnTextStyle = new TextStyle(
-        fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
-
-    final TextStyle dataTextStyle = new TextStyle(
-        fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Item", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("Unit Cost", style: columnTextStyle)),
-      customTableCell(Text("Quantity", style: columnTextStyle)),
-      customTableCell(Text("Amount", style: columnTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    widget.order.invoice.invoiceItemList.forEach((singleItem) {
-      children.add(TableRow(children: [
-        customTableCell(CircleCrossButton(
-          callBack: removeItem,
-          objectIdentifier: singleItem,
-          refreshUI: refreshUI,
-          width: 15,
-          height: 15,
-          iconSize: 10,
-        )),
-        customTableCell(Text(singleItem.itemName, style: dataTextStyle),
-            alignment: Alignment.centerLeft),
-        customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
-        customTableCell(Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () => decrementItemQuantity(singleItem),
-                child: Container(
-                    width: 15,
-                    height: 15,
-                    child: Icon(Icons.remove, color: Colors.black, size: 10),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.redAccent))),
-              ),
-              Container(
-                  alignment: Alignment.center,
-                  width: 25,
-                  child: Text(singleItem.itemQuantity, style: dataTextStyle)),
-              GestureDetector(
-                onTap: () => incrementItemQuantity(singleItem),
-                child: Container(
-                    width: 15,
-                    height: 15,
-                    child: Icon(Icons.add, color: Colors.black, size: 10),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.redAccent))),
-              ),
-            ],
-          ),
-        )),
-        customTableCell(Text(getPrice(singleItem), style: textStyle),
-            alignment: Alignment.centerRight),
-      ]));
-    });
-
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Subtotal", style: columnTextStyle)),
-      customTableCell(Text(subTotal.toString(), style: dataTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-      customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Total",
-          style: TextStyle(
-              fontSize: 15,
-              color: Util.purplishColor(),
-              fontWeight: FontWeight.bold))),
-      customTableCell(
-          Text(totalAmount.toString(),
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-          alignment: Alignment.centerRight),
-    ]));
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        padding: EdgeInsets.fromLTRB(5, 0, 10, 20),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-          border: Border(
-            left: BorderSide(color: Colors.grey, width: 0.7),
-            top: BorderSide(color: Colors.grey, width: 0.7),
-            right: BorderSide(color: Colors.grey, width: 0.7),
-            bottom: BorderSide(color: Colors.grey, width: 0.7),
-          ),
-        ),
-        child: Table(
-          columnWidths: {
-            0: FlexColumnWidth(0.1),
-            1: FlexColumnWidth(0.29),
-            2: FlexColumnWidth(0.2),
-            3: FlexColumnWidth(0.3),
-            4: FlexColumnWidth(0.2),
-          },
-          children: children,
-        ),
-      ),
-    );
-  }
-
-  TableCell customTableCell(Widget singleWidget,
-      {AlignmentGeometry alignment}) {
-    return TableCell(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),
-          Container(
-            alignment: alignment ?? Alignment.center,
-            child: singleWidget,
-          )
-        ],
-      ),
-    );
-  }
-
-  void removeItem(dynamic invoiceItem) {
-    widget.order.invoice.invoiceItemList.remove(invoiceItem);
-    calculatePricing();
+  void removeItem(dynamic singleItem) {
+    widget.order.invoice.invoiceItemList.remove(singleItem);
   }
 
   void incrementItemQuantity(InvoiceItem invoiceItem) {
@@ -347,7 +194,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         break;
       }
     }
-    calculatePricing();
   }
 
   void decrementItemQuantity(InvoiceItem invoiceItem) {
@@ -362,7 +208,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         break;
       }
     }
-    calculatePricing();
   }
 
   void calculatePricing() {
@@ -376,13 +221,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
 
     totalAmount = subTotal + deliveryFee;
     if (mounted) setState(() {});
-  }
-
-  String getPrice(InvoiceItem singleItem) {
-    final unitPrice = double.parse(singleItem.itemUnitPrice);
-    final quantity = double.parse(singleItem.itemQuantity);
-    final price = (unitPrice * quantity).toString();
-    return price;
   }
 
   void refreshUI() {

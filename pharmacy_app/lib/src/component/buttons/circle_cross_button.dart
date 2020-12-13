@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CircleCrossButton extends StatelessWidget {
   final void Function(dynamic objectIdentifier) callBack;
   final Function() refreshUI;
+  final Function() callBackAdditional;
   final dynamic objectIdentifier;
   final double width;
   final double height;
@@ -18,7 +19,7 @@ class CircleCrossButton extends StatelessWidget {
       this.refreshUI,
       this.width,
       this.height,
-      this.iconSize})
+      this.iconSize, this.callBackAdditional})
       : super(key: key);
 
   @override
@@ -38,6 +39,7 @@ class CircleCrossButton extends StatelessWidget {
               )),
           onTap: () {
             callBack(objectIdentifier);
+            if(callBackAdditional != null) callBackAdditional();
             refreshUI();
           },
         ),

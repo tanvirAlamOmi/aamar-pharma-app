@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
@@ -9,38 +10,44 @@ import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class OrderStaticInvoiceTableCard extends StatefulWidget {
+class OrderInvoiceTableCard extends StatelessWidget {
   final Order order;
+  final double subTotal;
+  final double deliveryFee;
+  final double totalAmount;
+  final bool dynamicTable;
+  final Function(InvoiceItem singleItem) callBackIncrementItemQuantity;
+  final Function(InvoiceItem singleItem) callBackDecrementItemQuantity;
+  final Function(InvoiceItem singleItem) callBackRemoveItem;
+  final Function() callBackCalculatePricing;
+  final Function() callBackRefreshUI;
 
-  OrderStaticInvoiceTableCard({this.order, Key key}) : super(key: key);
-
-  @override
-  _OrderStaticInvoiceTableCardState createState() =>
-      _OrderStaticInvoiceTableCardState();
-}
-
-class _OrderStaticInvoiceTableCardState
-    extends State<OrderStaticInvoiceTableCard> {
-  bool isProcessing = false;
-  double subTotal = 0;
-  double deliveryFee = 20;
-  double totalAmount = 0;
+  final TextStyle columnTextStyle = new TextStyle(
+      fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
-  @override
-  void initState() {
-    super.initState();
-    calculatePricing();
-  }
+  final TextStyle dataTextStyle = new TextStyle(
+      fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
+
+  OrderInvoiceTableCard(
+      {Key key,
+      this.order,
+      this.subTotal,
+      this.deliveryFee,
+      this.totalAmount,
+      this.dynamicTable,
+      this.callBackIncrementItemQuantity,
+      this.callBackDecrementItemQuantity,
+      this.callBackCalculatePricing,
+      this.callBackRefreshUI,
+      this.callBackRemoveItem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
         width: double.infinity,
@@ -62,13 +69,9 @@ class _OrderStaticInvoiceTableCardState
 
   Widget buildInvoice() {
     final children = List<TableRow>();
-    final TextStyle columnTextStyle = new TextStyle(
-        fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
-
-    final TextStyle dataTextStyle = new TextStyle(
-        fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
 
     children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Item", style: columnTextStyle),
           alignment: Alignment.centerLeft),
       customTableCell(Text("Unit Cost", style: columnTextStyle)),
@@ -77,18 +80,13 @@ class _OrderStaticInvoiceTableCardState
           alignment: Alignment.centerRight),
     ]));
 
-    widget.order.invoice.invoiceItemList.forEach((singleItem) {
+    order.invoice.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
+        customTableCell(buildFirstColumn(singleItem)),
         customTableCell(Text(singleItem.itemName, style: dataTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
-        customTableCell(Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Container(
-              alignment: Alignment.center,
-              width: 25,
-              child: Text(singleItem.itemQuantity, style: dataTextStyle)),
-        )),
+        customTableCell(buildThirdColumn(singleItem)),
         customTableCell(Text(getPrice(singleItem), style: textStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -99,23 +97,26 @@ class _OrderStaticInvoiceTableCardState
       customTableCell(Divider(height: 2, thickness: 2)),
       customTableCell(Divider(height: 2, thickness: 2)),
       customTableCell(Divider(height: 2, thickness: 2)),
+      customTableCell(Divider(height: 2, thickness: 2)),
     ]));
 
     children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("", style: columnTextStyle),
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Subtotal", style: columnTextStyle)),
-      customTableCell(Text(subTotal.toString(), style: columnTextStyle),
+      customTableCell(Text(subTotal.toString(), style: dataTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
     children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("", style: columnTextStyle),
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-      customTableCell(Text(deliveryFee.toString(), style: columnTextStyle),
+      customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
@@ -124,23 +125,23 @@ class _OrderStaticInvoiceTableCardState
       customTableCell(Divider(height: 2, thickness: 2)),
       customTableCell(Divider(height: 2, thickness: 2)),
       customTableCell(Divider(height: 2, thickness: 2)),
+      customTableCell(Divider(height: 2, thickness: 2)),
     ]));
 
     children.add(TableRow(children: [
+      customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("", style: columnTextStyle),
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Total",
           style: TextStyle(
-              color: Util.purplishColor(),
               fontSize: 15,
+              color: Util.purplishColor(),
               fontWeight: FontWeight.bold))),
       customTableCell(
           Text(totalAmount.toString(),
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold)),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           alignment: Alignment.centerRight),
     ]));
 
@@ -161,10 +162,11 @@ class _OrderStaticInvoiceTableCardState
         ),
         child: Table(
           columnWidths: {
-            0: FlexColumnWidth(0.3),
-            1: FlexColumnWidth(0.2),
-            2: FlexColumnWidth(0.3),
-            3: FlexColumnWidth(0.2),
+            0: FlexColumnWidth(dynamicTable ? 0.1 : 0.05),
+            1: FlexColumnWidth(dynamicTable ? 0.2 : 0.25),
+            2: FlexColumnWidth(0.2),
+            3: FlexColumnWidth(0.3),
+            4: FlexColumnWidth(0.2),
           },
           children: children,
         ),
@@ -189,23 +191,70 @@ class _OrderStaticInvoiceTableCardState
     );
   }
 
+  Widget buildFirstColumn(InvoiceItem singleItem) {
+    if (dynamicTable == false) return Text("");
+    return CircleCrossButton(
+      callBack: callBackRemoveItem,
+      objectIdentifier: singleItem,
+      refreshUI: callBackRefreshUI,
+      callBackAdditional: callBackCalculatePricing,
+      width: 15,
+      height: 15,
+      iconSize: 10,
+    );
+  }
+
+  Widget buildThirdColumn(InvoiceItem singleItem) {
+    if (dynamicTable == false)
+      return Container(
+          alignment: Alignment.center,
+          width: 25,
+          child: Text(singleItem.itemQuantity, style: dataTextStyle));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: () {
+              callBackDecrementItemQuantity(singleItem);
+              callBackCalculatePricing();
+            },
+            child: Container(
+                width: 15,
+                height: 15,
+                child: Icon(Icons.remove, color: Colors.black, size: 10),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.redAccent))),
+          ),
+          Container(
+              alignment: Alignment.center,
+              width: 25,
+              child: Text(singleItem.itemQuantity, style: dataTextStyle)),
+          GestureDetector(
+            onTap: () {
+              callBackIncrementItemQuantity(singleItem);
+              callBackCalculatePricing();
+            },
+            child: Container(
+                width: 15,
+                height: 15,
+                child: Icon(Icons.add, color: Colors.black, size: 10),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.redAccent))),
+          ),
+        ],
+      ),
+    );
+  }
+
   String getPrice(InvoiceItem singleItem) {
     final unitPrice = double.parse(singleItem.itemUnitPrice);
     final quantity = double.parse(singleItem.itemQuantity);
     final price = (unitPrice * quantity).toString();
     return price;
-  }
-
-  void calculatePricing() {
-    subTotal = 0;
-    totalAmount = 0;
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
-      final unitPrice = double.parse(singleItem.itemUnitPrice);
-      final quantity = double.parse(singleItem.itemQuantity);
-      subTotal = subTotal + (unitPrice * quantity);
-    }
-
-    totalAmount = subTotal + deliveryFee;
-    if (mounted) setState(() {});
   }
 }

@@ -204,6 +204,11 @@ class Util {
         });
   }
 
+  static void removeFocusNode(BuildContext context){
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+  }
+
   static void prettyPrintJson(String input) {
     const JsonDecoder decoder = JsonDecoder();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');

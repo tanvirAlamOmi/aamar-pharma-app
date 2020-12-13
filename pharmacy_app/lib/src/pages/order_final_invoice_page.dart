@@ -10,7 +10,7 @@ import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
-import 'package:pharmacy_app/src/component/cards/order_static_invoice_table_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -41,6 +41,10 @@ class OrderFinalInvoicePage extends StatefulWidget {
 class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
+
+  double subTotal = 0;
+  double deliveryFee = 0;
+  double totalAmount = 0;
 
   List<String> deliveryTimeDay = ["Today", "Tomorrow"];
   String selectedDeliveryTimeDay;
@@ -79,6 +83,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void initState() {
     super.initState();
     setSelectionData();
+    calculatePricing();
   }
 
   @override
@@ -138,8 +143,12 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             buildDivider(),
             buildViewOrderDetailsButton(),
             SizedBox(height: 20),
-            OrderStaticInvoiceTableCard(
+            OrderInvoiceTableCard(
+              subTotal: subTotal,
+              deliveryFee: deliveryFee,
+              totalAmount: totalAmount,
               order: widget.order,
+              dynamicTable: false,
             ),
             OrderDeliveryAddressCard(
               callBackRefreshUI: refreshUI,
@@ -178,6 +187,19 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
         ),
       ),
     );
+  }
+
+  void calculatePricing() {
+    subTotal = 0;
+    deliveryFee = 20;
+    totalAmount = 0;
+    for (final singleItem in widget.order.invoice.invoiceItemList) {
+      final unitPrice = double.parse(singleItem.itemUnitPrice);
+      final quantity = double.parse(singleItem.itemQuantity);
+      subTotal = subTotal + (unitPrice * quantity);
+    }
+
+    totalAmount = subTotal + deliveryFee;
   }
 
   Widget buildReOrderButton() {
