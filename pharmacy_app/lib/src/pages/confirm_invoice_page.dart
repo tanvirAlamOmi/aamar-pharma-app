@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -90,7 +91,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
 
   Widget buildViewOrderDetailsButton() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+      padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       color: Colors.transparent,
       width: double.infinity,
       child: Material(
@@ -149,19 +150,14 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
 
     widget.order.invoice.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
-        customTableCell(
-            CircleCrossButton()
-          // GestureDetector(
-          //   onTap: () => removeItem(singleItem),
-          //   child: Container(
-          //       width: 13,
-          //       height: 13,
-          //       child: Icon(Icons.clear, color: Colors.black, size: 8),
-          //       decoration: BoxDecoration(
-          //           shape: BoxShape.circle,
-          //           border: Border.all(color: Colors.blueAccent))),
-          // ),
-        ),
+        customTableCell(CircleCrossButton(
+          callBack: removeItem,
+          objectIdentifier: singleItem,
+          refreshUI: refreshUI,
+          width: 15,
+          height: 15,
+          iconSize: 10,
+        )),
         customTableCell(Text(singleItem.itemName, style: dataTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
@@ -349,5 +345,3 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     if (mounted) setState(() {});
   }
 }
-
-enum CHOICE_ENUM { DELIVERY_DAY, DELIVERY_TIME }

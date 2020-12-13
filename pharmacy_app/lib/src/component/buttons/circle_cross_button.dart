@@ -4,11 +4,21 @@ class CircleCrossButton extends StatelessWidget {
   final void Function(dynamic objectIdentifier) callBack;
   final Function() refreshUI;
   final dynamic objectIdentifier;
+  final double width;
+  final double height;
+  final double iconSize;
 
   final Color color;
 
   CircleCrossButton(
-      {this.callBack, this.color, Key key, this.objectIdentifier, this.refreshUI})
+      {this.callBack,
+      this.color,
+      Key key,
+      this.objectIdentifier,
+      this.refreshUI,
+      this.width,
+      this.height,
+      this.iconSize})
       : super(key: key);
 
   @override
@@ -19,11 +29,11 @@ class CircleCrossButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.red, // inkwell color
           child: SizedBox(
-              width: 20,
-              height: 20,
+              width: width ?? 20,
+              height: height ?? 20,
               child: Icon(
                 Icons.clear,
-                size: 10,
+                size: iconSize ?? 10,
                 color: Colors.white,
               )),
           onTap: () {
