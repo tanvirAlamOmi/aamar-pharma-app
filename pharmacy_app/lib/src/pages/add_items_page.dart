@@ -261,7 +261,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleCrossButton(
-            callBack: removeItemFromList,
+            callBackDeleteItem: removeItemFromList,
             refreshUI: refreshUI,
             objectIdentifier: singleItem,
           ),
@@ -281,7 +281,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
       title: "SUBMIT",
       height: 40,
       isProcessing: false,
-      callBack: proceedToConfirmOrderPage,
+      callBackOnSubmit: proceedToConfirmOrderPage,
     );
   }
 

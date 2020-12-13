@@ -83,8 +83,8 @@ class AllAddressCard extends StatelessWidget {
                       children: [
                         CircleCrossButton(
                           refreshUI: callBackRefreshUI,
-                          callBack: removeItemFromList,
-                          objectIdentifier: selectedDeliveryAddressIndex,
+                          callBackDeleteItem: removeItemFromList,
+                          objectIdentifier: singleDeliveryAddress,
                         ),
                         SizedBox(height: 2),
                         Text(
@@ -107,9 +107,8 @@ class AllAddressCard extends StatelessWidget {
     }).toList());
   }
 
-  void removeItemFromList(dynamic item) {
-    Store.instance.deleteDeliveryAddress(
-        Store.instance.appState.allDeliveryAddress[int.parse(item)]);
+  void removeItemFromList(dynamic singleDeliveryAddress) {
+    Store.instance.deleteDeliveryAddress(singleDeliveryAddress);
   }
 
   Color getSelectedColor(DeliveryAddressDetails deliveryAddressDetails) {

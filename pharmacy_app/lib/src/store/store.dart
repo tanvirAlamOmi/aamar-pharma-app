@@ -44,14 +44,7 @@ class Store {
     _appState = new AppState();
   }
 
-  setPhoneNumber(String phoneNumber) {
-    appState.user.userType = phoneNumber;
-    putAppData();
-  }
 
-  getPhoneNumber() {
-    return appState.user.userType;
-  }
 
   setEmail(String email) async {
     appState.user.name = email;

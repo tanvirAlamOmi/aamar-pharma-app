@@ -43,8 +43,6 @@ class ConfirmOrderPage extends StatefulWidget {
 class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
-  PickedFile pickedImageFile;
-  int currentIndex = 0;
 
   List<String> deliveryTimeDay = ["Today", "Tomorrow"];
   String selectedDeliveryTimeDay;
@@ -161,7 +159,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             GeneralActionRoundButton(
               title: "SUBMIT",
               isProcessing: false,
-              callBack: submitOrder,
+              callBackOnSubmit: submitOrder,
             ),
             SizedBox(height: 20)
           ],

@@ -194,7 +194,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   Widget buildFirstColumn(InvoiceItem singleItem) {
     if (dynamicTable == false) return Text("");
     return CircleCrossButton(
-      callBack: callBackRemoveItem,
+      callBackDeleteItem: callBackRemoveItem,
       objectIdentifier: singleItem,
       refreshUI: callBackRefreshUI,
       callBackAdditional: callBackCalculatePricing,

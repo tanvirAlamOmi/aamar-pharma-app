@@ -5,7 +5,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 
 class GeneralActionRoundButton extends StatelessWidget {
   final bool isProcessing;
-  final void Function() callBack;
+  final void Function() callBackOnSubmit;
   final String title;
   final EdgeInsetsGeometry padding;
   final double height;
@@ -13,7 +13,7 @@ class GeneralActionRoundButton extends StatelessWidget {
 
   GeneralActionRoundButton(
       {this.isProcessing,
-      this.callBack,
+      this.callBackOnSubmit,
       this.height,
       this.title,
       this.color,
@@ -30,7 +30,7 @@ class GeneralActionRoundButton extends StatelessWidget {
         height: height ?? 40,
         shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
         minWidth: double.infinity,
-        onPressed: () => (isProcessing == false) ? callBack() : () {},
+        onPressed: () => (isProcessing == false) ? callBackOnSubmit() : () {},
         child: Text(
           title,
           style: TextStyle(color: Colors.white),

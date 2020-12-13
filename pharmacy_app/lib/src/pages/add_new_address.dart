@@ -77,7 +77,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               height: 40,
               padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
               isProcessing: false,
-              callBack: submitData,
+              callBackOnSubmit: submitData,
             )
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CircleCrossButton extends StatelessWidget {
-  final void Function(dynamic objectIdentifier) callBack;
+  final void Function(dynamic objectIdentifier) callBackDeleteItem;
   final Function() refreshUI;
   final Function() callBackAdditional;
   final dynamic objectIdentifier;
@@ -12,7 +12,7 @@ class CircleCrossButton extends StatelessWidget {
   final Color color;
 
   CircleCrossButton(
-      {this.callBack,
+      {this.callBackDeleteItem,
       this.color,
       Key key,
       this.objectIdentifier,
@@ -38,7 +38,7 @@ class CircleCrossButton extends StatelessWidget {
                 color: Colors.white,
               )),
           onTap: () {
-            callBack(objectIdentifier);
+            callBackDeleteItem(objectIdentifier);
             if(callBackAdditional != null) callBackAdditional();
             refreshUI();
           },

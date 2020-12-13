@@ -208,7 +208,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     return GeneralActionRoundButton(
       title: "REORDER",
       isProcessing: isProcessing,
-      callBack: () {},
+      callBackOnSubmit: () {},
     );
   }
 

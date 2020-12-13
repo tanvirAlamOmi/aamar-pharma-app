@@ -110,7 +110,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleCrossButton(
-            callBack: widget.removeItemFunction,
+            callBackDeleteItem: widget.removeItemFunction,
             refreshUI: widget.refreshUI,
             objectIdentifier: currentIndex,
           ),

@@ -1,22 +1,25 @@
 class User {
   String id;
   String name;
-  String userType;
+  String email;
+  String phone;
   String token;
 
-  User({this.id, this.name, this.userType, this.token});
+  User({this.id, this.name, this.email, this.phone, this.token});
 
   User.blank()
-      : id = "NONE",
-        name = "USER",
-        userType = "super_admin",
+      : id = "0",
+        name = "GUEST",
+        email = "N/A",
+        phone = "N/A",
         token = "NONE";
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(
       id: jsonData['id'],
       name: jsonData['name'],
-      userType: jsonData['user_type'],
+      email: jsonData['email'],
+      phone: jsonData['phone'],
       token: jsonData['token'],
     );
   }
@@ -25,7 +28,8 @@ class User {
     final data = Map<String, dynamic>();
     data['id'] = id;
     data['name'] = name;
-    data['user_type'] = userType;
+    data['email'] = email;
+    data['phone'] = phone;
     data['token'] = token;
     return data;
   }
