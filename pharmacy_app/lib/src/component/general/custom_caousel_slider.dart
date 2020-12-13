@@ -4,6 +4,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class CustomCarouselSlider extends StatefulWidget {
   final List<Widget> carouselListWidget;
@@ -53,7 +54,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           width: 30,
           height: 30,
           child: IconButton(
-              icon: Icon(Icons.chevron_left),
+              icon: Icon(Icons.chevron_left,color: Util.greenishColor(),),
               padding: EdgeInsets.only(left: 3),
               iconSize: 25,
               splashRadius: 15,
@@ -85,7 +86,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           width: 30,
           height: 30,
           child: IconButton(
-              icon: Icon(Icons.chevron_right),
+              icon: Icon(Icons.chevron_right,color: Util.greenishColor(),),
               padding: EdgeInsets.only(right: 10),
               iconSize: 25,
               splashRadius: 15,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -82,9 +83,41 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             buildWarningTitle(),
             SizedBox(height: 20),
             buildInvoice(),
-            SizedBox(height: 20)
+            SizedBox(height: 20),
+            buildCashWarningTitle(),
+            SizedBox(height: 20),
+            GeneralActionRoundButton(
+              title: "CONFIRM ORDER",
+              isProcessing: false,
+            )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildCashWarningTitle() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: Text(
+              "We only accept cash on delivery.",
+              style: TextStyle(
+                  color: Util.greenishColor(), fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+          ),
+          Container(
+            child: Text(
+              "Please keep cash ready upon delivery.",
+              style: TextStyle(
+                  color: Util.greenishColor(), fontWeight: FontWeight.bold, fontSize: 12),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -110,7 +143,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             );
           },
           title: Text("View OrderDetails",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Util.greenishColor(),
+                  fontSize: 12)),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),
@@ -124,7 +160,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         child: Text(
           "Before confirming order, please check invoice, edit quantity or remove items.",
           style: TextStyle(
-              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12),
+              color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
         ),
       ),
     );
@@ -133,7 +169,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   Widget buildInvoice() {
     final children = List<TableRow>();
     final TextStyle columnTextStyle = new TextStyle(
-        fontSize: 12, color: Colors.black, fontWeight: FontWeight.bold);
+        fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
 
     final TextStyle dataTextStyle = new TextStyle(
         fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
@@ -175,7 +211,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                     child: Icon(Icons.remove, color: Colors.black, size: 10),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.blueAccent))),
+                        border: Border.all(color: Colors.redAccent))),
               ),
               Container(
                   alignment: Alignment.center,
@@ -189,7 +225,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                     child: Icon(Icons.add, color: Colors.black, size: 10),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.blueAccent))),
+                        border: Border.all(color: Colors.redAccent))),
               ),
             ],
           ),
@@ -213,7 +249,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Subtotal", style: columnTextStyle)),
-      customTableCell(Text(subTotal.toString(), style: columnTextStyle),
+      customTableCell(Text(subTotal.toString(), style: dataTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
@@ -223,7 +259,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
       customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-      customTableCell(Text(deliveryFee.toString(), style: columnTextStyle),
+      customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
@@ -240,8 +276,15 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       customTableCell(Text("", style: columnTextStyle),
           alignment: Alignment.centerLeft),
       customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Total", style: columnTextStyle)),
-      customTableCell(Text(totalAmount.toString(), style: columnTextStyle),
+      customTableCell(Text("Total",
+          style: TextStyle(
+              fontSize: 15,
+              color: Util.purplishColor(),
+              fontWeight: FontWeight.bold))),
+      customTableCell(
+          Text(totalAmount.toString(),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           alignment: Alignment.centerRight),
     ]));
 
@@ -252,11 +295,12 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         width: double.infinity,
         padding: EdgeInsets.fromLTRB(5, 0, 10, 20),
         decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           border: Border(
-            left: BorderSide(color: Colors.grey, width: 1.0),
-            top: BorderSide(color: Colors.grey, width: 1.0),
-            right: BorderSide(color: Colors.grey, width: 1.0),
-            bottom: BorderSide(color: Colors.grey, width: 1.0),
+            left: BorderSide(color: Colors.grey, width: 0.7),
+            top: BorderSide(color: Colors.grey, width: 0.7),
+            right: BorderSide(color: Colors.grey, width: 0.7),
+            bottom: BorderSide(color: Colors.grey, width: 0.7),
           ),
         ),
         child: Table(

@@ -99,8 +99,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
         child: CachedNetworkImage(
           imageUrl: singleImageUrl,
-          placeholder: (context, url) =>
-          new CircularProgressIndicator(
+          placeholder: (context, url) => new CircularProgressIndicator(
             backgroundColor: Colors.white,
           ),
           errorWidget: (context, url, error) => new Icon(Icons.error),
@@ -111,79 +110,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       );
     }).toList();
 
-    return
-      CustomCarouselSlider(
-        carouselListWidget: children,
-        showRemoveImageButton: false,
-        height: 110,
-        autoPlay: true,
-
-      );
-    final scrollQuantity = 270;
-    final size = MediaQuery.of(context).size;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-            icon: Icon(Icons.chevron_left),
-            onPressed: () {
-              if (currentScrollIndex <= 0) {
-                currentScrollIndex = 0;
-                return;
-              }
-
-              currentScrollIndex = currentScrollIndex - scrollQuantity;
-              scrollController.animateTo(currentScrollIndex,
-                  duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-            }),
-        Container(
-          alignment: Alignment.center,
-          width: 250,
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(color: Colors.black, width: 2.0),
-              top: BorderSide(color: Colors.black, width: 2.0),
-              right: BorderSide(color: Colors.black, width: 2.0),
-              bottom: BorderSide(color: Colors.black, width: 2.0),
-            ),
-          ),
-          child: SingleChildScrollView(
-            controller: scrollController,
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: order.imageList.map((singleImageUrl) {
-                return Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                  child: CachedNetworkImage(
-                    imageUrl: singleImageUrl,
-                    placeholder: (context, url) =>
-                        new CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
-                    fit: BoxFit.contain,
-                    width: 250,
-                    height: 300,
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-        IconButton(
-            icon: Icon(Icons.chevron_right),
-            onPressed: () {
-              if (currentScrollIndex >= order.imageList.length * 270) return;
-
-              currentScrollIndex = currentScrollIndex + scrollQuantity;
-              scrollController.animateTo(currentScrollIndex,
-                  duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-            }),
-      ],
+    return CustomCarouselSlider(
+      carouselListWidget: children,
+      showRemoveImageButton: false,
+      height: 110,
+      autoPlay: false,
+      refreshUI: refreshUI,
     );
   }
 
@@ -191,9 +123,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     if (order.orderType != ClientEnum.ORDER_TYPE_LIST_ITEMS) return Container();
     final children = List<Widget>();
 
+    children.add(Container(alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
+      child: Text("ADDED ITEMS",style: TextStyle(
+          color: Util.greenishColor(), fontWeight: FontWeight.bold),),
+    ));
+
     order.itemList.forEach((singleItem) {
       children.add(Container(
-        padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+        padding: const EdgeInsets.fromLTRB(25, 7, 25, 7),
         color: Colors.transparent,
         width: double.infinity,
         child: Material(
@@ -216,19 +154,27 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Widget buildDeliveryAddressDetails() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
+      padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("DELIVER ADDRESS"),
+          Text(
+            "DELIVERY ADDRESS",
+            style: TextStyle(
+                color: Util.greenishColor(), fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 10),
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Area"),
+                Text(
+                  "Area",
+                  style: TextStyle(
+                      color: Util.purplishColor(), fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 3),
                 SizedBox(
                   height: 35, // set this
@@ -240,7 +186,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     decoration: new InputDecoration(
                       isDense: true,
                       hintStyle: TextStyle(fontSize: 13),
-                      fillColor: Colors.white,
+                      fillColor: Colors.grey,
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                     ),
@@ -255,7 +201,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Address"),
+                Text("Address",
+                    style: TextStyle(
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold)),
                 SizedBox(height: 3),
                 SizedBox(
                   height: 35, // set this
@@ -283,7 +232,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Widget buildPersonalDetails() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32, 7, 32, 7),
+      padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
       child: Column(
         children: [
           Container(
@@ -291,9 +240,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("PERSONAL DETAILS"),
+                Text("PERSONAL DETAILS",                  style: TextStyle(
+                    color: Util.greenishColor(), fontWeight: FontWeight.bold)),
                 SizedBox(height: 20),
-                Text("Name"),
+                Text("Name",                  style: TextStyle(
+                    color: Util.purplishColor(), fontWeight: FontWeight.bold)),
                 SizedBox(height: 3),
                 SizedBox(
                   height: 35, // set this
@@ -324,7 +275,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Email"),
+                      Text("Email",                  style: TextStyle(
+                          color: Util.purplishColor(), fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
@@ -354,7 +306,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Phone Number"),
+                      Text("Phone Number",                  style: TextStyle(
+                          color: Util.purplishColor(), fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
@@ -383,7 +336,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       ),
     );
   }
-
 
   void refreshUI() {
     if (mounted) setState(() {});
