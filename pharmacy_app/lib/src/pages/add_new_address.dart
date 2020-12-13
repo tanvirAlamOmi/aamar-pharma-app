@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -71,11 +72,10 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             buildAddressTypeTextField(),
             buildAreaSelectionDropDown(),
             buildFullAddressTextField(),
-            GeneralActionButton(
+            GeneralActionRoundButton(
               title: "SUBMIT",
-              height: 30,
+              height: 40,
               padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
-              color: Colors.black,
               isProcessing: false,
               callBack: submitData,
             )
@@ -92,7 +92,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Address Type", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("Address Type",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -120,7 +122,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Address", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("Address",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -148,7 +152,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text("Select Area", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("Select Area",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
           SizedBox(height: 1),
           Container(
             decoration: BoxDecoration(
