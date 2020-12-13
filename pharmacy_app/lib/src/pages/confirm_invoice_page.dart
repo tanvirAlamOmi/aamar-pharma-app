@@ -150,16 +150,17 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     widget.order.invoice.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
         customTableCell(
-          GestureDetector(
-            onTap: () => removeItem(singleItem),
-            child: Container(
-                width: 13,
-                height: 13,
-                child: Icon(Icons.clear, color: Colors.black, size: 8),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.blueAccent))),
-          ),
+            CircleCrossButton()
+          // GestureDetector(
+          //   onTap: () => removeItem(singleItem),
+          //   child: Container(
+          //       width: 13,
+          //       height: 13,
+          //       child: Icon(Icons.clear, color: Colors.black, size: 8),
+          //       decoration: BoxDecoration(
+          //           shape: BoxShape.circle,
+          //           border: Border.all(color: Colors.blueAccent))),
+          // ),
         ),
         customTableCell(Text(singleItem.itemName, style: dataTextStyle),
             alignment: Alignment.centerLeft),

@@ -78,8 +78,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController phoneController = new TextEditingController();
 
-
-
   @override
   void initState() {
     super.initState();
@@ -153,7 +151,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             AddDeliveryAddressButton(callBack: refreshUI),
             AllAddressCard(
                 selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
-                setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,
+                setSelectedDeliveryAddressIndex:
+                    setSelectedDeliveryAddressIndex,
                 callBackRefreshUI: refreshUI),
             PersonalDetailsCard(
                 nameController: nameController,
@@ -192,7 +191,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     selectedRepeatDeliveryTime = value;
   }
 
-  void setSelectedDeliveryAddressIndex(int index){
+  void setSelectedDeliveryAddressIndex(int index) {
     selectedDeliveryAddressIndex = index;
   }
 
