@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/pages/notification_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NotificationActionButton extends StatefulWidget {
@@ -79,5 +80,11 @@ class _CartActionButton extends State<NotificationActionButton> {
     );
   }
 
-  void handleCartAction(BuildContext context) {}
+  void handleCartAction(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => NotificationPage()),
+    );
+  }
 }

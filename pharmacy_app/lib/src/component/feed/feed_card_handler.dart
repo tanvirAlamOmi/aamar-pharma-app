@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/cards/notification_card.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
@@ -24,6 +25,9 @@ class FeedCardHandler extends StatelessWidget {
   Widget build(BuildContext context) {
     if (feedItem.viewCardType == ClientEnum.FEED_ITEM_ORDER_CARD) {
       return OrderCard(order: feedItem.order, key: GlobalKey());
+    }
+    if (feedItem.viewCardType == ClientEnum.FEED_ITEM_NOTIFICATION_CARD) {
+      return NotificationCard(notificationItem: feedItem.notificationItem, key: GlobalKey());
     }
 
     return Container();

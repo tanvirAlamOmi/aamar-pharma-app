@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/feed/feed_request.dart';
 import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -61,75 +62,35 @@ class QueryRepo {
   }
 
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
-    return Tuple2(
-        FeedResponse(status: true, feedItems: [
-          FeedItem(
-            viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-            order: Order(
-                id: "1026",
-                imageList: [
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL()
-                ],
-                invoice: Invoice(invoiceItemList: [
-                  InvoiceItem()
-                    ..itemName = "Napa"
-                    ..itemQuantity = "10"
-                    ..itemUnitPrice = "2",
-                  InvoiceItem()
-                    ..itemName = "Histasin"
-                    ..itemQuantity = "3"
-                    ..itemUnitPrice = "5",
-                  InvoiceItem()
-                    ..itemName = "Seclo 40"
-                    ..itemQuantity = "5"
-                    ..itemUnitPrice = "25",
-                ]),
-                orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
-                orderStatus: ClientEnum
-                    .ORDER_STATUS_DELIVERED,
-                deliveryAddressDetails: DeliveryAddressDetails(
-                    addressType: "HOME",
-                    areaName: "MIRPUR",
-                    fullAddress: "47/A Kashi Building"),
-                userDetails: UserDetails(
-                    name: "ABC",
-                    phoneNumber: "+8801528 285415",
-                    email: "abc@gmail.com")),
-          ),
-          FeedItem(
-            viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-            order: Order(
-                id: "1023",
-                imageList: [
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL(),
-                  Util.getStaticImageURL()
-                ],
-                orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
-                orderStatus: ClientEnum
-                    .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-                deliveryAddressDetails: DeliveryAddressDetails(
-                    addressType: "HOME",
-                    areaName: "MIRPUR",
-                    fullAddress: "47/A Kashi Building"),
-                userDetails: UserDetails(
-                    name: "ABC",
-                    phoneNumber: "+8801528 285415",
-                    email: "abc@gmail.com")),
-          ),
-          FeedItem(
+    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
+      return Tuple2(
+          FeedResponse(status: true, feedItems: [
+            FeedItem(
+                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                notificationItem: NotificationItem(
+                    title: "Order Confirmation",
+                    message: "Your Order has been confirmed")),
+            FeedItem(
+                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                notificationItem: NotificationItem(
+                    title: "Order Processing",
+                    message:
+                        "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
+          ]),
+          ClientEnum.RESPONSE_SUCCESS);
+
+    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
+      return Tuple2(
+          FeedResponse(status: true, feedItems: [
+            FeedItem(
               viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
               order: Order(
-                  id: "1024",
-                  itemList: [
-                    OrderManualItem(
-                        itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
-                    OrderManualItem(
-                        itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
+                  id: "1026",
+                  imageList: [
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL()
                   ],
                   invoice: Invoice(invoiceItemList: [
                     InvoiceItem()
@@ -145,19 +106,76 @@ class QueryRepo {
                       ..itemQuantity = "5"
                       ..itemUnitPrice = "25",
                   ]),
-                  orderType: ClientEnum.ORDER_TYPE_LIST_ITEMS,
-                  orderStatus: ClientEnum
-                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
+                  orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
+                  orderStatus: ClientEnum.ORDER_STATUS_DELIVERED,
                   deliveryAddressDetails: DeliveryAddressDetails(
-                      addressType: "OFFICE",
+                      addressType: "HOME",
                       areaName: "MIRPUR",
-                      fullAddress: "48/A Kashi Building"),
+                      fullAddress: "47/A Kashi Building"),
                   userDetails: UserDetails(
-                      name: "XYZ",
-                      phoneNumber: "+88013 4541228 ",
-                      email: "xyhz@gmail.com")))
-        ]),
-        ClientEnum.RESPONSE_SUCCESS);
+                      name: "ABC",
+                      phoneNumber: "+8801528 285415",
+                      email: "abc@gmail.com")),
+            ),
+            FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: "1023",
+                  imageList: [
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL(),
+                    Util.getStaticImageURL()
+                  ],
+                  orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
+                  orderStatus: ClientEnum
+                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
+                  deliveryAddressDetails: DeliveryAddressDetails(
+                      addressType: "HOME",
+                      areaName: "MIRPUR",
+                      fullAddress: "47/A Kashi Building"),
+                  userDetails: UserDetails(
+                      name: "ABC",
+                      phoneNumber: "+8801528 285415",
+                      email: "abc@gmail.com")),
+            ),
+            FeedItem(
+                viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+                order: Order(
+                    id: "1024",
+                    itemList: [
+                      OrderManualItem(
+                          itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
+                      OrderManualItem(
+                          itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
+                    ],
+                    invoice: Invoice(invoiceItemList: [
+                      InvoiceItem()
+                        ..itemName = "Napa"
+                        ..itemQuantity = "10"
+                        ..itemUnitPrice = "2",
+                      InvoiceItem()
+                        ..itemName = "Histasin"
+                        ..itemQuantity = "3"
+                        ..itemUnitPrice = "5",
+                      InvoiceItem()
+                        ..itemName = "Seclo 40"
+                        ..itemQuantity = "5"
+                        ..itemUnitPrice = "25",
+                    ]),
+                    orderType: ClientEnum.ORDER_TYPE_LIST_ITEMS,
+                    orderStatus: ClientEnum
+                        .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
+                    deliveryAddressDetails: DeliveryAddressDetails(
+                        addressType: "OFFICE",
+                        areaName: "MIRPUR",
+                        fullAddress: "48/A Kashi Building"),
+                    userDetails: UserDetails(
+                        name: "XYZ",
+                        phoneNumber: "+88013 4541228 ",
+                        email: "xyhz@gmail.com")))
+          ]),
+          ClientEnum.RESPONSE_SUCCESS);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
       return getFeedData(feedRequest);
     } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {

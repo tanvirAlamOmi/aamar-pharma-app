@@ -1,9 +1,11 @@
+import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 
 class FeedItem {
   String viewCardType;
   Order order;
-  FeedItem({this.order,this.viewCardType});
+  NotificationItem notificationItem;
+  FeedItem({this.order,this.viewCardType,this.notificationItem});
 
   factory FeedItem.fromJson(Map<String, dynamic> json) {
     return FeedItem(
