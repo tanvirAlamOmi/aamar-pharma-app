@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -50,6 +51,9 @@ class _HomePageState extends State<HomePage> {
             'HOME',
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            NotificationActionButton()
+          ],
         ),
         body: buildBody(context));
   }
@@ -241,19 +245,13 @@ class _HomePageState extends State<HomePage> {
         );
 
         for (int i = 0; i < resultList.length; i++) {
-          prescriptionImageFileList.add(convertToUIntListFromByTeData(
+          prescriptionImageFileList.add(Util.convertToUIntListFromByTeData(
               await resultList[i].getByteData(quality: 100)));
         }
 
         navigateToUploadPrescriptionPage(prescriptionImageFileList);
       } catch (e) {}
     }
-  }
-
-  Uint8List convertToUIntListFromByTeData(ByteData imageBinaryData) {
-    Uint8List imageData = imageBinaryData.buffer.asUint8List(
-        imageBinaryData.offsetInBytes, imageBinaryData.lengthInBytes);
-    return imageData;
   }
 
   navigateToUploadPrescriptionPage(List<Uint8List> prescriptionImageFileList) {

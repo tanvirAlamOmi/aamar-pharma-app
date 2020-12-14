@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
@@ -42,13 +43,13 @@ class Util {
   }
 
   static Color greenishColor() {
-    String hexColor  = "#1BC0CB";
+    String hexColor = "#1BC0CB";
     final hexCode = hexColor.replaceAll('#', '');
     return Color(int.parse('FF$hexCode', radix: 16));
   }
 
   static Color purplishColor() {
-    String hexColor  = "#473FA8";
+    String hexColor = "#473FA8";
     final hexCode = hexColor.replaceAll('#', '');
     return Color(int.parse('FF$hexCode', radix: 16));
   }
@@ -120,7 +121,8 @@ class Util {
         DateTime.now().millisecondsSinceEpoch.toString();
   }
 
-  static imagePickAlertDialog({BuildContext context, Function(PickedFile) callBack}) {
+  static imagePickAlertDialog(
+      {BuildContext context, Function(PickedFile) callBack}) {
     showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
@@ -204,9 +206,15 @@ class Util {
         });
   }
 
-  static void removeFocusNode(BuildContext context){
+  static void removeFocusNode(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+  }
+
+  static Uint8List convertToUIntListFromByTeData(ByteData imageBinaryData) {
+    Uint8List imageData = imageBinaryData.buffer.asUint8List(
+        imageBinaryData.offsetInBytes, imageBinaryData.lengthInBytes);
+    return imageData;
   }
 
   static void prettyPrintJson(String input) {
