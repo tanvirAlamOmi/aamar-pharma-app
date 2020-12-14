@@ -129,7 +129,6 @@ class LoginPageState extends State<LoginPage> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  //                   <--- left side
                   color: Colors.black,
                   width: 2.0,
                 ),
@@ -159,7 +158,6 @@ class LoginPageState extends State<LoginPage> {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    //                   <--- left side
                     color: Colors.black,
                     width: 2.0,
                   ),
@@ -168,6 +166,7 @@ class LoginPageState extends State<LoginPage> {
               child: TextFormField(
                 autofocus: false,
                 controller: phoneController,
+                enabled: true,
                 keyboardType: TextInputType.phone,
                 style: TextStyle(
                   fontSize: 15.0,
