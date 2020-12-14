@@ -13,6 +13,11 @@ import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/models/user/user_details.dart';
+import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -236,10 +241,39 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void submitOrder() {
-    print(selectedDeliveryAddressIndex);
-    if (Store.instance.appState.allDeliveryAddress.length == 0)
+    if (Store.instance.appState.allDeliveryAddress.length == 0) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
+      return;
+    }
+
+    if (phoneController.text.length != 11) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladshi Number");
+      return;
+    }
+
+    Order order = new Order()
+      ..id = "009"
+      ..orderType = ClientEnum.ORDER_TYPE_LIST_IMAGES
+      ..orderStatus =
+          ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
+      ..deliveryAddressDetails = (new DeliveryAddressDetails()
+        ..fullAddress = fullAddressController.text)
+      ..userDetails = (new UserDetails()
+        ..name = nameController.text
+        ..phoneNumber = phoneController.text
+        ..email = emailController.text);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => VerificationPage(
+                order: order,
+            arrivedFromConfirmOrderPage: true,
+              )),
+    );
   }
 
   void refreshUI() {

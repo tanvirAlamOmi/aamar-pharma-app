@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -20,48 +21,83 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: buildDrawer(context),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 150,
+            child: buildImageLogoWidget(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: buildDrawer(context),
+          )
+        ],
+      ),
     );
   }
 
   Widget buildDrawer(BuildContext context) {
+    if (Store.instance.appState.user.id == null) {
+      return ListView(
+        shrinkWrap: true,
+        children: [
+          ListTile(
+              dense: true,
+              title: Text(
+                'LOGIN',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[700],
+                    fontSize: 15),
+              ),
+              leading: Icon(Icons.login, color: Util.purplishColor()),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              }),
+        ],
+      );
+    }
     return ListView(
       shrinkWrap: true,
       children: <Widget>[
-        Container(
-          width: double.infinity,
-          height: 150,
-          color: Colors.black,
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [SizedBox(height: 15), buildName()],
-          ),
-        ),
-        SizedBox(height: 5),
         ListTile(
+            dense: true,
             title: Text(
               'SPECIAL REQUEST',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
             ),
-            leading: Icon(Icons.ac_unit_sharp, color: Colors.black),
+            leading: Icon(Icons.ac_unit_sharp, color: Util.purplishColor()),
             onTap: () {}),
         ListTile(
+            dense: true,
             title: Text(
               'SPECIAL ORDERS',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
             ),
-            leading: Icon(Icons.add_shopping_cart, color: Colors.black),
+            leading: Icon(Icons.add_shopping_cart, color: Util.purplishColor()),
             onTap: () {}),
         ListTile(
+            dense: true,
             title: Text(
               'LOG OUT',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
             ),
             leading: Icon(
-              Icons.all_out,
-              color: Colors.black,
+              Icons.logout,
+              color: Util.purplishColor(),
             ),
             onTap: () async {
               await AuthRepo.instance.logout();
@@ -84,23 +120,12 @@ class MainDrawer extends StatelessWidget {
     );
   }
 
-  Widget buildImageWidget() {
-    final imageUrl = Util.getStaticImageURL();
-
-    return CircleAvatar(
-      backgroundColor: Colors.black,
-      radius: 30,
-      child: ClipOval(
-          child: Container(
-              child: CachedNetworkImage(
-        imageUrl: imageUrl ?? Util.getStaticImageURL(),
-        placeholder: (context, url) =>
-            new Image.asset('assets/images/avatar.png'),
-        errorWidget: (context, url, error) => new Icon(Icons.error),
-        fit: BoxFit.cover,
-        width: 150,
-        height: 150,
-      ))),
+  Widget buildImageLogoWidget() {
+    return Image.asset(
+      'assets/images/logo_aamarpharma.jpg',
+      width: double.infinity,
+      height: 150,
+      fit: BoxFit.cover,
     );
   }
 }
