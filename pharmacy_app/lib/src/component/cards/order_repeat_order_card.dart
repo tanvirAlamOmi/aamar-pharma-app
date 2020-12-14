@@ -53,26 +53,43 @@ class OrderRepeatOrderCard extends StatelessWidget {
         elevation: 0,
         clipBehavior: Clip.antiAlias,
         // Add This
-        child: buildBody(),
+        child: buildBody(context),
       ),
     );
   }
 
-  Widget buildBody() {
-    if (checkedRepeatOrder == false) return buildRepeatOrder();
-    return buildRepeatOrderWithDropDown();
+  Widget buildBody(BuildContext context) {
+    if (checkedRepeatOrder == false) return buildRepeatOrder(context);
+    return buildRepeatOrderWithDropDown(context);
   }
 
-  Widget buildRepeatOrder() {
+  Widget buildRepeatOrder(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return CheckboxListTile(
       dense: true,
       contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
-      title: Text(
-        "Repeat Order",
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Util.greenishColor()),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            "Repeat Order",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Util.greenishColor()),
+          ),
+          Container(
+            width: size.width - 100,
+            child: Text(
+              "Select this option if you want to get this order on a regular basis",
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13),
+            ),
+          )
+        ],
       ),
       value: checkedRepeatOrder,
       onChanged: (newValue) {
@@ -83,52 +100,61 @@ class OrderRepeatOrderCard extends StatelessWidget {
     );
   }
 
-  Widget buildRepeatOrderWithDropDown() {
+  Widget buildRepeatOrderWithDropDown(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: CheckboxListTile(
-                contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
-                title: Text(
-                  "Repeat Order",
+        CheckboxListTile(
+          dense: true,
+          contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "Repeat Order",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Util.greenishColor()),
+              ),
+              Container(
+                width: size.width - 100,
+                child: Text(
+                  "Select this option if you want to get this order on a regular basis",
                   style: TextStyle(
-                      fontSize: 15,
+                      color: Colors.grey,
                       fontWeight: FontWeight.bold,
-                      color: Util.greenishColor()),
+                      fontSize: 13),
                 ),
-                value: checkedRepeatOrder,
-                onChanged: (newValue) {
-                  setRepeatOrder(newValue);
-                  callBackRefreshUI();
-                },
-                controlAffinity:
-                    ListTileControlAffinity.leading, //  <-- leading Checkbox
+              )
+            ],
+          ),
+          value: checkedRepeatOrder,
+          onChanged: (newValue) {
+            setRepeatOrder(newValue);
+            callBackRefreshUI();
+          },
+          controlAffinity: ListTileControlAffinity.leading,
+        ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("Every",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Util.purplishColor())),
+              DropDownItem(
+                dropDownList: repeatDeliveryLongGap,
+                selectedItem: selectedRepeatDeliveryLongGap,
+                setSelectedItem: setRepeatDeliveryLongGap,
+                callBackRefreshUI: callBackRefreshUI,
               ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(14, 7, 32, 7),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Every",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor())),
-                    DropDownItem(
-                      dropDownList: repeatDeliveryLongGap,
-                      selectedItem: selectedRepeatDeliveryLongGap,
-                      setSelectedItem: setRepeatDeliveryLongGap,
-                      callBackRefreshUI: callBackRefreshUI,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,

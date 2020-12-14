@@ -22,7 +22,7 @@ class PersonalDetailsCard extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(32, 10, 32, 10),
+      padding: EdgeInsets.fromLTRB(33, 10, 33, 10),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),

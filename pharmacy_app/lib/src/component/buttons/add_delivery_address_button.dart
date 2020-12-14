@@ -12,7 +12,7 @@ class AddDeliveryAddressButton extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+      padding: EdgeInsets.fromLTRB(28, 10, 28, 10),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
