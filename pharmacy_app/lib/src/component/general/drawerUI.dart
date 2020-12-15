@@ -68,6 +68,17 @@ class MainDrawer extends StatelessWidget {
         ListTile(
             dense: true,
             title: Text(
+              'REPEAT ORDERS',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
+            ),
+            leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
+            onTap: () {}),
+        ListTile(
+            dense: true,
+            title: Text(
               'SPECIAL REQUEST',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -86,13 +97,35 @@ class MainDrawer extends StatelessWidget {
         ListTile(
             dense: true,
             title: Text(
-              'SPECIAL ORDERS',
+              'CONSULT PHARMACIST',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[700],
                   fontSize: 15),
             ),
-            leading: Icon(Icons.add_shopping_cart, color: Util.purplishColor()),
+            leading: Icon(Icons.call, color: Util.purplishColor()),
+            onTap: () {}),
+        ListTile(
+            dense: true,
+            title: Text(
+              'HELP & FAQ',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
+            ),
+            leading: Icon(Icons.mark_email_read_rounded, color: Util.purplishColor()),
+            onTap: () {}),
+        ListTile(
+            dense: true,
+            title: Text(
+              'ABOUT',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  fontSize: 15),
+            ),
+            leading: Icon(Icons.info, color: Util.purplishColor()),
             onTap: () {}),
         ListTile(
             dense: true,

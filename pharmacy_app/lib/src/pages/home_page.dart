@@ -65,8 +65,10 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            CarouselSliderCard(),
-            buildText(),
+            HomePageCarouselSliderCard(),
+            buildTitle(),
+            SizedBox(height: 10),
+            buildPrescriptionWantedTitle(),
             SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,14 +94,28 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildText() {
+  Widget buildTitle() {
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Text(
         "ORDER MEDICINES AND MORE",
         textAlign: TextAlign.center,
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: Util.colorFromHex("#1BC0CB")),
+            fontWeight: FontWeight.bold, color: Util.greenishColor()),
+      ),
+    );
+  }
+
+  Widget buildPrescriptionWantedTitle() {
+    return Container(
+      width: 250,
+      height: 50,
+      padding: EdgeInsets.only(top: 10),
+      child: Text(
+        "All medicines except OTC medicines require prescription*",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: Colors.red),
       ),
     );
   }
@@ -113,7 +129,7 @@ class _HomePageState extends State<HomePage> {
         width: size.width / 2 - 32,
         child: Material(
           shadowColor: Colors.grey[100].withOpacity(0.4),
-          color: Util.colorFromHex("#473FA8"),
+          color: Util.purplishColor(),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 3,
@@ -169,7 +185,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              color: Util.colorFromHex("#473FA8"),
+              color: Util.purplishColor(),
               width: 70,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

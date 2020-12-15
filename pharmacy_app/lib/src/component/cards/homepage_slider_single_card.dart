@@ -23,40 +23,25 @@ class HomePageSliderSingleCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildTitleText(),
-        SizedBox(width: 20),
         buildSideImage(),
       ],
     );
   }
 
   Widget buildTitleText() {
-    return Container(
-      width: 150,
-      child: IntrinsicHeight(
-          child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("We offer Medicines Wellness ",
-                  style: TextStyle(color: Colors.grey, fontSize: 11)),
-              Text("Products Devices and More ",
-                  style: TextStyle(color: Colors.grey, fontSize: 11)),
-              Text("products that you wont get ",
-                  style: TextStyle(color: Colors.grey, fontSize: 11)),
-              Text("any where in the world",
-                  style: TextStyle(color: Colors.grey, fontSize: 11)),
-            ],
-          ),
-        ],
-      )),
-    );
+    return Expanded(
+        child: Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+      child: Text(
+          "We offer Medicines Wellness, Products Devices and More, products that you wont get any where in the world ",
+          style: TextStyle(color: Colors.grey, fontSize: 12)),
+    ));
   }
 
   Widget buildSideImage() {
     return Container(
+      width: 120,
       alignment: Alignment.center,
       child: Image.asset(
         "assets/images/google-logo.png",

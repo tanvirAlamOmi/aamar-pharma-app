@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 
-class CarouselSliderCard extends StatefulWidget {
+class HomePageCarouselSliderCard extends StatefulWidget {
   @override
-  _CarouselSliderCardState createState() => _CarouselSliderCardState();
+  _HomePageCarouselSliderCardState createState() => _HomePageCarouselSliderCardState();
 }
 
-class _CarouselSliderCardState extends State<CarouselSliderCard> {
+class _HomePageCarouselSliderCardState extends State<HomePageCarouselSliderCard> {
   final listItems = [1, 2, 3];
   int _currentIndex = 0;
 
@@ -29,14 +29,6 @@ class _CarouselSliderCardState extends State<CarouselSliderCard> {
   }
 
   Widget buildBody() {
-    final children = listItems.map((i) {
-      return Builder(
-        builder: (BuildContext context) {
-          return HomePageSliderSingleCard();
-        },
-      );
-    }).toList();
-
     return Column(
       children: [
         CarouselSlider(
