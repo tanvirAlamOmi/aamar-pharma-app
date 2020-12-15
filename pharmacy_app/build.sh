@@ -2,8 +2,7 @@
 # STATION MEANS THE FOLDER WHICH HAS ALL THE PROJECT FILES AND .git FOLDER
 
 echo "REMOVING OLD APKs"
-rm -r ../../appfolder
-mkdir ../../appfolder
+rm -r ../../appfolder/pharmacy.apk
 
 printf "\n"
 
