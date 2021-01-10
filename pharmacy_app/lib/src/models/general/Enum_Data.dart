@@ -5,6 +5,11 @@ class ClientEnum {
   static final String RESPONSE_FAIL = "fail";
   static final String RESPONSE_UNAUTHORIZED = "Unauthorized";
 
+  static final String ARROW_TOP_LEFT = "ARROW_TOP_LEFT";
+  static final String ARROW_TOP_RIGHT = "ARROW_TOP_RIGTH";
+  static final String ARROW_BOTTOM_LEFT = "ARROW_BOTTOM_LEFT";
+  static final String ARROW_BOTTOM_RIGHT = "ARROW_BOTTOM_RIGHT";
+
   static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA =
       "Pending Invoice Response From Pharma";
   static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER =
@@ -23,6 +28,7 @@ class ClientEnum {
   static final String ORDER_PAYMENT_STATUS_PAID = "Paid";
   static final String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
 
+
   static final String FEED_PENDING = "Pending";
   static final String FEED_CONFIRM = "Confirm";
   static final String FEED_CANCELED = "Canceled";
@@ -39,8 +45,4 @@ class ClientEnum {
   static final String YES = "yes";
   static final String NO = "no";
 
-  static final String ARROW_TOP_LEFT = "ARROW_TOP_LEFT";
-  static final String ARROW_TOP_RIGTH = "ARROW_TOP_RIGTH";
-  static final String ARROW_BOTTOM_LEFT = "ARROW_BOTTOM_LEFT";
-  static final String ARROW_BOTTOM_RIGHT = "ARROW_BOTTOM_RIGHT";
 }

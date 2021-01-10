@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/component/buttons/notification_action_button.da
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -57,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
@@ -88,19 +90,17 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 20),
                 buildHotlineText(),
                 SizedBox(height: 20),
-
               ],
             ),
             Positioned(
               top: 10,
-              left: 100,
-              child: ClipPath(
-                  clipper: CustomMessageClipper(),
-                  child: Container(
-                    width: 150,
-                    height: 100,
-                    color: Util.purplishColor(),
-                  ),
+              left: 10,
+              child: CustomMessageBox(
+                width: size.width - 100,
+                height: 160,
+                arrowDirection: ClientEnum.ARROW_TOP_RIGHT,
+                messageTitle:
+                    "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
               ),
             ),
           ],
