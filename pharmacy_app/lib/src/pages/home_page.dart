@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildTutorialBox() {
     final size = MediaQuery.of(context).size;
-    switch (Store.instance.appState.tutorialBoxNumber) {
+    switch (Store.instance.appState.tutorialBoxNumberHomePage) {
       case 0:
         return Positioned(
           top: 50,
@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
             midPoint: 50,
             endPoint: 60,
             arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
             messageTitle:
                 "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
@@ -124,6 +125,7 @@ class _HomePageState extends State<HomePage> {
               midPoint: size.width - 175,
               endPoint: size.width - 200,
               arrowDirection: ClientEnum.ARROW_BOTTOM,
+              callBackAction: updateTutorialBox,
               callBackRefreshUI: refreshUI,
               messageTitle:
                   "You can also order by adding the name of the items you want to order and stating their unit and quantity manually"),
@@ -141,8 +143,25 @@ class _HomePageState extends State<HomePage> {
                 endPoint: 60,
                 arrowDirection: ClientEnum.ARROW_BOTTOM,
                 callBackRefreshUI: refreshUI,
+                callBackAction: updateTutorialBox,
                 messageTitle:
                     "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
+        break;
+      case 3:
+        return Positioned(
+            top: 10,
+            right: 10,
+            child: CustomMessageBox(
+                width: size.width - 100,
+                height: 180,
+                startPoint: size.width - 145,
+                midPoint: size.width - 135,
+                endPoint: size.width - 200,
+                arrowDirection: ClientEnum.ARROW_TOP,
+                callBackRefreshUI: refreshUI,
+                callBackAction: updateTutorialBox,
+                messageTitle:
+                    "Look out for notifications once you request an order to receive order invoice and other details"));
         break;
       default:
         return Container();
@@ -281,6 +300,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberHomePage += 1;
+    await Store.instance.putAppData();
   }
 
   void uploadPrescriptionOption() async {

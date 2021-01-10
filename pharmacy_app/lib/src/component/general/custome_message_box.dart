@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class CustomMessageBox extends StatelessWidget {
+  final Function() callBackAction;
   final Function() callBackRefreshUI;
   final double height;
   final double width;
@@ -27,7 +28,7 @@ class CustomMessageBox extends StatelessWidget {
     this.messageTitle,
     this.startPoint,
     this.midPoint,
-    this.endPoint,
+    this.endPoint, this.callBackAction,
   }) : super(key: key);
 
   @override
@@ -91,7 +92,7 @@ class CustomMessageBox extends StatelessWidget {
                 color: Colors.white,
               )),
           onTap: () {
-            Store.instance.updateTutorialBoxNumber();
+            callBackAction();
             callBackRefreshUI();
           },
         ),
