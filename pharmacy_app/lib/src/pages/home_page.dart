@@ -10,7 +10,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
-import 'package:pharmacy_app/src/component/general/custome_message_box.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

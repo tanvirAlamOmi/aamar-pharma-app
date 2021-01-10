@@ -44,8 +44,6 @@ class Store {
     _appState = new AppState();
   }
 
-
-
   setEmail(String email) async {
     appState.user.name = email;
     putAppData();
@@ -73,7 +71,6 @@ class Store {
   getFirebasePushNotificationToken() {
     return appState.firebasePushNotificationToken;
   }
-
 
   Future updateUser(User user) async {
     appState.user = user;

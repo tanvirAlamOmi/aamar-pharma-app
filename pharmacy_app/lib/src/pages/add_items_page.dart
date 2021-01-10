@@ -6,7 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -70,14 +73,19 @@ class _AddItemsPageState extends State<AddItemsPage> {
         Expanded(
           child: ListView(
             children: [
-              Column(
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  buildAddItemBox(),
-                  SizedBox(height: 13),
-                  buildTitle(),
-                  SizedBox(height: 7),
-                  buildItemList(),
+              Stack(
+                children: [
+                  Column(
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      buildAddItemBox(),
+                      SizedBox(height: 13),
+                      buildTitle(),
+                      SizedBox(height: 7),
+                      buildItemList(),
+                    ],
+                  ),
+                  buildTutorialBox()
                 ],
               )
             ],
@@ -87,6 +95,39 @@ class _AddItemsPageState extends State<AddItemsPage> {
       ],
     ));
   }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumberAddItemsPage) {
+      case 0:
+        return Positioned(
+          top: 45,
+          right: 30,
+          child: CustomMessageBox(
+            width: size.width - 200,
+            height: 120,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+            "The items you add will be listed under this",
+          ),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberAddItemsPage += 1;
+    await Store.instance.putAppData();
+  }
+
 
   Widget buildAddItemBox() {
     return Container(
