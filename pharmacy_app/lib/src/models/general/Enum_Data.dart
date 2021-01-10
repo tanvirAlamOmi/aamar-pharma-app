@@ -38,4 +38,9 @@ class ClientEnum {
 
   static final String YES = "yes";
   static final String NO = "no";
+
+  static final String ARROW_TOP_LEFT = "ARROW_TOP_LEFT";
+  static final String ARROW_TOP_RIGTH = "ARROW_TOP_RIGTH";
+  static final String ARROW_BOTTOM_LEFT = "ARROW_BOTTOM_LEFT";
+  static final String ARROW_BOTTOM_RIGHT = "ARROW_BOTTOM_RIGHT";
 }
