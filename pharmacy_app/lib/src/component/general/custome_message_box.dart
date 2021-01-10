@@ -41,7 +41,7 @@ class CustomMessageBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleCrossButton(),
+              CrossButton(),
               SizedBox(height: 5),
               Text(
                 messageTitle,
@@ -53,6 +53,28 @@ class CustomMessageBox extends StatelessWidget {
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget CrossButton() {
+    return ClipOval(
+      child: Material(
+        color: Colors.red, // button color
+        child: InkWell(
+          splashColor: Util.purplishColor(), // inkwell color
+          child: SizedBox(
+              width: 20,
+              height: 20,
+              child: Icon(
+                Icons.clear,
+                size:  10,
+                color: Colors.white,
+              )),
+          onTap: () {
+            callBackRefreshUI();
+          },
         ),
       ),
     );
@@ -214,7 +236,7 @@ class BoxShadowPainter extends CustomPainter {
     }
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth=10.0
+      ..strokeWidth = 10.0
       ..color = Util.purplishColor();
     canvas.drawPath(path, paint);
   }
