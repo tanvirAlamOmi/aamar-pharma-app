@@ -6,6 +6,7 @@ class AppState {
   List<DeliveryAddressDetails> allDeliveryAddress =
       new List<DeliveryAddressDetails>();
   String firebasePushNotificationToken = "";
+  int tutorialBoxNumber = 0 ;
 
   AppState() {}
 
@@ -19,6 +20,7 @@ class AppState {
             .toList()
             .cast<DeliveryAddressDetails>();
     firebasePushNotificationToken = data['FIREBASE_PUSH_NOTIFICATION_TOKEN'];
+    tutorialBoxNumber =  0;
   }
 
   Map<String, dynamic> toJsonMap() {
@@ -31,6 +33,7 @@ class AppState {
             .map((singleDeliveryAddress) => singleDeliveryAddress.toJsonMap())
             .toList();
     data['FIREBASE_PUSH_NOTIFICATION_TOKEN'] = firebasePushNotificationToken;
+    data['TUTORIAL_BOX_NUMBER'] = tutorialBoxNumber;
 
     return data;
   }

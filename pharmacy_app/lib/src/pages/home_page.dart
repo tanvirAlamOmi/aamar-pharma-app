@@ -10,6 +10,7 @@ import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dar
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -58,7 +59,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
@@ -92,24 +92,53 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 20),
               ],
             ),
-            Positioned(
-              top: 10,
-              right: 20,
-              child: CustomMessageBox(
-                width: size.width - 100,
-                height: 200,
-                startPoint: size.width - 140,
-                midPoint: size.width - 135,
-                endPoint: size.width - 160,
-                arrowDirection: ClientEnum.ARROW_TOP,
-                messageTitle:
-                    "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
-              ),
-            ),
+            buildTutorialBox()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumber) {
+      case 0:
+        return Positioned(
+          top: 50,
+          left: 20,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 200,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
+          ),
+        );
+        break;
+      case 1:
+        return Positioned(
+          top: 50,
+          left: 20,
+          child: CustomMessageBox(
+              width: size.width - 100,
+              height: 200,
+              startPoint: size.width - 180,
+              midPoint: size.width - 175,
+              endPoint: size.width - 200,
+              arrowDirection: ClientEnum.ARROW_BOTTOM,
+              callBackRefreshUI: refreshUI,
+              messageTitle:
+                  "You can also order by adding the name of the items you want to order and stating their unit and quantity manually"),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
   }
 
   Widget buildTitle() {

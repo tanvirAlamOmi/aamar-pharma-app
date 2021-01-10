@@ -91,7 +91,7 @@ class CustomMessageBox extends StatelessWidget {
                 color: Colors.white,
               )),
           onTap: () {
-            
+            Store.instance.updateTutorialBoxNumber();
             callBackRefreshUI();
           },
         ),

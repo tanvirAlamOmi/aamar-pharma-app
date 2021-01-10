@@ -74,6 +74,11 @@ class Store {
     return appState.firebasePushNotificationToken;
   }
 
+  Future updateTutorialBoxNumber() async {
+    appState.tutorialBoxNumber += 1;
+    await putAppData();
+  }
+
   Future updateUser(User user) async {
     appState.user = user;
     await putAppData();
