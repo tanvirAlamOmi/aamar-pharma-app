@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
@@ -14,6 +12,9 @@ class CustomMessageBox extends StatelessWidget {
   final Function() callBackRefreshUI;
   final double height;
   final double width;
+  final double startPoint;
+  final double midPoint;
+  final double endPoint;
   final String arrowDirection;
   final String messageTitle;
 
@@ -24,16 +25,31 @@ class CustomMessageBox extends StatelessWidget {
     this.width,
     this.arrowDirection,
     this.messageTitle,
+    this.startPoint,
+    this.midPoint,
+    this.endPoint,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    EdgeInsetsGeometry padding;
+    if (arrowDirection == ClientEnum.ARROW_BOTTOM) padding = EdgeInsets.all(8);
+    if (arrowDirection == ClientEnum.ARROW_TOP)
+      padding = EdgeInsets.fromLTRB(15, 50, 15, 0);
     return CustomPaint(
-      painter: BoxShadowPainter(arrowDirection: arrowDirection),
+      painter: BoxShadowPainter(arrowDirection: arrowDirection,
+        startPoint: startPoint,
+        midPoint: midPoint,
+        endPoint: endPoint,),
       child: ClipPath(
-        clipper: CustomMessageClipper(arrowDirection: arrowDirection),
+        clipper: CustomMessageClipper(
+          arrowDirection: arrowDirection,
+          startPoint: startPoint,
+          midPoint: midPoint,
+          endPoint: endPoint,
+        ),
         child: Container(
-          padding: EdgeInsets.fromLTRB(15, 50, 15, 0),
+          padding: padding,
           width: width,
           height: height,
           color: Util.colorFromHex('#E5E5FA'),
@@ -69,7 +85,7 @@ class CustomMessageBox extends StatelessWidget {
               height: 20,
               child: Icon(
                 Icons.clear,
-                size:  10,
+                size: 10,
                 color: Colors.white,
               )),
           onTap: () {
@@ -83,44 +99,38 @@ class CustomMessageBox extends StatelessWidget {
 
 class CustomMessageClipper extends CustomClipper<Path> {
   final String arrowDirection;
+  final double startPoint;
+  final double midPoint;
+  final double endPoint;
 
-  CustomMessageClipper({this.arrowDirection});
+  CustomMessageClipper({
+    this.arrowDirection,
+    this.startPoint,
+    this.midPoint,
+    this.endPoint,
+  });
 
   @override
   getClip(Size size) {
     var path = Path();
-    if (arrowDirection == ClientEnum.ARROW_BOTTOM_RIGHT) {
+    if (arrowDirection == ClientEnum.ARROW_BOTTOM) {
+      path.moveTo(0.0, 20);
       path.lineTo(0.0, size.height * 0.60);
       path.quadraticBezierTo(0, size.height * 0.80, 15, size.height * 0.80);
-      path.lineTo(size.width - 60, size.height * 0.80);
-      path.lineTo(size.width - 45, size.height * 0.90);
-      path.lineTo(size.width - 30, size.height * 0.80);
+      path.lineTo(startPoint, size.height * 0.80);
+      path.lineTo(midPoint, size.height * 0.90);
+      path.lineTo(endPoint, size.height * 0.80);
       path.lineTo(size.width - 15, size.height * 0.80);
       path.quadraticBezierTo(
           size.width, size.height * 0.80, size.width, size.height * 0.60);
       path.lineTo(size.width, 15);
       path.quadraticBezierTo(size.width, 0.0, size.width - 15, 0.0);
       path.lineTo(15.0, 0.0);
-      path.quadraticBezierTo(0.0, 0.0, 0.0, size.height * 0.20);
+      path.quadraticBezierTo(0.0, 0.0, 0.0, 30);
     }
 
-    if (arrowDirection == ClientEnum.ARROW_BOTTOM_LEFT) {
-      path.lineTo(0.0, size.height * 0.60);
-      path.quadraticBezierTo(0, size.height * 0.80, 15, size.height * 0.80);
-      path.lineTo(60, size.height * 0.80);
-      path.lineTo(45, size.height * 0.90);
-      path.lineTo(30, size.height * 0.80);
-      path.lineTo(size.width - 15, size.height * 0.80);
-      path.quadraticBezierTo(
-          size.width, size.height * 0.80, size.width, size.height * 0.60);
-      path.lineTo(size.width, 15);
-      path.quadraticBezierTo(size.width, 0.0, size.width - 15, 0.0);
-      path.lineTo(15.0, 0.0);
-      path.quadraticBezierTo(0.0, 0.0, 0.0, size.height * 0.20);
-    }
-
-    if (arrowDirection == ClientEnum.ARROW_TOP_RIGHT) {
-      path.moveTo(0.0, 30);
+    if (arrowDirection == ClientEnum.ARROW_TOP) {
+      path.moveTo(0.0, 60);
       path.lineTo(0.0, size.height * 0.70);
       path.quadraticBezierTo(0, size.height, 30, size.height);
       path.lineTo(30, size.height);
@@ -129,26 +139,9 @@ class CustomMessageClipper extends CustomClipper<Path> {
           size.width, size.height, size.width, size.height * 0.70);
       path.lineTo(size.width, size.height * 0.30);
       path.quadraticBezierTo(size.width, 30, size.width - 30, 30);
-      path.lineTo(size.width - 60, 30);
-      path.lineTo(size.width - 20, 0);
-      path.lineTo(size.width - 30, 30);
-      path.lineTo(30, 30);
-      path.quadraticBezierTo(0, 30, 0, 60);
-    }
-
-    if (arrowDirection == ClientEnum.ARROW_TOP_LEFT) {
-      path.moveTo(0.0, 30);
-      path.lineTo(0.0, size.height * 0.70);
-      path.quadraticBezierTo(0, size.height, 30, size.height);
-      path.lineTo(30, size.height);
-      path.lineTo(size.width - 30, size.height);
-      path.quadraticBezierTo(
-          size.width, size.height, size.width, size.height * 0.70);
-      path.lineTo(size.width, size.height * 0.30);
-      path.quadraticBezierTo(size.width, 30, size.width - 30, 30);
-      path.lineTo(60, 30);
-      path.lineTo(20, 0);
-      path.lineTo(30, 30);
+      path.lineTo(startPoint, 30);
+      path.lineTo(midPoint, 0);
+      path.lineTo(endPoint, 30);
       path.lineTo(30, 30);
       path.quadraticBezierTo(0, 30, 0, 60);
     }
@@ -165,60 +158,37 @@ class CustomMessageClipper extends CustomClipper<Path> {
 
 class BoxShadowPainter extends CustomPainter {
   final String arrowDirection;
+  final double startPoint;
+  final double midPoint;
+  final double endPoint;
 
-  BoxShadowPainter({this.arrowDirection});
+  BoxShadowPainter({
+    this.arrowDirection,
+    this.startPoint,
+    this.midPoint,
+    this.endPoint,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     var path = Path();
-    if (arrowDirection == ClientEnum.ARROW_BOTTOM_RIGHT) {
+    if (arrowDirection == ClientEnum.ARROW_BOTTOM) {
+      path.moveTo(0.0, 20);
       path.lineTo(0.0, size.height * 0.60);
       path.quadraticBezierTo(0, size.height * 0.80, 15, size.height * 0.80);
-      path.lineTo(size.width - 60, size.height * 0.80);
-      path.lineTo(size.width - 45, size.height * 0.90);
-      path.lineTo(size.width - 30, size.height * 0.80);
+      path.lineTo(startPoint, size.height * 0.80);
+      path.lineTo(midPoint, size.height * 0.90);
+      path.lineTo(endPoint, size.height * 0.80);
       path.lineTo(size.width - 15, size.height * 0.80);
       path.quadraticBezierTo(
           size.width, size.height * 0.80, size.width, size.height * 0.60);
       path.lineTo(size.width, 15);
       path.quadraticBezierTo(size.width, 0.0, size.width - 15, 0.0);
       path.lineTo(15.0, 0.0);
-      path.quadraticBezierTo(0.0, 0.0, 0.0, size.height * 0.20);
+      path.quadraticBezierTo(0.0, 0.0, 0.0, 30);
     }
 
-    if (arrowDirection == ClientEnum.ARROW_BOTTOM_LEFT) {
-      path.lineTo(0.0, size.height * 0.60);
-      path.quadraticBezierTo(0, size.height * 0.80, 15, size.height * 0.80);
-      path.lineTo(60, size.height * 0.80);
-      path.lineTo(45, size.height * 0.90);
-      path.lineTo(30, size.height * 0.80);
-      path.lineTo(size.width - 15, size.height * 0.80);
-      path.quadraticBezierTo(
-          size.width, size.height * 0.80, size.width, size.height * 0.60);
-      path.lineTo(size.width, 15);
-      path.quadraticBezierTo(size.width, 0.0, size.width - 15, 0.0);
-      path.lineTo(15.0, 0.0);
-      path.quadraticBezierTo(0.0, 0.0, 0.0, size.height * 0.20);
-    }
-
-    if (arrowDirection == ClientEnum.ARROW_TOP_RIGHT) {
-      path.moveTo(0.0, 30);
-      path.lineTo(0.0, size.height * 0.70);
-      path.quadraticBezierTo(0, size.height, 30, size.height);
-      path.lineTo(30, size.height);
-      path.lineTo(size.width - 30, size.height);
-      path.quadraticBezierTo(
-          size.width, size.height, size.width, size.height * 0.70);
-      path.lineTo(size.width, size.height * 0.30);
-      path.quadraticBezierTo(size.width, 30, size.width - 30, 30);
-      path.lineTo(size.width - 60, 30);
-      path.lineTo(size.width - 20, 0);
-      path.lineTo(size.width - 30, 30);
-      path.lineTo(30, 30);
-      path.quadraticBezierTo(0, 30, 0, 60);
-    }
-
-    if (arrowDirection == ClientEnum.ARROW_TOP_LEFT) {
+    if (arrowDirection == ClientEnum.ARROW_TOP) {
       path.moveTo(0.0, 60);
       path.lineTo(0.0, size.height * 0.70);
       path.quadraticBezierTo(0, size.height, 30, size.height);
@@ -228,12 +198,13 @@ class BoxShadowPainter extends CustomPainter {
           size.width, size.height, size.width, size.height * 0.70);
       path.lineTo(size.width, size.height * 0.30);
       path.quadraticBezierTo(size.width, 30, size.width - 30, 30);
-      path.lineTo(60, 30);
-      path.lineTo(20, 0);
-      path.lineTo(30, 30);
+      path.lineTo(startPoint, 30);
+      path.lineTo(midPoint, 0);
+      path.lineTo(endPoint, 30);
       path.lineTo(30, 30);
       path.quadraticBezierTo(0, 30, 0, 60);
     }
+
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 10.0
