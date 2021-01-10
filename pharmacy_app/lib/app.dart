@@ -28,7 +28,7 @@ class _AppSate extends State<App> {
   Widget build(BuildContext context) {
     // start app
     return MaterialApp(
-      title: 'FOS',
+      title: 'Amar Pharma',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Util.colorFromHex("#473FA8"),

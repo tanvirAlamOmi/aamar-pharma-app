@@ -1,21 +1,13 @@
-import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
-import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/component/general/custome_message_box.dart';
@@ -66,6 +58,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 HomePageCarouselSliderCard(),
                 buildTitle(),
@@ -77,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     buildContainer(
-                        "UPLOAD PRESCRIPTION/ PHOTO",
+                        "UPLOAD PRESCRIPTION / PHOTO",
                         Icon(Icons.add_shopping_cart, color: Colors.white),
                         uploadPrescriptionOption),
                     SizedBox(width: 10),
@@ -134,6 +128,21 @@ class _HomePageState extends State<HomePage> {
               messageTitle:
                   "You can also order by adding the name of the items you want to order and stating their unit and quantity manually"),
         );
+        break;
+      case 2:
+        return Positioned(
+            bottom: 50,
+            left: 20,
+            child: CustomMessageBox(
+                width: size.width - 100,
+                height: 200,
+                startPoint: 40,
+                midPoint: 50,
+                endPoint: 60,
+                arrowDirection: ClientEnum.ARROW_BOTTOM,
+                callBackRefreshUI: refreshUI,
+                messageTitle:
+                    "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
         break;
       default:
         return Container();
