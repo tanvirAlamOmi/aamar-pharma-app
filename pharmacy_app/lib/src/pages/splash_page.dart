@@ -21,7 +21,7 @@ class SplashPageState extends State<SplashPage> {
   }
 
   Future initAppAndNavigate() async {
-    var _duration = new Duration(seconds: 1);
+    var _duration = new Duration(seconds: 3);
     return new Timer(_duration, navigationPage);
     final isInternet = await Util.checkInternet();
     if (isInternet) {
@@ -43,7 +43,9 @@ class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Center(
+      body: new Container(
+        alignment: Alignment.center,
+        color: Util.purplishColor(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -62,7 +64,7 @@ class SplashPageState extends State<SplashPage> {
       height: 100,
       width: 180,
       child: Image.asset(
-        'assets/images/logo_aamarpharma.jpg',
+        'assets/images/amar_pharma_small.png',
         alignment: Alignment.center,
         fit: BoxFit.contain,
       ),
@@ -74,7 +76,7 @@ class SplashPageState extends State<SplashPage> {
         height: 30.0,
         width: 30.0,
         child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation(Colors.black),
+            valueColor: AlwaysStoppedAnimation(Util.greenishColor()),
             strokeWidth: 4.0));
   }
 }
