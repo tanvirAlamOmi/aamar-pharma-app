@@ -16,7 +16,7 @@ import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
-import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/component/general/custome_message_box.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -51,9 +51,7 @@ class _HomePageState extends State<HomePage> {
             'HOME',
             style: TextStyle(color: Colors.white),
           ),
-          actions: [
-            NotificationActionButton()
-          ],
+          actions: [NotificationActionButton()],
         ),
         body: buildBody(context));
   }
@@ -62,32 +60,49 @@ class _HomePageState extends State<HomePage> {
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            HomePageCarouselSliderCard(),
-            buildTitle(),
-            SizedBox(height: 10),
-            buildPrescriptionWantedTitle(),
-            SizedBox(height: 10),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                buildContainer(
-                    "UPLOAD PRESCRIPTION/ PHOTO",
-                    Icon(Icons.add_shopping_cart, color: Colors.white),
-                    uploadPrescriptionOption),
-                SizedBox(width: 10),
-                buildContainer(
-                    "ADD ITEMS MANUALLY",
-                    Icon(Icons.add_shopping_cart, color: Colors.white),
-                    navigateToAddItems)
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                HomePageCarouselSliderCard(),
+                buildTitle(),
+                SizedBox(height: 10),
+                buildPrescriptionWantedTitle(),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildContainer(
+                        "UPLOAD PRESCRIPTION/ PHOTO",
+                        Icon(Icons.add_shopping_cart, color: Colors.white),
+                        uploadPrescriptionOption),
+                    SizedBox(width: 10),
+                    buildContainer(
+                        "ADD ITEMS MANUALLY",
+                        Icon(Icons.add_shopping_cart, color: Colors.white),
+                        navigateToAddItems)
+                  ],
+                ),
+                SizedBox(height: 20),
+                buildHotlineText(),
+                SizedBox(height: 20),
+
               ],
             ),
-            SizedBox(height: 20),
-            buildHotlineText(),
-            SizedBox(height: 20),
+            Positioned(
+              top: 10,
+              left: 100,
+              child: ClipPath(
+                  clipper: CustomMessageClipper(),
+                  child: Container(
+                    width: 150,
+                    height: 100,
+                    color: Util.purplishColor(),
+                  ),
+              ),
+            ),
           ],
         ),
       ),
@@ -100,8 +115,8 @@ class _HomePageState extends State<HomePage> {
       child: Text(
         "ORDER MEDICINES AND MORE",
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Util.greenishColor()),
+        style:
+            TextStyle(fontWeight: FontWeight.bold, color: Util.greenishColor()),
       ),
     );
   }
@@ -114,8 +129,7 @@ class _HomePageState extends State<HomePage> {
       child: Text(
         "All medicines except OTC medicines require prescription*",
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.red),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
       ),
     );
   }
