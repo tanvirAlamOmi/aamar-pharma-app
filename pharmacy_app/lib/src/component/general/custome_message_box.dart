@@ -37,10 +37,12 @@ class CustomMessageBox extends StatelessWidget {
     if (arrowDirection == ClientEnum.ARROW_TOP)
       padding = EdgeInsets.fromLTRB(15, 50, 15, 0);
     return CustomPaint(
-      painter: BoxShadowPainter(arrowDirection: arrowDirection,
+      painter: BoxShadowPainter(
+        arrowDirection: arrowDirection,
         startPoint: startPoint,
         midPoint: midPoint,
-        endPoint: endPoint,),
+        endPoint: endPoint,
+      ),
       child: ClipPath(
         clipper: CustomMessageClipper(
           arrowDirection: arrowDirection,
@@ -58,7 +60,7 @@ class CustomMessageBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CrossButton(),
-              SizedBox(height: 5),
+              SizedBox(height: 8),
               Text(
                 messageTitle,
                 textAlign: TextAlign.center,
@@ -77,18 +79,19 @@ class CustomMessageBox extends StatelessWidget {
   Widget CrossButton() {
     return ClipOval(
       child: Material(
-        color: Colors.red, // button color
+        color: Util.purplishColor(), // button color
         child: InkWell(
           splashColor: Util.purplishColor(), // inkwell color
           child: SizedBox(
-              width: 20,
-              height: 20,
+              width: 25,
+              height: 25,
               child: Icon(
                 Icons.clear,
-                size: 10,
+                size: 18,
                 color: Colors.white,
               )),
           onTap: () {
+            
             callBackRefreshUI();
           },
         ),
