@@ -94,11 +94,11 @@ class _HomePageState extends State<HomePage> {
             ),
             Positioned(
               top: 10,
-              left: 10,
+              right: 20,
               child: CustomMessageBox(
                 width: size.width - 100,
-                height: 160,
-                arrowDirection: ClientEnum.ARROW_TOP_RIGHT,
+                height: 200,
+                arrowDirection: ClientEnum.ARROW_TOP_LEFT,
                 messageTitle:
                     "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
               ),
