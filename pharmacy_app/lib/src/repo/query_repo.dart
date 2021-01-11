@@ -79,6 +79,11 @@ class QueryRepo {
           ]),
           ClientEnum.RESPONSE_SUCCESS);
 
+    // Sending Empty List
+    // if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+    //   return Tuple2(FeedResponse(status: true, feedItems: []),
+    //       ClientEnum.RESPONSE_SUCCESS);
+    // }
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
       return Tuple2(
           FeedResponse(status: true, feedItems: [

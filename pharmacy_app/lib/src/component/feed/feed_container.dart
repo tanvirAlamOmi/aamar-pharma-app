@@ -66,10 +66,7 @@ class _FeedContainerState extends State<FeedContainer>
   }
 
   void refreshSearchItems() {
-    if (mounted)
-      setState(() {
-
-      });
+    if (mounted) setState(() {});
   }
 
   @override
@@ -118,8 +115,13 @@ class _FeedContainerState extends State<FeedContainer>
     if (feedResponse.feedItems == null || feedResponse.feedItems.isEmpty)
       noItem = true;
     isProcessing = false;
-    
+
     if (mounted) setState(() {});
+
+    // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
+    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+      Streamer.putTotalOrderStream(feedResponse.feedItems.length);
+    }
   }
 
   void addItems(List<FeedItem> items) {

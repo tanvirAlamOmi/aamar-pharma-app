@@ -11,14 +11,12 @@ class Streamer {
     return _streamControllerEvent.stream;
   }
 
-  static Stream<Event> getTotalOrderStream() {
-    return _streamControllerEvent.stream;
+  static void putEventStream(Event event) {
+    _streamControllerEvent.sink.add(event);
   }
 
-  static void putEventStream(Event event) {
-    print("Event Changed:");
-    print(event.eventType.toString());
-    _streamControllerEvent.sink.add(event);
+  static Stream<int> getTotalOrderStream() {
+    return _streamControllerTotalOrder.stream;
   }
 
   static void putTotalOrderStream(int totalOrder) {
