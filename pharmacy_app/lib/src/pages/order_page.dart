@@ -58,7 +58,7 @@ class _OrderPageState extends State<OrderPage> {
           switch (Store.instance.appState.tutorialBoxNumberOrderPage) {
             case 0:
               return Positioned(
-                top: 150,
+                top: 200,
                 right: 20,
                 child: CustomMessageBox(
                   width: 190,
@@ -71,6 +71,24 @@ class _OrderPageState extends State<OrderPage> {
                   callBackRefreshUI: refreshUI,
                   messageTitle:
                       "This indicates the current status of your order",
+                ),
+              );
+              break;
+            case 1:
+              return Positioned(
+                top: 50,
+                right: 50,
+                child: CustomMessageBox(
+                  width: 190,
+                  height: 150,
+                  startPoint: 40,
+                  midPoint: 50,
+                  endPoint: 60,
+                  arrowDirection: ClientEnum.ARROW_TOP,
+                  callBackAction: updateTutorialBox,
+                  callBackRefreshUI: refreshUI,
+                  messageTitle:
+                  "View your list of orders by specific order status",
                 ),
               );
               break;

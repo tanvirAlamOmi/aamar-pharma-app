@@ -37,7 +37,7 @@ class ClientEnum {
   static final String FEED_NOTIFICATION = "NOTIFICATION FEED";
 
   static final String FEED_ITEM_ORDER_CARD = "Order Card";
-  static final String FEED_ITEM_SEARCH_CARD = "Search Card";
+  static final String FEED_ITEM_ORDER_FILTER_CARD = "Order Filter Card";
   static final String FEED_ITEM_NOTIFICATION_CARD = "Notification Card";
 
   static final String YES = "yes";

@@ -104,7 +104,7 @@ class _FeedContainerState extends State<FeedContainer>
     if (responseCode == ClientEnum.RESPONSE_SUCCESS) {
       feedResponse = response.item1;
       if (feedResponse.status) {
-        addItems(feedResponse.feedItems);
+        addItems(feedResponse.feedItems, feedRequest);
       }
     }
     if (responseCode == ClientEnum.RESPONSE_CONNECTION_ERROR) {
@@ -124,9 +124,12 @@ class _FeedContainerState extends State<FeedContainer>
     }
   }
 
-  void addItems(List<FeedItem> items) {
-    if (items.length > 0)
-      feedItems.add(FeedItem(viewCardType: ClientEnum.FEED_ITEM_SEARCH_CARD));
+  void addItems(List<FeedItem> items, FeedRequest feedRequest) {
+    if (items.length > 0 && feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+      feedItems
+          .add(FeedItem(viewCardType: ClientEnum.FEED_ITEM_ORDER_FILTER_CARD));
+    }
+
     feedItems.addAll(items);
 
     feedItemsPermData = feedItems.sublist(0, feedItems.length);
