@@ -3,24 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
+import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 
-class DropDownFilterCard extends StatefulWidget {
+class DropDownFilterCard extends StatelessWidget {
   final List<FeedItem> feedItems;
   final List<FeedItem> feedItemsPermData;
   final Function callBack;
-
-  DropDownFilterCard(
-      {this.feedItems, this.feedItemsPermData, this.callBack, Key key})
-      : super(key: key);
-
-  @override
-  _DropDownFilterCardState createState() => _DropDownFilterCardState();
-}
-
-class _DropDownFilterCardState extends State<DropDownFilterCard> {
   final TextEditingController searchController = new TextEditingController();
-  List<String> orderFilterStatusList = [
-    "ALL",
+  final List<String> orderFilterStatusList = [
+    ClientEnum.ORDER_STATUS_ALL,
     ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
     ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
     ClientEnum.ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER,
@@ -30,16 +22,11 @@ class _DropDownFilterCardState extends State<DropDownFilterCard> {
     ClientEnum.ORDER_STATUS_CANCELED,
     ClientEnum.ORDER_STATUS_REJECTED
   ];
-  String selectedOrderFilterStatus = "ALL";
+  String selectedOrderFilterStatus;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  DropDownFilterCard(
+      {Key key, this.feedItems, this.feedItemsPermData, this.callBack}) {
+    selectedOrderFilterStatus = Store.instance.appState.orderFilterStatus;
   }
 
   @override
@@ -50,7 +37,7 @@ class _DropDownFilterCardState extends State<DropDownFilterCard> {
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
-        elevation: 3,
+        elevation: 0,
         clipBehavior: Clip.antiAlias, // Add This
         child: buildDropDownList(),
       ),
@@ -62,28 +49,31 @@ class _DropDownFilterCardState extends State<DropDownFilterCard> {
       dropDownList: orderFilterStatusList,
       selectedItem: selectedOrderFilterStatus,
       setSelectedItem: updateFeedItemListOnFilter,
-      callBackRefreshUI: refreshUI,
+      callBackRefreshUI: callBack,
+      height: 50,
+      boxDecoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: Util.greenishColor(),
+      ),
+      dropDownContainerColor: Util.greenishColor(),
+      dropDownTextColor: Colors.white,
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
     );
   }
 
   updateFeedItemListOnFilter(dynamic value) {
-    selectedOrderFilterStatus = value;
-    if (value == "ALL") {
-      widget.feedItems.clear();
-      widget.feedItems.addAll(widget.feedItemsPermData);
+    if (value == orderFilterStatusList[0]) {
+      feedItems.clear();
+      feedItems.addAll(feedItemsPermData);
     } else {
       // Preserve the Filter Card
-      widget.feedItems.removeRange(1, widget.feedItems.length);
-      for (final singleItem in widget.feedItemsPermData) {
+      feedItems.removeRange(1, feedItems.length);
+      for (final singleItem in feedItemsPermData) {
         if (value == singleItem?.order?.orderStatus) {
-          widget.feedItems.add(singleItem);
+          feedItems.add(singleItem);
         }
       }
     }
-    widget.callBack();
-  }
-
-  void refreshUI() {
-    if (mounted) setState(() {});
+    Store.instance.appState.orderFilterStatus = value;
   }
 }

@@ -28,7 +28,7 @@ class FeedCardHandler extends StatelessWidget {
       return DropDownFilterCard(
           feedItems: feedItems,
           feedItemsPermData: feedItemsPermData,
-          callBack: callBack);
+          callBack: callBack,);
     if (feedItem.viewCardType == ClientEnum.FEED_ITEM_ORDER_CARD) {
       return OrderCard(order: feedItem.order, key: GlobalKey());
     }

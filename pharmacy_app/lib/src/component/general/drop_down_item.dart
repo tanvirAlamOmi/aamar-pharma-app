@@ -13,6 +13,11 @@ class DropDownItem extends StatelessWidget {
   final Function() callBackRefreshUI;
   final Function(dynamic value) setSelectedItem;
   final Function() callBackAdditional;
+  final BoxDecoration boxDecoration;
+  final double height;
+  final Color dropDownContainerColor;
+  final Color dropDownTextColor;
+  final EdgeInsets padding;
 
   const DropDownItem(
       {Key key,
@@ -20,7 +25,11 @@ class DropDownItem extends StatelessWidget {
       this.dropDownList,
       this.selectedItem,
       this.setSelectedItem,
-      this.callBackAdditional})
+      this.callBackAdditional,
+      this.boxDecoration,
+      this.height,
+      this.dropDownContainerColor,
+      this.dropDownTextColor, this.padding})
       : super(key: key);
 
   @override
@@ -34,16 +43,20 @@ class DropDownItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1, color: Colors.black),
-            ),
-            color: Colors.transparent,
-          ),
-          height: 35,
+          alignment: Alignment.center,
+          padding: padding ?? EdgeInsets.all(0),
+          decoration: boxDecoration ??
+              BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 1, color: Colors.black),
+                ),
+                color: Colors.transparent,
+              ),
+          height: height ?? 35,
           child: DropdownButtonHideUnderline(
             child: DropdownButton<dynamic>(
-              dropdownColor: const Color.fromARGB(255, 45, 65, 89),
+              dropdownColor: dropDownContainerColor ??
+                  const Color.fromARGB(255, 45, 65, 89),
               isDense: true,
               isExpanded: true,
               value: selectedItem,
@@ -75,7 +88,8 @@ class DropDownItem extends StatelessWidget {
             child: Text(
               menuItem,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey, fontSize: 13),
+              style: TextStyle(
+                  color: dropDownTextColor ?? Colors.grey, fontSize: 15),
             ),
           ),
         ],

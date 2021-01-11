@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/repo/query_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'feed_card_handler.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 
 class FeedContainer extends StatefulWidget {
   final FeedInfo feedInfo;
@@ -90,6 +91,7 @@ class _FeedContainerState extends State<FeedContainer>
       setState(() {
         feedItemsPermData.clear();
         feedItems.clear();
+        Store.instance.appState.orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
       });
   }
 

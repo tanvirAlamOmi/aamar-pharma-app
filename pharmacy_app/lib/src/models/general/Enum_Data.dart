@@ -8,6 +8,9 @@ class ClientEnum {
   static final String ARROW_TOP = "ARROW_TOP";
   static final String ARROW_BOTTOM = "ARROW_BOTTOM";
 
+
+  static final String ORDER_STATUS_ALL =
+      "SORT BY ORDER STATUS / ALL";
   static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA =
       "Pending Invoice Response From Pharma";
   static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER =

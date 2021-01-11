@@ -1,11 +1,13 @@
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 
 class AppState {
   User user = new User();
   List<DeliveryAddressDetails> allDeliveryAddress =
       new List<DeliveryAddressDetails>();
   String firebasePushNotificationToken = "";
+  String orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
   int initialTutorialScrollingPage = 0;
   int tutorialBoxNumberHomePage = 0;
   int tutorialBoxNumberAddItemsPage = 0;
