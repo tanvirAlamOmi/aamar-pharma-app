@@ -17,7 +17,7 @@
 
     <application
         android:name="com.arbree.pharmacy_app.Application"
-        android:label="Pharmacy"
+        android:label="Amar Pharma"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:theme"
         android:largeHeap="true"
