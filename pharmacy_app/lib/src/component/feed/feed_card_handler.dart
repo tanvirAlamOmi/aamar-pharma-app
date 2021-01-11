@@ -27,7 +27,8 @@ class FeedCardHandler extends StatelessWidget {
       return OrderCard(order: feedItem.order, key: GlobalKey());
     }
     if (feedItem.viewCardType == ClientEnum.FEED_ITEM_NOTIFICATION_CARD) {
-      return NotificationCard(notificationItem: feedItem.notificationItem, key: GlobalKey());
+      return NotificationCard(
+          notificationItem: feedItem.notificationItem, key: GlobalKey());
     }
 
     return Container();
