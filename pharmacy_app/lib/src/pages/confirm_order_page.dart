@@ -1,32 +1,19 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/pages/add_new_address.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 
 class ConfirmOrderPage extends StatefulWidget {

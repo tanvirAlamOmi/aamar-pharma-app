@@ -1,12 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -14,13 +8,7 @@ import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
-import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/pages/add_new_address.dart';
+
 
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;

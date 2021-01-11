@@ -1,12 +1,8 @@
-import 'package:country_pickers/countries.dart';
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
 
 class LoginPage extends StatefulWidget {
   @override

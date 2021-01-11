@@ -36,6 +36,7 @@ class SplashPageState extends State<SplashPage> {
   Future initAppVersionCheck() async {}
 
   void navigationPage() {
+
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   }

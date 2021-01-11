@@ -54,7 +54,10 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           width: 30,
           height: 30,
           child: IconButton(
-              icon: Icon(Icons.chevron_left,color: Util.greenishColor(),),
+              icon: Icon(
+                Icons.chevron_left,
+                color: Util.greenishColor(),
+              ),
               padding: EdgeInsets.only(left: 3),
               iconSize: 25,
               splashRadius: 15,
@@ -86,7 +89,10 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           width: 30,
           height: 30,
           child: IconButton(
-              icon: Icon(Icons.chevron_right,color: Util.greenishColor(),),
+              icon: Icon(
+                Icons.chevron_right,
+                color: Util.greenishColor(),
+              ),
               padding: EdgeInsets.only(right: 10),
               iconSize: 25,
               splashRadius: 15,
@@ -124,26 +130,3 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
     );
   }
 }
-
-//
-// widget.carouselListWidget.map((listSingleItem) {
-// return Builder(
-// builder: (BuildContext context) {
-// return Container(
-// alignment: Alignment.center,
-// padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-// child: CachedNetworkImage(
-// imageUrl: listSingleItem,
-// placeholder: (context, url) =>
-// new CircularProgressIndicator(
-// backgroundColor: Colors.white,
-// ),
-// errorWidget: (context, url, error) => new Icon(Icons.error),
-// fit: BoxFit.contain,
-// width: 250,
-// height: 300,
-// ),
-// );
-// },
-// );
-// }).toList()
