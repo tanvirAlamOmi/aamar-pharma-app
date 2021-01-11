@@ -36,9 +36,13 @@ class SplashPageState extends State<SplashPage> {
   Future initAppVersionCheck() async {}
 
   void navigationPage() {
-
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+    if (Store.instance.appState.initialTutorialScrollingPage == 0) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          '/initial_tutorial_page', (Route<dynamic> route) => false);
+    } else {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+    }
   }
 
   @override
