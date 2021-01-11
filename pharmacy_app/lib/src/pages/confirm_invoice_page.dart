@@ -9,7 +9,6 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;
 

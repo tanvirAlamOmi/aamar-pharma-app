@@ -1,19 +1,13 @@
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class UploadPrescriptionVerifyPage extends StatefulWidget {
   final List<Uint8List> prescriptionImageFileList;
@@ -66,23 +60,55 @@ class _UploadPrescriptionVerifyPageState
     return SingleChildScrollView(
       child: Container(
         color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 30),
-            buildTitle(),
-            SizedBox(height: 20),
-            buildPrescriptionImageList(),
-            buildNoteBox(),
-            GeneralActionRoundButton(
-              title: "SUBMIT",
-              isProcessing: isProcessing,
-              callBackOnSubmit: proceedToConfirmOrderPage,
-              padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
+        child: Stack(
+          children: [
+            Column(
+              children: <Widget>[
+                SizedBox(height: 30),
+                buildTitle(),
+                SizedBox(height: 20),
+                buildPrescriptionImageList(),
+                buildNoteBox(),
+                GeneralActionRoundButton(
+                  title: "SUBMIT",
+                  isProcessing: isProcessing,
+                  callBackOnSubmit: proceedToConfirmOrderPage,
+                  padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
+                ),
+              ],
             ),
+            buildTutorialBox()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumberUploadPrescriptionVerifyPage) {
+      case 0:
+        return Positioned(
+          top: 150,
+          left: 70 ,
+          child: CustomMessageBox(
+            width: size.width - 150,
+            height: 120,
+            startPoint: 120,
+            midPoint: 130,
+            endPoint: 140,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "Tap to remove this uploaded photo",
+          ),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
   }
 
   Widget buildTitle() {
@@ -161,6 +187,11 @@ class _UploadPrescriptionVerifyPageState
         ],
       ),
     );
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberUploadPrescriptionVerifyPage += 1;
+    await Store.instance.putAppData();
   }
 
   void removeItem(dynamic index) {

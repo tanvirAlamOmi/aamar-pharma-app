@@ -67,18 +67,20 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   }
 
   Widget buildBody(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 10),
-        buildPickImageWidget(),
-        SizedBox(height: 10),
-        buildProductNameInputWidget(),
-        SizedBox(height: 10),
-        buildProductQuantityInputWidget(),
-        SizedBox(height: 10),
-        buildNoteInputWidget(),
-        buildSubmitButton()
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 10),
+          buildPickImageWidget(),
+          SizedBox(height: 10),
+          buildProductNameInputWidget(),
+          SizedBox(height: 10),
+          buildProductQuantityInputWidget(),
+          SizedBox(height: 10),
+          buildNoteInputWidget(),
+          buildSubmitButton()
+        ],
+      ),
     );
   }
 

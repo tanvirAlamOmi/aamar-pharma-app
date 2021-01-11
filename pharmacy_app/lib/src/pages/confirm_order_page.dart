@@ -15,6 +15,7 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
@@ -113,51 +114,111 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            OrderDeliveryAddressCard(
-              callBackRefreshUI: refreshUI,
-              deliveryTimeDay: deliveryTimeDay,
-              selectedDeliveryTimeDay: selectedDeliveryTimeDay,
-              setSelectedDeliveryTimeDay: setSelectedDeliveryTimeDay,
-              deliveryTimeTime: deliveryTimeTime,
-              selectedDeliveryTimeTime: selectedDeliveryTimeTime,
-              setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                OrderDeliveryAddressCard(
+                  callBackRefreshUI: refreshUI,
+                  deliveryTimeDay: deliveryTimeDay,
+                  selectedDeliveryTimeDay: selectedDeliveryTimeDay,
+                  setSelectedDeliveryTimeDay: setSelectedDeliveryTimeDay,
+                  deliveryTimeTime: deliveryTimeTime,
+                  selectedDeliveryTimeTime: selectedDeliveryTimeTime,
+                  setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
+                ),
+                OrderRepeatOrderCard(
+                  callBackRefreshUI: refreshUI,
+                  checkedRepeatOrder: checkedRepeatOrder,
+                  setRepeatOrder: setRepeatOrder,
+                  repeatDeliveryLongGap: repeatDeliveryLongGap,
+                  selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
+                  setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
+                  repeatDeliveryDayBar: repeatDeliveryDayBar,
+                  selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
+                  setSelectedRepeatDeliveryDayBar:
+                      setSelectedRepeatDeliveryDayBar,
+                  selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
+                  setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
+                ),
+                AddDeliveryAddressButton(callBack: refreshUI),
+                AllAddressCard(
+                    selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
+                    setSelectedDeliveryAddressIndex:
+                        setSelectedDeliveryAddressIndex,
+                    callBackRefreshUI: refreshUI),
+                PersonalDetailsCard(
+                    nameController: nameController,
+                    phoneController: phoneController,
+                    emailController: emailController),
+                GeneralActionRoundButton(
+                  title: "SUBMIT",
+                  isProcessing: false,
+                  callBackOnSubmit: submitOrder,
+                ),
+                SizedBox(height: 20)
+              ],
             ),
-            OrderRepeatOrderCard(
-              callBackRefreshUI: refreshUI,
-              checkedRepeatOrder: checkedRepeatOrder,
-              setRepeatOrder: setRepeatOrder,
-              repeatDeliveryLongGap: repeatDeliveryLongGap,
-              selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
-              setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
-              repeatDeliveryDayBar: repeatDeliveryDayBar,
-              selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
-              setSelectedRepeatDeliveryDayBar: setSelectedRepeatDeliveryDayBar,
-              selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
-              setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
-            ),
-            AddDeliveryAddressButton(callBack: refreshUI),
-            AllAddressCard(
-                selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
-                setSelectedDeliveryAddressIndex:
-                    setSelectedDeliveryAddressIndex,
-                callBackRefreshUI: refreshUI),
-            PersonalDetailsCard(
-                nameController: nameController,
-                phoneController: phoneController,
-                emailController: emailController),
-            GeneralActionRoundButton(
-              title: "SUBMIT",
-              isProcessing: false,
-              callBackOnSubmit: submitOrder,
-            ),
-            SizedBox(height: 20)
+            buildTutorialBox()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumberConfirmOrderPage) {
+      case 0:
+        return Positioned(
+          top: 60,
+          left: 20,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 120,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "Add the address of the place you would like to get your order delivered to",
+          ),
+        );
+        break;
+      case 1:
+        if (Store.instance.appState.allDeliveryAddress.length == 0) {
+          return Container();
+          break;
+        }
+        return Positioned(
+          top: 120,
+          left: 20,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 150,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "Select the address you would want this particular order to get delivered to. Selected address will have Green Border",
+          ),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberConfirmOrderPage += 1;
+    await Store.instance.putAppData();
   }
 
   void setSelectedDeliveryTimeDay(dynamic value) {
@@ -258,7 +319,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       MaterialPageRoute(
           builder: (context) => VerificationPage(
                 order: order,
-            arrivedFromConfirmOrderPage: true,
+                arrivedFromConfirmOrderPage: true,
               )),
     );
   }
