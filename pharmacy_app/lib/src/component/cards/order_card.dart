@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
-import 'package:pharmacy_app/src/store/store.dart';
-import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -55,48 +53,12 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   Widget buildBody(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
-        Column(
-          children: [
-            buildTitle(),
-            buildOrderStatus(),
-          ],
-        ),
-        buildTutorialBox()
+        buildTitle(),
+        buildOrderStatus(),
       ],
     );
-  }
-
-  Widget buildTutorialBox() {
-    final size = MediaQuery.of(context).size;
-    switch (Store.instance.appState.tutorialBoxNumberOrderCard) {
-      case 0:
-        return Positioned(
-          top: 5,
-          right: 20,
-          child: CustomMessageBox(
-            width: 190,
-            height: 100,
-            startPoint: 40,
-            midPoint: 50,
-            endPoint: 60,
-            arrowDirection: ClientEnum.ARROW_BOTTOM,
-            callBackAction: updateTutorialBox,
-            callBackRefreshUI: refreshUI,
-            messageTitle: "This indicates the current status of your order",
-          ),
-        );
-        break;
-      default:
-        return Container();
-        break;
-    }
-  }
-
-  void updateTutorialBox() async {
-    Store.instance.appState.tutorialBoxNumberOrderCard += 1;
-    await Store.instance.putAppData();
   }
 
   Widget buildTitle() {
@@ -174,7 +136,8 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.orderStatus == ClientEnum.ORDER_STATUS_DELIVERED) {
+    if (order.orderStatus ==
+        ClientEnum.ORDER_STATUS_DELIVERED) {
       Navigator.push(
         context,
         MaterialPageRoute(

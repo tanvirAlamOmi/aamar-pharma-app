@@ -118,6 +118,7 @@ class _FeedContainerState extends State<FeedContainer>
     if (feedResponse.feedItems == null || feedResponse.feedItems.isEmpty)
       noItem = true;
     isProcessing = false;
+    
     if (mounted) setState(() {});
   }
 
