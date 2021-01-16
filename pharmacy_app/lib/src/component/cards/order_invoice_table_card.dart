@@ -198,9 +198,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
       objectIdentifier: singleItem,
       refreshUI: callBackRefreshUI,
       callBackAdditional: callBackCalculatePricing,
-      width: 15,
-      height: 15,
-      iconSize: 10,
+      width: 15.5,
+      height: 15.5,
+      iconSize: 13,
     );
   }
 
@@ -222,9 +222,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
               callBackCalculatePricing();
             },
             child: Container(
-                width: 15,
-                height: 15,
-                child: Icon(Icons.remove, color: Colors.black, size: 10),
+                width: 17,
+                height: 17,
+                child: Icon(Icons.remove, color: Colors.black, size: 13.5),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.redAccent))),
@@ -239,9 +239,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
               callBackCalculatePricing();
             },
             child: Container(
-                width: 15,
-                height: 15,
-                child: Icon(Icons.add, color: Colors.black, size: 10),
+                width: 17,
+                height: 17,
+                child: Icon(Icons.add, color: Colors.black, size: 13.5),
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.redAccent))),

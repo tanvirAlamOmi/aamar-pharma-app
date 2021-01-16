@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
+import 'package:pharmacy_app/src/store/store.dart';
+
+
 
 class InitialTutorialCard extends StatelessWidget {
   final UIViewData uiViewData;
@@ -79,6 +81,7 @@ class InitialTutorialCard extends StatelessWidget {
   }
 
   void onSubmit(BuildContext context) {
+    Store.instance.appState.initialTutorialScrollingPage = 1;
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   }

@@ -85,6 +85,9 @@ class AllAddressCard extends StatelessWidget {
                           refreshUI: callBackRefreshUI,
                           callBackDeleteItem: removeItemFromList,
                           objectIdentifier: singleDeliveryAddress,
+                          iconSize: 17,
+                          width: 23,
+                          height: 23,
                         ),
                         SizedBox(height: 2),
                         Text(

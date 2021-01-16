@@ -119,6 +119,9 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             callBackDeleteItem: widget.removeItemFunction,
             refreshUI: widget.refreshUI,
             objectIdentifier: currentIndex,
+            iconSize: 18,
+            width: 25,
+            height: 25,
           ),
           SizedBox(width: 5),
           Text(

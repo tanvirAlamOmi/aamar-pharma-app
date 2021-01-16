@@ -27,12 +27,12 @@ class AppState {
             .toList()
             .cast<DeliveryAddressDetails>();
     firebasePushNotificationToken = data['FIREBASE_PUSH_NOTIFICATION_TOKEN'];
-    initialTutorialScrollingPage = 0;
-    tutorialBoxNumberHomePage = 0;
-    tutorialBoxNumberAddItemsPage = 0;
-    tutorialBoxNumberUploadPrescriptionVerifyPage = 0;
-    tutorialBoxNumberConfirmOrderPage = 0;
-    tutorialBoxNumberOrderPage = 0;
+    initialTutorialScrollingPage = data['INITIAL_TUTORIAL_SCROLLING_PAGE'] ;
+    tutorialBoxNumberHomePage = data['TUTORIAL_BOX_NUMBER_HOME_PAGE']  ?? 0;
+    tutorialBoxNumberAddItemsPage = data['TUTORIAL_BOX_NUMBER_ADD_ITEMS_PAGE']  ?? 0;
+    tutorialBoxNumberUploadPrescriptionVerifyPage = data['TUTORIAL_BOX_NUMBER_UPLOAD_PRESCRIPTION_VERIFY_PAGE']  ?? 0;
+    tutorialBoxNumberConfirmOrderPage = data['TUTORIAL_BOX_NUMBER_CONFIRM_ORDER_PAGE']  ?? 0;
+    tutorialBoxNumberOrderPage = data['TUTORIAL_BOX_NUMBER_ORDER_PAGE']  ?? 0;
   }
 
   Map<String, dynamic> toJsonMap() {
