@@ -61,11 +61,12 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: 20),
                 HomePageCarouselSliderCard(),
                 buildTitle(),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 buildPrescriptionWantedTitle(),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                         navigateToAddItems)
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 buildHotlineText(),
                 SizedBox(height: 20),
               ],

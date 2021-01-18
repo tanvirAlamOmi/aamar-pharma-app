@@ -16,28 +16,30 @@ class AuthRepo {
 
   static AuthRepo get instance => _instance;
 
-  Future<Tuple2<User, String>> logIn({String email, String password}) async {
+  Future<Tuple2<User, String>> signIn(
+      {String phoneNumber, String authToken}) async {
     int retry = 0;
 
     while (retry++ < 2) {
       try {
-        String logInRequest = jsonEncode(<String, dynamic>{
-          'email': email,
-          'password': password,
-          'fcmToken': Store.instance.appState.firebasePushNotificationToken
+        String signInRequest = jsonEncode(<String, dynamic>{
+          'AUTH_TOKEN': authToken,
+          'PHONE_NUMBER': phoneNumber,
+          'SIGNIN_TYPE': ClientEnum.SIGNIN_PHONE
         });
 
-        print(logInRequest);
+        final signInResponse =
+            await AuthRepo.instance.getAuthClient().signIn(signInRequest);
 
-        final logInResponse =
-            await AuthRepo.instance.getAuthClient().logIn(logInRequest);
+        if (signInResponse['STATUS'] == true) {
+          final user = User.fromJson(json.decode(signInResponse['USER']));
 
-        if (logInResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
+          await Store.instance.updateUser(user);
 
-          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+          return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
         }
-        if (logInResponse['result'] == ClientEnum.RESPONSE_FAIL) {
-          return Tuple2(null, logInResponse['RESPONSE_MESSAGE']);
+        if (signInResponse['STATUS'] == false) {
+          return Tuple2(null, signInResponse['RESPONSE_MESSAGE']);
         }
       } catch (err) {
         print("Error in signIn() in AuthRepo");
@@ -45,6 +47,12 @@ class AuthRepo {
       }
     }
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<void> sendSMSCode(String phoneNumber) async {
+    // No need to check for Server_Down. Because FireBase Server
+    // Handles it, Not our server. Just check internet connection
+    await AuthRepo.instance.getAuthClient().sendSMSCode(phoneNumber);
   }
 
   Future<void> logout() async {

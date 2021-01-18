@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/states/app_state.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,14 +45,11 @@ class Store {
     _appState = new AppState();
   }
 
-  setEmail(String email) async {
-    appState.user.name = email;
+  setPhoneNumber(String phoneNumber) {
+    appState.user.phone = phoneNumber;
     putAppData();
   }
 
-  getEmail() {
-    return appState.user.name;
-  }
 
   setDeliveryAddress(DeliveryAddressDetails deliveryAddressDetails) async {
     appState.allDeliveryAddress.add(deliveryAddressDetails);

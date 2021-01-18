@@ -5,9 +5,15 @@ class ClientEnum {
   static final String RESPONSE_FAIL = "fail";
   static final String RESPONSE_UNAUTHORIZED = "Unauthorized";
 
+  // Custom Message Box arrow direction
   static final String ARROW_TOP = "ARROW_TOP";
   static final String ARROW_BOTTOM = "ARROW_BOTTOM";
 
+  //SignIn Type
+  static final String SIGNIN_GOOGLE = "GOOGLE";
+  static final String SIGNIN_PHONE = "PHONE";
+  static final String SIGNIN_EMAIL_PASS = "EMAIL_PASS";
+  static final String SIGNIN_APPLE = "APPLE";
 
   static final String ORDER_STATUS_ALL =
       "SORT BY ORDER STATUS / ALL";

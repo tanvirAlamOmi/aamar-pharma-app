@@ -4,8 +4,6 @@ import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 
-
-
 class InitialTutorialCard extends StatelessWidget {
   final UIViewData uiViewData;
   final bool showGetStartedButton;

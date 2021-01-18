@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/repo/query_repo.dart';
@@ -91,7 +92,7 @@ class _FeedContainerState extends State<FeedContainer>
       setState(() {
         feedItemsPermData.clear();
         feedItems.clear();
-        Store.instance.appState.orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
+        AppVariableStates.instance.orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
       });
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 
@@ -26,7 +27,7 @@ class DropDownFilterCard extends StatelessWidget {
 
   DropDownFilterCard(
       {Key key, this.feedItems, this.feedItemsPermData, this.callBack}) {
-    selectedOrderFilterStatus = Store.instance.appState.orderFilterStatus;
+    selectedOrderFilterStatus = AppVariableStates.instance.orderFilterStatus;
   }
 
   @override
@@ -74,6 +75,6 @@ class DropDownFilterCard extends StatelessWidget {
         }
       }
     }
-    Store.instance.appState.orderFilterStatus = value;
+    AppVariableStates.instance.orderFilterStatus = value;
   }
 }

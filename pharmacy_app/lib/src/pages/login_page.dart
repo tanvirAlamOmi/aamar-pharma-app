@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class LoginPage extends StatefulWidget {
@@ -59,7 +61,7 @@ class LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(8,30,0,0),
           child: AppBarBackButton(),
         ),
       ],
@@ -209,6 +211,12 @@ class LoginPageState extends State<LoginPage> {
                 'Please provide a valid 11 digit Bangladeshi phone number');
         return;
       }
+
+      final phone = countryCode + phoneController.text;
+      await Store.instance.setPhoneNumber(phone);
+
+      await AuthRepo.instance.sendSMSCode(phone);
+      Navigator.of(context).pushNamed('/code_verification');
     } else {
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/noInternet', (Route<dynamic> route) => false);

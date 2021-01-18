@@ -1,12 +1,12 @@
 import 'dart:async';
 
-class AppVariableStates {
-  bool turnOnGPS = false;
-  bool launchedAppfirstTime = true;
-  bool showAlertDialog = false;
-  bool getLocation = true;
-  List<Timer> timerList = new List<Timer>();
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 
-  static AppVariableStates _boolState;
-  static AppVariableStates get instance => _boolState ??= AppVariableStates();
+class AppVariableStates {
+  String firebaseSMSToken = "";
+  String orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
+
+
+  static AppVariableStates _appVaryState;
+  static AppVariableStates get instance => _appVaryState ??= AppVariableStates();
 }

@@ -105,19 +105,25 @@ class _AccountPageState extends State<AccountPage> {
       return GeneralActionRoundButton(
         title: "LOGIN",
         isProcessing: false,
-        callBackOnSubmit: submitData,
+        callBackOnSubmit: routeToLoginPage,
       );
 
     return GeneralActionRoundButton(
       title: "SAVE",
       isProcessing: false,
-      callBackOnSubmit: submitData,
+      callBackOnSubmit: onSubmit,
     );
   }
 
   void setSelectedDeliveryAddressIndex(int index) {}
 
-  void submitData() {}
+  void routeToLoginPage() {
+    Navigator.of(context).pushNamed('/login');
+  }
+
+  void onSubmit(){
+
+  }
 
   void refreshUI() {
     if (mounted) setState(() {});
