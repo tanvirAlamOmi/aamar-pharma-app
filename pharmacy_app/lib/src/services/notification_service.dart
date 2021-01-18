@@ -23,14 +23,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message ${message.messageId}");
 }
 
-/// Create a [AndroidNotificationChannel] for heads up notifications
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'aamar_pharma', // id
   'Aamar Pharma', // title
   'This channel is used for Aamar Pharma notifications.', // description
-  importance: Importance.high,
+  importance: Importance.max,
   enableVibration: true,
   playSound: true,
+  showBadge: true,
+  enableLights: true,
+  ledColor: Colors.blue
 );
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
