@@ -3,14 +3,15 @@ import 'dart:io';
 import 'package:pharmacy_app/src/configs/server_config.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/models/user/user.dart' as PharmaUser;
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuthClass;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tuple/tuple.dart';
 
 class AuthClient {
+  FirebaseAuth auth = FirebaseAuth.instance;
   AuthClient() {
     print("AuthClient Initialized");
   }
@@ -33,47 +34,29 @@ class AuthClient {
   }
 
   Future<void> sendSMSCode(String phoneNumber) async {
-    /*
-      You directly get logged in if Google Play Services verified the phone number
-      instantly or helped you auto-retrieve the verification code.
-     */
-    await FirebaseAuthClass.FirebaseAuth.instance.verifyPhoneNumber(
-      /* Fully qualified phone number with country code */
+    await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-
-      /* Minimum value: 30 seconds */
       timeout: const Duration(seconds: 45),
-
-      /* It will trigger when an SMS is auto-retrieved or the phone number has been instantly verified. */
-      verificationCompleted:
-          (FirebaseAuthClass.AuthCredential authCredential) async {
+      verificationCompleted: (AuthCredential authCredential) async {
         try {
-          final FirebaseAuthClass.User firebaseUser = (await FirebaseAuthClass
-                  .FirebaseAuth.instance
-                  .signInWithCredential(authCredential))
-              .user;
+          final User firebaseUser =
+              (await FirebaseAuth.instance.signInWithCredential(authCredential))
+                  .user;
 
           final authToken = await firebaseUser.getIdToken();
 
-          Tuple2<User, String> userResponse = await AuthRepo.instance.signIn(
-              authToken: authToken,
-              phoneNumber: Store.instance.appState.user.phone);
+          Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
+              .signIn(
+                  authToken: authToken,
+                  phoneNumber: Store.instance.appState.user.phone);
 
           if (userResponse.item2 == ClientEnum.RESPONSE_SUCCESS &&
               userResponse.item1 != null) {
           } else {}
         } catch (error) {}
       },
-
-      /* Optional callback. It will trigger when an SMS has been sent to the users phone */
-      codeSent: (token, [force]) async {
-        AppVariableStates.instance.firebaseSMSToken = token;
-      },
-
-      /* Optional callback. It will trigger when SMS auto-retrieval times out */
+      codeSent: (token, [force]) async {},
       codeAutoRetrievalTimeout: (id) {},
-
-      /* Triggered when an error occurred during phone number verification */
       verificationFailed: (err) {},
     );
   }

@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:name="com.arbree.pharmacy_app.Application"
+        android:name="io.flutter.app.FlutterApplication"
         android:label="Amar Pharma"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:theme"
