@@ -44,7 +44,6 @@ class AuthClient {
                   .user;
 
           final authToken = await firebaseUser.getIdToken();
-
           Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
               .signIn(
                   authToken: authToken,
@@ -55,7 +54,9 @@ class AuthClient {
           } else {}
         } catch (error) {}
       },
-      codeSent: (token, [force]) async {},
+      codeSent: (token, [force]) async {
+        AppVariableStates.instance.firebaseSMSToken = token;
+      },
       codeAutoRetrievalTimeout: (id) {},
       verificationFailed: (err) {},
     );

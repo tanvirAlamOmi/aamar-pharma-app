@@ -12,6 +12,8 @@ import 'package:jiffy/jiffy.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:math';
 import 'package:uuid/uuid.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:typed_data';
 
 class Util {
   static Future<bool> checkInternet() async {
@@ -121,91 +123,15 @@ class Util {
         DateTime.now().millisecondsSinceEpoch.toString();
   }
 
-  static imagePickAlertDialog(
-      {BuildContext context, Function(PickedFile) callBack}) {
-    showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0)), //this right here
-            child: Container(
-              height: 120,
-              width: 50,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("PICK IMAGE BY ",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    SizedBox(height: 5),
-                    Divider(height: 1, color: Colors.grey[700]),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () async {
-                            Navigator.pop(dialogContext);
-                            ImagePicker()
-                                .getImage(
-                                    source: ImageSource.camera,
-                                    maxHeight: 800,
-                                    maxWidth: 800,
-                                    imageQuality: 100)
-                                .then((value) {
-                              callBack(value);
-                            });
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.camera, color: Colors.black),
-                              Text(
-                                "Camera",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 50),
-                        GestureDetector(
-                          onTap: () async {
-                            Navigator.pop(dialogContext);
-                            ImagePicker()
-                                .getImage(
-                                    source: ImageSource.gallery,
-                                    maxHeight: 800,
-                                    maxWidth: 800,
-                                    imageQuality: 100)
-                                .then((value) {
-                              callBack(value);
-                            });
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.insert_drive_file,
-                                  color: Colors.black),
-                              Text(
-                                "File",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
+  static Future<String> uploadImageToFirebase({Uint8List imageFile, String folderPath}) async {
+    Reference firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child(folderPath + Util.createImageUUID() + ".jpg");
+    UploadTask uploadTask = firebaseStorageRef.putData(imageFile);
+    TaskSnapshot taskSnapshot = uploadTask.snapshot;
+    final downloadImageUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadImageUrl;
   }
-
   static void removeFocusNode(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();

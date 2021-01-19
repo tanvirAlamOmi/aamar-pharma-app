@@ -3,7 +3,9 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 
@@ -27,7 +29,6 @@ class VerificationPageState extends State<VerificationPage> {
   void initState() {
     super.initState();
     eventChecker();
-    sendSMS();
   }
 
   @override
@@ -36,23 +37,19 @@ class VerificationPageState extends State<VerificationPage> {
   }
 
   void eventChecker() async {
-    Streamer.getEventStream().listen((data) {});
-  }
-
-  void sendSMS() {
-    if (widget.arrivedFromConfirmOrderPage) {}
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_VERIFICATION_PAGE) {
+        if(widget.arrivedFromConfirmOrderPage){
+          AppVariableStates.instance.submitOrder();
+        }
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -91,7 +88,6 @@ class VerificationPageState extends State<VerificationPage> {
   Widget buildVerificationLoadingWidget() {
     return Column(
       children: <Widget>[
-        buildLogo(),
         LoadingWidget(status: 'Verify login...'),
       ],
     );
@@ -129,8 +125,7 @@ class VerificationPageState extends State<VerificationPage> {
     return Container(
         alignment: Alignment.center,
         child: Text(
-            'Enter the verification code sent to +88-' +
-                widget.phoneNumber,
+            'Enter the verification code sent to +88-' + widget.phoneNumber,
             maxLines: 2,
             style: TextStyle(fontSize: 13.0, color: Colors.grey)));
   }
@@ -199,8 +194,10 @@ class VerificationPageState extends State<VerificationPage> {
       return;
     }
 
-    isProcessing = true;
+    isProcessing = false;
     refreshUI();
+
+    AppVariableStates.instance.submitOrder();
   }
 
   void refreshUI() {

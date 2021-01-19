@@ -214,7 +214,6 @@ class LoginPageState extends State<LoginPage> {
 
       final phone = countryCode + phoneController.text;
       await Store.instance.setPhoneNumber(phone);
-
       await AuthRepo.instance.sendSMSCode(phone);
       Navigator.of(context).pushNamed('/code_verification');
     } else {

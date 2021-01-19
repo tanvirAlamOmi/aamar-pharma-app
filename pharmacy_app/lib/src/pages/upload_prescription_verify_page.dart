@@ -86,11 +86,12 @@ class _UploadPrescriptionVerifyPageState
 
   Widget buildTutorialBox() {
     final size = MediaQuery.of(context).size;
-    switch (Store.instance.appState.tutorialBoxNumberUploadPrescriptionVerifyPage) {
+    switch (
+        Store.instance.appState.tutorialBoxNumberUploadPrescriptionVerifyPage) {
       case 0:
         return Positioned(
           top: 150,
-          left: 70 ,
+          left: 70,
           child: CustomMessageBox(
             width: size.width - 150,
             height: 120,
@@ -100,8 +101,7 @@ class _UploadPrescriptionVerifyPageState
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle:
-                "Tap to remove this uploaded photo",
+            messageTitle: "Tap to remove this uploaded photo",
           ),
         );
         break;
@@ -207,6 +207,7 @@ class _UploadPrescriptionVerifyPageState
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 note: noteBoxController.text,
+                prescriptionImageFileList: widget.prescriptionImageFileList,
               )),
     );
   }

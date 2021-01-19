@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pharmacy_app/src/client/auth_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/models/user/user.dart' as PharmaUser;
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:convert';
@@ -16,7 +17,7 @@ class AuthRepo {
 
   static AuthRepo get instance => _instance;
 
-  Future<Tuple2<User, String>> signIn(
+  Future<Tuple2<PharmaUser.User, String>> signIn(
       {String phoneNumber, String authToken}) async {
     int retry = 0;
 
@@ -32,7 +33,8 @@ class AuthRepo {
             await AuthRepo.instance.getAuthClient().signIn(signInRequest);
 
         if (signInResponse['STATUS'] == true) {
-          final user = User.fromJson(json.decode(signInResponse['USER']));
+          final user =
+              PharmaUser.User.fromJson(json.decode(signInResponse['USER']));
 
           await Store.instance.updateUser(user);
 
@@ -53,6 +55,33 @@ class AuthRepo {
     // No need to check for Server_Down. Because FireBase Server
     // Handles it, Not our server. Just check internet connection
     await AuthRepo.instance.getAuthClient().sendSMSCode(phoneNumber);
+  }
+
+  Future<Tuple2<PharmaUser.User, String>> signInWithPhoneNumber(
+      {String smsCode, String firebaseToken, String phoneNumber}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        final AuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: firebaseToken,
+          smsCode: smsCode,
+        );
+
+        final User firebaseUser =
+            (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+
+        final authToken = await firebaseUser.getIdToken();
+
+        Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
+            .signIn(authToken: authToken, phoneNumber: phoneNumber);
+
+        return userResponse;
+      } catch (err) {
+        print("Error in signInWithPhoneNumber() in AuthRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
   Future<void> logout() async {

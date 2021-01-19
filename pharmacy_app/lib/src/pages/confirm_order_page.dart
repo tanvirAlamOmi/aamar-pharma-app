@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
@@ -14,6 +16,7 @@ import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
@@ -22,6 +25,7 @@ import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
+  final List<Uint8List> prescriptionImageFileList;
   final PickedFile prescriptionImageFile;
   final List<OrderManualItem> orderManualItemList;
 
@@ -29,7 +33,8 @@ class ConfirmOrderPage extends StatefulWidget {
       {this.note,
       this.orderManualItemList,
       this.prescriptionImageFile,
-      Key key})
+      Key key,
+      this.prescriptionImageFileList})
       : super(key: key);
 
   @override
@@ -182,7 +187,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 GeneralActionRoundButton(
                   title: "SUBMIT",
                   isProcessing: false,
-                  callBackOnSubmit: submitOrder,
+                  callBackOnSubmit: processOrder,
                 ),
                 SizedBox(height: 20)
               ],
@@ -311,7 +316,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     if (mounted) setState(() {});
   }
 
-  void submitOrder() {
+  Future<void> processOrder() async {
     if (Store.instance.appState.allDeliveryAddress.length == 0) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please add a delivery address");
@@ -337,16 +342,34 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         ..phone = phoneController.text
         ..email = emailController.text);
 
-    AppVariableStates.instance.order = order;
+    if (Store.instance.appState.user.id == null) {
+      AppVariableStates.instance.order = order;
+      AppVariableStates.instance.submitOrder = submitOrder;
+      final countryCode = "+88";
+      final phone = countryCode + phoneController.text;
+      await Store.instance.setPhoneNumber(phone);
+      await AuthRepo.instance.sendSMSCode(phone);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => VerificationPage(
-            phoneNumber:  order.user.phone,
-                arrivedFromConfirmOrderPage: true,
-              )),
-    );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+                  phoneNumber: order.user.phone,
+                  arrivedFromConfirmOrderPage: true,
+                )),
+      );
+    } else {
+      submitOrder();
+    }
+  }
+
+  void submitOrder() {
+    print("GG");
+    print(widget.prescriptionImageFileList.length);
+
+    for (final image in widget.prescriptionImageFileList){
+      print(Util.uploadImageToFirebase(imageFile: image, folderPath: 'prescription/'));
+    }
   }
 
   void refreshUI() {

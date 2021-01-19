@@ -7,6 +7,7 @@ class AppVariableStates {
   String firebaseSMSToken = "";
   String orderFilterStatus = ClientEnum.ORDER_STATUS_ALL;
   Order order  = new Order();
+  Function submitOrder;
 
 
   static AppVariableStates _appVaryState;
