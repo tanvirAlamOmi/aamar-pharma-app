@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   String id;
   String name;
@@ -15,6 +17,13 @@ class User {
         phone = "N/A",
         token = "NONE";
 
+  User.basic()
+      : id = "1",
+        name = "GUEST",
+        email = "guest@guest.com",
+        phone = "+881231231231",
+        token = "custom-token-api";
+
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(
       id: jsonData['id'],
@@ -24,6 +33,17 @@ class User {
       userType: jsonData['user_type'],
       token: jsonData['token'],
     );
+  }
+
+  String toJsonString() {
+    final data = Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['user_type'] = userType;
+    data['token'] = token;
+    return json.encode(data);
   }
 
   Map<String, dynamic> toJsonMap() {

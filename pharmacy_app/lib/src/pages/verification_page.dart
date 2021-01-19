@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -21,7 +24,8 @@ class VerificationPage extends StatefulWidget {
 }
 
 class VerificationPageState extends State<VerificationPage> {
-  final TextEditingController codeController = TextEditingController();
+  final TextEditingController codeController =
+      TextEditingController(text: "123123");
   bool isProcessing = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -39,7 +43,7 @@ class VerificationPageState extends State<VerificationPage> {
   void eventChecker() async {
     Streamer.getEventStream().listen((data) {
       if (data.eventType == EventType.REFRESH_VERIFICATION_PAGE) {
-        if(widget.arrivedFromConfirmOrderPage){
+        if (widget.arrivedFromConfirmOrderPage) {
           AppVariableStates.instance.submitOrder();
         }
       }
@@ -196,6 +200,26 @@ class VerificationPageState extends State<VerificationPage> {
 
     isProcessing = false;
     refreshUI();
+
+    Tuple2<User, String> userResponse = await AuthRepo.instance
+        .signInWithPhoneNumber(
+            smsCode: codeController.text,
+            firebaseToken: AppVariableStates.instance.firebaseSMSToken,
+            phoneNumber: widget.phoneNumber);
+
+    User user = userResponse.item1;
+    String responseCode = userResponse.item2;
+
+    if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
+
+
+    } else {
+      isProcessing = false;
+      refreshUI();
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.");
+    }
 
     AppVariableStates.instance.submitOrder();
   }

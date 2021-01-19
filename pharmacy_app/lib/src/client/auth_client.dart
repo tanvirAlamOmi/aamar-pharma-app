@@ -17,6 +17,11 @@ class AuthClient {
   }
 
   Future<dynamic> signIn(String signInRequest) async {
+    return jsonEncode(<String, dynamic>{
+      'USER': PharmaUser.User.basic().toJsonString(),
+      'STATUS': true
+    });
+
     final http.Response response = await http
         .post(
           ServerConfig.SERVER_HOST +
@@ -39,19 +44,7 @@ class AuthClient {
       timeout: const Duration(seconds: 45),
       verificationCompleted: (AuthCredential authCredential) async {
         try {
-          final User firebaseUser =
-              (await FirebaseAuth.instance.signInWithCredential(authCredential))
-                  .user;
 
-          final authToken = await firebaseUser.getIdToken();
-          Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
-              .signIn(
-                  authToken: authToken,
-                  phoneNumber: Store.instance.appState.user.phone);
-
-          if (userResponse.item2 == ClientEnum.RESPONSE_SUCCESS &&
-              userResponse.item1 != null) {
-          } else {}
         } catch (error) {}
       },
       codeSent: (token, [force]) async {

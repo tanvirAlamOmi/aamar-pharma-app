@@ -17,23 +17,19 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 Soundpool pool = Soundpool(streamType: StreamType.notification);
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
   print("Handling a background message ${message.messageId}");
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'aamar_pharma', // id
-  'Aamar Pharma', // title
-  'This channel is used for Aamar Pharma notifications.', // description
-  importance: Importance.max,
-  enableVibration: true,
-  playSound: true,
-  showBadge: true,
-  enableLights: true,
-  ledColor: Colors.blue
-);
+    'amar_pharma', // id
+    'Amar Pharma', // title
+    'This channel is used for Aamar Pharma notifications.', // description
+    importance: Importance.max,
+    enableVibration: true,
+    playSound: true,
+    showBadge: true,
+    enableLights: true,
+    ledColor: Colors.blue);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -45,9 +41,9 @@ void firebaseCloudMessagingListeners() async {
     return pool.load(soundData);
   });
 
-
   await Firebase.initializeApp();
-  await FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  print("FIREBASE  initialized");
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -64,7 +60,6 @@ void firebaseCloudMessagingListeners() async {
     if (Platform.isIOS) iOSPermission();
 
     FirebaseMessaging.instance.getToken().then((token) async {
-      print(token);
       await Store.instance.setFirebasePushNotificationToken(token);
     });
 
@@ -74,25 +69,23 @@ void firebaseCloudMessagingListeners() async {
         FirebaseMessaging.instance.subscribeToTopic("pharma-admin-dev");
     }
 
-    FirebaseMessaging.onMessage.listen((message) async{
+    FirebaseMessaging.onMessage.listen((message) async {
       await pool.play(soundId);
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessage $message');
     });
 
-    FirebaseMessaging.onBackgroundMessage((message) async{
+    FirebaseMessaging.onBackgroundMessage((message) async {
       await pool.play(soundId);
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessage $message');
     });
 
-
-    FirebaseMessaging.onMessageOpenedApp.listen((message) async{
+    FirebaseMessaging.onMessageOpenedApp.listen((message) async {
       await pool.play(soundId);
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessage $message');
     });
-
   } catch (error) {
     print("ERROR in FCM Service");
     print(error);

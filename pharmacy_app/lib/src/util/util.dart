@@ -123,15 +123,22 @@ class Util {
         DateTime.now().millisecondsSinceEpoch.toString();
   }
 
-  static Future<String> uploadImageToFirebase({Uint8List imageFile, String folderPath}) async {
+  static Future<String> uploadImageToFirebase(
+      {Uint8List imageFile, String folderPath}) async {
+    String downloadImageUrl = "N/A";
     Reference firebaseStorageRef = FirebaseStorage.instance
         .ref()
         .child(folderPath + Util.createImageUUID() + ".jpg");
     UploadTask uploadTask = firebaseStorageRef.putData(imageFile);
-    TaskSnapshot taskSnapshot = uploadTask.snapshot;
-    final downloadImageUrl = await taskSnapshot.ref.getDownloadURL();
+
+    await uploadTask.then((TaskSnapshot snapshot) async {
+      downloadImageUrl = await snapshot.ref.getDownloadURL();
+    }).catchError((Object e) {
+      print(e); // FirebaseException
+    });
     return downloadImageUrl;
   }
+
   static void removeFocusNode(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();

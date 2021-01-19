@@ -81,9 +81,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   final TextEditingController fullAddressController =
       new TextEditingController();
-  final TextEditingController nameController = new TextEditingController();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController phoneController = new TextEditingController();
+  final TextEditingController nameController =
+      new TextEditingController(text: "asd");
+  final TextEditingController emailController =
+      new TextEditingController(text: "asd@asd");
+  final TextEditingController phoneController =
+      new TextEditingController(text: "1231231231");
 
   @override
   void initState() {
@@ -363,12 +366,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     }
   }
 
-  void submitOrder() {
-    print("GG");
-    print(widget.prescriptionImageFileList.length);
-
-    for (final image in widget.prescriptionImageFileList){
-      print(Util.uploadImageToFirebase(imageFile: image, folderPath: 'prescription/'));
+  void submitOrder() async {
+    for (final image in widget.prescriptionImageFileList) {
+      print(await Util.uploadImageToFirebase(
+          imageFile: image, folderPath: 'prescription/'));
     }
   }
 
