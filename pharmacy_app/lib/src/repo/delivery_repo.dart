@@ -28,17 +28,49 @@ class DeliveryRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
+        final String addDeliveryAddressRequest = jsonEncode(<String, dynamic>{
+          'id_customer': Store.instance.appState.user.id,
+          'apt_no': ClientEnum.NA,
+          'house_no': ClientEnum.NA,
+          'street': ClientEnum.NA,
+          'area': deliveryAddressDetails.areaName,
+          'city': ClientEnum.NA,
+        });
+
         final addDeliveryAddressResponse = await DeliveryRepo.instance
             .getDeliveryClient()
-            .addDeliveryAddress(jwtToken, orderItemsById);
+            .addDeliveryAddress(jwtToken, addDeliveryAddressRequest);
 
-        final List<OrderItem> itemList = List<dynamic>.from(orderItemsResponse
-                .map((singleItem) => OrderItem.fromJson(singleItem)))
-            .cast<OrderItem>();
+        return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+      } catch (err) {
+        print("Error in addDeliveryAddress() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<List<DeliveryAddressDetails>, String>>
+      deliveryAddressListCustomer(
+          DeliveryAddressDetails deliveryAddressDetails) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.token;
+        String customerId = Store.instance.appState.user.id;
+
+        final deliveryAddressListResponse = await DeliveryRepo.instance
+            .getDeliveryClient()
+            .deliveryAddressListCustomer(jwtToken, customerId);
+
+        final List<DeliveryAddressDetails> itemList = List<dynamic>.from(
+                deliveryAddressListResponse.map((singleItem) =>
+                    DeliveryAddressDetails.fromJson(singleItem)))
+            .cast<DeliveryAddressDetails>();
 
         return Tuple2(itemList, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in getOrderItems() in OrderRepo");
+        print("Error in addDeliveryAddress() in OrderRepo");
         print(err);
       }
     }

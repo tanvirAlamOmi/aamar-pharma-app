@@ -251,7 +251,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller:
-                        TextEditingController(text: order.userDetails.name),
+                        TextEditingController(text: order.user.name),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -282,7 +282,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         height: 35, // set this
                         child: TextField(
                           controller: TextEditingController(
-                              text: order.userDetails.email),
+                              text: order.user.email),
                           style: textStyle,
                           enabled: false,
                           decoration: new InputDecoration(
@@ -313,7 +313,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         height: 35, // set this
                         child: TextField(
                           controller: TextEditingController(
-                              text: order.userDetails.phoneNumber),
+                              text: order.user.phone),
                           enabled: false,
                           style: textStyle,
                           decoration: new InputDecoration(

@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/models/order/invoice.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -117,9 +118,9 @@ class QueryRepo {
                       addressType: "HOME",
                       areaName: "MIRPUR",
                       fullAddress: "47/A Kashi Building"),
-                  userDetails: UserDetails(
+                  user: User(
                       name: "ABC",
-                      phoneNumber: "+8801528 285415",
+                      phone: "+8801528 285415",
                       email: "abc@gmail.com")),
             ),
             FeedItem(
@@ -139,9 +140,9 @@ class QueryRepo {
                       addressType: "HOME",
                       areaName: "MIRPUR",
                       fullAddress: "47/A Kashi Building"),
-                  userDetails: UserDetails(
+                  user: User(
                       name: "ABC",
-                      phoneNumber: "+8801528 285415",
+                      phone: "+8801528 285415",
                       email: "abc@gmail.com")),
             ),
             FeedItem(
@@ -175,9 +176,9 @@ class QueryRepo {
                         addressType: "OFFICE",
                         areaName: "MIRPUR",
                         fullAddress: "48/A Kashi Building"),
-                    userDetails: UserDetails(
+                    user: User(
                         name: "XYZ",
-                        phoneNumber: "+88013 4541228 ",
+                        phone: "+88013 4541228 ",
                         email: "xyhz@gmail.com")))
           ]),
           ClientEnum.RESPONSE_SUCCESS);
@@ -195,6 +196,4 @@ class QueryRepo {
 
     return null;
   }
-
-
 }

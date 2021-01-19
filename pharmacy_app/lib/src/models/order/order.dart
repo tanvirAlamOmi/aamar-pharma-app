@@ -1,5 +1,6 @@
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 
 class Order {
@@ -9,7 +10,7 @@ class Order {
   List<dynamic> imageList;
   List<dynamic> itemList;
   DeliveryAddressDetails deliveryAddressDetails;
-  UserDetails userDetails;
+  User user;
   String repeatOrder;
   Invoice invoice;
 
@@ -20,7 +21,7 @@ class Order {
       this.imageList,
       this.itemList,
       this.deliveryAddressDetails,
-      this.userDetails,
+      this.user,
       this.repeatOrder,
       this.invoice});
 

@@ -8,11 +8,11 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 
 class VerificationPage extends StatefulWidget {
-  final Order order;
+  final String phoneNumber;
   final bool arrivedFromConfirmOrderPage;
 
   const VerificationPage(
-      {Key key, this.order, this.arrivedFromConfirmOrderPage})
+      {Key key, this.arrivedFromConfirmOrderPage, this.phoneNumber})
       : super(key: key);
   @override
   State<StatefulWidget> createState() => new VerificationPageState();
@@ -130,7 +130,7 @@ class VerificationPageState extends State<VerificationPage> {
         alignment: Alignment.center,
         child: Text(
             'Enter the verification code sent to +88-' +
-                widget.order.userDetails.phoneNumber,
+                widget.phoneNumber,
             maxLines: 2,
             style: TextStyle(fontSize: 13.0, color: Colors.grey)));
   }

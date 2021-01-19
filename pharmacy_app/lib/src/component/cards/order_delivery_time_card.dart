@@ -56,7 +56,7 @@ class OrderDeliveryAddressCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "DELIVERY TIME",
+            "DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)",
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Util.greenishColor()),
           ),

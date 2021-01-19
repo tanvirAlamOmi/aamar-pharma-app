@@ -89,11 +89,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     fullAddressController = new TextEditingController(
         text: widget.order.deliveryAddressDetails.fullAddress);
     nameController = new TextEditingController(
-        text: widget.order.userDetails.name);
+        text: widget.order.user.name);
     emailController = new TextEditingController(
-        text: widget.order.userDetails.email);
+        text: widget.order.user.email);
     phoneController = new TextEditingController(
-        text: widget.order.userDetails.phoneNumber);
+        text: widget.order.user.phone);
   }
 
   @override
@@ -350,7 +350,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.userDetails.phoneNumber,
+                    widget.order.user.phone,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,

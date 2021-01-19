@@ -52,4 +52,6 @@ class ClientEnum {
   static final String YES = "yes";
   static final String NO = "no";
 
+  static final String NA = "N/A";
+
 }

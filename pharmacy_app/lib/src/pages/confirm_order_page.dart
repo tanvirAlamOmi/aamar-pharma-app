@@ -8,7 +8,10 @@ import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -37,23 +40,31 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
 
-  List<String> deliveryTimeDay = ["Today", "Tomorrow"];
+  DateTime currentTime;
+  DateTime officeTime;
+  DateTime timeLimit;
+
+  List<String> deliveryTimeDay = [OrderEnum.DAY_TODAY, OrderEnum.DAY_TOMORROW];
   String selectedDeliveryTimeDay;
 
   List<String> deliveryTimeTime = [];
   String selectedDeliveryTimeTime;
 
-  List<String> repeatDeliveryLongGap = ["Week", "15 Days", "1 Month"];
+  List<String> repeatDeliveryLongGap = [
+    OrderEnum.REPEAT_1_WEEK,
+    OrderEnum.REPEAT_15_DAYS,
+    OrderEnum.REPEAT_1_MONTH
+  ];
   String selectedRepeatDeliveryLongGap;
 
   List<String> repeatDeliveryDayBar = [
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
+    OrderEnum.DAY_SATURDAY,
+    OrderEnum.DAY_SUNDAY,
+    OrderEnum.DAY_MONDAY,
+    OrderEnum.DAY_TUESDAY,
+    OrderEnum.DAY_WEDNESDAY,
+    OrderEnum.DAY_THURSDAY,
+    OrderEnum.DAY_FRIDAY,
   ];
   String selectedRepeatDeliveryDayBar;
 
@@ -72,6 +83,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   void initState() {
     super.initState();
+    setTime();
     setSelectionData();
   }
 
@@ -80,12 +92,27 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     super.dispose();
   }
 
+  void setTime() {
+    currentTime = DateTime.now();
+    officeTime = DateTime(
+        currentTime.year, currentTime.month, currentTime.day, 10, 00, 00);
+    timeLimit = DateTime(
+        currentTime.year, currentTime.month, currentTime.day, 22, 00, 00);
+  }
+
   void setSelectionData() {
     selectedDeliveryTimeDay = deliveryTimeDay[0];
     createDeliveryTimeTime();
+    setDeliveryDayOnTimeLimitCross();
     selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
     selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
     selectedRepeatDeliveryTime = DateTime.now();
+  }
+
+  void setDeliveryDayOnTimeLimitCross() {
+    if (currentTime.isAfter(timeLimit)) {
+      selectedDeliveryTimeDay = deliveryTimeDay[1];
+    }
   }
 
   @override
@@ -252,12 +279,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void createDeliveryTimeTime() {
     deliveryTimeTime.clear();
-    DateTime currentTime = DateTime.now();
-    DateTime officeTime = DateTime(
-        currentTime.year, currentTime.month, currentTime.day, 10, 00, 00);
-    final DateTime timeLimit = DateTime(
-        currentTime.year, currentTime.month, currentTime.day, 22, 00, 00);
-    int x = 0;
+    setTime();
+    setDeliveryDayOnTimeLimitCross();
 
     if (selectedDeliveryTimeDay == deliveryTimeDay[0]) {
       while (currentTime.isBefore(timeLimit)) {
@@ -295,7 +318,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (phoneController.text.length != 11) {
+    if (phoneController.text.length != 10) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid 11 digit Bangladshi Number");
@@ -309,16 +332,18 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
       ..deliveryAddressDetails = (new DeliveryAddressDetails()
         ..fullAddress = fullAddressController.text)
-      ..userDetails = (new UserDetails()
+      ..user = (new User()
         ..name = nameController.text
-        ..phoneNumber = phoneController.text
+        ..phone = phoneController.text
         ..email = emailController.text);
+
+    AppVariableStates.instance.order = order;
 
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => VerificationPage(
-                order: order,
+            phoneNumber:  order.user.phone,
                 arrivedFromConfirmOrderPage: true,
               )),
     );
