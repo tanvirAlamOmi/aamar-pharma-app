@@ -20,7 +20,7 @@ class AuthClient {
     final http.Response response = await http
         .post(
           ServerConfig.SERVER_HOST +
-              ServerConfig.SERVER_PORT.toString() +
+              ServerConfig.SERVER_PORT +
               '/api/adminapi/login',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',

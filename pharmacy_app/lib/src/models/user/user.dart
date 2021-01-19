@@ -3,9 +3,10 @@ class User {
   String name;
   String email;
   String phone;
+  String userType;
   String token;
 
-  User({this.id, this.name, this.email, this.phone, this.token});
+  User({this.id, this.name, this.email, this.phone, this.userType, this.token});
 
   User.blank()
       : id = "0",
@@ -20,6 +21,7 @@ class User {
       name: jsonData['name'],
       email: jsonData['email'],
       phone: jsonData['phone'],
+      userType: jsonData['user_type'],
       token: jsonData['token'],
     );
   }
@@ -30,6 +32,7 @@ class User {
     data['name'] = name;
     data['email'] = email;
     data['phone'] = phone;
+    data['user_type'] = userType;
     data['token'] = token;
     return data;
   }
