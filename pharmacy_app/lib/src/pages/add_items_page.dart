@@ -112,8 +112,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle:
-            "The items you add will be listed under this",
+            messageTitle: "The items you add will be listed under this",
           ),
         );
         break;
@@ -127,7 +126,6 @@ class _AddItemsPageState extends State<AddItemsPage> {
     Store.instance.appState.tutorialBoxNumberAddItemsPage += 1;
     await Store.instance.putAppData();
   }
-
 
   Widget buildAddItemBox() {
     return Container(
@@ -350,6 +348,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
       context,
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
+                orderType: ClientEnum.ORDER_TYPE_LIST_ITEMS,
                 orderManualItemList: orderManualItemList,
               )),
     );

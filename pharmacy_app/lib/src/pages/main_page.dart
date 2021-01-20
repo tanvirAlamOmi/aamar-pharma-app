@@ -1,5 +1,8 @@
+import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/home_page.dart';
 import 'package:pharmacy_app/src/pages/user_details_page.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/order_page.dart';
@@ -15,6 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey bottomNavKey = new GlobalKey();
   int currentTabIndex;
 
   @override
@@ -22,6 +26,18 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     currentTabIndex = 0;
     Util.getPermissions();
+    eventChecker();
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_MAIN_PAGE) {}
+
+      if (data.eventType == EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE) {
+        currentTabIndex  = 1;
+        refreshUI();
+      }
+    });
   }
 
   @override
@@ -40,6 +56,7 @@ class _MainPageState extends State<MainPage> {
         children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        key: bottomNavKey,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentTabIndex,
         items: buildBottomBarItems(),
@@ -78,5 +95,9 @@ class _MainPageState extends State<MainPage> {
         icon: Icon(Icons.account_circle, size: 24),
       ),
     ];
+  }
+
+  void refreshUI() {
+    if (mounted) setState(() {});
   }
 }

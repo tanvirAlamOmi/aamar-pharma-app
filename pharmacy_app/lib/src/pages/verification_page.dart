@@ -211,8 +211,10 @@ class VerificationPageState extends State<VerificationPage> {
     String responseCode = userResponse.item2;
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
-
-
+      if (widget.arrivedFromConfirmOrderPage) {
+        Navigator.of(context).pop();
+        AppVariableStates.instance.submitOrder();
+      }
     } else {
       isProcessing = false;
       refreshUI();
@@ -220,8 +222,6 @@ class VerificationPageState extends State<VerificationPage> {
           scaffoldKey: _scaffoldKey,
           message: "Something went wrong. Please try again.");
     }
-
-    AppVariableStates.instance.submitOrder();
   }
 
   void refreshUI() {

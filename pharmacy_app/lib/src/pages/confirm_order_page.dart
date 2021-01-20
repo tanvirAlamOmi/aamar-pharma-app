@@ -1,7 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
@@ -9,10 +9,12 @@ import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
@@ -25,16 +27,16 @@ import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
+  final String orderType;
   final List<Uint8List> prescriptionImageFileList;
-  final PickedFile prescriptionImageFile;
   final List<OrderManualItem> orderManualItemList;
 
   ConfirmOrderPage(
       {this.note,
       this.orderManualItemList,
-      this.prescriptionImageFile,
       Key key,
-      this.prescriptionImageFileList})
+      this.prescriptionImageFileList,
+      this.orderType})
       : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class ConfirmOrderPage extends StatefulWidget {
 class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
+  String uploadStatus = "";
 
   DateTime currentTime;
   DateTime officeTime;
@@ -145,7 +148,20 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     );
   }
 
+  Widget buildLoadingWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LoadingWidget(status: 'Confirming Order...'),
+        SizedBox(height: 10),
+        Text(uploadStatus, textAlign: TextAlign.center)
+      ],
+    );
+  }
+
   Widget buildBody(BuildContext context) {
+    if (isProcessing) return buildLoadingWidget();
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
@@ -335,7 +351,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
     Order order = new Order()
       ..id = "009"
-      ..orderType = ClientEnum.ORDER_TYPE_LIST_IMAGES
+      ..orderType = widget.orderType
       ..orderStatus =
           ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
       ..deliveryAddressDetails = (new DeliveryAddressDetails()
@@ -367,10 +383,27 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void submitOrder() async {
-    for (final image in widget.prescriptionImageFileList) {
-      print(await Util.uploadImageToFirebase(
-          imageFile: image, folderPath: 'prescription/'));
+    isProcessing = true;
+    refreshUI();
+    await Future.delayed(Duration(seconds: 1));
+
+    if (widget.orderType == ClientEnum.ORDER_TYPE_LIST_IMAGES) {
+      for (final image in widget.prescriptionImageFileList) {
+        uploadStatus = "Uploading 1 image";
+
+        refreshUI();
+        await Future.delayed(Duration(seconds: 1));
+        // print(await Util.uploadImageToFirebase(
+        //     imageFile: image, folderPath: 'prescription/'));
+      }
     }
+
+    isProcessing = false;
+    refreshUI();
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+    await Future.delayed(Duration(milliseconds: 500));
+    Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
   }
 
   void refreshUI() {

@@ -207,6 +207,7 @@ class _UploadPrescriptionVerifyPageState
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 note: noteBoxController.text,
+                orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
                 prescriptionImageFileList: widget.prescriptionImageFileList,
               )),
     );

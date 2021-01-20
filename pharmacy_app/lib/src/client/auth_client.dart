@@ -17,10 +17,11 @@ class AuthClient {
   }
 
   Future<dynamic> signIn(String signInRequest) async {
-    return jsonEncode(<String, dynamic>{
+    return json.decode(jsonEncode(<String, dynamic>{
       'USER': PharmaUser.User.basic().toJsonString(),
-      'STATUS': true
-    });
+      'STATUS': true,
+      'RESPONSE_MESSAGE': ClientEnum.RESPONSE_SUCCESS
+    }));
 
     final http.Response response = await http
         .post(
