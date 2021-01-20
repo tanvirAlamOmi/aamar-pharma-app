@@ -15,9 +15,13 @@ import 'package:tuple/tuple.dart';
 class VerificationPage extends StatefulWidget {
   final String phoneNumber;
   final bool arrivedFromConfirmOrderPage;
+  final bool arrivedFromUserDetailsPage;
 
   const VerificationPage(
-      {Key key, this.arrivedFromConfirmOrderPage, this.phoneNumber})
+      {Key key,
+      this.arrivedFromConfirmOrderPage,
+      this.phoneNumber,
+      this.arrivedFromUserDetailsPage})
       : super(key: key);
   @override
   State<StatefulWidget> createState() => new VerificationPageState();
@@ -211,9 +215,15 @@ class VerificationPageState extends State<VerificationPage> {
     String responseCode = userResponse.item2;
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
-      if (widget.arrivedFromConfirmOrderPage) {
+      if (widget.arrivedFromConfirmOrderPage == true) {
         Navigator.of(context).pop();
         AppVariableStates.instance.submitOrder();
+      }
+
+      if (widget.arrivedFromUserDetailsPage == true) {
+        Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
       }
     } else {
       isProcessing = false;

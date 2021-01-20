@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -61,7 +62,7 @@ class LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(8,30,0,0),
+          padding: const EdgeInsets.fromLTRB(3,30,0,0),
           child: AppBarBackButton(),
         ),
       ],
@@ -204,7 +205,7 @@ class LoginPageState extends State<LoginPage> {
         return;
       }
 
-      if (phoneController.text.length != 11) {
+      if (phoneController.text.length != 10) {
         Util.showSnackBar(
             scaffoldKey: _scaffoldKey,
             message:
@@ -215,7 +216,14 @@ class LoginPageState extends State<LoginPage> {
       final phone = countryCode + phoneController.text;
       await Store.instance.setPhoneNumber(phone);
       await AuthRepo.instance.sendSMSCode(phone);
-      Navigator.of(context).pushNamed('/code_verification');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+              phoneNumber: phone,
+              arrivedFromUserDetailsPage: true,
+            )),
+      );
     } else {
       Navigator.of(context).pushNamedAndRemoveUntil(
           '/noInternet', (Route<dynamic> route) => false);

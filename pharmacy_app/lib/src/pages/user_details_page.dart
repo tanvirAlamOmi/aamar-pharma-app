@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -41,11 +43,21 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     setUserDetailsData();
+    eventChecker();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_USER_DETAILS_PAGE) {
+        setUserDetailsData();
+        refreshUI();
+      }
+    });
   }
 
   void setUserDetailsData() {
