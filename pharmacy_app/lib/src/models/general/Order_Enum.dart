@@ -1,5 +1,4 @@
 class OrderEnum {
-
   static final DAY_TODAY = "Today";
   static final DAY_TOMORROW = "Tomorrow";
 
@@ -13,7 +12,24 @@ class OrderEnum {
   static final String DAY_TUESDAY = "Tuesday";
   static final String DAY_WEDNESDAY = "Wednesday";
   static final String DAY_THURSDAY = "Thursday";
-  static final String DAY_FRIDAY= "Friday";
+  static final String DAY_FRIDAY = "Friday";
 
+  static final String ORDER_STATUS_ALL = "SORT BY ORDER STATUS / ALL";
+  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA =
+      "Pending Invoice Response From Pharma";
+  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER =
+      "Pending Invoice Response From CUSTOMER";
+  static final String ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER =
+      "Invoice Confirm From Customer";
+  static final String ORDER_STATUS_PROCESSING = "Processing";
+  static final String ORDER_STATUS_ON_THE_WAY = "On the way";
+  static final String ORDER_STATUS_DELIVERED = "Delivered";
+  static final String ORDER_STATUS_CANCELED = "Canceled";
+  static final String ORDER_STATUS_REJECTED = "Rejected";
 
+  static final String ORDER_WITH_ITEM_NAME = "Item name";
+  static final String ORDER_WITH_PRESCRIPTION = "Prescription";
+
+  static final String ORDER_PAYMENT_STATUS_PAID = "Paid";
+  static final String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
 }

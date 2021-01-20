@@ -1,27 +1,32 @@
 class DeliveryAddressDetails {
-  String addressType;
-  String fullAddress;
-  String areaName;
+  String id;
+  String area;
+  String addType; // Address Type: Home, Office
+  String address;
 
   DeliveryAddressDetails({
-    this.addressType,
-    this.fullAddress,
-    this.areaName,
+    this.id,
+    this.addType,
+    this.address,
+    this.area,
   });
 
   factory DeliveryAddressDetails.fromJson(Map<String, dynamic> jsonData) {
     return DeliveryAddressDetails(
-      addressType: jsonData['addressType'],
-      fullAddress: jsonData['fullAddress'],
-      areaName: jsonData['areaName'],
+      id: jsonData['id'],
+      area: jsonData['area'],
+      addType: jsonData['add_type'],
+      address: jsonData['address'],
     );
   }
 
   Map<String, dynamic> toJsonMap() {
     final data = Map<String, dynamic>();
-    data['addressType'] = addressType;
-    data['fullAddress'] = fullAddress;
-    data['areaName'] = areaName;
+    data['id'] = id;
+    data['area'] = area;
+    data['add_type'] = addType;
+    data['address'] = address;
+
     return data;
   }
 }

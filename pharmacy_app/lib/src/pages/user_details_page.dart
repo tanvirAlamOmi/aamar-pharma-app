@@ -133,9 +133,7 @@ class _AccountPageState extends State<AccountPage> {
     Navigator.of(context).pushNamed('/login');
   }
 
-  void onSubmit(){
-
-  }
+  void onSubmit() {}
 
   void refreshUI() {
     if (mounted) setState(() {});

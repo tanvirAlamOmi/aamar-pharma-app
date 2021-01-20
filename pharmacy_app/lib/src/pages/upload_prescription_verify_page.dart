@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
@@ -207,7 +208,7 @@ class _UploadPrescriptionVerifyPageState
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 note: noteBoxController.text,
-                orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
+                orderType: OrderEnum.ORDER_WITH_PRESCRIPTION,
                 prescriptionImageFileList: widget.prescriptionImageFileList,
               )),
     );

@@ -15,25 +15,7 @@ class ClientEnum {
   static final String SIGNIN_EMAIL_PASS = "EMAIL_PASS";
   static final String SIGNIN_APPLE = "APPLE";
 
-  static final String ORDER_STATUS_ALL =
-      "SORT BY ORDER STATUS / ALL";
-  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA =
-      "Pending Invoice Response From Pharma";
-  static final String ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER =
-      "Pending Invoice Response From CUSTOMER";
-  static final String ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER = "Invoice Confirm From Customer";
-  static final String ORDER_STATUS_PROCESSING = "Processing";
-  static final String ORDER_STATUS_ON_THE_WAY = "On the way";
-  static final String ORDER_STATUS_DELIVERED = "Delivered";
-  static final String ORDER_STATUS_CANCELED = "Canceled";
-  static final String ORDER_STATUS_REJECTED = "Rejected";
 
-  static final String ORDER_TYPE_LIST_ITEMS = "List Items";
-  static final String ORDER_TYPE_LIST_IMAGES = "List Images";
-
-
-  static final String ORDER_PAYMENT_STATUS_PAID = "Paid";
-  static final String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
 
 
   static final String FEED_PENDING = "Pending";

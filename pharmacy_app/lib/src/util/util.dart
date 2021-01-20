@@ -14,6 +14,7 @@ import 'dart:math';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:typed_data';
+import 'package:intl/intl.dart';
 
 class Util {
   static Future<bool> checkInternet() async {
@@ -92,6 +93,12 @@ class Util {
 
   static String formatDateToStringDateAndDay(DateTime dateTime) {
     return Jiffy(dateTime.toUtc()).EEEE + ", " + Jiffy(dateTime.toUtc()).yMMMMd;
+  }
+
+  static String formatDateToyyyy_MM_DD(DateTime dateTime){
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    final String formattedDate = formatter.format(dateTime);
+    return formattedDate;
   }
 
   static String formatDateToStringOnlyHourMinute(DateTime dateTime) {

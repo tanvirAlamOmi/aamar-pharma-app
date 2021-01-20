@@ -216,9 +216,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
 
     final DeliveryAddressDetails deliveryAddressDetails =
         new DeliveryAddressDetails()
-          ..addressType = addressTypeController.text
-          ..fullAddress = fullAddressController.text
-          ..areaName = selectedArea;
+          ..addType = addressTypeController.text
+          ..address = fullAddressController.text
+          ..area = selectedArea;
 
     Store.instance.setDeliveryAddress(deliveryAddressDetails);
 

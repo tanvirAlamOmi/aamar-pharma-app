@@ -24,6 +24,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
@@ -349,17 +350,37 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
+    String deliveryDate = "";
+    if (selectedDeliveryTimeDay == OrderEnum.DAY_TODAY) {
+      var todayDateTime = DateTime.now();
+      deliveryDate = Util.formatDateToyyyy_MM_DD(todayDateTime);
+    } else if (selectedDeliveryTimeDay == OrderEnum.DAY_TOMORROW) {
+      var todayDateTime = DateTime.now();
+      todayDateTime = todayDateTime.add(Duration(days: 1));
+      deliveryDate = Util.formatDateToyyyy_MM_DD(todayDateTime);
+    }
+
+    final String repeatOrder = checkedRepeatOrder ? "Yes" : "No";
+    final String every =
+        checkedRepeatOrder ? selectedRepeatDeliveryLongGap : null;
+    final String day = checkedRepeatOrder ? selectedRepeatDeliveryDayBar : null;
+    final String time = checkedRepeatOrder
+        ? Util.formatDateToStringOnlyHourMinute(selectedRepeatDeliveryTime)
+        : null;
+
     Order order = new Order()
-      ..id = "009"
-      ..orderType = widget.orderType
-      ..orderStatus =
-          ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
-      ..deliveryAddressDetails = (new DeliveryAddressDetails()
-        ..fullAddress = fullAddressController.text)
-      ..user = (new User()
-        ..name = nameController.text
-        ..phone = phoneController.text
-        ..email = emailController.text);
+      ..orderWith = widget.orderType
+      ..name = nameController.text
+      ..email = emailController.text
+      ..mobileNo = phoneController.text
+      ..note = widget.note
+      ..repeatOrder = repeatOrder
+      ..deliveryTime = selectedDeliveryTimeTime
+      ..deliveryDate = deliveryDate
+      ..status = OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
+      ..every = every
+      ..day = day
+      ..time = time;
 
     if (Store.instance.appState.user.id == null) {
       AppVariableStates.instance.order = order;
@@ -387,7 +408,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     refreshUI();
     await Future.delayed(Duration(seconds: 1));
 
-    if (widget.orderType == ClientEnum.ORDER_TYPE_LIST_IMAGES) {
+    AppVariableStates.instance.order.idCustomer =
+        Store.instance.appState.user.id;
+
+    if (widget.orderType == OrderEnum.ORDER_WITH_PRESCRIPTION) {
       for (final image in widget.prescriptionImageFileList) {
         uploadStatus = "Uploading 1 image";
 

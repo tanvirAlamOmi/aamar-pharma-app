@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dar
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -90,7 +91,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildImageList() {
-    if (order.orderType != ClientEnum.ORDER_TYPE_LIST_IMAGES)
+    if (order.orderWith != OrderEnum.ORDER_WITH_PRESCRIPTION)
       return Container();
 
     final children = order.imageList.map((singleImageUrl) {
@@ -120,7 +121,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildItemList() {
-    if (order.orderType != ClientEnum.ORDER_TYPE_LIST_ITEMS) return Container();
+    if (order.orderWith != OrderEnum.ORDER_WITH_ITEM_NAME) return Container();
     final children = List<Widget>();
 
     children.add(Container(alignment: Alignment.centerLeft,
@@ -181,7 +182,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: order.deliveryAddressDetails.addressType),
+                        text: order.deliveryAddressDetails.addType),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -211,7 +212,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: order.deliveryAddressDetails.fullAddress),
+                        text: order.deliveryAddressDetails.address),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,

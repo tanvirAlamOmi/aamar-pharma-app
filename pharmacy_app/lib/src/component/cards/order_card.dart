@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
@@ -104,7 +105,7 @@ class _OrderCardState extends State<OrderCard> {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
         child: Text(
-          order.orderStatus.toUpperCase(),
+          order.status.toUpperCase(),
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),
@@ -114,8 +115,8 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.orderStatus ==
-        ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA) {
+    if (order.status ==
+        OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -125,8 +126,8 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.orderStatus ==
-        ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER) {
+    if (order.status ==
+        OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -136,8 +137,8 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.orderStatus ==
-        ClientEnum.ORDER_STATUS_DELIVERED) {
+    if (order.status ==
+        OrderEnum.ORDER_STATUS_DELIVERED) {
       Navigator.push(
         context,
         MaterialPageRoute(

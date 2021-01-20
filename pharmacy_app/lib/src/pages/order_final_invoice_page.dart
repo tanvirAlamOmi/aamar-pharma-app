@@ -12,6 +12,7 @@ import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -87,7 +88,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
     selectedRepeatDeliveryTime = DateTime.now();
     fullAddressController = new TextEditingController(
-        text: widget.order.deliveryAddressDetails.fullAddress);
+        text: widget.order.deliveryAddressDetails.address);
     nameController = new TextEditingController(
         text: widget.order.user.name);
     emailController = new TextEditingController(
@@ -192,7 +193,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildReOrderButton() {
-    if (widget.order.orderStatus != ClientEnum.ORDER_STATUS_DELIVERED)
+    if (widget.order.status != OrderEnum.ORDER_STATUS_DELIVERED)
       return Container();
     return GeneralActionRoundButton(
       title: "REORDER",
@@ -330,7 +331,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.deliveryAddressDetails.fullAddress,
+                    widget.order.deliveryAddressDetails.address,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,
@@ -340,7 +341,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.deliveryAddressDetails.areaName,
+                    widget.order.deliveryAddressDetails.area,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,

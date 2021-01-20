@@ -64,11 +64,11 @@ class AllAddressCard extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: ListTile(
               title: Text(
-                singleDeliveryAddress.addressType,
+                singleDeliveryAddress.addType,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               ),
               subtitle: Text(
-                singleDeliveryAddress.fullAddress,
+                singleDeliveryAddress.address,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
               ),
               trailing: Container(

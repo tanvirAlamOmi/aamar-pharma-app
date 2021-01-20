@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/feed/feed_request.dart';
 import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
@@ -112,12 +113,12 @@ class QueryRepo {
                       ..itemQuantity = "5"
                       ..itemUnitPrice = "25",
                   ]),
-                  orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
-                  orderStatus: ClientEnum.ORDER_STATUS_DELIVERED,
+                  orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                  status: OrderEnum.ORDER_STATUS_DELIVERED,
                   deliveryAddressDetails: DeliveryAddressDetails(
-                      addressType: "HOME",
-                      areaName: "MIRPUR",
-                      fullAddress: "47/A Kashi Building"),
+                      addType: "HOME",
+                      area: "MIRPUR",
+                      address: "47/A Kashi Building"),
                   user: User(
                       name: "ABC",
                       phone: "+8801528 285415",
@@ -133,13 +134,13 @@ class QueryRepo {
                     Util.getStaticImageURL(),
                     Util.getStaticImageURL()
                   ],
-                  orderType: ClientEnum.ORDER_TYPE_LIST_IMAGES,
-                  orderStatus: ClientEnum
+                  orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                  status: OrderEnum
                       .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
                   deliveryAddressDetails: DeliveryAddressDetails(
-                      addressType: "HOME",
-                      areaName: "MIRPUR",
-                      fullAddress: "47/A Kashi Building"),
+                      addType: "HOME",
+                      area: "MIRPUR",
+                      address: "47/A Kashi Building"),
                   user: User(
                       name: "ABC",
                       phone: "+8801528 285415",
@@ -169,13 +170,13 @@ class QueryRepo {
                         ..itemQuantity = "5"
                         ..itemUnitPrice = "25",
                     ]),
-                    orderType: ClientEnum.ORDER_TYPE_LIST_ITEMS,
-                    orderStatus: ClientEnum
+                    orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+                    status: OrderEnum
                         .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
                     deliveryAddressDetails: DeliveryAddressDetails(
-                        addressType: "OFFICE",
-                        areaName: "MIRPUR",
-                        fullAddress: "48/A Kashi Building"),
+                        addType: "OFFICE",
+                        area: "MIRPUR",
+                        address: "48/A Kashi Building"),
                     user: User(
                         name: "XYZ",
                         phone: "+88013 4541228 ",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -13,15 +14,15 @@ class DropDownFilterCard extends StatelessWidget {
   final Function callBack;
   final TextEditingController searchController = new TextEditingController();
   final List<String> orderFilterStatusList = [
-    ClientEnum.ORDER_STATUS_ALL,
-    ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-    ClientEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
-    ClientEnum.ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER,
-    ClientEnum.ORDER_STATUS_PROCESSING,
-    ClientEnum.ORDER_STATUS_ON_THE_WAY,
-    ClientEnum.ORDER_STATUS_DELIVERED,
-    ClientEnum.ORDER_STATUS_CANCELED,
-    ClientEnum.ORDER_STATUS_REJECTED
+    OrderEnum.ORDER_STATUS_ALL,
+    OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
+    OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
+    OrderEnum.ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER,
+    OrderEnum.ORDER_STATUS_PROCESSING,
+    OrderEnum.ORDER_STATUS_ON_THE_WAY,
+    OrderEnum.ORDER_STATUS_DELIVERED,
+    OrderEnum.ORDER_STATUS_CANCELED,
+    OrderEnum.ORDER_STATUS_REJECTED
   ];
   String selectedOrderFilterStatus;
 
@@ -70,7 +71,7 @@ class DropDownFilterCard extends StatelessWidget {
       // Preserve the Filter Card
       feedItems.removeRange(1, feedItems.length);
       for (final singleItem in feedItemsPermData) {
-        if (value == singleItem?.order?.orderStatus) {
+        if (value == singleItem?.order?.status) {
           feedItems.add(singleItem);
         }
       }

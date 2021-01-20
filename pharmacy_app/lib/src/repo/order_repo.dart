@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_item.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -78,7 +79,7 @@ class OrderRepo {
         final changeOrderStatusResponse = await OrderRepo.instance
             .getOrderClient()
             .changeOrderPaymentStatus(
-                jwtToken, orderId, ClientEnum.ORDER_PAYMENT_STATUS_PAID);
+                jwtToken, orderId, OrderEnum.ORDER_PAYMENT_STATUS_PAID);
 
         if (changeOrderStatusResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {

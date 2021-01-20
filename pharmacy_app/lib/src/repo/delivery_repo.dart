@@ -33,7 +33,7 @@ class DeliveryRepo {
           'apt_no': ClientEnum.NA,
           'house_no': ClientEnum.NA,
           'street': ClientEnum.NA,
-          'area': deliveryAddressDetails.areaName,
+          'area': deliveryAddressDetails.area,
           'city': ClientEnum.NA,
         });
 
