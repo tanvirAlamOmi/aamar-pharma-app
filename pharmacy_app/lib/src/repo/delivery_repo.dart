@@ -21,15 +21,14 @@ class DeliveryRepo {
 
   static DeliveryRepo get instance => _instance;
 
-  Future<Tuple2<List<OrderItem>, String>> addDeliveryAddress(
-      DeliveryAddressDetails deliveryAddressDetails) async {
+  Future<Tuple2<void, String>> addDeliveryAddress(
+      {DeliveryAddressDetails deliveryAddressDetails}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
         final String addDeliveryAddressRequest = jsonEncode(<String, dynamic>{
-          'id_customer': Store.instance.appState.user.id,
           'apt_no': ClientEnum.NA,
           'house_no': ClientEnum.NA,
           'street': ClientEnum.NA,
@@ -41,7 +40,15 @@ class DeliveryRepo {
             .getDeliveryClient()
             .addDeliveryAddress(jwtToken, addDeliveryAddressRequest);
 
-        return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        if (addDeliveryAddressResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          final String addressId = addDeliveryAddressResponse['id'];
+          deliveryAddressDetails.id = addressId;
+
+          Store.instance.setDeliveryAddress(deliveryAddressDetails);
+
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        }
       } catch (err) {
         print("Error in addDeliveryAddress() in OrderRepo");
         print(err);

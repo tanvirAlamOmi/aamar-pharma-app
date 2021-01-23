@@ -8,7 +8,9 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/repo/delivery_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -220,7 +222,24 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
           ..address = fullAddressController.text
           ..area = selectedArea;
 
-    Store.instance.setDeliveryAddress(deliveryAddressDetails);
+    Util.showSnackBar(
+        scaffoldKey: _scaffoldKey, message: "Please wait", duration: 1500);
+
+    Tuple2<void, String> addDeliveryAddressResponse = await DeliveryRepo
+        .instance
+        .addDeliveryAddress(deliveryAddressDetails: deliveryAddressDetails);
+
+    if (addDeliveryAddressResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Delivery Address Added Successfully",
+          duration: 1500);
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.",
+          duration: 1500);
+    }
 
     widget.callBack();
     closePage();
