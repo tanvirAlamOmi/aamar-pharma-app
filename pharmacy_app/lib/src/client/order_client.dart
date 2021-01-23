@@ -22,50 +22,34 @@ class OrderClient {
     return jsonResponse;
   }
 
-  Future<dynamic> changeOrderStatus(
-      String jwtToken, String orderId, String orderStatus) async {
-    final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/adminapi/changeOrderStatus/${orderId}/${orderStatus}',
-      headers: {
-        'token': jwtToken,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    ).timeout(Duration(seconds: 300));
-
-    final jsonResponse = json.decode(response.body);
-    return jsonResponse;
-  }
-
-  Future<dynamic> changeOrderPaymentStatus(
-      String jwtToken, String orderId, String orderPaymentStatus) async {
-    final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/adminapi/changeOrderPaymentStatus/${orderId}/${orderPaymentStatus}',
-      headers: {
-        'token': jwtToken,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    ).timeout(Duration(seconds: 300));
-
-    final jsonResponse = json.decode(response.body);
-    return jsonResponse;
-  }
-
-  Future<dynamic> deliveryTimeUpdate(
-      String jwtToken, String deliveryTimeUpdateRequest) async {
+  Future<dynamic> orderWithPrescription(
+      String jwtToken, dynamic orderRequest) async {
     final http.Response response = await http
         .post(
             ServerConfig.SERVER_HOST +
                 ServerConfig.SERVER_PORT.toString() +
-                '/api/adminapi/deliveryTimeUpdate',
+                '/api/appapi/order-prescription',
+            headers: {
+              'token': jwtToken,
+            },
+            body: orderRequest)
+        .timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
+  Future<dynamic> orderWithItems(String jwtToken, String orderRequest) async {
+    final http.Response response = await http
+        .post(
+            ServerConfig.SERVER_HOST +
+                ServerConfig.SERVER_PORT.toString() +
+                '/api/appapi/order-with-items',
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: deliveryTimeUpdateRequest)
+            body: orderRequest)
         .timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);

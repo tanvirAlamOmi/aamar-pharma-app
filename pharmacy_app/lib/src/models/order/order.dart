@@ -78,7 +78,7 @@ class Order {
     );
   }
 
-  String toJsonString() {
+  Map<String, dynamic> toJsonMap() {
     final data = Map<String, dynamic>();
     data['id'] = id;
     data['id_customer'] = idCustomer;
@@ -88,6 +88,36 @@ class Order {
         ? null
         : items
             .map((singleManualItem) => singleManualItem.toJsonString())
+            .toList();
+    ;
+    data['name'] = name;
+    data['email'] = email;
+    data['mobile_no'] = mobileNo;
+    data['note'] = note;
+    data['repeat_order'] = repeatOrder;
+    data['delivery_time'] = deliveryTime;
+    data['delivery_date'] = deliveryDate;
+    data['created_at'] = createdAt;
+    data['status'] = status;
+    data['rejection_reason'] = rejectionReason;
+    data['ordered_with'] = orderedWith;
+    data['every'] = every;
+    data['day'] = day;
+    data['time'] = time;
+
+    return data;
+  }
+
+  String toJsonString() {
+    final data = Map<String, dynamic>();
+    data['id'] = id;
+    data['id_customer'] = idCustomer;
+    data['id_address'] = idAddress;
+    data['prescription'] = prescription;
+    data['items'] = (items == null)
+        ? null
+        : items
+            .map((singleManualItem) => singleManualItem.toJsonMap())
             .toList();
     ;
     data['name'] = name;

@@ -383,6 +383,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         : null;
 
     Order order = new Order()
+      ..idAddress = int.parse(Store.instance.appState
+          .allDeliveryAddress[selectedDeliveryAddressIndex].id)
+      ..items = widget.orderManualItemList
       ..orderedWith = widget.orderType
       ..name = nameController.text
       ..email = emailController.text
@@ -395,9 +398,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..day = day
       ..time = time;
 
+    AppVariableStates.instance.order = order;
+    AppVariableStates.instance.submitOrder = submitOrder;
+
     if (Store.instance.appState.user.id == null) {
-      AppVariableStates.instance.order = order;
-      AppVariableStates.instance.submitOrder = submitOrder;
       final countryCode = "+88";
       final phone = countryCode + phoneController.text;
       await Store.instance.setPhoneNumber(phoneController.text);
@@ -419,7 +423,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void submitOrder() async {
     isProcessing = true;
     refreshUI();
-    await Future.delayed(Duration(seconds: 1));
+
+    Tuple2<void, String> orderSubmitResponse;
 
     AppVariableStates.instance.order.idCustomer =
         Store.instance.appState.user.id;
@@ -430,40 +435,41 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       for (final image in widget.prescriptionImageFileList) {
         uploadStatus = "Uploading ${imageNumber} prescription";
         refreshUI();
+        imageNumber += 1;
 
         imageUrl.add(await Util.uploadImageToFirebase(
             imageFile: image, folderPath: 'prescription/'));
       }
-
       final String prescription = Util.imageURLAsCSV(imageList: imageUrl);
+
       AppVariableStates.instance.order.prescription = prescription;
 
-      Tuple2<void, String> orderWithPresciptionResponse = await OrderRepo
-          .instance
+      orderSubmitResponse = await OrderRepo.instance
           .orderWithPrescription(order: AppVariableStates.instance.order);
-
-      if (orderWithPresciptionResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
-        Util.showSnackBar(
-            scaffoldKey: _scaffoldKey,
-            message: "Order is submitted.",
-            duration: 1500);
-      } else {
-        isProcessing = false;
-        Util.showSnackBar(
-            scaffoldKey: _scaffoldKey,
-            message: "Something went wrong. Please try again.",
-            duration: 1500);
-        return;
-      }
     } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME) {
+      orderSubmitResponse = await OrderRepo.instance
+          .orderWithItemName(order: AppVariableStates.instance.order);
+    }
+
+    if (orderSubmitResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Order is submitted.",
+          duration: 1500);
+      await Future.delayed(Duration(milliseconds: 500));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 500));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.",
+          duration: 1500);
     }
 
     isProcessing = false;
     refreshUI();
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
-    await Future.delayed(Duration(milliseconds: 500));
-    Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
   }
 
   void refreshUI() {
