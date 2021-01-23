@@ -116,7 +116,7 @@ class _OrderCardState extends State<OrderCard> {
 
   void navigateToSpecificPage() {
     if (order.status ==
-        OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA) {
+        OrderEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -127,7 +127,7 @@ class _OrderCardState extends State<OrderCard> {
     }
 
     if (order.status ==
-        OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER) {
+        OrderEnum.ORDER_STATUS_INVOICE_SENT) {
       Navigator.push(
         context,
         MaterialPageRoute(

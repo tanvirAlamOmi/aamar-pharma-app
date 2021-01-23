@@ -54,6 +54,13 @@ class Order {
       idCustomer: jsonData['id_customer'],
       idAddress: jsonData['id_address'],
       prescription: jsonData['prescription'],
+      items: (jsonData['items'] == null)
+          ? null
+          : jsonData['items']
+              .map((singleManualItem) =>
+                  OrderManualItem.fromJson(singleManualItem))
+              .toList()
+              .cast<OrderManualItem>(),
       name: jsonData['name'],
       email: jsonData['email'],
       mobileNo: jsonData['mobile_no'],

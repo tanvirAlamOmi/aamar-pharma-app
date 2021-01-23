@@ -15,9 +15,9 @@ class DropDownFilterCard extends StatelessWidget {
   final TextEditingController searchController = new TextEditingController();
   final List<String> orderFilterStatusList = [
     OrderEnum.ORDER_STATUS_ALL,
-    OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-    OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
-    OrderEnum.ORDER_STATUS_INVOICE_CONFIRM_FROM_CUSTOMER,
+    OrderEnum.ORDER_STATUS_PENDING,
+    OrderEnum.ORDER_STATUS_INVOICE_SENT,
+    OrderEnum.ORDER_STATUS_CONFIRMED,
     OrderEnum.ORDER_STATUS_PROCESSING,
     OrderEnum.ORDER_STATUS_ON_THE_WAY,
     OrderEnum.ORDER_STATUS_DELIVERED,

@@ -282,7 +282,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
           child: ListTile(
             title: Text(singleItem.itemName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
+            subtitle: Text("QUANTITY: " + singleItem.quantity.toString()),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
@@ -334,8 +334,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
       return;
     orderManualItemList.add(OrderManualItem()
       ..itemName = itemNameController.text
-      ..itemUnit = itemUnitController.text
-      ..itemQuantity = itemQuantityController.text);
+      ..unit = itemUnitController.text
+      ..quantity = int.parse(itemQuantityController.text));
 
     itemNameController.clear();
     itemUnitController.clear();

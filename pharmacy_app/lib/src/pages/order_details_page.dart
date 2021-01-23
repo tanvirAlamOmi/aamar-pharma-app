@@ -141,7 +141,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           child: ListTile(
             title: Text(singleItem.itemName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            subtitle: Text("QUANTITY: " + singleItem.itemQuantity),
+            subtitle: Text("QUANTITY: " + singleItem.quantity.toString()),
           ),
         ),
       ));

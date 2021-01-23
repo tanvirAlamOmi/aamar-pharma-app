@@ -181,16 +181,22 @@ class Util {
   }
 
   static getDeliveryAddress(int idAddress) {
-    if (idAddress == "0") {
-      return DeliveryAddressDetails()
+    DeliveryAddressDetails deliveryAddressDetails;
+
+    try {
+      deliveryAddressDetails = Store.instance.appState.allDeliveryAddress
+          .firstWhere(
+              (deliveryAddress) => deliveryAddress.id == idAddress.toString());
+    } catch (err) {
+      deliveryAddressDetails = DeliveryAddressDetails()
         ..id = "0"
-        ..area = "Mirpur"
-        ..addType = "Home"
-        ..address = "47/Road 1 2nd Floor";
+        ..area = "N/A"
+        ..addType = "N/A"
+        ..address = "N/A";
+      return deliveryAddressDetails;
     }
 
-    return Store.instance.appState.allDeliveryAddress
-        .firstWhere((deliveryAddress) => deliveryAddress.id == idAddress);
+    return deliveryAddressDetails;
   }
 
   static getDefualtInvoice() {

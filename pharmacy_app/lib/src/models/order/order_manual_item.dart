@@ -1,27 +1,27 @@
 class OrderManualItem {
   String itemName;
-  String itemUnit;
-  String itemQuantity;
+  String unit;
+  int quantity;
 
   OrderManualItem({
     this.itemName,
-    this.itemUnit,
-    this.itemQuantity,
+    this.unit,
+    this.quantity,
   });
 
   factory OrderManualItem.fromJson(Map<String, dynamic> jsonData) {
     return OrderManualItem(
       itemName: jsonData['item_name'],
-      itemUnit: jsonData['value'],
-      itemQuantity: jsonData['quantity'],
+      unit: jsonData['unit'],
+      quantity: jsonData['quantity'],
     );
   }
 
   Map<String, dynamic> toJsonMap() {
     final data = Map<String, dynamic>();
     data['item_name'] = itemName;
-    data['value'] = itemUnit;
-    data['quantity'] = itemQuantity;
+    data['unit'] = unit;
+    data['quantity'] = quantity;
 
     return data;
   }
