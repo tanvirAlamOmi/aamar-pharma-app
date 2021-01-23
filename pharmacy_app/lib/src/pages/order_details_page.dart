@@ -151,9 +151,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildDeliveryAddressDetails() {
-    final DeliveryAddressDetails deliveryAddressDetails = Store
-        .instance.appState.allDeliveryAddress
-        .firstWhere((deliveryAddress) => deliveryAddress.id == order.idAddress);
+    final DeliveryAddressDetails deliveryAddressDetails =
+        Util.getDeliveryAddress(order.idAddress);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),

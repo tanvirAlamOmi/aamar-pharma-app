@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:pharmacy_app/src/client/delivery_client.dart';
 import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
@@ -63,7 +62,7 @@ class DeliveryRepo {
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
-        String customerId = Store.instance.appState.user.id;
+        int customerId = Store.instance.appState.user.id;
 
         final deliveryAddressListResponse = await DeliveryRepo.instance
             .getDeliveryClient()

@@ -33,11 +33,48 @@ class QueryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        final String jwtToken = Store.instance.appState.user.token;
+        final int userId = Store.instance.appState.user.id;
 
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
-            .getFeed(jwtToken, feedRequest);
+            .getOrderFeed(jwtToken, feedRequest, userId);
+
+        final List<Order> allOrders = List<dynamic>.from(
+                feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
+            .cast<Order>();
+
+        final orderFeedResponse = FeedResponse()
+          ..status = true
+          ..lastFeed = false
+          ..feedItems = allOrders
+              .map((singleOrder) => FeedItem()
+                ..order = singleOrder
+                ..viewCardType = ClientEnum.FEED_ITEM_ORDER_CARD)
+              .toList()
+          ..response = ClientEnum.RESPONSE_SUCCESS
+          ..error = false;
+
+        return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
+      } catch (err) {
+        print("Error in getPendingFeed() in QueryRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<FeedResponse, String>> getOrderFeedData(
+      FeedRequest feedRequest) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        final String jwtToken = Store.instance.appState.user.token;
+        final int userId = Store.instance.appState.user.id;
+
+        final feedResponse = await QueryRepo.instance
+            .getQueryClient()
+            .getOrderFeed(jwtToken, feedRequest, userId);
 
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
@@ -81,104 +118,8 @@ class QueryRepo {
           ]),
           ClientEnum.RESPONSE_SUCCESS);
 
-    // Sending Empty List
-    // if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
-    //   return Tuple2(FeedResponse(status: true, feedItems: []),
-    //       ClientEnum.RESPONSE_SUCCESS);
-    // }
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
-      return Tuple2(
-          FeedResponse(status: true, feedItems: [
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: "1026",
-                  prescription: Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      ",",
-                  invoice: Invoice(invoiceItemList: [
-                    InvoiceItem()
-                      ..itemName = "Napa"
-                      ..itemQuantity = "10"
-                      ..itemUnitPrice = "2",
-                    InvoiceItem()
-                      ..itemName = "Histasin"
-                      ..itemQuantity = "3"
-                      ..itemUnitPrice = "5",
-                    InvoiceItem()
-                      ..itemName = "Seclo 40"
-                      ..itemQuantity = "5"
-                      ..itemUnitPrice = "25",
-                  ]),
-                  orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-                  status: OrderEnum.ORDER_STATUS_DELIVERED,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            ),
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: "1023",
-                  prescription: Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      ",",
-                  orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-                  status: OrderEnum
-                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            ),
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: "1024",
-                  items: [
-                    OrderManualItem(
-                        itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
-                    OrderManualItem(
-                        itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
-                  ],
-                  invoice: Invoice(invoiceItemList: [
-                    InvoiceItem()
-                      ..itemName = "Napa"
-                      ..itemQuantity = "10"
-                      ..itemUnitPrice = "2",
-                    InvoiceItem()
-                      ..itemName = "Histasin"
-                      ..itemQuantity = "3"
-                      ..itemUnitPrice = "5",
-                    InvoiceItem()
-                      ..itemName = "Seclo 40"
-                      ..itemQuantity = "5"
-                      ..itemUnitPrice = "25",
-                  ]),
-                  orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-                  status: OrderEnum
-                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            )
-          ]),
-          ClientEnum.RESPONSE_SUCCESS);
+      return getOrderFeedData(feedRequest);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
       return getFeedData(feedRequest);
     } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
@@ -194,3 +135,107 @@ class QueryRepo {
     return null;
   }
 }
+
+// Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
+//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
+//     return Tuple2(
+//         FeedResponse(status: true, feedItems: [
+//           FeedItem(
+//               viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+//               notificationItem: NotificationItem(
+//                   title: "Order Confirmation",
+//                   message: "Your Order has been confirmed")),
+//           FeedItem(
+//               viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+//               notificationItem: NotificationItem(
+//                   title: "Order Processing",
+//                   message:
+//                   "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
+//         ]),
+//         ClientEnum.RESPONSE_SUCCESS);
+//
+//   // Sending Empty List
+//   // if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+//   //   return Tuple2(FeedResponse(status: true, feedItems: []),
+//   //       ClientEnum.RESPONSE_SUCCESS);
+//   // }
+//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
+//     return Tuple2(
+//         FeedResponse(status: true, feedItems: [
+//           FeedItem(
+//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+//             order: Order(
+//                 id: "1026",
+//                 prescription: Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     ",",
+//                 orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+//                 status: OrderEnum.ORDER_STATUS_DELIVERED,
+//                 idAddress:
+//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+//                 name: "ABC",
+//                 mobileNo: "+8801528 285415",
+//                 email: "abc@gmail.com"),
+//           ),
+//           FeedItem(
+//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+//             order: Order(
+//                 id: "1023",
+//                 prescription: Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     "," +
+//                     Util.getStaticImageURL() +
+//                     ",",
+//                 orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+//                 status: OrderEnum
+//                     .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
+//                 idAddress:
+//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+//                 name: "ABC",
+//                 mobileNo: "+8801528 285415",
+//                 email: "abc@gmail.com"),
+//           ),
+//           FeedItem(
+//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+//             order: Order(
+//                 id: "1024",
+//                 items: [
+//                   OrderManualItem(
+//                       itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
+//                   OrderManualItem(
+//                       itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
+//                 ],
+//                 orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+//                 status: OrderEnum
+//                     .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
+//                 idAddress:
+//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+//                 name: "ABC",
+//                 mobileNo: "+8801528 285415",
+//                 email: "abc@gmail.com"),
+//           )
+//         ]),
+//         ClientEnum.RESPONSE_SUCCESS);
+//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
+//     return getFeedData(feedRequest);
+//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
+//     return getFeedData(feedRequest);
+//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CANCELED) {
+//     return getFeedData(feedRequest);
+//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_RETURNED) {
+//     return getFeedData(feedRequest);
+//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_REJECTED) {
+//     return getFeedData(feedRequest);
+//   }
+//
+//   return null;
+// }
+// }

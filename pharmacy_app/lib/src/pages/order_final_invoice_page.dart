@@ -63,7 +63,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
 
   int selectedDeliveryAddressIndex = 0;
 
-
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController phoneController;
@@ -88,12 +87,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
     selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
     selectedRepeatDeliveryTime = DateTime.now();
-    nameController = new TextEditingController(
-        text: widget.order.name);
-    emailController = new TextEditingController(
-        text: widget.order.email);
-    phoneController = new TextEditingController(
-        text: widget.order.mobileNo);
+    nameController = new TextEditingController(text: widget.order.name);
+    emailController = new TextEditingController(text: widget.order.email);
+    phoneController = new TextEditingController(text: widget.order.mobileNo);
   }
 
   @override
@@ -254,9 +250,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildOrderAddress() {
-    final DeliveryAddressDetails deliveryAddressDetails = Store
-        .instance.appState.allDeliveryAddress
-        .firstWhere((deliveryAddress) => deliveryAddress.id == widget.order.idAddress);
+    final DeliveryAddressDetails deliveryAddressDetails =
+        Util.getDeliveryAddress(widget.order.idAddress);
 
     final size = MediaQuery.of(context).size;
     return Padding(

@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -15,17 +14,13 @@ import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
-import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:tuple/tuple.dart';
 
 class ConfirmOrderPage extends StatefulWidget {

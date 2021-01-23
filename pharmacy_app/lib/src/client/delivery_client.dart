@@ -25,7 +25,7 @@ class DeliveryClient {
     return jsonResponse;
   }
 
-  Future<dynamic> deliveryAddressListCustomer(String jwtToken, String customerId) async {
+  Future<dynamic> deliveryAddressListCustomer(String jwtToken, int customerId) async {
     final http.Response response = await http.get(
       ServerConfig.SERVER_HOST +
           ServerConfig.SERVER_PORT +

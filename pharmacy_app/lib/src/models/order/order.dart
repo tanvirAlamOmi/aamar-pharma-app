@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class Order {
-  String id;
-  String idCustomer;
-  String idAddress;
+  int id;
+  int idCustomer;
+  int idAddress;
   String prescription; // All Images with comma separated
   List<OrderManualItem> items;
   String name;
@@ -24,7 +25,7 @@ class Order {
   String time; // Repeat Order - time
 
   // My custom defined
-  Invoice invoice;
+  Invoice invoice = Util.getDefualtInvoice();
 
   Order(
       {this.id,
@@ -45,8 +46,7 @@ class Order {
       this.orderWith,
       this.every,
       this.day,
-      this.time,
-      this.invoice});
+      this.time});
 
   factory Order.fromJson(Map<String, dynamic> jsonData) {
     return Order(
@@ -54,7 +54,6 @@ class Order {
       idCustomer: jsonData['id_customer'],
       idAddress: jsonData['id_address'],
       prescription: jsonData['prescription'],
-      items: jsonData['items'],
       name: jsonData['name'],
       email: jsonData['email'],
       mobileNo: jsonData['mobile_no'],

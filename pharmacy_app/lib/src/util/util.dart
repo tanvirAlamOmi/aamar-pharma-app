@@ -4,12 +4,16 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/order/invoice.dart';
+import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'dart:math';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -174,6 +178,36 @@ class Util {
     Uint8List imageData = imageBinaryData.buffer.asUint8List(
         imageBinaryData.offsetInBytes, imageBinaryData.lengthInBytes);
     return imageData;
+  }
+
+  static getDeliveryAddress(int idAddress) {
+    if (idAddress == "0") {
+      return DeliveryAddressDetails()
+        ..id = "0"
+        ..area = "Mirpur"
+        ..addType = "Home"
+        ..address = "47/Road 1 2nd Floor";
+    }
+
+    return Store.instance.appState.allDeliveryAddress
+        .firstWhere((deliveryAddress) => deliveryAddress.id == idAddress);
+  }
+
+  static getDefualtInvoice() {
+    return Invoice(invoiceItemList: [
+      InvoiceItem()
+        ..itemName = "Napa"
+        ..itemQuantity = "10"
+        ..itemUnitPrice = "2",
+      InvoiceItem()
+        ..itemName = "Histasin"
+        ..itemQuantity = "3"
+        ..itemUnitPrice = "5",
+      InvoiceItem()
+        ..itemName = "Seclo 40"
+        ..itemQuantity = "5"
+        ..itemUnitPrice = "25",
+    ]);
   }
 
   static void prettyPrintJson(String input) {

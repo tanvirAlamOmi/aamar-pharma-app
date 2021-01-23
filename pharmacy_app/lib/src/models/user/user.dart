@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class User {
-  String id;
+  int id;
   String name;
   String email;
   String phone;
@@ -11,14 +11,14 @@ class User {
   User({this.id, this.name, this.email, this.phone, this.userType, this.token});
 
   User.blank()
-      : id = "0",
+      : id = 0,
         name = "GUEST",
         email = "N/A",
         phone = "N/A",
         token = "NONE";
 
   User.basic()
-      : id = "1",
+      : id = 1,
         name = "GUEST",
         email = "guest@guest.com",
         phone = "1231231231",

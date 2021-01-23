@@ -77,7 +77,7 @@ class _OrderCardState extends State<OrderCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Order ID: " + order.id,
+                Text("Order ID: " + order.id.toString(),
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
@@ -137,8 +137,7 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.status ==
-        OrderEnum.ORDER_STATUS_DELIVERED) {
+    if (order.status == OrderEnum.ORDER_STATUS_DELIVERED) {
       Navigator.push(
         context,
         MaterialPageRoute(

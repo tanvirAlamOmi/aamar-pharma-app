@@ -8,12 +8,12 @@ class QueryClient {
     print("QueryClient Initialized");
   }
 
-  Future<dynamic> getFeed(
-      String jwtToken, FeedRequest feedRequest) async {
+  Future<dynamic> getOrderFeed(
+      String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
       ServerConfig.SERVER_HOST +
           ServerConfig.SERVER_PORT.toString() +
-          '/api/adminapi/orders/${feedRequest.feedInfo.feedType}/',
+          '/api/appapi/my-orders/${userId}/',
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -21,8 +21,6 @@ class QueryClient {
     ).timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);
-    print("PRINT IN CLIENT");
-    print(jsonResponse);
     return jsonResponse;
   }
 

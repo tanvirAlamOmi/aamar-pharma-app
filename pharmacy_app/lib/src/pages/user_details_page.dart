@@ -100,12 +100,12 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   buildAddDeliveryAddressButtonBasedOnLoginState() {
-    if (user.id == "0") return Container();
+    if (user.id == 0) return Container();
     return AddDeliveryAddressButton(callBack: refreshUI);
   }
 
   buildAllAddressCardBasedOnLoginState() {
-    if (user.id == "0") return Container();
+    if (user.id == 0) return Container();
     return AllAddressCard(
         selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
         setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,
@@ -113,7 +113,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   buildGeneralActionRoundButtonBasedOnLoginState() {
-    if (user.id == "0")
+    if (user.id == 0)
       return GeneralActionRoundButton(
         title: "LOGIN",
         isProcessing: false,

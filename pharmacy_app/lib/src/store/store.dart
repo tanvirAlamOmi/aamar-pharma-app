@@ -51,7 +51,6 @@ class Store {
     putAppData();
   }
 
-
   setDeliveryAddress(DeliveryAddressDetails deliveryAddressDetails) async {
     appState.allDeliveryAddress.add(deliveryAddressDetails);
     putAppData();
