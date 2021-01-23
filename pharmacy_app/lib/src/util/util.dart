@@ -95,7 +95,7 @@ class Util {
     return Jiffy(dateTime.toUtc()).EEEE + ", " + Jiffy(dateTime.toUtc()).yMMMMd;
   }
 
-  static String formatDateToyyyy_MM_DD(DateTime dateTime){
+  static String formatDateToyyyy_MM_DD(DateTime dateTime) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formattedDate = formatter.format(dateTime);
     return formattedDate;
@@ -144,6 +144,25 @@ class Util {
       print(e); // FirebaseException
     });
     return downloadImageUrl;
+  }
+
+  static String imageURLAsCSV({List<String> imageList}) {
+    String imageUrl = "";
+
+    for (int i = 0; i < imageList.length; i++) {
+      if (i == imageList.length - 1) {
+        imageUrl = imageUrl + imageList[i];
+      } else {
+        imageUrl = imageUrl + imageList[i] + ",";
+      }
+    }
+
+    return imageUrl;
+  }
+
+  static List<String> CSVToImageList({String imagePathAsList}) {
+    final List<String> imageList = imagePathAsList.split(",");
+    return imageList;
   }
 
   static void removeFocusNode(BuildContext context) {

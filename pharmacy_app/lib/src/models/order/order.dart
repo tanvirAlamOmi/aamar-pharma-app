@@ -1,15 +1,13 @@
 import 'dart:convert';
-
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
-import 'package:pharmacy_app/src/models/user/user_details.dart';
+import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 
 class Order {
   String id;
   String idCustomer;
   String idAddress;
   String prescription; // All Images with comma separated
+  List<OrderManualItem> items;
   String name;
   String email;
   String mobileNo;
@@ -26,28 +24,51 @@ class Order {
   String time; // Repeat Order - time
 
   // My custom defined
-  List<dynamic> imageList;
-  List<dynamic> itemList;
-  DeliveryAddressDetails deliveryAddressDetails;
-  User user;
   Invoice invoice;
 
   Order(
       {this.id,
-      this.orderWith,
-      this.status,
-      this.imageList,
-      this.itemList,
-      this.deliveryAddressDetails,
-      this.user,
+      this.idCustomer,
+      this.idAddress,
+      this.prescription,
+      this.items,
+      this.name,
+      this.email,
+      this.mobileNo,
+      this.note,
       this.repeatOrder,
+      this.deliveryTime,
+      this.deliveryDate,
+      this.createdAt,
+      this.status,
+      this.rejectionReason,
+      this.orderWith,
+      this.every,
+      this.day,
+      this.time,
       this.invoice});
 
   factory Order.fromJson(Map<String, dynamic> jsonData) {
     return Order(
       id: jsonData['id'],
-      orderWith: jsonData['order_type'],
-      status: jsonData['order_status'],
+      idCustomer: jsonData['id_customer'],
+      idAddress: jsonData['id_address'],
+      prescription: jsonData['prescription'],
+      items: jsonData['items'],
+      name: jsonData['name'],
+      email: jsonData['email'],
+      mobileNo: jsonData['mobile_no'],
+      note: jsonData['note'],
+      repeatOrder: jsonData['repeat_order'],
+      deliveryTime: jsonData['delivery_time'],
+      deliveryDate: jsonData['delivery_date'],
+      createdAt: jsonData['created_at'],
+      status: jsonData['status'],
+      rejectionReason: jsonData['rejection_reason'],
+      orderWith: jsonData['order_with'],
+      every: jsonData['every'],
+      day: jsonData['day'],
+      time: jsonData['time'],
     );
   }
 
@@ -57,6 +78,7 @@ class Order {
     data['id_customer'] = idCustomer;
     data['id_address'] = idAddress;
     data['prescription'] = prescription;
+    data['items'] = items;
     data['name'] = name;
     data['email'] = email;
     data['mobile_no'] = mobileNo;
@@ -75,41 +97,3 @@ class Order {
     return json.encode(data);
   }
 }
-
-// import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-// import 'package:pharmacy_app/src/models/order/invoice.dart';
-// import 'package:pharmacy_app/src/models/user/user.dart';
-// import 'package:pharmacy_app/src/models/user/user_details.dart';
-//
-// class Order {
-//   String id;
-//   String idCustomer;
-//   String idAddress;
-//   String orderType;
-//   String orderStatus;
-//   List<dynamic> imageList;
-//   List<dynamic> itemList;
-//   DeliveryAddressDetails deliveryAddressDetails;
-//   User user;
-//   String repeatOrder;
-//   Invoice invoice;
-//
-//   Order(
-//       {this.id,
-//         this.orderType,
-//         this.orderStatus,
-//         this.imageList,
-//         this.itemList,
-//         this.deliveryAddressDetails,
-//         this.user,
-//         this.repeatOrder,
-//         this.invoice});
-//
-//   factory Order.fromJson(Map<String, dynamic> jsonData) {
-//     return Order(
-//       id: jsonData['id'],
-//       orderType: jsonData['order_type'],
-//       orderStatus: jsonData['order_status'],
-//     );
-//   }
-// }

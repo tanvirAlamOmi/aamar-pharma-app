@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -62,7 +63,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
 
   int selectedDeliveryAddressIndex = 0;
 
-  TextEditingController fullAddressController;
+
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController phoneController;
@@ -87,14 +88,12 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
     selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
     selectedRepeatDeliveryTime = DateTime.now();
-    fullAddressController = new TextEditingController(
-        text: widget.order.deliveryAddressDetails.address);
     nameController = new TextEditingController(
-        text: widget.order.user.name);
+        text: widget.order.name);
     emailController = new TextEditingController(
-        text: widget.order.user.email);
+        text: widget.order.email);
     phoneController = new TextEditingController(
-        text: widget.order.user.phone);
+        text: widget.order.mobileNo);
   }
 
   @override
@@ -255,6 +254,10 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildOrderAddress() {
+    final DeliveryAddressDetails deliveryAddressDetails = Store
+        .instance.appState.allDeliveryAddress
+        .firstWhere((deliveryAddress) => deliveryAddress.id == widget.order.idAddress);
+
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
@@ -331,7 +334,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.deliveryAddressDetails.address,
+                    deliveryAddressDetails.address,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,
@@ -341,7 +344,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.deliveryAddressDetails.area,
+                    deliveryAddressDetails.area,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,
@@ -351,7 +354,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.user.phone,
+                    widget.order.mobileNo,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,

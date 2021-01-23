@@ -19,25 +19,29 @@ import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
+import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:tuple/tuple.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
   final String orderType;
   final List<Uint8List> prescriptionImageFileList;
   final List<OrderManualItem> orderManualItemList;
+  final Order order; // Only for Reorder Case
 
   ConfirmOrderPage(
       {this.note,
       this.orderManualItemList,
       Key key,
       this.prescriptionImageFileList,
-      this.orderType})
+      this.orderType,
+      this.order})
       : super(key: key);
 
   @override
@@ -83,25 +87,40 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   int selectedDeliveryAddressIndex = 0;
 
-  final TextEditingController fullAddressController =
-      new TextEditingController();
-  final TextEditingController nameController =
-      new TextEditingController(text: "asd");
-  final TextEditingController emailController =
-      new TextEditingController(text: "asd@asd");
-  final TextEditingController phoneController =
-      new TextEditingController(text: "1231231231");
+  TextEditingController nameController;
+  TextEditingController emailController;
+  TextEditingController phoneController;
 
   @override
   void initState() {
     super.initState();
     setTime();
     setSelectionData();
+    setUserTextControllerData();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void setUserTextControllerData() {
+    String name = "";
+    String email = "";
+    String phone = "";
+
+    if (widget.order != null) {
+      name = widget.order.name;
+      email = widget.order.email;
+      phone = widget.order.mobileNo;
+    } else if (Store.instance.appState.user != null) {
+      name = Store.instance.appState.user.name;
+      email = Store.instance.appState.user.email;
+      phone = Store.instance.appState.user.phone;
+    }
+    nameController = new TextEditingController(text: name);
+    emailController = new TextEditingController(text: email);
+    phoneController = new TextEditingController(text: phone);
   }
 
   void setTime() {
@@ -346,7 +365,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     if (phoneController.text.length != 10) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
-          message: "Please provide a valid 11 digit Bangladshi Number");
+          message: "Please provide a valid 11 digit Bangladeshi Number");
       return;
     }
 
@@ -377,7 +396,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..repeatOrder = repeatOrder
       ..deliveryTime = selectedDeliveryTimeTime
       ..deliveryDate = deliveryDate
-      ..status = OrderEnum.ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA
       ..every = every
       ..day = day
       ..time = time;
@@ -387,14 +405,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       AppVariableStates.instance.submitOrder = submitOrder;
       final countryCode = "+88";
       final phone = countryCode + phoneController.text;
-      await Store.instance.setPhoneNumber(phone);
+      await Store.instance.setPhoneNumber(phoneController.text);
       await AuthRepo.instance.sendSMSCode(phone);
 
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => VerificationPage(
-                  phoneNumber: order.user.phone,
+                  phoneNumber: phoneController.text,
                   arrivedFromConfirmOrderPage: true,
                 )),
       );
@@ -412,14 +430,37 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         Store.instance.appState.user.id;
 
     if (widget.orderType == OrderEnum.ORDER_WITH_PRESCRIPTION) {
+      int imageNumber = 1;
+      List<String> imageUrl = [];
       for (final image in widget.prescriptionImageFileList) {
-        uploadStatus = "Uploading 1 image";
-
+        uploadStatus = "Uploading ${imageNumber} prescription";
         refreshUI();
-        await Future.delayed(Duration(seconds: 1));
-        // print(await Util.uploadImageToFirebase(
-        //     imageFile: image, folderPath: 'prescription/'));
+
+        imageUrl.add(await Util.uploadImageToFirebase(
+            imageFile: image, folderPath: 'prescription/'));
       }
+
+      final String prescription = Util.imageURLAsCSV(imageList: imageUrl);
+      AppVariableStates.instance.order.prescription = prescription;
+
+      Tuple2<void, String> orderWithPresciptionResponse = await OrderRepo
+          .instance
+          .orderWithPrescription(order: AppVariableStates.instance.order);
+
+      if (orderWithPresciptionResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+        Util.showSnackBar(
+            scaffoldKey: _scaffoldKey,
+            message: "Order is submitted.",
+            duration: 1500);
+      } else {
+        isProcessing = false;
+        Util.showSnackBar(
+            scaffoldKey: _scaffoldKey,
+            message: "Something went wrong. Please try again.",
+            duration: 1500);
+        return;
+      }
+    } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME) {
     }
 
     isProcessing = false;

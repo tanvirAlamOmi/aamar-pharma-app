@@ -93,12 +93,14 @@ class QueryRepo {
               viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
               order: Order(
                   id: "1026",
-                  imageList: [
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL()
-                  ],
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
                   invoice: Invoice(invoiceItemList: [
                     InvoiceItem()
                       ..itemName = "Napa"
@@ -115,72 +117,66 @@ class QueryRepo {
                   ]),
                   orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
                   status: OrderEnum.ORDER_STATUS_DELIVERED,
-                  deliveryAddressDetails: DeliveryAddressDetails(
-                      addType: "HOME",
-                      area: "MIRPUR",
-                      address: "47/A Kashi Building"),
-                  user: User(
-                      name: "ABC",
-                      phone: "+8801528 285415",
-                      email: "abc@gmail.com")),
+                  idAddress:
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
             ),
             FeedItem(
               viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
               order: Order(
                   id: "1023",
-                  imageList: [
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL(),
-                    Util.getStaticImageURL()
-                  ],
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
                   orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
                   status: OrderEnum
                       .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-                  deliveryAddressDetails: DeliveryAddressDetails(
-                      addType: "HOME",
-                      area: "MIRPUR",
-                      address: "47/A Kashi Building"),
-                  user: User(
-                      name: "ABC",
-                      phone: "+8801528 285415",
-                      email: "abc@gmail.com")),
+                  idAddress:
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
             ),
             FeedItem(
-                viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-                order: Order(
-                    id: "1024",
-                    itemList: [
-                      OrderManualItem(
-                          itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
-                      OrderManualItem(
-                          itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
-                    ],
-                    invoice: Invoice(invoiceItemList: [
-                      InvoiceItem()
-                        ..itemName = "Napa"
-                        ..itemQuantity = "10"
-                        ..itemUnitPrice = "2",
-                      InvoiceItem()
-                        ..itemName = "Histasin"
-                        ..itemQuantity = "3"
-                        ..itemUnitPrice = "5",
-                      InvoiceItem()
-                        ..itemName = "Seclo 40"
-                        ..itemQuantity = "5"
-                        ..itemUnitPrice = "25",
-                    ]),
-                    orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-                    status: OrderEnum
-                        .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
-                    deliveryAddressDetails: DeliveryAddressDetails(
-                        addType: "OFFICE",
-                        area: "MIRPUR",
-                        address: "48/A Kashi Building"),
-                    user: User(
-                        name: "XYZ",
-                        phone: "+88013 4541228 ",
-                        email: "xyhz@gmail.com")))
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: "1024",
+                  items: [
+                    OrderManualItem(
+                        itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
+                    OrderManualItem(
+                        itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
+                  ],
+                  invoice: Invoice(invoiceItemList: [
+                    InvoiceItem()
+                      ..itemName = "Napa"
+                      ..itemQuantity = "10"
+                      ..itemUnitPrice = "2",
+                    InvoiceItem()
+                      ..itemName = "Histasin"
+                      ..itemQuantity = "3"
+                      ..itemUnitPrice = "5",
+                    InvoiceItem()
+                      ..itemName = "Seclo 40"
+                      ..itemQuantity = "5"
+                      ..itemUnitPrice = "25",
+                  ]),
+                  orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+                  status: OrderEnum
+                      .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
+                  idAddress:
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
+            )
           ]),
           ClientEnum.RESPONSE_SUCCESS);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {

@@ -5,7 +5,6 @@ import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
-import 'package:pharmacy_app/src/models/order/order_item.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
 

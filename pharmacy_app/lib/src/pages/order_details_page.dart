@@ -3,22 +3,12 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
-import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/pages/add_new_address.dart';
 import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
 
 class OrderDetailsPage extends StatefulWidget {
@@ -94,7 +84,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     if (order.orderWith != OrderEnum.ORDER_WITH_PRESCRIPTION)
       return Container();
 
-    final children = order.imageList.map((singleImageUrl) {
+    final List<String> imageList =
+        Util.CSVToImageList(imagePathAsList: order.prescription);
+
+    final children = imageList.map((singleImageUrl) {
       return Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
@@ -124,13 +117,17 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     if (order.orderWith != OrderEnum.ORDER_WITH_ITEM_NAME) return Container();
     final children = List<Widget>();
 
-    children.add(Container(alignment: Alignment.centerLeft,
+    children.add(Container(
+      alignment: Alignment.centerLeft,
       padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
-      child: Text("ADDED ITEMS",style: TextStyle(
-          color: Util.greenishColor(), fontWeight: FontWeight.bold),),
+      child: Text(
+        "ADDED ITEMS",
+        style:
+            TextStyle(color: Util.greenishColor(), fontWeight: FontWeight.bold),
+      ),
     ));
 
-    order.itemList.forEach((singleItem) {
+    order.items.forEach((singleItem) {
       children.add(Container(
         padding: const EdgeInsets.fromLTRB(25, 7, 25, 7),
         color: Colors.transparent,
@@ -154,6 +151,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildDeliveryAddressDetails() {
+    final DeliveryAddressDetails deliveryAddressDetails = Store
+        .instance.appState.allDeliveryAddress
+        .firstWhere((deliveryAddress) => deliveryAddress.id == order.idAddress);
+
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
       child: Column(
@@ -182,7 +183,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: order.deliveryAddressDetails.addType),
+                        text: deliveryAddressDetails.addType),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -212,7 +213,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: order.deliveryAddressDetails.address),
+                        text: deliveryAddressDetails.address),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -241,18 +242,21 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("PERSONAL DETAILS",                  style: TextStyle(
-                    color: Util.greenishColor(), fontWeight: FontWeight.bold)),
+                Text("PERSONAL DETAILS",
+                    style: TextStyle(
+                        color: Util.greenishColor(),
+                        fontWeight: FontWeight.bold)),
                 SizedBox(height: 20),
-                Text("Name",                  style: TextStyle(
-                    color: Util.purplishColor(), fontWeight: FontWeight.bold)),
+                Text("Name",
+                    style: TextStyle(
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold)),
                 SizedBox(height: 3),
                 SizedBox(
                   height: 35, // set this
                   child: TextField(
                     style: textStyle,
-                    controller:
-                        TextEditingController(text: order.user.name),
+                    controller: TextEditingController(text: order.name),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -276,14 +280,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Email",                  style: TextStyle(
-                          color: Util.purplishColor(), fontWeight: FontWeight.bold)),
+                      Text("Email",
+                          style: TextStyle(
+                              color: Util.purplishColor(),
+                              fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
                         child: TextField(
-                          controller: TextEditingController(
-                              text: order.user.email),
+                          controller: TextEditingController(text: order.email),
                           style: textStyle,
                           enabled: false,
                           decoration: new InputDecoration(
@@ -307,14 +312,16 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Phone Number",                  style: TextStyle(
-                          color: Util.purplishColor(), fontWeight: FontWeight.bold)),
+                      Text("Phone Number",
+                          style: TextStyle(
+                              color: Util.purplishColor(),
+                              fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this
                         child: TextField(
-                          controller: TextEditingController(
-                              text: order.user.phone),
+                          controller:
+                              TextEditingController(text: order.mobileNo),
                           enabled: false,
                           style: textStyle,
                           decoration: new InputDecoration(

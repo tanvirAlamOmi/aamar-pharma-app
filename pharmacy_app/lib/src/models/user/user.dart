@@ -21,7 +21,7 @@ class User {
       : id = "1",
         name = "GUEST",
         email = "guest@guest.com",
-        phone = "+881231231231",
+        phone = "1231231231",
         token = "custom-token-api";
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
