@@ -26,17 +26,11 @@ class DeliveryRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
-        final String addDeliveryAddressRequest = jsonEncode(<String, dynamic>{
-          'apt_no': ClientEnum.NA,
-          'house_no': ClientEnum.NA,
-          'street': ClientEnum.NA,
-          'area': deliveryAddressDetails.area,
-          'city': ClientEnum.NA,
-        });
+        print(deliveryAddressDetails.toJsonMap());
 
         final addDeliveryAddressResponse = await DeliveryRepo.instance
             .getDeliveryClient()
-            .addDeliveryAddress(jwtToken, addDeliveryAddressRequest);
+            .addDeliveryAddress(jwtToken, deliveryAddressDetails.toString());
 
         if (addDeliveryAddressResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {

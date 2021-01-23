@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class DeliveryAddressDetails {
   String id;
   String area;
@@ -18,6 +20,16 @@ class DeliveryAddressDetails {
       addType: jsonData['add_type'],
       address: jsonData['address'],
     );
+  }
+
+  String toJsonString() {
+    final data = Map<String, dynamic>();
+    data['id'] = id;
+    data['area'] = area;
+    data['add_type'] = addType;
+    data['address'] = address;
+
+    return json.encode(data);
   }
 
   Map<String, dynamic> toJsonMap() {
