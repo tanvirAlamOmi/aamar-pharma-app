@@ -115,25 +115,18 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.status ==
-        OrderEnum.ORDER_STATUS_PENDING) {
+    if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => OrderDetailsPage(
-                  order: order,
-                )),
+        MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
       );
     }
 
-    if (order.status ==
-        OrderEnum.ORDER_STATUS_INVOICE_SENT) {
+    if (order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT) {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ConfirmInvoicePage(
-                  order: order,
-                )),
+            builder: (context) => ConfirmInvoicePage(order: order)),
       );
     }
 
@@ -141,9 +134,7 @@ class _OrderCardState extends State<OrderCard> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => OrderFinalInvoicePage(
-                  order: order,
-                )),
+            builder: (context) => OrderFinalInvoicePage(order: order)),
       );
     }
   }

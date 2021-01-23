@@ -79,6 +79,13 @@ class QueryRepo {
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
+        //
+        // for (int i = 0; i < allOrders.length; i++) {
+        //   if (allOrders[i].id == 3) {
+        //     print(allOrders[i].items[1].itemName);
+        //     // print(allOrders[i].items.map((element) { element.toJsonString();}));
+        //   }
+        // }
 
         final orderFeedResponse = FeedResponse()
           ..status = true

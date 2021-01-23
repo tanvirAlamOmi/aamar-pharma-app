@@ -41,10 +41,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
@@ -81,7 +78,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildImageList() {
-    if (order.orderWith != OrderEnum.ORDER_WITH_PRESCRIPTION)
+    if (order.orderedWith != OrderEnum.ORDER_WITH_PRESCRIPTION)
       return Container();
 
     final List<String> imageList =
@@ -114,7 +111,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildItemList() {
-    if (order.orderWith != OrderEnum.ORDER_WITH_ITEM_NAME) return Container();
+    if (order.orderedWith != OrderEnum.ORDER_WITH_ITEM_NAME) return Container();
     final children = List<Widget>();
 
     children.add(Container(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class OrderManualItem {
   String itemName;
   String unit;
@@ -15,6 +17,15 @@ class OrderManualItem {
       unit: jsonData['unit'],
       quantity: jsonData['quantity'],
     );
+  }
+
+  String toJsonString() {
+    final data = Map<String, dynamic>();
+    data['item_name'] = itemName;
+    data['unit'] = unit;
+    data['quantity'] = quantity;
+
+    return json.encode(data);
   }
 
   Map<String, dynamic> toJsonMap() {

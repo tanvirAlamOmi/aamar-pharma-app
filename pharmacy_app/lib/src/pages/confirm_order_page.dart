@@ -383,7 +383,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         : null;
 
     Order order = new Order()
-      ..orderWith = widget.orderType
+      ..orderedWith = widget.orderType
       ..name = nameController.text
       ..email = emailController.text
       ..mobileNo = phoneController.text

@@ -19,7 +19,7 @@ class Order {
   String createdAt;
   String status; // Order Status
   String rejectionReason;
-  String orderWith; // Order Type. List of Prescription or Items
+  String orderedWith; // Order Type. List of Prescription or Items
   String every; // Repeat Order -  Month, Week or 15 days.
   String day; // Repeat Order - Saturday, Sunday...
   String time; // Repeat Order - time
@@ -43,7 +43,7 @@ class Order {
       this.createdAt,
       this.status,
       this.rejectionReason,
-      this.orderWith,
+      this.orderedWith,
       this.every,
       this.day,
       this.time});
@@ -71,7 +71,7 @@ class Order {
       createdAt: jsonData['created_at'],
       status: jsonData['status'],
       rejectionReason: jsonData['rejection_reason'],
-      orderWith: jsonData['order_with'],
+      orderedWith: jsonData['ordered_with'],
       every: jsonData['every'],
       day: jsonData['day'],
       time: jsonData['time'],
@@ -84,7 +84,12 @@ class Order {
     data['id_customer'] = idCustomer;
     data['id_address'] = idAddress;
     data['prescription'] = prescription;
-    data['items'] = items;
+    data['items'] = (items == null)
+        ? null
+        : items
+            .map((singleManualItem) => singleManualItem.toJsonString())
+            .toList();
+    ;
     data['name'] = name;
     data['email'] = email;
     data['mobile_no'] = mobileNo;
@@ -95,7 +100,7 @@ class Order {
     data['created_at'] = createdAt;
     data['status'] = status;
     data['rejection_reason'] = rejectionReason;
-    data['ordered_with'] = orderWith;
+    data['ordered_with'] = orderedWith;
     data['every'] = every;
     data['day'] = day;
     data['time'] = time;
