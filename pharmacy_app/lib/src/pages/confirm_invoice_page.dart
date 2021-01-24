@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
@@ -64,35 +67,108 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            buildViewOrderDetailsButton(),
-            buildWarningTitle(),
-            SizedBox(height: 20),
-            OrderInvoiceTableCard(
-              subTotal: subTotal,
-              deliveryFee: deliveryFee,
-              totalAmount: totalAmount,
-              order: widget.order,
-              dynamicTable: true,
-              callBackIncrementItemQuantity: incrementItemQuantity,
-              callBackDecrementItemQuantity: decrementItemQuantity,
-              callBackCalculatePricing: calculatePricing,
-              callBackRemoveItem: removeItem,
-              callBackRefreshUI: refreshUI,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                buildViewOrderDetailsButton(),
+                buildWarningTitle(),
+                SizedBox(height: 20),
+                OrderInvoiceTableCard(
+                  subTotal: subTotal,
+                  deliveryFee: deliveryFee,
+                  totalAmount: totalAmount,
+                  order: widget.order,
+                  dynamicTable: true,
+                  callBackIncrementItemQuantity: incrementItemQuantity,
+                  callBackDecrementItemQuantity: decrementItemQuantity,
+                  callBackCalculatePricing: calculatePricing,
+                  callBackRemoveItem: removeItem,
+                  callBackRefreshUI: refreshUI,
+                ),
+                SizedBox(height: 20),
+                buildCashWarningTitle(),
+                SizedBox(height: 20),
+                GeneralActionRoundButton(
+                  title: "CONFIRM ORDER",
+                  isProcessing: false,
+                )
+              ],
             ),
-            SizedBox(height: 20),
-            buildCashWarningTitle(),
-            SizedBox(height: 20),
-            GeneralActionRoundButton(
-              title: "CONFIRM ORDER",
-              isProcessing: false,
-            )
+            buildTutorialBox()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumberConfirmInvoicePage) {
+      case 0:
+        return Positioned(
+          top: 60,
+          left: 20,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 150,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_TOP,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "View your order details to check if we got the correct item list",
+          ),
+        );
+        break;
+      case 1:
+        return Positioned(
+          top: 20,
+          left: 15,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 130,
+            startPoint: 20,
+            midPoint: 30,
+            endPoint: 40,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+                "Tap to remove items from the list if you don’t want to order it",
+          ),
+        );
+        break;
+      case 2:
+        return Positioned(
+          top: 40,
+          right:50,
+          child: CustomMessageBox(
+            width: size.width - 200,
+            height: 130,
+            startPoint: 90,
+            midPoint: 100,
+            endPoint: 110,
+            arrowDirection: ClientEnum.ARROW_BOTTOM,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle:
+            "plus or minus the quantity of items",
+          ),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberConfirmInvoicePage += 1;
+    await Store.instance.putAppData();
   }
 
   Widget buildCashWarningTitle() {

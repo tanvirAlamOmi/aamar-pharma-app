@@ -100,7 +100,6 @@ class QueryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
       return Tuple2(
@@ -136,8 +135,6 @@ class QueryRepo {
     return null;
   }
 
-
-
   Future<Tuple2<FeedResponse, String>> getDummyFeed(
       FeedRequest feedRequest) async {
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
@@ -153,7 +150,7 @@ class QueryRepo {
                 notificationItem: NotificationItem(
                     title: "Order Processing",
                     message:
-                    "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
+                        "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
           ]),
           ClientEnum.RESPONSE_SUCCESS);
 
@@ -175,7 +172,7 @@ class QueryRepo {
                   orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
                   status: OrderEnum.ORDER_STATUS_DELIVERED,
                   idAddress:
-                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
                   name: "ABC",
                   mobileNo: "+8801528 285415",
                   email: "abc@gmail.com"),
@@ -195,7 +192,7 @@ class QueryRepo {
                   orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
                   status: OrderEnum.ORDER_STATUS_PENDING,
                   idAddress:
-                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
                   name: "ABC",
                   mobileNo: "+8801528 285415",
                   email: "abc@gmail.com"),
@@ -211,7 +208,7 @@ class QueryRepo {
                   orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
                   status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
                   idAddress:
-                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
                   name: "ABC",
                   mobileNo: "+8801528 285415",
                   email: "abc@gmail.com"),

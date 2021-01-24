@@ -12,6 +12,7 @@ class AppState {
   int tutorialBoxNumberAddItemsPage = 0;
   int tutorialBoxNumberUploadPrescriptionVerifyPage = 0;
   int tutorialBoxNumberConfirmOrderPage = 0;
+  int tutorialBoxNumberConfirmInvoicePage = 0;
   int tutorialBoxNumberOrderPage = 0;
 
   AppState() {}
@@ -34,6 +35,8 @@ class AppState {
         data['TUTORIAL_BOX_NUMBER_UPLOAD_PRESCRIPTION_VERIFY_PAGE'] ?? 0;
     tutorialBoxNumberConfirmOrderPage =
         data['TUTORIAL_BOX_NUMBER_CONFIRM_ORDER_PAGE'] ?? 0;
+    tutorialBoxNumberConfirmOrderPage =
+        data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] ?? 0;
     tutorialBoxNumberOrderPage = data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] ?? 0;
   }
 
@@ -53,6 +56,8 @@ class AppState {
     data['TUTORIAL_BOX_NUMBER_UPLOAD_PRESCRIPTION_VERIFY_PAGE'] =
         tutorialBoxNumberUploadPrescriptionVerifyPage;
     data['TUTORIAL_BOX_NUMBER_CONFIRM_ORDER_PAGE'] =
+        tutorialBoxNumberConfirmOrderPage;
+    data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] =
         tutorialBoxNumberConfirmOrderPage;
     data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] = tutorialBoxNumberOrderPage;
 
