@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class DeliveryAddressDetails {
-  String id;
+  int id;
   String area;
   String addType; // Address Type: Home, Office
   String address;

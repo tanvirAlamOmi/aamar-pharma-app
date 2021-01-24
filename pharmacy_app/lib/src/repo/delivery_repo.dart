@@ -26,15 +26,21 @@ class DeliveryRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
-        print(deliveryAddressDetails.toJsonMap());
+        final String addDeliveryAddressRequest = jsonEncode(<String, dynamic>{
+          'add_type': deliveryAddressDetails.addType,
+          'address': deliveryAddressDetails.address,
+          'area': deliveryAddressDetails.area,
+        });
+
+        print(addDeliveryAddressRequest);
 
         final addDeliveryAddressResponse = await DeliveryRepo.instance
             .getDeliveryClient()
-            .addDeliveryAddress(jwtToken, deliveryAddressDetails.toString());
+            .addDeliveryAddress(jwtToken, addDeliveryAddressRequest);
 
         if (addDeliveryAddressResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
-          final String addressId = addDeliveryAddressResponse['id'];
+          final int addressId = addDeliveryAddressResponse['id'];
           deliveryAddressDetails.id = addressId;
 
           Store.instance.setDeliveryAddress(deliveryAddressDetails);

@@ -189,7 +189,7 @@ class Util {
               (deliveryAddress) => deliveryAddress.id == idAddress.toString());
     } catch (err) {
       deliveryAddressDetails = DeliveryAddressDetails()
-        ..id = "0"
+        ..id = 0
         ..area = "N/A"
         ..addType = "N/A"
         ..address = "N/A";

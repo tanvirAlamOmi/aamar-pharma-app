@@ -28,6 +28,16 @@ class OrderManualItem {
     return json.encode(data);
   }
 
+  String toJsonEncodedString() {
+    return jsonEncode(<String, dynamic>{
+      'id_order': 0,
+      'item_name': itemName,
+      'unit': unit,
+      'image': 'abc.jpg',
+      'quantity': quantity,
+    });
+  }
+
   Map<String, dynamic> toJsonMap() {
     final data = Map<String, dynamic>();
     data['item_name'] = itemName;

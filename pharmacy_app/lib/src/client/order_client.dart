@@ -23,7 +23,8 @@ class OrderClient {
   }
 
   Future<dynamic> orderWithPrescription(
-      String jwtToken, dynamic orderRequest) async {
+      String jwtToken, String orderRequest) async {
+    print(orderRequest);
     final http.Response response = await http
         .post(
             ServerConfig.SERVER_HOST +
@@ -31,6 +32,7 @@ class OrderClient {
                 '/api/appapi/order-prescription',
             headers: {
               'token': jwtToken,
+              'Content-Type': 'application/json; charset=UTF-8',
             },
             body: orderRequest)
         .timeout(Duration(seconds: 300));

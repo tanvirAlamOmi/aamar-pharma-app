@@ -25,14 +25,9 @@ class OrderRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
-        print(order.toJsonString());
-
         final orderWithPrescriptionResponse = await OrderRepo.instance
             .getOrderClient()
-            .orderWithPrescription(jwtToken, order.toJsonString());
-
-        print("GGGGGGGGGGGGGGGGGGGGGGGG");
-        print(orderWithPrescriptionResponse);
+            .orderWithPrescription(jwtToken, order.toJsonEncodeString());
 
         if (orderWithPrescriptionResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
@@ -56,9 +51,9 @@ class OrderRepo {
 
         final orderWithItemNameResponse = await OrderRepo.instance
             .getOrderClient()
-            .orderWithItems(jwtToken, order.toJsonString());
+            .orderWithItems(jwtToken, order.toJsonEncodeString());
 
-        print(order.toJsonString());
+        print(order.toJsonEncodeString());
         print("orderWithItemName Print");
         print(orderWithItemNameResponse);
 

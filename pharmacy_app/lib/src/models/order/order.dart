@@ -108,6 +108,34 @@ class Order {
     return data;
   }
 
+  String toJsonEncodeString() {
+    return jsonEncode(<String, dynamic>{
+      'id': id,
+      'id_customer': idCustomer,
+      'id_address': idAddress,
+      'prescription': prescription,
+      'items': (items == null)
+          ? null
+          : items
+              .map((singleManualItem) => singleManualItem.toJsonEncodedString())
+              .toList()
+              .toString(),
+      'name': name,
+      'email': email,
+      'mobile_no': mobileNo,
+      'repeat_order': repeatOrder,
+      'delivery_time': deliveryTime,
+      'delivery_date': deliveryDate,
+      'created_at': createdAt,
+      'status': status,
+      'rejection_reason': rejectionReason,
+      'ordered_with': orderedWith,
+      'every': every,
+      'day': day,
+      'time': time,
+    });
+  }
+
   String toJsonString() {
     final data = Map<String, dynamic>();
     data['id'] = id;
@@ -119,7 +147,6 @@ class Order {
         : items
             .map((singleManualItem) => singleManualItem.toJsonMap())
             .toList();
-    ;
     data['name'] = name;
     data['email'] = email;
     data['mobile_no'] = mobileNo;

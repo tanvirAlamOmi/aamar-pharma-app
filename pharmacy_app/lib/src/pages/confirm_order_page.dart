@@ -383,8 +383,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         : null;
 
     Order order = new Order()
-      ..idAddress = int.parse(Store.instance.appState
-          .allDeliveryAddress[selectedDeliveryAddressIndex].id)
+      ..idAddress = Store
+          .instance.appState.allDeliveryAddress[selectedDeliveryAddressIndex].id
       ..items = widget.orderManualItemList
       ..orderedWith = widget.orderType
       ..name = nameController.text
