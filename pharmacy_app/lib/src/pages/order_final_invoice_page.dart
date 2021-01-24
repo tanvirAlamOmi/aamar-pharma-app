@@ -12,6 +12,7 @@ import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
@@ -118,60 +119,98 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            buildReOrderButton(),
-            buildPharmaAddress(),
-            buildDivider(),
-            buildOrderAddress(),
-            buildDivider(),
-            buildViewOrderDetailsButton(),
-            SizedBox(height: 20),
-            OrderInvoiceTableCard(
-              subTotal: subTotal,
-              deliveryFee: deliveryFee,
-              totalAmount: totalAmount,
-              order: widget.order,
-              dynamicTable: false,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                buildReOrderButton(),
+                buildPharmaAddress(),
+                buildDivider(),
+                buildOrderAddress(),
+                buildDivider(),
+                buildViewOrderDetailsButton(),
+                SizedBox(height: 20),
+                OrderInvoiceTableCard(
+                  subTotal: subTotal,
+                  deliveryFee: deliveryFee,
+                  totalAmount: totalAmount,
+                  order: widget.order,
+                  dynamicTable: false,
+                ),
+                OrderDeliveryAddressCard(
+                  callBackRefreshUI: refreshUI,
+                  deliveryTimeDay: deliveryTimeDay,
+                  selectedDeliveryTimeDay: selectedDeliveryTimeDay,
+                  setSelectedDeliveryTimeDay: setSelectedDeliveryTimeDay,
+                  deliveryTimeTime: deliveryTimeTime,
+                  selectedDeliveryTimeTime: selectedDeliveryTimeTime,
+                  setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
+                ),
+                OrderRepeatOrderCard(
+                  callBackRefreshUI: refreshUI,
+                  checkedRepeatOrder: checkedRepeatOrder,
+                  setRepeatOrder: setRepeatOrder,
+                  repeatDeliveryLongGap: repeatDeliveryLongGap,
+                  selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
+                  setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
+                  repeatDeliveryDayBar: repeatDeliveryDayBar,
+                  selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
+                  setSelectedRepeatDeliveryDayBar:
+                      setSelectedRepeatDeliveryDayBar,
+                  selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
+                  setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
+                ),
+                AddDeliveryAddressButton(callBack: refreshUI),
+                AllAddressCard(
+                    selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
+                    setSelectedDeliveryAddressIndex:
+                        setSelectedDeliveryAddressIndex,
+                    callBackRefreshUI: refreshUI),
+                PersonalDetailsCard(
+                    nameController: nameController,
+                    phoneController: phoneController,
+                    emailController: emailController),
+                SizedBox(height: 20)
+              ],
             ),
-            OrderDeliveryAddressCard(
-              callBackRefreshUI: refreshUI,
-              deliveryTimeDay: deliveryTimeDay,
-              selectedDeliveryTimeDay: selectedDeliveryTimeDay,
-              setSelectedDeliveryTimeDay: setSelectedDeliveryTimeDay,
-              deliveryTimeTime: deliveryTimeTime,
-              selectedDeliveryTimeTime: selectedDeliveryTimeTime,
-              setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
-            ),
-            OrderRepeatOrderCard(
-              callBackRefreshUI: refreshUI,
-              checkedRepeatOrder: checkedRepeatOrder,
-              setRepeatOrder: setRepeatOrder,
-              repeatDeliveryLongGap: repeatDeliveryLongGap,
-              selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
-              setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
-              repeatDeliveryDayBar: repeatDeliveryDayBar,
-              selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
-              setSelectedRepeatDeliveryDayBar: setSelectedRepeatDeliveryDayBar,
-              selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
-              setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
-            ),
-            AddDeliveryAddressButton(callBack: refreshUI),
-            AllAddressCard(
-                selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
-                setSelectedDeliveryAddressIndex:
-                    setSelectedDeliveryAddressIndex,
-                callBackRefreshUI: refreshUI),
-            PersonalDetailsCard(
-                nameController: nameController,
-                phoneController: phoneController,
-                emailController: emailController),
-            SizedBox(height: 20)
+            buildTutorialBox()
           ],
         ),
       ),
     );
+  }
+
+  Widget buildTutorialBox() {
+    final size = MediaQuery.of(context).size;
+    switch (Store.instance.appState.tutorialBoxNumberOrderFinalInvoicePage) {
+      case 0:
+        return Positioned(
+          top: 60,
+          left: 60,
+          child: CustomMessageBox(
+            width: size.width - 100,
+            height: 150,
+            startPoint: 100,
+            midPoint: 110,
+            endPoint: 130,
+            arrowDirection: ClientEnum.ARROW_TOP,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshUI,
+            messageTitle: "Tap this if you want to order the same items again",
+          ),
+        );
+        break;
+
+      default:
+        return Container();
+        break;
+    }
+  }
+
+  void updateTutorialBox() async {
+    Store.instance.appState.tutorialBoxNumberOrderFinalInvoicePage += 1;
+    await Store.instance.putAppData();
   }
 
   void calculatePricing() {
