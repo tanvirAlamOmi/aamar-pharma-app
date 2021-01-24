@@ -141,11 +141,14 @@ class FadeInRoute<T> extends MaterialPageRoute<T> {
 
 /*
 
-* Navigating System
-* - Navigator.of(context).pushNamed('/book_valet');
-* - Navigator.of(context).pushNamedAndRemoveUntil(
+* Navigating System *
+
+Navigator.of(context).pushNamed('/book_valet');
+
+Navigator.of(context).pushNamedAndRemoveUntil(
          '/', (Route<dynamic> route) => false);
-  - Navigator.push(
+
+Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => BookingDetailsPage(

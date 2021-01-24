@@ -36,7 +36,7 @@ class AppState {
         data['TUTORIAL_BOX_NUMBER_UPLOAD_PRESCRIPTION_VERIFY_PAGE'] ?? 0;
     tutorialBoxNumberConfirmOrderPage =
         data['TUTORIAL_BOX_NUMBER_CONFIRM_ORDER_PAGE'] ?? 0;
-    tutorialBoxNumberConfirmOrderPage =
+    tutorialBoxNumberConfirmInvoicePage =
         data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] ?? 0;
     tutorialBoxNumberOrderPage = data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] ?? 0;
     tutorialBoxNumberOrderFinalInvoicePage =
@@ -61,7 +61,7 @@ class AppState {
     data['TUTORIAL_BOX_NUMBER_CONFIRM_ORDER_PAGE'] =
         tutorialBoxNumberConfirmOrderPage;
     data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] =
-        tutorialBoxNumberConfirmOrderPage;
+        tutorialBoxNumberConfirmInvoicePage;
     data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] = tutorialBoxNumberOrderPage;
     data['TUTORIAL_BOX_NUMBER_ORDER_FINAL_INVOICE_PAGE'] =
         tutorialBoxNumberOrderFinalInvoicePage;

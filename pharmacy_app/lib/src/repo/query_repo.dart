@@ -80,6 +80,9 @@ class QueryRepo {
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
 
+        final FeedResponse dummyOrderFeedResponse =
+            await getDummyFeed(feedRequest);
+
         final orderFeedResponse = FeedResponse()
           ..status = true
           ..lastFeed = false
@@ -90,6 +93,12 @@ class QueryRepo {
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
+
+        int x = 0;
+        dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
+          orderFeedResponse.feedItems.insert(x, singleFeedItem);
+          x = x + 1;
+        });
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
@@ -119,7 +128,7 @@ class QueryRepo {
           ClientEnum.RESPONSE_SUCCESS);
 
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
-      return getDummyFeed(feedRequest);
+      return getOrderFeedData(feedRequest);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
       return getFeedData(feedRequest);
     } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
@@ -135,87 +144,61 @@ class QueryRepo {
     return null;
   }
 
-  Future<Tuple2<FeedResponse, String>> getDummyFeed(
-      FeedRequest feedRequest) async {
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
-      return Tuple2(
-          FeedResponse(status: true, feedItems: [
-            FeedItem(
-                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
-                notificationItem: NotificationItem(
-                    title: "Order Confirmation",
-                    message: "Your Order has been confirmed")),
-            FeedItem(
-                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
-                notificationItem: NotificationItem(
-                    title: "Order Processing",
-                    message:
-                        "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
-          ]),
-          ClientEnum.RESPONSE_SUCCESS);
-
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
-      return Tuple2(
-          FeedResponse(status: true, feedItems: [
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: 1026,
-                  prescription: Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      ",",
-                  orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-                  status: OrderEnum.ORDER_STATUS_DELIVERED,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            ),
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: 1023,
-                  prescription: Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      "," +
-                      Util.getStaticImageURL() +
-                      ",",
-                  orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-                  status: OrderEnum.ORDER_STATUS_PENDING,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            ),
-            FeedItem(
-              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-              order: Order(
-                  id: 1024,
-                  items: [
-                    OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
-                    OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
-                  ],
-                  orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-                  status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
-                  idAddress:
-                      Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-                  name: "ABC",
-                  mobileNo: "+8801528 285415",
-                  email: "abc@gmail.com"),
-            )
-          ]),
-          ClientEnum.RESPONSE_SUCCESS);
-
-    return null;
+  Future<FeedResponse> getDummyFeed(FeedRequest feedRequest) async {
+    return FeedResponse(status: true, feedItems: [
+      FeedItem(
+        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        order: Order(
+            id: 1026,
+            prescription: Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                ",",
+            orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+            status: OrderEnum.ORDER_STATUS_DELIVERED,
+            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            name: "ABC",
+            mobileNo: "01528285415",
+            email: "abc@gmail.com"),
+      ),
+      FeedItem(
+        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        order: Order(
+            id: 1023,
+            prescription: Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                "," +
+                Util.getStaticImageURL() +
+                ",",
+            orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+            status: OrderEnum.ORDER_STATUS_PENDING,
+            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            name: "ABC",
+            mobileNo: "01528285415",
+            email: "abc@gmail.com"),
+      ),
+      FeedItem(
+        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        order: Order(
+            id: 1024,
+            items: [
+              OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
+              OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
+            ],
+            orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+            status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
+            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            name: "ABC",
+            mobileNo: "01528285415",
+            email: "abc@gmail.com"),
+      )
+    ]);
   }
 }

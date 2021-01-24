@@ -29,6 +29,7 @@ class OrderEnum {
 
 
   static final String ORDER_WITH_ITEM_NAME = "Item name";
+  static final String ORDER_WITH_ITEM_NAME_REORDER = "Reorder Item name";
   static final String ORDER_WITH_PRESCRIPTION = "Prescription";
 
   static final String ORDER_PAYMENT_STATUS_PAID = "Paid";

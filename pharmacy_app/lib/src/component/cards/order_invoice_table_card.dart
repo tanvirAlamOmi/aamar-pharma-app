@@ -15,12 +15,21 @@ class OrderInvoiceTableCard extends StatelessWidget {
   final double subTotal;
   final double deliveryFee;
   final double totalAmount;
-  final bool dynamicTable;
+
   final Function(InvoiceItem singleItem) callBackIncrementItemQuantity;
   final Function(InvoiceItem singleItem) callBackDecrementItemQuantity;
   final Function(InvoiceItem singleItem) callBackRemoveItem;
   final Function() callBackCalculatePricing;
   final Function() callBackRefreshUI;
+
+  final bool showCrossColumn;
+  final bool showItemNameColumn;
+  final bool showUnitCostColumn;
+  final bool showQuantityColumn;
+  final bool showAmountColumn;
+  final bool showIncDecButtons;
+  final bool showSubTotalRow;
+  final bool showTotalRow;
 
   final TextStyle columnTextStyle = new TextStyle(
       fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
@@ -36,12 +45,19 @@ class OrderInvoiceTableCard extends StatelessWidget {
       this.subTotal,
       this.deliveryFee,
       this.totalAmount,
-      this.dynamicTable,
       this.callBackIncrementItemQuantity,
       this.callBackDecrementItemQuantity,
       this.callBackCalculatePricing,
       this.callBackRefreshUI,
-      this.callBackRemoveItem})
+      this.callBackRemoveItem,
+      this.showCrossColumn,
+      this.showUnitCostColumn,
+      this.showQuantityColumn,
+      this.showAmountColumn,
+      this.showIncDecButtons,
+      this.showSubTotalRow,
+      this.showTotalRow,
+      this.showItemNameColumn})
       : super(key: key);
 
   @override
@@ -71,79 +87,86 @@ class OrderInvoiceTableCard extends StatelessWidget {
     final children = List<TableRow>();
 
     children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Item", style: columnTextStyle),
+      customTableCell(Text(showCrossColumn ? "" : "", style: columnTextStyle)),
+      customTableCell(
+          Text(showItemNameColumn ? "Item" : "", style: columnTextStyle),
           alignment: Alignment.centerLeft),
-      customTableCell(Text("Unit Cost", style: columnTextStyle)),
-      customTableCell(Text("Quantity", style: columnTextStyle)),
-      customTableCell(Text("Amount", style: columnTextStyle),
+      customTableCell(
+          Text(showUnitCostColumn ? "Unit Cost" : "", style: columnTextStyle)),
+      customTableCell(
+          Text(showQuantityColumn ? "Quantity" : "", style: columnTextStyle)),
+      customTableCell(
+          Text(showAmountColumn ? "Amount" : "", style: columnTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
     order.invoice.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
-        customTableCell(buildFirstColumn(singleItem)),
-        customTableCell(Text(singleItem.itemName, style: dataTextStyle),
+        customTableCell(buildCrossColumn(singleItem)),
+        customTableCell(buildItemNameColumn(singleItem),
             alignment: Alignment.centerLeft),
-        customTableCell(Text(singleItem.itemUnitPrice, style: dataTextStyle)),
-        customTableCell(buildThirdColumn(singleItem)),
-        customTableCell(Text(getPrice(singleItem), style: textStyle),
+        customTableCell(buildUnitCostColumn(singleItem)),
+        customTableCell(buildQuantityColumn(singleItem)),
+        customTableCell(buildAmountColumn(singleItem),
             alignment: Alignment.centerRight),
       ]));
     });
 
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
+    if (showSubTotalRow) {
+      children.add(TableRow(children: [
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+      ]));
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("Subtotal", style: columnTextStyle)),
+        customTableCell(Text(subTotal.toString(), style: dataTextStyle),
+            alignment: Alignment.centerRight),
+      ]));
 
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Subtotal", style: columnTextStyle)),
-      customTableCell(Text(subTotal.toString(), style: dataTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("Delivery Fee", style: columnTextStyle)),
+        customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
+            alignment: Alignment.centerRight),
+      ]));
+    }
 
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-      customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
-          alignment: Alignment.centerRight),
-    ]));
+    if (showTotalRow) {
+      children.add(TableRow(children: [
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+      ]));
 
-    children.add(TableRow(children: [
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-      customTableCell(Divider(height: 2, thickness: 2)),
-    ]));
-
-    children.add(TableRow(children: [
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("", style: columnTextStyle),
-          alignment: Alignment.centerLeft),
-      customTableCell(Text("", style: columnTextStyle)),
-      customTableCell(Text("Total",
-          style: TextStyle(
-              fontSize: 15,
-              color: Util.purplishColor(),
-              fontWeight: FontWeight.bold))),
-      customTableCell(
-          Text(totalAmount.toString(),
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-          alignment: Alignment.centerRight),
-    ]));
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("Total",
+            style: TextStyle(
+                fontSize: 15,
+                color: Util.purplishColor(),
+                fontWeight: FontWeight.bold))),
+        customTableCell(
+            Text(totalAmount.toString(),
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
+            alignment: Alignment.centerRight),
+      ]));
+    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
@@ -162,10 +185,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
         ),
         child: Table(
           columnWidths: {
-            0: FlexColumnWidth(dynamicTable ? 0.1 : 0.05),
-            1: FlexColumnWidth(dynamicTable ? 0.2 : 0.25),
-            2: FlexColumnWidth(0.2),
-            3: FlexColumnWidth(0.3),
+            0: FlexColumnWidth(showCrossColumn ? 0.1 : 0.05),
+            1: FlexColumnWidth(showCrossColumn ? 0.2 : 0.25),
+            2: FlexColumnWidth(showUnitCostColumn ? 0.2 : 0.05),
+            3: FlexColumnWidth(showUnitCostColumn ? 0.3 : 0.5),
             4: FlexColumnWidth(0.2),
           },
           children: children,
@@ -191,8 +214,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
     );
   }
 
-  Widget buildFirstColumn(InvoiceItem singleItem) {
-    if (dynamicTable == false) return Text("");
+  Widget buildCrossColumn(InvoiceItem singleItem) {
+    if (showCrossColumn != true) return Text("");
     return CircleCrossButton(
       callBackDeleteItem: callBackRemoveItem,
       objectIdentifier: singleItem,
@@ -204,51 +227,81 @@ class OrderInvoiceTableCard extends StatelessWidget {
     );
   }
 
-  Widget buildThirdColumn(InvoiceItem singleItem) {
-    if (dynamicTable == false)
+  Widget buildItemNameColumn(InvoiceItem singleItem) {
+    if (showItemNameColumn != true) return Text("");
+    return Container(
+        alignment: Alignment.topLeft,
+        width: double.infinity,
+        child: Text(singleItem.itemName, style: dataTextStyle));
+  }
+
+  Widget buildUnitCostColumn(InvoiceItem singleItem) {
+    if (showUnitCostColumn != true) return Text("");
+    return Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        child: Text(singleItem.itemUnitPrice, style: dataTextStyle));
+  }
+
+  Widget buildQuantityColumn(InvoiceItem singleItem) {
+    if (showQuantityColumn == true && showIncDecButtons == false)
       return Container(
           alignment: Alignment.center,
           width: 25,
           child: Text(singleItem.itemQuantity, style: dataTextStyle));
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          GestureDetector(
-            onTap: () {
-              callBackDecrementItemQuantity(singleItem);
-              callBackCalculatePricing();
-            },
-            child: Container(
-                width: 17,
-                height: 17,
-                child: Icon(Icons.remove, color: Colors.black, size: 13.5),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.redAccent))),
-          ),
-          Container(
-              alignment: Alignment.center,
-              width: 25,
-              child: Text(singleItem.itemQuantity, style: dataTextStyle)),
-          GestureDetector(
-            onTap: () {
-              callBackIncrementItemQuantity(singleItem);
-              callBackCalculatePricing();
-            },
-            child: Container(
-                width: 17,
-                height: 17,
-                child: Icon(Icons.add, color: Colors.black, size: 13.5),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.redAccent))),
-          ),
-        ],
-      ),
-    );
+    else if (showQuantityColumn == true && showIncDecButtons == true)
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                callBackDecrementItemQuantity(singleItem);
+                callBackCalculatePricing();
+              },
+              child: Container(
+                  width: 17,
+                  height: 17,
+                  child: Icon(Icons.remove, color: Colors.black, size: 13.5),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.redAccent))),
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: 25,
+                child: Text(singleItem.itemQuantity, style: dataTextStyle)),
+            GestureDetector(
+              onTap: () {
+                callBackIncrementItemQuantity(singleItem);
+                callBackCalculatePricing();
+              },
+              child: Container(
+                  width: 17,
+                  height: 17,
+                  child: Icon(Icons.add, color: Colors.black, size: 13.5),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.redAccent))),
+            ),
+          ],
+        ),
+      );
+    //Default
+    return Container(
+        alignment: Alignment.center,
+        width: 25,
+        child: Text(singleItem.itemQuantity, style: dataTextStyle));
+  }
+
+  Widget buildAmountColumn(InvoiceItem singleItem) {
+    if (showAmountColumn != true) return Text("");
+    return Container(
+        alignment: Alignment.centerRight,
+        width: double.infinity,
+        child: Text(getPrice(singleItem), style: dataTextStyle));
   }
 
   String getPrice(InvoiceItem singleItem) {

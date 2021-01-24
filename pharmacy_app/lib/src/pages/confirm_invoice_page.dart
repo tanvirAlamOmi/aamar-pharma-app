@@ -80,12 +80,19 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   deliveryFee: deliveryFee,
                   totalAmount: totalAmount,
                   order: widget.order,
-                  dynamicTable: true,
                   callBackIncrementItemQuantity: incrementItemQuantity,
                   callBackDecrementItemQuantity: decrementItemQuantity,
                   callBackCalculatePricing: calculatePricing,
                   callBackRemoveItem: removeItem,
                   callBackRefreshUI: refreshUI,
+                  showCrossColumn: true,
+                  showItemNameColumn: true,
+                  showUnitCostColumn: true,
+                  showQuantityColumn: true,
+                  showIncDecButtons: true,
+                  showAmountColumn: true,
+                  showSubTotalRow: true,
+                  showTotalRow: true,
                 ),
                 SizedBox(height: 20),
                 buildCashWarningTitle(),
@@ -145,7 +152,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       case 2:
         return Positioned(
           top: 40,
-          right:50,
+          right: 50,
           child: CustomMessageBox(
             width: size.width - 200,
             height: 130,
@@ -155,8 +162,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle:
-            "plus or minus the quantity of items",
+            messageTitle: "plus or minus the quantity of items",
           ),
         );
         break;
@@ -262,12 +268,13 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void decrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoice.invoiceItemList) {
       if (singleItem == invoiceItem) {
+        if (int.parse(singleItem.itemQuantity) == 1) {
+          return;
+        }
+
         singleItem.itemQuantity =
             (int.parse(singleItem.itemQuantity) - 1).toString();
 
-        if (int.parse(singleItem.itemQuantity) == 0) {
-          removeItem(invoiceItem);
-        }
         break;
       }
     }

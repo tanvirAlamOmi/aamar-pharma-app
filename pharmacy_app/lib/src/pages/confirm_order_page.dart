@@ -5,12 +5,14 @@ import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.d
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
@@ -30,6 +32,7 @@ class ConfirmOrderPage extends StatefulWidget {
   final List<OrderManualItem> orderManualItemList;
   final Order order; // Only for Reorder Case
 
+
   ConfirmOrderPage(
       {this.note,
       this.orderManualItemList,
@@ -47,6 +50,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   String uploadStatus = "";
+
+  double subTotal = 0;
+  double deliveryFee = 20;
+  double totalAmount = 0;
 
   DateTime currentTime;
   DateTime officeTime;
@@ -208,6 +215,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
                   setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
                 ),
+                SizedBox(height: 10),
+                buildReOrderInvoiceTable(),
                 AddDeliveryAddressButton(callBack: refreshUI),
                 AllAddressCard(
                     selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
@@ -232,6 +241,73 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ),
     );
   }
+
+
+  Widget buildReOrderInvoiceTable(){
+    if (widget.orderType != OrderEnum.ORDER_WITH_ITEM_NAME_REORDER) return Container();
+    return OrderInvoiceTableCard(
+      subTotal: subTotal,
+      deliveryFee: deliveryFee,
+      totalAmount: totalAmount,
+      order: widget.order,
+      callBackIncrementItemQuantity: incrementItemQuantity,
+      callBackDecrementItemQuantity: decrementItemQuantity,
+      callBackCalculatePricing: calculatePricing,
+      callBackRemoveItem: removeItem,
+      callBackRefreshUI: refreshUI,
+      showCrossColumn: true,
+      showItemNameColumn: true,
+      showUnitCostColumn: false,
+      showQuantityColumn: true,
+      showIncDecButtons: true,
+      showAmountColumn: false,
+      showSubTotalRow: false,
+      showTotalRow: false,
+    );
+  }
+
+  void removeItem(dynamic singleItem) {
+    widget.order.invoice.invoiceItemList.remove(singleItem);
+  }
+
+  void incrementItemQuantity(InvoiceItem invoiceItem) {
+    for (final singleItem in widget.order.invoice.invoiceItemList) {
+      if (singleItem == invoiceItem) {
+        singleItem.itemQuantity =
+            (int.parse(singleItem.itemQuantity) + 1).toString();
+        break;
+      }
+    }
+  }
+
+  void decrementItemQuantity(InvoiceItem invoiceItem) {
+    for (final singleItem in widget.order.invoice.invoiceItemList) {
+      if (singleItem == invoiceItem) {
+        if (int.parse(singleItem.itemQuantity) == 1) {
+          return;
+        }
+
+        singleItem.itemQuantity =
+            (int.parse(singleItem.itemQuantity) - 1).toString();
+
+        break;
+      }
+    }
+  }
+
+  void calculatePricing() {
+    subTotal = 0;
+    totalAmount = 0;
+    for (final singleItem in widget.order.invoice.invoiceItemList) {
+      final unitPrice = double.parse(singleItem.itemUnitPrice);
+      final quantity = double.parse(singleItem.itemQuantity);
+      subTotal = subTotal + (unitPrice * quantity);
+    }
+
+    totalAmount = subTotal + deliveryFee;
+    if (mounted) setState(() {});
+  }
+
 
   Widget buildTutorialBox() {
     final size = MediaQuery.of(context).size;
@@ -357,7 +433,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (phoneController.text.length != 10) {
+    if (phoneController.text.length != 11) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid 11 digit Bangladeshi Number");
@@ -449,6 +525,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME) {
       orderSubmitResponse = await OrderRepo.instance
           .orderWithItemName(order: AppVariableStates.instance.order);
+    }else if(widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME_REORDER){
+
     }
 
     if (orderSubmitResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
