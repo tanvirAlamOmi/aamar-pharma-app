@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
     switch (Store.instance.appState.tutorialBoxNumberHomePage) {
       case 0:
         return Positioned(
-          top: 50,
+          top: 100,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
         break;
       case 1:
         return Positioned(
-          top: 50,
+          top: 100,
           left: 20,
           child: CustomMessageBox(
               width: size.width - 100,

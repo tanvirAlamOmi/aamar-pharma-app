@@ -91,8 +91,8 @@ class _UploadPrescriptionVerifyPageState
         Store.instance.appState.tutorialBoxNumberUploadPrescriptionVerifyPage) {
       case 0:
         return Positioned(
-          top: 150,
-          left: 70,
+          top: 160,
+          left: 40,
           child: CustomMessageBox(
             width: size.width - 150,
             height: 120,

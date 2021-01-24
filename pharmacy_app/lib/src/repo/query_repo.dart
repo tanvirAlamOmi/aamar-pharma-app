@@ -100,6 +100,7 @@ class QueryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
       return Tuple2(
@@ -119,7 +120,7 @@ class QueryRepo {
           ClientEnum.RESPONSE_SUCCESS);
 
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
-      return getOrderFeedData(feedRequest);
+      return getDummyFeed(feedRequest);
     if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
       return getFeedData(feedRequest);
     } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
@@ -134,108 +135,90 @@ class QueryRepo {
 
     return null;
   }
-}
 
-// Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
-//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
-//     return Tuple2(
-//         FeedResponse(status: true, feedItems: [
-//           FeedItem(
-//               viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
-//               notificationItem: NotificationItem(
-//                   title: "Order Confirmation",
-//                   message: "Your Order has been confirmed")),
-//           FeedItem(
-//               viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
-//               notificationItem: NotificationItem(
-//                   title: "Order Processing",
-//                   message:
-//                   "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
-//         ]),
-//         ClientEnum.RESPONSE_SUCCESS);
-//
-//   // Sending Empty List
-//   // if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
-//   //   return Tuple2(FeedResponse(status: true, feedItems: []),
-//   //       ClientEnum.RESPONSE_SUCCESS);
-//   // }
-//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
-//     return Tuple2(
-//         FeedResponse(status: true, feedItems: [
-//           FeedItem(
-//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-//             order: Order(
-//                 id: "1026",
-//                 prescription: Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     ",",
-//                 orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-//                 status: OrderEnum.ORDER_STATUS_DELIVERED,
-//                 idAddress:
-//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-//                 name: "ABC",
-//                 mobileNo: "+8801528 285415",
-//                 email: "abc@gmail.com"),
-//           ),
-//           FeedItem(
-//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-//             order: Order(
-//                 id: "1023",
-//                 prescription: Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     "," +
-//                     Util.getStaticImageURL() +
-//                     ",",
-//                 orderWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-//                 status: OrderEnum
-//                     .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_PHARMA,
-//                 idAddress:
-//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-//                 name: "ABC",
-//                 mobileNo: "+8801528 285415",
-//                 email: "abc@gmail.com"),
-//           ),
-//           FeedItem(
-//             viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
-//             order: Order(
-//                 id: "1024",
-//                 items: [
-//                   OrderManualItem(
-//                       itemName: "ABC", itemUnit: "mg", itemQuantity: "10"),
-//                   OrderManualItem(
-//                       itemName: "XYZ", itemUnit: "g", itemQuantity: "20")
-//                 ],
-//                 orderWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-//                 status: OrderEnum
-//                     .ORDER_STATUS_PENDING_INVOICE_RESPONSE_FROM_CUSTOMER,
-//                 idAddress:
-//                 Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
-//                 name: "ABC",
-//                 mobileNo: "+8801528 285415",
-//                 email: "abc@gmail.com"),
-//           )
-//         ]),
-//         ClientEnum.RESPONSE_SUCCESS);
-//   if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
-//     return getFeedData(feedRequest);
-//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
-//     return getFeedData(feedRequest);
-//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CANCELED) {
-//     return getFeedData(feedRequest);
-//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_RETURNED) {
-//     return getFeedData(feedRequest);
-//   } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_REJECTED) {
-//     return getFeedData(feedRequest);
-//   }
-//
-//   return null;
-// }
-// }
+
+
+  Future<Tuple2<FeedResponse, String>> getDummyFeed(
+      FeedRequest feedRequest) async {
+    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
+      return Tuple2(
+          FeedResponse(status: true, feedItems: [
+            FeedItem(
+                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                notificationItem: NotificationItem(
+                    title: "Order Confirmation",
+                    message: "Your Order has been confirmed")),
+            FeedItem(
+                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                notificationItem: NotificationItem(
+                    title: "Order Processing",
+                    message:
+                    "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
+          ]),
+          ClientEnum.RESPONSE_SUCCESS);
+
+    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
+      return Tuple2(
+          FeedResponse(status: true, feedItems: [
+            FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: 1026,
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
+                  orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                  status: OrderEnum.ORDER_STATUS_DELIVERED,
+                  idAddress:
+                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
+            ),
+            FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: 1023,
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
+                  orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                  status: OrderEnum.ORDER_STATUS_PENDING,
+                  idAddress:
+                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
+            ),
+            FeedItem(
+              viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+              order: Order(
+                  id: 1024,
+                  items: [
+                    OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
+                    OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
+                  ],
+                  orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+                  status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
+                  idAddress:
+                  Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+                  name: "ABC",
+                  mobileNo: "+8801528 285415",
+                  email: "abc@gmail.com"),
+            )
+          ]),
+          ClientEnum.RESPONSE_SUCCESS);
+
+    return null;
+  }
+}

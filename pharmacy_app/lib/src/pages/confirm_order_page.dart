@@ -260,7 +260,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           break;
         }
         return Positioned(
-          top: 120,
+          top: (checkedRepeatOrder) ? 250 : 120,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,
