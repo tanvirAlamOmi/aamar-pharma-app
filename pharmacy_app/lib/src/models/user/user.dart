@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pharmacy_app/src/store/store.dart';
+
 class User {
   int id;
   String name;
@@ -28,7 +30,7 @@ class User {
       : id = 1,
         name = "GUEST",
         email = "guest@guest.com",
-        phone = "01231231231",
+        phone = Store.instance.appState.user.phone,
         token = "custom-token-api";
 
   factory User.fromJson(Map<String, dynamic> jsonData) {

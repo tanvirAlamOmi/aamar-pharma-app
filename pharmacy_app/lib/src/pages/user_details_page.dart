@@ -104,7 +104,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   buildGeneralActionRoundButtonBasedOnLoginState() {
-    if (user.id == 0)
+    if (user.id == 0 || user.id == null)
       return GeneralActionRoundButton(
         title: "LOGIN",
         isProcessing: false,
@@ -124,7 +124,24 @@ class _AccountPageState extends State<AccountPage> {
     Navigator.of(context).pushNamed('/login');
   }
 
-  void onSubmit() {}
+  void onSubmit() {
+    if (phoneController.text.isEmpty ||
+        nameController.text.isEmpty ||
+        emailController.text.isEmpty) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please fill all the information");
+      return;
+    }
+
+    user.phone = phoneController.text;
+    user.name = nameController.text;
+    user.email = emailController.text;
+
+    Store.instance.updateUser(user);
+
+    Util.showSnackBar(scaffoldKey: _scaffoldKey, message: "Updated user", duration: 1000);
+  }
 
   void refreshUI() {
     if (mounted) setState(() {});

@@ -6,6 +6,8 @@ class Streamer {
       new StreamController.broadcast();
   static StreamController<int> _streamControllerTotalOrder =
       new StreamController.broadcast();
+  static StreamController<String> _streamControllerError =
+      new StreamController.broadcast();
 
   static Stream<Event> getEventStream() {
     return _streamControllerEvent.stream;
@@ -21,5 +23,13 @@ class Streamer {
 
   static void putTotalOrderStream(int totalOrder) {
     _streamControllerTotalOrder.sink.add(totalOrder);
+  }
+
+  static Stream<String> getErrorStream() {
+    return _streamControllerError.stream;
+  }
+
+  static void putErrorStream(String streamData) {
+    _streamControllerError.sink.add(streamData);
   }
 }

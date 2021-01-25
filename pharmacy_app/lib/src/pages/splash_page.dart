@@ -21,8 +21,6 @@ class SplashPageState extends State<SplashPage> {
   }
 
   Future initAppAndNavigate() async {
-    var _duration = new Duration(seconds: 3);
-    return new Timer(_duration, navigationPage);
     final isInternet = await Util.checkInternet();
     if (isInternet) {
       var _duration = new Duration(seconds: 1);

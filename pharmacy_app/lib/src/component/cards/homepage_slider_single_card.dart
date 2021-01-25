@@ -44,7 +44,7 @@ class HomePageSliderSingleCard extends StatelessWidget {
       width: 120,
       alignment: Alignment.center,
       child: Image.asset(
-        "assets/images/google-logo.png",
+        "assets/images/detol.png",
         height: 60,
         width: 60,
         fit: BoxFit.contain,

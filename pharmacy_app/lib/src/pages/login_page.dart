@@ -214,13 +214,13 @@ class LoginPageState extends State<LoginPage> {
       }
 
       final phone = countryCode + phoneController.text;
-      await Store.instance.setPhoneNumber(phone);
+      await Store.instance.setPhoneNumber(phoneController.text);
       await AuthRepo.instance.sendSMSCode(phone);
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => VerificationPage(
-                  phoneNumber: phone,
+                  phoneNumber: phoneController.text,
                   arrivedFromUserDetailsPage: true,
                 )),
       );

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/configs/server_config.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart' as PharmaUser;
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -45,8 +47,26 @@ class AuthClient {
       timeout: const Duration(seconds: 45),
       verificationCompleted: (AuthCredential authCredential) async {
         try {
+          final User firebaseUser =
+              (await FirebaseAuth.instance.signInWithCredential(authCredential))
+                  .user;
 
-        } catch (error) {}
+          final authToken = await firebaseUser.getIdToken();
+
+          Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
+              .signIn(
+                  authToken: authToken,
+                  phoneNumber: Store.instance.appState.user.phone);
+
+          if (userResponse.item2 == ClientEnum.RESPONSE_SUCCESS &&
+              userResponse.item1 != null) {
+            Streamer.putEventStream(Event(EventType.REFRESH_VERIFICATION_PAGE));
+          } else {
+            Streamer.putErrorStream(userResponse.item2);
+          }
+        } catch (error) {
+          Streamer.putErrorStream(ClientEnum.RESPONSE_CONNECTION_ERROR);
+        }
       },
       codeSent: (token, [force]) async {
         AppVariableStates.instance.firebaseSMSToken = token;

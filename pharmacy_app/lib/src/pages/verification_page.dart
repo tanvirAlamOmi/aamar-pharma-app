@@ -44,11 +44,19 @@ class VerificationPageState extends State<VerificationPage> {
   }
 
   void eventChecker() async {
+    Streamer.getErrorStream().listen((error) {
+      if (error != null) {
+        Util.showSnackBar(
+            scaffoldKey: _scaffoldKey,
+            message:
+                "Something went wrong. Please try login after some moments.");
+      }
+    });
     Streamer.getEventStream().listen((data) {
       if (data.eventType == EventType.REFRESH_VERIFICATION_PAGE) {
-        if (widget.arrivedFromConfirmOrderPage) {
-          AppVariableStates.instance.submitOrder();
-        }
+        onVerificationNextStep(
+            responseCode: ClientEnum.RESPONSE_SUCCESS,
+            user: Store.instance.appState.user);
       }
     });
   }
@@ -172,7 +180,7 @@ class VerificationPageState extends State<VerificationPage> {
     return GeneralActionRoundButton(
       title: "SUBMIT CODE",
       isProcessing: false,
-      callBackOnSubmit: onSubmit,
+      callBackOnSubmit: onVerificationCodeSubmit,
     );
   }
 
@@ -194,7 +202,7 @@ class VerificationPageState extends State<VerificationPage> {
     );
   }
 
-  Future<void> onSubmit() async {
+  Future<void> onVerificationCodeSubmit() async {
     if (codeController.text.isEmpty) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please enter the code.");
@@ -213,6 +221,13 @@ class VerificationPageState extends State<VerificationPage> {
     User user = userResponse.item1;
     String responseCode = userResponse.item2;
 
+    onVerificationNextStep(responseCode: userResponse.item2, user: user);
+  }
+
+  void onVerificationNextStep({String responseCode, User user}) {
+    isProcessing = true;
+    refreshUI();
+
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
       if (widget.arrivedFromConfirmOrderPage == true) {
         Navigator.of(context).pop();
@@ -227,12 +242,13 @@ class VerificationPageState extends State<VerificationPage> {
 
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
     } else {
-      isProcessing = false;
-      refreshUI();
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Something went wrong. Please try again.");
     }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void refreshUI() {

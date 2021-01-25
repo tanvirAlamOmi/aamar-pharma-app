@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -34,10 +35,7 @@ class _OrderCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Container(
         padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
         width: double.infinity,
@@ -109,7 +107,7 @@ class _OrderCardState extends State<OrderCard> {
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),
-        color: Colors.black,
+        color: Util.purplishColor(),
       ),
     );
   }
