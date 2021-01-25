@@ -52,7 +52,7 @@ class QueryRepo {
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in getPendingFeed() in QueryRepo");
+        print("Error in getFeedData() in QueryRepo");
         print(err);
       }
     }
@@ -98,7 +98,7 @@ class QueryRepo {
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in getPendingFeed() in QueryRepo");
+        print("Error in getOrderFeedData() in QueryRepo");
         print(err);
       }
     }

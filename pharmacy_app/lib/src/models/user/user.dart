@@ -28,8 +28,8 @@ class User {
 
   User.basic()
       : id = 1,
-        name = "GUEST",
-        email = "guest@guest.com",
+        name = Store.instance.appState.user.name,
+        email = Store.instance.appState.user.email,
         phone = Store.instance.appState.user.phone,
         token = "custom-token-api";
 

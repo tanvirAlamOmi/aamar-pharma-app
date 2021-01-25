@@ -49,7 +49,9 @@ class VerificationPageState extends State<VerificationPage> {
         Util.showSnackBar(
             scaffoldKey: _scaffoldKey,
             message:
-                "Something went wrong. Please try login after some moments. " + error, duration: 30000);
+                "Something went wrong. Please try login after some moments. " +
+                    error,
+            duration: 30000);
       }
     });
     Streamer.getEventStream().listen((data) {

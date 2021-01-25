@@ -85,6 +85,7 @@ class _AccountPageState extends State<AccountPage> {
             phoneController: phoneController,
             emailController: emailController),
         buildAddDeliveryAddressButtonBasedOnLoginState(),
+        buildAllAddressCardBasedOnLoginState(),
         buildGeneralActionRoundButtonBasedOnLoginState(),
       ],
     );
@@ -140,7 +141,8 @@ class _AccountPageState extends State<AccountPage> {
 
     Store.instance.updateUser(user);
 
-    Util.showSnackBar(scaffoldKey: _scaffoldKey, message: "Updated user", duration: 1000);
+    Util.showSnackBar(
+        scaffoldKey: _scaffoldKey, message: "Updated user", duration: 1000);
   }
 
   void refreshUI() {

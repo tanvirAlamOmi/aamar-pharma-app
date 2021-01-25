@@ -24,7 +24,6 @@ class OrderClient {
 
   Future<dynamic> orderWithPrescription(
       String jwtToken, String orderRequest) async {
-    print(orderRequest);
     final http.Response response = await http
         .post(
             ServerConfig.SERVER_HOST +

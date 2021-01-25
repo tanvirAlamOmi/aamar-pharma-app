@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
@@ -60,7 +57,7 @@ class OrderRepo {
           return Tuple2(null, orderWithItemNameResponse['result']);
         }
       } catch (err) {
-        print("Error in orderWithPrescription() in OrderRepo");
+        print("Error in orderWithItemName() in OrderRepo");
         print(err);
       }
     }

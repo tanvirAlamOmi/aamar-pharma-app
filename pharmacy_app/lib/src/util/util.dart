@@ -185,8 +185,7 @@ class Util {
 
     try {
       deliveryAddressDetails = Store.instance.appState.allDeliveryAddress
-          .firstWhere(
-              (deliveryAddress) => deliveryAddress.id == idAddress.toString());
+          .firstWhere((deliveryAddress) => deliveryAddress.id == idAddress);
     } catch (err) {
       deliveryAddressDetails = DeliveryAddressDetails()
         ..id = 0
