@@ -53,10 +53,6 @@ class OrderRepo {
             .getOrderClient()
             .orderWithItems(jwtToken, order.toJsonEncodeString());
 
-        print(order.toJsonEncodeString());
-        print("orderWithItemName Print");
-        print(orderWithItemNameResponse);
-
         if (orderWithItemNameResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
           return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);

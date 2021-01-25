@@ -62,7 +62,7 @@ class LoginPageState extends State<LoginPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(3,30,0,0),
+          padding: const EdgeInsets.fromLTRB(3, 30, 0, 0),
           child: AppBarBackButton(),
         ),
       ],
@@ -205,7 +205,7 @@ class LoginPageState extends State<LoginPage> {
         return;
       }
 
-      if (phoneController.text.length != 10) {
+      if (phoneController.text.length != 11) {
         Util.showSnackBar(
             scaffoldKey: _scaffoldKey,
             message:
@@ -220,9 +220,9 @@ class LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(
             builder: (context) => VerificationPage(
-              phoneNumber: phone,
-              arrivedFromUserDetailsPage: true,
-            )),
+                  phoneNumber: phone,
+                  arrivedFromUserDetailsPage: true,
+                )),
       );
     } else {
       Navigator.of(context).pushNamedAndRemoveUntil(

@@ -5,13 +5,8 @@ import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-import 'package:pharmacy_app/src/models/order/invoice.dart';
-import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/models/user/user.dart';
-import 'package:pharmacy_app/src/models/user/user_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -80,9 +75,6 @@ class QueryRepo {
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
 
-        final FeedResponse dummyOrderFeedResponse =
-            await getDummyFeed(feedRequest);
-
         final orderFeedResponse = FeedResponse()
           ..status = true
           ..lastFeed = false
@@ -94,11 +86,15 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
+        // Dummy Response Add
         int x = 0;
+        final FeedResponse dummyOrderFeedResponse =
+            await getDummyFeed(feedRequest);
         dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
           orderFeedResponse.feedItems.insert(x, singleFeedItem);
           x = x + 1;
         });
+        // End Dummy Response
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
@@ -160,7 +156,7 @@ class QueryRepo {
                 ",",
             orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
             status: OrderEnum.ORDER_STATUS_DELIVERED,
-            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            idAddress: 0,
             name: "ABC",
             mobileNo: "01528285415",
             email: "abc@gmail.com"),
@@ -179,7 +175,7 @@ class QueryRepo {
                 ",",
             orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
             status: OrderEnum.ORDER_STATUS_PENDING,
-            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            idAddress: 0,
             name: "ABC",
             mobileNo: "01528285415",
             email: "abc@gmail.com"),
@@ -194,7 +190,7 @@ class QueryRepo {
             ],
             orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
             status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
-            idAddress: Store.instance.appState?.allDeliveryAddress[0].id ?? "0",
+            idAddress: 0,
             name: "ABC",
             mobileNo: "01528285415",
             email: "abc@gmail.com"),

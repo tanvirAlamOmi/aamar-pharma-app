@@ -28,8 +28,7 @@ class VerificationPage extends StatefulWidget {
 }
 
 class VerificationPageState extends State<VerificationPage> {
-  final TextEditingController codeController =
-      TextEditingController(text: "123123");
+  final TextEditingController codeController = TextEditingController();
   bool isProcessing = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -202,7 +201,7 @@ class VerificationPageState extends State<VerificationPage> {
       return;
     }
 
-    isProcessing = false;
+    isProcessing = true;
     refreshUI();
 
     Tuple2<User, String> userResponse = await AuthRepo.instance
@@ -225,6 +224,8 @@ class VerificationPageState extends State<VerificationPage> {
         Navigator.of(context).pop();
         Navigator.of(context).pop();
       }
+
+      Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
     } else {
       isProcessing = false;
       refreshUI();

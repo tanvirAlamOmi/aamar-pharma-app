@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
+import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
@@ -14,10 +17,23 @@ class OrderPage extends StatefulWidget {
 
 class _OrderPageState extends State<OrderPage> {
   Key key = UniqueKey();
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    eventChecker();
+    UIState.instance.scaffoldKey = scaffoldKey;
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_ORDER_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
+        print("GG ORDER PAGE");
+        refreshUI();
+      }
+    });
   }
 
   void refreshUI() {
@@ -31,6 +47,8 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: scaffoldKey,
+        drawer: MainDrawer(),
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
@@ -88,7 +106,7 @@ class _OrderPageState extends State<OrderPage> {
                   callBackAction: updateTutorialBox,
                   callBackRefreshUI: refreshUI,
                   messageTitle:
-                  "View your list of orders by specific order status",
+                      "View your list of orders by specific order status",
                 ),
               );
               break;

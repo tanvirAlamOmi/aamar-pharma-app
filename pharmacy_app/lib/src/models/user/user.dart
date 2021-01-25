@@ -17,11 +17,18 @@ class User {
         phone = "N/A",
         token = "NONE";
 
+  User.none()
+      : id = null,
+        name = "GUEST",
+        email = "N/A",
+        phone = "N/A",
+        token = "NONE";
+
   User.basic()
       : id = 1,
         name = "GUEST",
         email = "guest@guest.com",
-        phone = "1231231231",
+        phone = "01231231231",
         token = "custom-token-api";
 
   factory User.fromJson(Map<String, dynamic> jsonData) {

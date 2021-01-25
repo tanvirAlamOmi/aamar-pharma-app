@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
@@ -62,71 +63,83 @@ class MainDrawer extends StatelessWidget {
     //     ],
     //   );
     // }
-    return ListView(
-      shrinkWrap: true,
-      children: <Widget>[
-        ListTile(
-            dense: true,
-            title: Text(
-              'REPEAT ORDERS',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
-            leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
-            onTap: () {}),
-        ListTile(
-            dense: true,
-            title: Text(
-              'SPECIAL REQUEST',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
-            leading: Icon(Icons.ac_unit_sharp, color: Util.purplishColor()),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SpecialRequestProductPage()),
-              );
-            }),
-        ListTile(
-            dense: true,
-            title: Text(
-              'CONSULT PHARMACIST',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
-            leading: Icon(Icons.call, color: Util.purplishColor()),
-            onTap: () {}),
-        ListTile(
-            dense: true,
-            title: Text(
-              'HELP & FAQ',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
-            leading: Icon(Icons.mark_email_read_rounded, color: Util.purplishColor()),
-            onTap: () {}),
-        ListTile(
-            dense: true,
-            title: Text(
-              'ABOUT',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
-            leading: Icon(Icons.info, color: Util.purplishColor()),
-            onTap: () {}),
+    final children = List<Widget>();
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'REPEAT ORDERS',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
+          onTap: () {}),
+    );
+
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'SPECIAL REQUEST',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading: Icon(Icons.ac_unit_sharp, color: Util.purplishColor()),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SpecialRequestProductPage()),
+            );
+          }),
+    );
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'CONSULT PHARMACIST',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading: Icon(Icons.call, color: Util.purplishColor()),
+          onTap: () {}),
+    );
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'HELP & FAQ',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading:
+              Icon(Icons.mark_email_read_rounded, color: Util.purplishColor()),
+          onTap: () {}),
+    );
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'ABOUT',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading: Icon(Icons.info, color: Util.purplishColor()),
+          onTap: () {}),
+    );
+    if (Store.instance.appState.user.id != null)
+      children.add(
         ListTile(
             dense: true,
             title: Text(
@@ -141,12 +154,13 @@ class MainDrawer extends StatelessWidget {
               color: Util.purplishColor(),
             ),
             onTap: () async {
-              await AuthRepo.instance.logout();
+              await Store.instance.updateUser(User.none());
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/', (Route<dynamic> route) => false);
             }),
-      ],
-    );
+      );
+
+    return ListView(shrinkWrap: true, children: children);
   }
 
   Widget buildName() {
