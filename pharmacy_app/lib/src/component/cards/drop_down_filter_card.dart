@@ -53,13 +53,15 @@ class DropDownFilterCard extends StatelessWidget {
       setSelectedItem: updateFeedItemListOnFilter,
       callBackRefreshUI: callBack,
       height: 50,
+      iconSize: 35,
+      iconColor: Colors.white,
       boxDecoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(Radius.circular(40)),
         color: Util.greenishColor(),
       ),
       dropDownContainerColor: Util.greenishColor(),
       dropDownTextColor: Colors.white,
-      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
     );
   }
 

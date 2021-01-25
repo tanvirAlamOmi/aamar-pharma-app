@@ -18,6 +18,8 @@ class DropDownItem extends StatelessWidget {
   final Color dropDownContainerColor;
   final Color dropDownTextColor;
   final EdgeInsets padding;
+  final double iconSize;
+  final Color iconColor;
 
   const DropDownItem(
       {Key key,
@@ -29,7 +31,8 @@ class DropDownItem extends StatelessWidget {
       this.boxDecoration,
       this.height,
       this.dropDownContainerColor,
-      this.dropDownTextColor, this.padding})
+      this.dropDownTextColor,
+      this.padding, this.iconSize, this.iconColor})
       : super(key: key);
 
   @override
@@ -55,6 +58,8 @@ class DropDownItem extends StatelessWidget {
           height: height ?? 35,
           child: DropdownButtonHideUnderline(
             child: DropdownButton<dynamic>(
+              iconSize: iconSize ?? 26,
+              iconEnabledColor: iconColor ?? Util.greenishColor(),
               dropdownColor: dropDownContainerColor ??
                   const Color.fromARGB(255, 45, 65, 89),
               isDense: true,
