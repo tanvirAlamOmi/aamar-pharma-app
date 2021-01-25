@@ -65,7 +65,7 @@ class AuthClient {
             Streamer.putErrorStream(userResponse.item2);
           }
         } catch (error) {
-          Streamer.putErrorStream(ClientEnum.RESPONSE_CONNECTION_ERROR);
+          Streamer.putErrorStream(error.toString());
         }
       },
       codeSent: (token, [force]) async {
