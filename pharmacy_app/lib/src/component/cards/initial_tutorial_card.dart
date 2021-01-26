@@ -1,16 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 
 class InitialTutorialCard extends StatelessWidget {
   final UIViewData uiViewData;
   final bool showGetStartedButton;
+  final Function() refreshUI;
+  final List<String> languageOptionsList = [
+    "SELECT LANGUAGE (${ClientEnum.LANGUAGE_ENGLISH})",
+    "SELECT LANGUAGE (${ClientEnum.LANGUAGE_BANGLA})",
+  ];
+  String selectedLanguageOption =
+      AppVariableStates.instance.initialLanguageChoose;
 
-  const InitialTutorialCard(
-      {Key key, this.uiViewData, this.showGetStartedButton})
+  InitialTutorialCard(
+      {Key key, this.uiViewData, this.showGetStartedButton, this.refreshUI})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(color: Util.purplishColor(), child: buildBody(context));
@@ -24,6 +35,8 @@ class InitialTutorialCard extends StatelessWidget {
         buildIcon(),
         buildTitle(),
         buildTextData(),
+        SizedBox(height: 10),
+        buildChooseLanguageDropDown(),
         buildGetStartedButton(context),
       ],
     );
@@ -57,6 +70,25 @@ class InitialTutorialCard extends StatelessWidget {
     );
   }
 
+  Widget buildChooseLanguageDropDown() {
+    if (showGetStartedButton)
+      return Container(
+        height: 50,
+        padding: EdgeInsets.fromLTRB(30, 10, 30, 5),
+        child: DropDownItem(
+          dropDownList: languageOptionsList,
+          selectedItem: selectedLanguageOption,
+          setSelectedItem: setLanguageOption,
+          callBackRefreshUI: refreshUI,
+        ),
+      );
+    return Container();
+  }
+
+  void setLanguageOption(dynamic value) {
+    AppVariableStates.instance.initialLanguageChoose = value;
+  }
+
   Widget buildGetStartedButton(BuildContext context) {
     if (showGetStartedButton)
       return Container(
@@ -80,6 +112,16 @@ class InitialTutorialCard extends StatelessWidget {
 
   void onSubmit(BuildContext context) {
     Store.instance.appState.initialTutorialScrollingPage = 1;
+    // Reverse system
+    if (AppVariableStates.instance.initialLanguageChoose ==
+        languageOptionsList[0]) {
+      Store.instance.updateLanguage(languageOption: ClientEnum.LANGUAGE_BANGLA);
+    }
+    if (AppVariableStates.instance.initialLanguageChoose ==
+        languageOptionsList[1]) {
+      Store.instance
+          .updateLanguage(languageOption: ClientEnum.LANGUAGE_ENGLISH);
+    }
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   }

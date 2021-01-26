@@ -7,10 +7,12 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 class AppVariableStates {
   String firebaseSMSToken = "";
   String orderFilterStatus = OrderEnum.ORDER_STATUS_ALL;
-  Order order  = new Order();
+  String initialLanguageChoose =
+      "SELECT LANGUAGE (${ClientEnum.LANGUAGE_ENGLISH})";
+  Order order = new Order();
   Function submitOrder;
 
-
   static AppVariableStates _appVaryState;
-  static AppVariableStates get instance => _appVaryState ??= AppVariableStates();
+  static AppVariableStates get instance =>
+      _appVaryState ??= AppVariableStates();
 }

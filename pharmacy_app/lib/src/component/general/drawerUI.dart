@@ -143,7 +143,8 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: Text(
-            Util.en_bn_convert(text: 'LANGUAGE (${Store.instance.appState.language})'),
+            Util.en_bn_convert(
+                text: 'LANGUAGE (${Store.instance.appState.language})'),
             style: TextStyle(
                 fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
@@ -152,7 +153,8 @@ class _MainDrawerState extends State<MainDrawer> {
           ),
           leading: Icon(Icons.language, color: Util.purplishColor()),
           onTap: () async {
-            await Store.instance.updateLanguage();
+            await Store.instance.updateLanguage(
+                languageOption: Store.instance.appState.language);
             refreshUI();
             Streamer.putEventStream(Event(EventType.REFRESH_HOME_PAGE));
           }),

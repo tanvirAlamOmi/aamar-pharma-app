@@ -73,7 +73,7 @@ class _InitialTutorialScrollingPageState
           carouselController: _carouselController,
           options: CarouselOptions(
               viewportFraction: 1,
-              height: 300,
+              height: 330,
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
@@ -92,6 +92,7 @@ class _InitialTutorialScrollingPageState
                 return InitialTutorialCard(
                   showGetStartedButton: showGetStartedButton,
                   uiViewData: singleUiViewData,
+                  refreshUI: refreshUI,
                 );
               },
             );
@@ -159,5 +160,9 @@ class _InitialTutorialScrollingPageState
     ));
 
     return children;
+  }
+
+  void refreshUI() {
+    if (mounted) setState(() {});
   }
 }
