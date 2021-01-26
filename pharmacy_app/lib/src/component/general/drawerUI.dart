@@ -9,7 +9,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
   static final MainDrawer _drawer = new MainDrawer._internal();
 
   factory MainDrawer() {
@@ -17,6 +17,21 @@ class MainDrawer extends StatelessWidget {
   }
 
   MainDrawer._internal();
+
+  @override
+  _MainDrawerState createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +58,9 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            Util.en_bn_convert('REPEAT ORDERS'),
+            Util.en_bn_convert(text: 'REPEAT ORDERS'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
@@ -63,8 +79,9 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'SPECIAL REQUEST',
+            Util.en_bn_convert(text: 'SPECIAL REQUEST'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
@@ -83,8 +100,9 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'CONSULT PHARMACIST',
+            Util.en_bn_convert(text: 'CONSULT PHARMACIST'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
@@ -96,8 +114,9 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'HELP & FAQ',
+            Util.en_bn_convert(text: 'HELP & FAQ'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
@@ -110,8 +129,9 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'ABOUT',
+            Util.en_bn_convert(text: 'ABOUT'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
@@ -123,17 +143,18 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'LANGUAGE (${Store.instance.appState.language})',
+            Util.en_bn_convert(text: 'LANGUAGE (${Store.instance.appState.language})'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),
           ),
           leading: Icon(Icons.language, color: Util.purplishColor()),
-          onTap: () {
-            Store.instance.updateLanguage();
+          onTap: () async {
+            await Store.instance.updateLanguage();
+            refreshUI();
             // Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-            print(Store.instance.appState.language);
           }),
     );
     if (Store.instance.appState.user.id != null)
@@ -180,5 +201,9 @@ class MainDrawer extends StatelessWidget {
       height: 150,
       fit: BoxFit.cover,
     );
+  }
+
+  void refreshUI() {
+    if (mounted) setState(() {});
   }
 }

@@ -199,11 +199,18 @@ class Util {
     return deliveryAddressDetails;
   }
 
-  static String en_bn_convert(String title) {
+  static String en_bn_convert({String text}) {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return title;
+      return text;
     }
-    return EN_BN_DICT.DICTINARY['title'];
+    return EN_BN_DICT.DICTINARY[text];
+  }
+
+  static String en_bn_font() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return null;
+    }
+    return 'solaiman';
   }
 
   static getDefualtInvoice() {

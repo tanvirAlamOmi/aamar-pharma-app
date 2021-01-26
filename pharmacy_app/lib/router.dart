@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/initial_tutorial_scrolling_page.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/main_page.dart';
+import 'package:pharmacy_app/src/pages/no_internet_page.dart';
 import 'package:pharmacy_app/src/pages/splash_page.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 
@@ -18,6 +19,14 @@ final Map<String, RouterMethod> _definitions = {
       settings: settings,
       builder: (context) {
         return SplashPage();
+      },
+    );
+  },
+  '/noInternet': (settings, _) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) {
+        return NoInternetPage();
       },
     );
   },

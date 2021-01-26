@@ -75,7 +75,7 @@ class Store {
     if(appState.language == ClientEnum.LANGUAGE_ENGLISH){
       appState.language = ClientEnum.LANGUAGE_BANGLA;
     }
-    if(appState.language == ClientEnum.LANGUAGE_BANGLA){
+    else if(appState.language == ClientEnum.LANGUAGE_BANGLA){
       appState.language = ClientEnum.LANGUAGE_ENGLISH;
     }
     await putAppData();
