@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
-import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/repeat_order_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
@@ -46,7 +43,7 @@ class MainDrawer extends StatelessWidget {
       ListTile(
           dense: true,
           title: Text(
-            'REPEAT ORDERS',
+            Util.en_bn_convert('REPEAT ORDERS'),
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
@@ -121,6 +118,23 @@ class MainDrawer extends StatelessWidget {
           ),
           leading: Icon(Icons.info, color: Util.purplishColor()),
           onTap: () {}),
+    );
+    children.add(
+      ListTile(
+          dense: true,
+          title: Text(
+            'LANGUAGE (${Store.instance.appState.language})',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+          ),
+          leading: Icon(Icons.language, color: Util.purplishColor()),
+          onTap: () {
+            Store.instance.updateLanguage();
+            // Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+            print(Store.instance.appState.language);
+          }),
     );
     if (Store.instance.appState.user.id != null)
       children.add(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/states/app_state.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
@@ -68,6 +69,16 @@ class Store {
 
   getFirebasePushNotificationToken() {
     return appState.firebasePushNotificationToken;
+  }
+
+  Future updateLanguage() async {
+    if(appState.language == ClientEnum.LANGUAGE_ENGLISH){
+      appState.language = ClientEnum.LANGUAGE_BANGLA;
+    }
+    if(appState.language == ClientEnum.LANGUAGE_BANGLA){
+      appState.language = ClientEnum.LANGUAGE_ENGLISH;
+    }
+    await putAppData();
   }
 
   Future updateUser(User user) async {

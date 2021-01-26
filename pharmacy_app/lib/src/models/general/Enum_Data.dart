@@ -25,6 +25,10 @@ class ClientEnum {
   static final String FEED_REJECTED = "Rejected";
 
 
+  static final String LANGUAGE_ENGLISH = "ENGLISH";
+  static final String LANGUAGE_BANGLA = "BANGLA";
+
+
 
   static final String YES = "yes";
   static final String NO = "no";

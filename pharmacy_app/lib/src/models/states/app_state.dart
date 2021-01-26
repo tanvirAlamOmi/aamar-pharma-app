@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 
 class AppState {
+  String language = ClientEnum.LANGUAGE_ENGLISH;
   User user = new User();
   List<DeliveryAddressDetails> allDeliveryAddress =
       new List<DeliveryAddressDetails>();
@@ -20,6 +21,7 @@ class AppState {
   AppState() {}
 
   AppState.fromJsonMap(Map<String, dynamic> data) {
+    language = data['LANGUAGE'];
     user = User.fromJson(data['USER']);
     allDeliveryAddress = (data['DELIVERY_ADDRESS_LIST'] == [])
         ? []
@@ -48,6 +50,7 @@ class AppState {
 
   Map<String, dynamic> toJsonMap() {
     final data = Map<String, dynamic>();
+    data['LANGUAGE'] = language;
     data['USER'] = user.toJsonMap();
     data['DELIVERY_ADDRESS_LIST'] = (allDeliveryAddress == null ||
             allDeliveryAddress.isEmpty)

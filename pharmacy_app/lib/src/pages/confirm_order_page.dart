@@ -531,7 +531,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       AppVariableStates.instance.order.items = items;
       orderSubmitResponse = await OrderRepo.instance
           .orderWithItemName(order: AppVariableStates.instance.order);
-
     }
 
     if (orderSubmitResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {

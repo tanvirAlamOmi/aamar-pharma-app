@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'dart:math';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -196,6 +197,13 @@ class Util {
     }
 
     return deliveryAddressDetails;
+  }
+
+  static String en_bn_convert(String title) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return title;
+    }
+    return EN_BN_DICT.DICTINARY['title'];
   }
 
   static getDefualtInvoice() {
