@@ -154,7 +154,7 @@ class _MainDrawerState extends State<MainDrawer> {
           onTap: () async {
             await Store.instance.updateLanguage();
             refreshUI();
-            // Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+            Streamer.putEventStream(Event(EventType.REFRESH_HOME_PAGE));
           }),
     );
     if (Store.instance.appState.user.id != null)

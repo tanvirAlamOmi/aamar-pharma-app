@@ -2,9 +2,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
@@ -26,11 +28,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    eventChecker();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_HOME_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
+        refreshUI();
+      }
+    });
   }
 
   @override
@@ -42,8 +54,9 @@ class _HomePageState extends State<HomePage> {
           elevation: 1,
           centerTitle: true,
           title: Text(
-            'HOME',
-            style: TextStyle(color: Colors.white),
+            Util.en_bn_convert(text: 'HOME'),
+            style:
+                TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
           ),
           actions: [NotificationActionButton()],
         ),
@@ -174,10 +187,12 @@ class _HomePageState extends State<HomePage> {
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Text(
-        "ORDER MEDICINES AND MORE",
+        Util.en_bn_convert(text: 'ORDER MEDICINES AND MORE'),
         textAlign: TextAlign.center,
-        style:
-            TextStyle(fontWeight: FontWeight.bold, color: Util.greenishColor()),
+        style: TextStyle(
+            fontFamily: Util.en_bn_font(),
+            fontWeight: FontWeight.bold,
+            color: Util.greenishColor()),
       ),
     );
   }
@@ -188,9 +203,13 @@ class _HomePageState extends State<HomePage> {
       height: 50,
       padding: EdgeInsets.only(top: 10),
       child: Text(
-        "All medicines except OTC medicines require prescription*",
+        Util.en_bn_convert(
+            text: 'All medicines except OTC medicines require prescription*'),
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+        style: TextStyle(
+            fontFamily: Util.en_bn_font(),
+            fontWeight: FontWeight.bold,
+            color: Colors.red),
       ),
     );
   }
