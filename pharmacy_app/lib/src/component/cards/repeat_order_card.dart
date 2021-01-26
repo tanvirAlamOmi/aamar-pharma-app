@@ -9,15 +9,15 @@ import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class OrderCard extends StatefulWidget {
+class RepeatOrderCard extends StatefulWidget {
   final Order order;
-  OrderCard({this.order, Key key}) : super(key: key);
+  RepeatOrderCard({this.order, Key key}) : super(key: key);
 
   @override
-  _OrderCardState createState() => _OrderCardState();
+  _RepeatOrderCardState createState() => _RepeatOrderCardState();
 }
 
-class _OrderCardState extends State<OrderCard> {
+class _RepeatOrderCardState extends State<RepeatOrderCard> {
   Order order;
   bool isProcessing = false;
 
@@ -55,7 +55,7 @@ class _OrderCardState extends State<OrderCard> {
     return Column(
       children: [
         buildTitle(),
-        buildOrderStatus(),
+        buildNextDeliveryDate(),
       ],
     );
   }
@@ -79,7 +79,7 @@ class _OrderCardState extends State<OrderCard> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
-                Text("Delivery: ${order.deliveryDate} (${order.deliveryTime}) ",
+                Text("Every ${order.every} - ${order.day}, ${order.time}",
                     style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
               ],
             ),
@@ -94,7 +94,7 @@ class _OrderCardState extends State<OrderCard> {
     );
   }
 
-  Widget buildOrderStatus() {
+  Widget buildNextDeliveryDate() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       width: double.infinity,
@@ -103,7 +103,7 @@ class _OrderCardState extends State<OrderCard> {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
         child: Text(
-          order.status.toUpperCase(),
+          "Next DELIVERY ON - ${order.nextOrderDay}",
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),
@@ -113,28 +113,10 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
-      );
-    }
-
-    if (order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConfirmInvoicePage(order: order)),
-      );
-    }
-
-    if (order.status == OrderEnum.ORDER_STATUS_DELIVERED) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OrderFinalInvoicePage(order: order)),
-      );
-    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
+    );
   }
 
   void refreshUI() {

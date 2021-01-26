@@ -14,6 +14,7 @@ class AppState {
   int tutorialBoxNumberConfirmOrderPage = 0;
   int tutorialBoxNumberConfirmInvoicePage = 0;
   int tutorialBoxNumberOrderPage = 0;
+  int tutorialBoxNumberRepeatOrderPage = 0;
   int tutorialBoxNumberOrderFinalInvoicePage = 0;
 
   AppState() {}
@@ -39,6 +40,8 @@ class AppState {
     tutorialBoxNumberConfirmInvoicePage =
         data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] ?? 0;
     tutorialBoxNumberOrderPage = data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] ?? 0;
+    tutorialBoxNumberRepeatOrderPage =
+        data['TUTORIAL_BOX_NUMBER_REPEAT_ORDER_PAGE'] ?? 0;
     tutorialBoxNumberOrderFinalInvoicePage =
         data['TUTORIAL_BOX_NUMBER_ORDER_FINAL_INVOICE_PAGE'] ?? 0;
   }
@@ -63,6 +66,8 @@ class AppState {
     data['TUTORIAL_BOX_NUMBER_CONFIRM_INVOICE_PAGE'] =
         tutorialBoxNumberConfirmInvoicePage;
     data['TUTORIAL_BOX_NUMBER_ORDER_PAGE'] = tutorialBoxNumberOrderPage;
+    data['TUTORIAL_BOX_NUMBER_REPEAT_ORDER_PAGE'] =
+        tutorialBoxNumberRepeatOrderPage;
     data['TUTORIAL_BOX_NUMBER_ORDER_FINAL_INVOICE_PAGE'] =
         tutorialBoxNumberOrderFinalInvoicePage;
 

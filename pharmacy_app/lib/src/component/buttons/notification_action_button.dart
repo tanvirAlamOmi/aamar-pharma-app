@@ -83,8 +83,7 @@ class _CartActionButton extends State<NotificationActionButton> {
   void handleCartAction(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => NotificationPage()),
+      MaterialPageRoute(builder: (context) => NotificationPage()),
     );
   }
 }

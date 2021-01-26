@@ -24,6 +24,23 @@ class QueryClient {
     return jsonResponse;
   }
 
+  Future<dynamic> getRepeatOrderFeed(
+      String jwtToken, FeedRequest feedRequest, int userId) async {
+    final http.Response response = await http.get(
+      ServerConfig.SERVER_HOST +
+          ServerConfig.SERVER_PORT.toString() +
+          '/api/appapi/repeat-orders/${userId}/',
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ).timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
+
   static QueryClient _instance;
   static QueryClient get instance => _instance ??= QueryClient();
 }

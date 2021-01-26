@@ -123,15 +123,16 @@ class _FeedContainerState extends State<FeedContainer>
     if (mounted) setState(() {});
 
     // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER ||
+        feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER) {
       Streamer.putTotalOrderStream(feedResponse.feedItems.length);
     }
   }
 
   void addItems(List<FeedItem> items, FeedRequest feedRequest) {
-    if (items.length > 0 && feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER) {
+    if (items.length > 0 && feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER) {
       feedItems
-          .add(FeedItem(viewCardType: ClientEnum.FEED_ITEM_ORDER_FILTER_CARD));
+          .add(FeedItem(viewCardType: OrderEnum.FEED_ITEM_ORDER_FILTER_CARD));
     }
 
     feedItems.addAll(items);

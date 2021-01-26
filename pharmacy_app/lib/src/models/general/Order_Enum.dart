@@ -1,4 +1,14 @@
 class OrderEnum {
+
+  static final String FEED_ORDER = "ORDER FEED";
+  static final String FEED_REPEAT_ORDER = "REPEAT ORDER FEED";
+  static final String FEED_NOTIFICATION = "NOTIFICATION FEED";
+
+  static final String FEED_ITEM_ORDER_CARD = "Order Card";
+  static final String FEED_ITEM_REPEAT_ORDER_CARD = "Repeat Order Card";
+  static final String FEED_ITEM_ORDER_FILTER_CARD = "Order Filter Card";
+  static final String FEED_ITEM_NOTIFICATION_CARD = "Notification Card";
+
   static final DAY_TODAY = "Today";
   static final DAY_TOMORROW = "Tomorrow";
 

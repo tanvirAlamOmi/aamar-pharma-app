@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
+import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
@@ -11,12 +12,12 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 
-class OrderPage extends StatefulWidget {
+class RepeatOrderPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _OrderPageState();
+  State<StatefulWidget> createState() => new _RepeatOrderPageState();
 }
 
-class _OrderPageState extends State<OrderPage> {
+class _RepeatOrderPageState extends State<RepeatOrderPage> {
   Key key = UniqueKey();
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -29,7 +30,7 @@ class _OrderPageState extends State<OrderPage> {
 
   void eventChecker() async {
     Streamer.getEventStream().listen((data) {
-      if (data.eventType == EventType.REFRESH_ORDER_PAGE ||
+      if (data.eventType == EventType.REFRESH_REPEAT_ORDER_PAGE ||
           data.eventType == EventType.REFRESH_ALL_PAGES) {
         refreshUI();
       }
@@ -54,15 +55,15 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        drawer: MainDrawer(),
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text("ORDERS"),
+          title: Text("REPEAT ORDERS"),
+          leading: AppBarBackButton(),
         ),
         body: Stack(
           children: [
-            FeedContainer(FeedInfo(OrderEnum.FEED_ORDER), key: key),
+            FeedContainer(FeedInfo(OrderEnum.FEED_REPEAT_ORDER), key: key),
             buildTutorialBox()
           ],
         ));
@@ -79,10 +80,10 @@ class _OrderPageState extends State<OrderPage> {
         // no order list hence we do not show them the tutorial box. When order list arrives
         // then we render the tutorial box for only one time
         if (snapshot.hasData && snapshot.data > 0) {
-          switch (Store.instance.appState.tutorialBoxNumberOrderPage) {
+          switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
             case 0:
               return Positioned(
-                top: 200,
+                top: 150,
                 right: 20,
                 child: CustomMessageBox(
                   width: 190,
@@ -94,25 +95,7 @@ class _OrderPageState extends State<OrderPage> {
                   callBackAction: updateTutorialBox,
                   callBackRefreshUI: refreshTutorialBox,
                   messageTitle:
-                      "This indicates the current status of your order",
-                ),
-              );
-              break;
-            case 1:
-              return Positioned(
-                top: 50,
-                right: 50,
-                child: CustomMessageBox(
-                  width: 190,
-                  height: 150,
-                  startPoint: 40,
-                  midPoint: 50,
-                  endPoint: 60,
-                  arrowDirection: ClientEnum.ARROW_TOP,
-                  callBackAction: updateTutorialBox,
-                  callBackRefreshUI: refreshTutorialBox,
-                  messageTitle:
-                      "View your list of orders by specific order status",
+                      "This states the date you’ll have this order delivered next",
                 ),
               );
               break;
@@ -127,7 +110,7 @@ class _OrderPageState extends State<OrderPage> {
   }
 
   void updateTutorialBox() async {
-    Store.instance.appState.tutorialBoxNumberOrderPage += 1;
+    Store.instance.appState.tutorialBoxNumberRepeatOrderPage += 1;
     await Store.instance.putAppData();
   }
 }

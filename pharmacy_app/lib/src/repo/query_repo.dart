@@ -23,42 +23,6 @@ class QueryRepo {
 
   static QueryRepo get instance => _instance;
 
-  Future<Tuple2<FeedResponse, String>> getFeedData(
-      FeedRequest feedRequest) async {
-    int retry = 0;
-    while (retry++ < 2) {
-      try {
-        final String jwtToken = Store.instance.appState.user.token;
-        final int userId = Store.instance.appState.user.id;
-
-        final feedResponse = await QueryRepo.instance
-            .getQueryClient()
-            .getOrderFeed(jwtToken, feedRequest, userId);
-
-        final List<Order> allOrders = List<dynamic>.from(
-                feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
-            .cast<Order>();
-
-        final orderFeedResponse = FeedResponse()
-          ..status = true
-          ..lastFeed = false
-          ..feedItems = allOrders
-              .map((singleOrder) => FeedItem()
-                ..order = singleOrder
-                ..viewCardType = ClientEnum.FEED_ITEM_ORDER_CARD)
-              .toList()
-          ..response = ClientEnum.RESPONSE_SUCCESS
-          ..error = false;
-
-        return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
-      } catch (err) {
-        print("Error in getFeedData() in QueryRepo");
-        print(err);
-      }
-    }
-    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
-  }
-
   Future<Tuple2<FeedResponse, String>> getOrderFeedData(
       FeedRequest feedRequest) async {
     int retry = 0;
@@ -81,7 +45,7 @@ class QueryRepo {
           ..feedItems = allOrders
               .map((singleOrder) => FeedItem()
                 ..order = singleOrder
-                ..viewCardType = ClientEnum.FEED_ITEM_ORDER_CARD)
+                ..viewCardType = OrderEnum.FEED_ITEM_ORDER_CARD)
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
@@ -105,17 +69,53 @@ class QueryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  Future<Tuple2<FeedResponse, String>> getRepeatOrderFeedData(
+      FeedRequest feedRequest) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        final String jwtToken = Store.instance.appState.user.token;
+        final int userId = Store.instance.appState.user.id;
+
+        final feedResponse = await QueryRepo.instance
+            .getQueryClient()
+            .getRepeatOrderFeed(jwtToken, feedRequest, userId);
+
+        final List<Order> allOrders = List<dynamic>.from(
+                feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
+            .cast<Order>();
+
+        final orderFeedResponse = FeedResponse()
+          ..status = true
+          ..lastFeed = false
+          ..feedItems = allOrders
+              .map((singleOrder) => FeedItem()
+                ..order = singleOrder
+                ..viewCardType = OrderEnum.FEED_ITEM_REPEAT_ORDER_CARD)
+              .toList()
+          ..response = ClientEnum.RESPONSE_SUCCESS
+          ..error = false;
+
+        return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
+      } catch (err) {
+        print("Error in getOrderFeedData() in QueryRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_NOTIFICATION)
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_NOTIFICATION)
       return Tuple2(
           FeedResponse(status: true, feedItems: [
             FeedItem(
-                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                viewCardType: OrderEnum.FEED_ITEM_NOTIFICATION_CARD,
                 notificationItem: NotificationItem(
                     title: "Order Confirmation",
                     message: "Your Order has been confirmed")),
             FeedItem(
-                viewCardType: ClientEnum.FEED_ITEM_NOTIFICATION_CARD,
+                viewCardType: OrderEnum.FEED_ITEM_NOTIFICATION_CARD,
                 notificationItem: NotificationItem(
                     title: "Order Processing",
                     message:
@@ -123,19 +123,10 @@ class QueryRepo {
           ]),
           ClientEnum.RESPONSE_SUCCESS);
 
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_ORDER)
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER)
       return getOrderFeedData(feedRequest);
-    if (feedRequest.feedInfo.feedType == ClientEnum.FEED_PENDING) {
-      return getFeedData(feedRequest);
-    } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CONFIRM) {
-      return getFeedData(feedRequest);
-    } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_CANCELED) {
-      return getFeedData(feedRequest);
-    } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_RETURNED) {
-      return getFeedData(feedRequest);
-    } else if (feedRequest.feedInfo.feedType == ClientEnum.FEED_REJECTED) {
-      return getFeedData(feedRequest);
-    }
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER)
+      return getRepeatOrderFeedData(feedRequest);
 
     return null;
   }
@@ -143,7 +134,7 @@ class QueryRepo {
   Future<FeedResponse> getDummyFeed(FeedRequest feedRequest) async {
     return FeedResponse(status: true, feedItems: [
       FeedItem(
-        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
             id: 1026,
             prescription: Util.getStaticImageURL() +
@@ -162,7 +153,7 @@ class QueryRepo {
             email: "abc@gmail.com"),
       ),
       FeedItem(
-        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
             id: 1023,
             prescription: Util.getStaticImageURL() +
@@ -181,7 +172,7 @@ class QueryRepo {
             email: "abc@gmail.com"),
       ),
       FeedItem(
-        viewCardType: ClientEnum.FEED_ITEM_ORDER_CARD,
+        viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
             id: 1024,
             items: [

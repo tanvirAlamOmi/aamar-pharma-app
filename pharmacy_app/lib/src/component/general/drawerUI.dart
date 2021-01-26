@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
+import 'package:pharmacy_app/src/pages/repeat_order_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -75,7 +76,12 @@ class MainDrawer extends StatelessWidget {
                 fontSize: 15),
           ),
           leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
-          onTap: () {}),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RepeatOrderPage()),
+            );
+          }),
     );
 
     children.add(
