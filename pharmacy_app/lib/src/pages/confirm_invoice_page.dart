@@ -258,8 +258,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void incrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoice.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        singleItem.itemQuantity =
-            (int.parse(singleItem.itemQuantity) + 1).toString();
+        singleItem.itemQuantity = singleItem.itemQuantity + 1;
         break;
       }
     }
@@ -268,12 +267,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void decrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoice.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        if (int.parse(singleItem.itemQuantity) == 1) {
+        if (singleItem.itemQuantity == 1) {
           return;
         }
 
-        singleItem.itemQuantity =
-            (int.parse(singleItem.itemQuantity) - 1).toString();
+        singleItem.itemQuantity = singleItem.itemQuantity - 1;
 
         break;
       }
@@ -284,8 +282,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     subTotal = 0;
     totalAmount = 0;
     for (final singleItem in widget.order.invoice.invoiceItemList) {
-      final unitPrice = double.parse(singleItem.itemUnitPrice);
-      final quantity = double.parse(singleItem.itemQuantity);
+      final unitPrice = singleItem.itemUnitPrice;
+      final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);
     }
 

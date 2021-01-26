@@ -7,11 +7,11 @@ class NotificationActionButton extends StatefulWidget {
   NotificationActionButton();
   @override
   State<StatefulWidget> createState() {
-    return _CartActionButton();
+    return _NotificationActionButton();
   }
 }
 
-class _CartActionButton extends State<NotificationActionButton> {
+class _NotificationActionButton extends State<NotificationActionButton> {
   @override
   void initState() {
     super.initState();
@@ -46,16 +46,13 @@ class _CartActionButton extends State<NotificationActionButton> {
         Positioned(
           top: -5.0,
           right: -5.0,
-          child: buildBadgeText(count),
+          child: (count <= 0) ? buildBadgeText(count) : Container(),
         ),
       ],
     );
   }
 
   Widget buildBadgeText(count) {
-    if (count <= 0) {
-      return Text('');
-    }
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),

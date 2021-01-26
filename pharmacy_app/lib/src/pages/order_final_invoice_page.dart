@@ -140,8 +140,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     deliveryFee = 20;
     totalAmount = 0;
     for (final singleItem in widget.order.invoice.invoiceItemList) {
-      final unitPrice = double.parse(singleItem.itemUnitPrice);
-      final quantity = double.parse(singleItem.itemQuantity);
+      final unitPrice = singleItem.itemUnitPrice;
+      final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);
     }
 

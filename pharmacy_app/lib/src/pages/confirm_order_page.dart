@@ -32,7 +32,6 @@ class ConfirmOrderPage extends StatefulWidget {
   final List<OrderManualItem> orderManualItemList;
   final Order order; // Only for Reorder Case
 
-
   ConfirmOrderPage(
       {this.note,
       this.orderManualItemList,
@@ -242,9 +241,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     );
   }
 
-
-  Widget buildReOrderInvoiceTable(){
-    if (widget.orderType != OrderEnum.ORDER_WITH_ITEM_NAME_REORDER) return Container();
+  Widget buildReOrderInvoiceTable() {
+    if (widget.orderType != OrderEnum.ORDER_WITH_ITEM_NAME_REORDER)
+      return Container();
     return OrderInvoiceTableCard(
       subTotal: subTotal,
       deliveryFee: deliveryFee,
@@ -263,6 +262,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       showAmountColumn: false,
       showSubTotalRow: false,
       showTotalRow: false,
+      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
     );
   }
 
@@ -273,8 +273,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void incrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoice.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        singleItem.itemQuantity =
-            (int.parse(singleItem.itemQuantity) + 1).toString();
+        singleItem.itemQuantity = singleItem.itemQuantity + 1;
         break;
       }
     }
@@ -283,13 +282,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void decrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoice.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        if (int.parse(singleItem.itemQuantity) == 1) {
+        if (singleItem.itemQuantity == 1) {
           return;
         }
-
-        singleItem.itemQuantity =
-            (int.parse(singleItem.itemQuantity) - 1).toString();
-
+        singleItem.itemQuantity = singleItem.itemQuantity - 1;
         break;
       }
     }
@@ -299,15 +295,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     subTotal = 0;
     totalAmount = 0;
     for (final singleItem in widget.order.invoice.invoiceItemList) {
-      final unitPrice = double.parse(singleItem.itemUnitPrice);
-      final quantity = double.parse(singleItem.itemQuantity);
+      final unitPrice = singleItem.itemUnitPrice;
+      final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);
     }
 
     totalAmount = subTotal + deliveryFee;
     if (mounted) setState(() {});
   }
-
 
   Widget buildTutorialBox() {
     final size = MediaQuery.of(context).size;
@@ -525,7 +520,17 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME) {
       orderSubmitResponse = await OrderRepo.instance
           .orderWithItemName(order: AppVariableStates.instance.order);
-    }else if(widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME_REORDER){
+    } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME_REORDER) {
+      final List<OrderManualItem> items = [];
+      for (final invoiceItem in widget.order.invoice.invoiceItemList) {
+        items.add(OrderManualItem()
+          ..itemName = invoiceItem.itemName
+          ..unit = ClientEnum.NA
+          ..quantity = invoiceItem.itemQuantity);
+      }
+      AppVariableStates.instance.order.items = items;
+      orderSubmitResponse = await OrderRepo.instance
+          .orderWithItemName(order: AppVariableStates.instance.order);
 
     }
 

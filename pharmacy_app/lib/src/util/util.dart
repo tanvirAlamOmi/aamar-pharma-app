@@ -202,16 +202,16 @@ class Util {
     return Invoice(invoiceItemList: [
       InvoiceItem()
         ..itemName = "Napa"
-        ..itemQuantity = "10"
-        ..itemUnitPrice = "2",
+        ..itemQuantity = 10
+        ..itemUnitPrice = 2,
       InvoiceItem()
         ..itemName = "Histasin"
-        ..itemQuantity = "3"
-        ..itemUnitPrice = "5",
+        ..itemQuantity = 3
+        ..itemUnitPrice = 5,
       InvoiceItem()
         ..itemName = "Seclo 40"
-        ..itemQuantity = "5"
-        ..itemUnitPrice = "25",
+        ..itemQuantity = 5
+        ..itemUnitPrice = 25,
     ]);
   }
 

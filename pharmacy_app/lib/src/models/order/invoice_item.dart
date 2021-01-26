@@ -3,8 +3,8 @@ import 'package:pharmacy_app/src/models/user/user_details.dart';
 
 class InvoiceItem {
   String itemName;
-  String itemUnitPrice;
-  String itemQuantity;
+  int itemUnitPrice;
+  int itemQuantity;
 
   InvoiceItem({this.itemName, this.itemUnitPrice, this.itemQuantity});
 }

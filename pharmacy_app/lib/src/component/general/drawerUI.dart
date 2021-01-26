@@ -41,29 +41,6 @@ class MainDrawer extends StatelessWidget {
   }
 
   Widget buildDrawer(BuildContext context) {
-    // if (Store.instance.appState.user.id == null) {
-    //   return ListView(
-    //     shrinkWrap: true,
-    //     children: [
-    //       ListTile(
-    //           dense: true,
-    //           title: Text(
-    //             'LOGIN',
-    //             style: TextStyle(
-    //                 fontWeight: FontWeight.bold,
-    //                 color: Colors.grey[700],
-    //                 fontSize: 15),
-    //           ),
-    //           leading: Icon(Icons.login, color: Util.purplishColor()),
-    //           onTap: () {
-    //             Navigator.push(
-    //               context,
-    //               MaterialPageRoute(builder: (context) => LoginPage()),
-    //             );
-    //           }),
-    //     ],
-    //   );
-    // }
     final children = List<Widget>();
     children.add(
       ListTile(
@@ -77,6 +54,7 @@ class MainDrawer extends StatelessWidget {
           ),
           leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
           onTap: () {
+            Navigator.pop(context);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => RepeatOrderPage()),

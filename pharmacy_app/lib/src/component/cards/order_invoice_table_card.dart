@@ -31,6 +31,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
   final bool showSubTotalRow;
   final bool showTotalRow;
 
+  final EdgeInsetsGeometry padding;
+
   final TextStyle columnTextStyle = new TextStyle(
       fontSize: 12, color: Util.purplishColor(), fontWeight: FontWeight.bold);
 
@@ -57,7 +59,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
       this.showIncDecButtons,
       this.showSubTotalRow,
       this.showTotalRow,
-      this.showItemNameColumn})
+      this.showItemNameColumn, this.padding})
       : super(key: key);
 
   @override
@@ -65,7 +67,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Util.removeFocusNode(context),
       child: Container(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        padding: padding ?? EdgeInsets.fromLTRB(0, 0, 0, 10),
         width: double.infinity,
         child: Material(
           shadowColor: Colors.grey[100].withOpacity(0.4),
@@ -240,7 +242,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: double.infinity,
-        child: Text(singleItem.itemUnitPrice, style: dataTextStyle));
+        child: Text(singleItem.itemUnitPrice.toString(), style: dataTextStyle));
   }
 
   Widget buildQuantityColumn(InvoiceItem singleItem) {
@@ -248,7 +250,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
       return Container(
           alignment: Alignment.center,
           width: 25,
-          child: Text(singleItem.itemQuantity, style: dataTextStyle));
+          child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
     else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -262,9 +264,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
                 callBackCalculatePricing();
               },
               child: Container(
-                  width: 17,
-                  height: 17,
-                  child: Icon(Icons.remove, color: Colors.black, size: 13.5),
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.remove, color: Colors.black, size: 14),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.redAccent))),
@@ -272,16 +274,16 @@ class OrderInvoiceTableCard extends StatelessWidget {
             Container(
                 alignment: Alignment.center,
                 width: 25,
-                child: Text(singleItem.itemQuantity, style: dataTextStyle)),
+                child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle)),
             GestureDetector(
               onTap: () {
                 callBackIncrementItemQuantity(singleItem);
                 callBackCalculatePricing();
               },
               child: Container(
-                  width: 17,
-                  height: 17,
-                  child: Icon(Icons.add, color: Colors.black, size: 13.5),
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.add, color: Colors.black, size: 14),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.redAccent))),
@@ -293,7 +295,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: 25,
-        child: Text(singleItem.itemQuantity, style: dataTextStyle));
+        child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
   }
 
   Widget buildAmountColumn(InvoiceItem singleItem) {
@@ -305,8 +307,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
   }
 
   String getPrice(InvoiceItem singleItem) {
-    final unitPrice = double.parse(singleItem.itemUnitPrice);
-    final quantity = double.parse(singleItem.itemQuantity);
+    final unitPrice = singleItem.itemUnitPrice;
+    final quantity = singleItem.itemQuantity;
     final price = (unitPrice * quantity).toString();
     return price;
   }
