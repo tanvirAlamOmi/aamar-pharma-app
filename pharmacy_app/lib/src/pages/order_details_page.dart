@@ -99,8 +99,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         callBackOnSubmit: () {
           showAlertDialog(
               context: context,
-              message: "Are you sure to cancel this order?",
-              acceptFunc: cancelOrderSubmission);
+              message: "Are you sure to stop this repeat order?",
+              acceptFunc: cancelRepeatOrderSubmission);
         },
       );
     return Container();
@@ -386,6 +386,31 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
       );
     return Container();
+  }
+
+  void cancelRepeatOrderSubmission() async {
+    isProcessing = true;
+    refreshUI();
+
+    final Tuple2<void, String> cancelRepeatOrderResponse =
+    await OrderRepo.instance.cancelRepeatOrder(orderId: order.id);
+
+    if (cancelRepeatOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey, message: "Repeat Order is cancelled");
+      await Future.delayed(Duration(milliseconds: 1000));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 500));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again later.");
+    }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void cancelOrderSubmission() async {

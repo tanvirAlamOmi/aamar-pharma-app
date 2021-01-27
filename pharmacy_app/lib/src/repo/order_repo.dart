@@ -79,7 +79,6 @@ class OrderRepo {
             .getOrderClient()
             .cancelOrder(jwtToken, cancelOrderRequest);
 
-
         if (cancelOrderResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
           return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
         } else {
@@ -87,6 +86,33 @@ class OrderRepo {
         }
       } catch (err) {
         print("Error in cancelOrder() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<void, String>> cancelRepeatOrder({int orderId}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.token;
+
+        final cancelRepeatOrderRequest =
+            jsonEncode(<String, dynamic>{'id_order': orderId});
+
+        final cancelRepeatOrderResponse = await OrderRepo.instance
+            .getOrderClient()
+            .cancelRepeatOrder(jwtToken, cancelRepeatOrderRequest);
+
+        if (cancelRepeatOrderResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, cancelRepeatOrderResponse['result']);
+        }
+      } catch (err) {
+        print("Error in cancelRepeatOrder() in OrderRepo");
         print(err);
       }
     }
