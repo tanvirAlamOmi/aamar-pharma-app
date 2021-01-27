@@ -164,8 +164,9 @@ class _MainDrawerState extends State<MainDrawer> {
         ListTile(
             dense: true,
             title: Text(
-              'LOG OUT',
+              Util.en_bn_convert(text: 'LOG OUT'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[700],
                   fontSize: 15),

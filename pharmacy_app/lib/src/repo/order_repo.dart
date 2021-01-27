@@ -26,7 +26,7 @@ class OrderRepo {
 
         final orderWithPrescriptionResponse = await OrderRepo.instance
             .getOrderClient()
-            .orderWithPrescription(jwtToken, order.toJsonEncodeString());
+            .orderWithPrescription(jwtToken, order.toJsonEncodedString());
 
         if (orderWithPrescriptionResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
@@ -50,7 +50,7 @@ class OrderRepo {
 
         final orderWithItemNameResponse = await OrderRepo.instance
             .getOrderClient()
-            .orderWithItems(jwtToken, order.toJsonEncodeString());
+            .orderWithItems(jwtToken, order.toJsonEncodedString());
 
         if (orderWithItemNameResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
@@ -86,6 +86,30 @@ class OrderRepo {
         }
       } catch (err) {
         print("Error in cancelOrder() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<void, String>> confirmInvoiceOrder({Order order}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.token;
+
+        final confirmInvoiceOrderResponse = await OrderRepo.instance
+            .getOrderClient()
+            .confirmInvoiceOrderResponse(jwtToken, order.toJsonEncodedString());
+
+        if (confirmInvoiceOrderResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, confirmInvoiceOrderResponse['result']);
+        }
+      } catch (err) {
+        print("Error in confirmInvoiceOrderResponse() in OrderRepo");
         print(err);
       }
     }

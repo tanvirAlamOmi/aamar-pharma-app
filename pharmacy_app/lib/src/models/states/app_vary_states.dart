@@ -7,8 +7,7 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 class AppVariableStates {
   String firebaseSMSToken = "";
   String orderFilterStatus = OrderEnum.ORDER_STATUS_ALL;
-  String initialLanguageChoose =
-      "SELECT LANGUAGE (${ClientEnum.LANGUAGE_ENGLISH})";
+  String initialLanguageChoose = "LANGUAGE (ENGLISH)";
   Order order = new Order();
   Function submitOrder;
 

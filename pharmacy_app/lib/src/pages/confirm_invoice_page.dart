@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
@@ -8,9 +9,12 @@ import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
+import 'package:tuple/tuple.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;
@@ -44,10 +48,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
@@ -98,9 +99,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 buildCashWarningTitle(),
                 SizedBox(height: 20),
                 GeneralActionRoundButton(
-                  title: "CONFIRM ORDER",
-                  isProcessing: false,
-                )
+                    title: "CONFIRM ORDER",
+                    isProcessing: false,
+                    callBackOnSubmit: confirmInvoiceOrder)
               ],
             ),
             buildTutorialBox()
@@ -290,6 +291,39 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
 
     totalAmount = subTotal + deliveryFee;
     if (mounted) setState(() {});
+  }
+
+  void confirmInvoiceOrder() async {
+    print(widget.order.toJsonEncodedString());
+    return;
+    isProcessing = true;
+    refreshUI();
+
+
+
+
+    Tuple2<void, String> confirmInvoiceOrderResponse =
+        await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);
+
+    if (confirmInvoiceOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Order is confirmed.",
+          duration: 1500);
+      await Future.delayed(Duration(milliseconds: 500));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 500));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.",
+          duration: 1500);
+    }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void refreshUI() {

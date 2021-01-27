@@ -12,8 +12,8 @@ class InitialTutorialCard extends StatelessWidget {
   final bool showGetStartedButton;
   final Function() refreshUI;
   final List<String> languageOptionsList = [
-    "SELECT LANGUAGE (${ClientEnum.LANGUAGE_ENGLISH})",
-    "SELECT LANGUAGE (${ClientEnum.LANGUAGE_BANGLA})",
+    "LANGUAGE (ENGLISH)",
+    "ভাষা (বাংলা)",
   ];
   String selectedLanguageOption =
       AppVariableStates.instance.initialLanguageChoose;
@@ -80,6 +80,8 @@ class InitialTutorialCard extends StatelessWidget {
           selectedItem: selectedLanguageOption,
           setSelectedItem: setLanguageOption,
           callBackRefreshUI: refreshUI,
+            dropDownTextColor: Colors.white,
+          dropDownContainerColor: Util.greenishColor(),
         ),
       );
     return Container();

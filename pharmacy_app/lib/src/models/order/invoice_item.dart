@@ -1,5 +1,4 @@
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-import 'package:pharmacy_app/src/models/user/user_details.dart';
+import 'dart:convert';
 
 class InvoiceItem {
   String itemName;
@@ -7,4 +6,12 @@ class InvoiceItem {
   int itemQuantity;
 
   InvoiceItem({this.itemName, this.itemUnitPrice, this.itemQuantity});
+
+  String toJsonEncodedString() {
+    return jsonEncode(<String, dynamic>{
+      'item_name': itemName,
+      'item_unit_price': itemUnitPrice,
+      'item_quantity': itemQuantity
+    });
+  }
 }
