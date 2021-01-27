@@ -72,10 +72,9 @@ class Store {
   }
 
   Future updateLanguage({String languageOption}) async {
-    if(languageOption == ClientEnum.LANGUAGE_ENGLISH){
+    if (languageOption == ClientEnum.LANGUAGE_ENGLISH) {
       appState.language = ClientEnum.LANGUAGE_BANGLA;
-    }
-    else if(languageOption == ClientEnum.LANGUAGE_BANGLA){
+    } else if (languageOption == ClientEnum.LANGUAGE_BANGLA) {
       appState.language = ClientEnum.LANGUAGE_ENGLISH;
     }
     await putAppData();

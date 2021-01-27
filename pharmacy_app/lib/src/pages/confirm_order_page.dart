@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
@@ -229,7 +230,12 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 GeneralActionRoundButton(
                   title: "SUBMIT",
                   isProcessing: false,
-                  callBackOnSubmit: processOrder,
+                  callBackOnSubmit: () {
+                    showAlertDialog(
+                        context: context,
+                        message: "CONFIRM SUBMITTING ORDER?",
+                        acceptFunc: processOrder);
+                  },
                 ),
                 SizedBox(height: 20)
               ],

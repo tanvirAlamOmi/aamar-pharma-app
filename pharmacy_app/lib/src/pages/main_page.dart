@@ -1,3 +1,4 @@
+import 'package:pharmacy_app/src/bloc/auto_refresh_timer.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/home_page.dart';
@@ -27,6 +28,8 @@ class _MainPageState extends State<MainPage> {
     currentTabIndex = 0;
     Util.getPermissions();
     eventChecker();
+    AutoRefreshTimer.instance.stopTimer();
+    AutoRefreshTimer.instance.autoRefresh();
   }
 
   void eventChecker() async {
@@ -34,7 +37,7 @@ class _MainPageState extends State<MainPage> {
       if (data.eventType == EventType.REFRESH_MAIN_PAGE) {}
 
       if (data.eventType == EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE) {
-        currentTabIndex  = 1;
+        currentTabIndex = 1;
         refreshUI();
       }
     });

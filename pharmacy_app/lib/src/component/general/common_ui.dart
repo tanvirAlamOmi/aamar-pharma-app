@@ -185,7 +185,7 @@ void showAlertDialog(
                       GestureDetector(
                         onTap: () {
                           Navigator.pop(dialogContext);
-                          acceptFunc(context);
+                          acceptFunc();
                         },
                         child: Container(
                           alignment: Alignment.center,

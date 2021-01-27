@@ -27,29 +27,41 @@ class _NotificationActionButton extends State<NotificationActionButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: buildIcon(2),
-      onPressed: () => handleCartAction(context),
+      icon: buildIcon(),
+      onPressed: () => handleNotificationAction(context),
     );
   }
 
-  Widget buildIcon(int count) {
-    return Stack(
-      fit: StackFit.expand,
-      overflow: Overflow.visible,
-      alignment: Alignment.center,
-      children: <Widget>[
-        Icon(
-          Icons.notifications,
-          color: Colors.white,
-          size: 25,
-        ),
-        Positioned(
-          top: -5.0,
-          right: -5.0,
-          child: (count <= 0) ? buildBadgeText(count) : Container(),
-        ),
-      ],
-    );
+  Widget buildIcon() {
+    return StreamBuilder<int>(
+        stream: Streamer.getTotalNotificationCountStream(),
+        builder: (context, snapshot) {
+          int count = 0;
+
+          if (snapshot.data == null) {
+            count = 0;
+          }
+          if (snapshot.hasData) {
+            count = snapshot.data;
+          }
+          return Stack(
+            fit: StackFit.expand,
+            overflow: Overflow.visible,
+            alignment: Alignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.notifications,
+                color: Colors.white,
+                size: 25,
+              ),
+              Positioned(
+                top: -5.0,
+                right: -5.0,
+                child: (count <= 0) ? Container() : buildBadgeText(count),
+              ),
+            ],
+          );
+        });
   }
 
   Widget buildBadgeText(count) {
@@ -77,7 +89,7 @@ class _NotificationActionButton extends State<NotificationActionButton> {
     );
   }
 
-  void handleCartAction(BuildContext context) {
+  void handleNotificationAction(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => NotificationPage()),
