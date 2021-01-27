@@ -3,13 +3,20 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
+import 'package:tuple/tuple.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   final Order order;
@@ -26,6 +33,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   final TextStyle textStyle = new TextStyle(fontSize: 11);
   double currentScrollIndex = 0;
   final scrollController = ScrollController();
+  bool isProcessing = false;
 
   @override
   void initState() {
@@ -70,6 +78,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             SizedBox(height: 20),
             buildDeliveryAddressDetails(),
             buildPersonalDetails(),
+            buildCancelOrderButton(),
             SizedBox(height: 20)
           ],
         ),
@@ -339,6 +348,50 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         ],
       ),
     );
+  }
+
+  Widget buildCancelOrderButton() {
+    if (order.status == OrderEnum.ORDER_STATUS_PENDING ||
+        order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT)
+      return GeneralActionRoundButton(
+        title: "CANCEL ORDER",
+        isProcessing: isProcessing,
+        color: Util.redishColor(),
+        callBackOnSubmit: (){
+          showAlertDialog(
+            context: context,
+            message: "Are you sure to cancel this order?",
+            acceptFunc: cancelOrderSubmission
+          );
+        },
+      );
+    return Container();
+  }
+
+  void cancelOrderSubmission() async {
+    isProcessing = true;
+    refreshUI();
+
+    final Tuple2<void, String> cancelOrderResponse =
+        await OrderRepo.instance.cancelOrder(orderId: order.id);
+    
+
+    if (cancelOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey, message: "Order is cancelled");
+      await Future.delayed(Duration(milliseconds: 1000));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 500));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again later.");
+    }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void refreshUI() {

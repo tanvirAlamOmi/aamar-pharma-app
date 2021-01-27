@@ -1,5 +1,4 @@
 class OrderEnum {
-
   static final String FEED_ORDER = "ORDER FEED";
   static final String FEED_REPEAT_ORDER = "REPEAT ORDER FEED";
   static final String FEED_NOTIFICATION = "NOTIFICATION FEED";
@@ -25,18 +24,14 @@ class OrderEnum {
   static final String DAY_FRIDAY = "Friday";
 
   static final String ORDER_STATUS_ALL = "SORT BY ORDER STATUS / ALL";
-  static final String ORDER_STATUS_PENDING =
-      "Pending";
-  static final String ORDER_STATUS_INVOICE_SENT =
-      "Invoice sent";
-  static final String ORDER_STATUS_CONFIRMED =
-      "Confirmed";
+  static final String ORDER_STATUS_PENDING = "Pending";
+  static final String ORDER_STATUS_INVOICE_SENT = "Invoice sent";
+  static final String ORDER_STATUS_CONFIRMED = "Confirmed";
   static final String ORDER_STATUS_PROCESSING = "Processing";
   static final String ORDER_STATUS_ON_THE_WAY = "On the way";
   static final String ORDER_STATUS_DELIVERED = "Delivered";
   static final String ORDER_STATUS_REJECTED = "Rejected";
   static final String ORDER_STATUS_CANCELED = "Canceled";
-
 
   static final String ORDER_WITH_ITEM_NAME = "Item name";
   static final String ORDER_WITH_ITEM_NAME_REORDER = "Reorder Item name";

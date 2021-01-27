@@ -62,6 +62,12 @@ class Util {
     return Color(int.parse('FF$hexCode', radix: 16));
   }
 
+  static Color redishColor() {
+    String hexColor = "#FA5353";
+    final hexCode = hexColor.replaceAll('#', '');
+    return Color(int.parse('FF$hexCode', radix: 16));
+  }
+
   static Future<void> getPermissions() async {
     if (Platform.isAndroid) {
       await Permission.locationAlways.request();

@@ -45,7 +45,7 @@ class GeneralActionRoundButton extends StatelessWidget {
       if (color == null) {
         return Util.purplishColor();
       } else {
-        return Colors.black;
+        return color;
       }
     }
     return Colors.grey;

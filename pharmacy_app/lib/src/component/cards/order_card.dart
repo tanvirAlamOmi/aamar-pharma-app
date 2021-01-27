@@ -135,6 +135,13 @@ class _OrderCardState extends State<OrderCard> {
             builder: (context) => OrderFinalInvoicePage(order: order)),
       );
     }
+
+    if (order.status == OrderEnum.ORDER_STATUS_CANCELED) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
+      );
+    }
   }
 
   void refreshUI() {
