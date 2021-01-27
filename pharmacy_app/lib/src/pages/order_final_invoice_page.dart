@@ -341,6 +341,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => OrderDetailsPage(
+                        showRepeatOrderCancelButton: false,
                         order: widget.order,
                       )),
             );

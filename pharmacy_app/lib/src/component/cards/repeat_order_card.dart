@@ -115,7 +115,11 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
   void navigateToSpecificPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
+      MaterialPageRoute(
+          builder: (context) => OrderDetailsPage(
+                order: order,
+                showRepeatOrderCancelButton: true,
+              )),
     );
   }
 

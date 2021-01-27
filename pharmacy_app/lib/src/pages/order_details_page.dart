@@ -20,8 +20,10 @@ import 'package:tuple/tuple.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   final Order order;
+  final bool showRepeatOrderCancelButton;
 
-  OrderDetailsPage({this.order, Key key}) : super(key: key);
+  OrderDetailsPage({this.order, Key key, this.showRepeatOrderCancelButton})
+      : super(key: key);
 
   @override
   _OrderDetailsPageState createState() => _OrderDetailsPageState();
@@ -72,7 +74,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(height: 20),
+            SizedBox(height: 10),
+            buildCancelRepeatOrderButton(),
+            SizedBox(height: 10),
             buildImageList(),
             buildItemList(),
             SizedBox(height: 20),
@@ -84,6 +88,22 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         ),
       ),
     );
+  }
+
+  Widget buildCancelRepeatOrderButton() {
+    if (widget.showRepeatOrderCancelButton)
+      return GeneralActionRoundButton(
+        title: "CANCEL REPEAT ORDER",
+        isProcessing: isProcessing,
+        color: Util.redishColor(),
+        callBackOnSubmit: () {
+          showAlertDialog(
+              context: context,
+              message: "Are you sure to cancel this order?",
+              acceptFunc: cancelOrderSubmission);
+        },
+      );
+    return Container();
   }
 
   Widget buildImageList() {
@@ -351,18 +371,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildCancelOrderButton() {
+    if (widget.showRepeatOrderCancelButton) return Container();
     if (order.status == OrderEnum.ORDER_STATUS_PENDING ||
         order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT)
       return GeneralActionRoundButton(
         title: "CANCEL ORDER",
         isProcessing: isProcessing,
         color: Util.redishColor(),
-        callBackOnSubmit: (){
+        callBackOnSubmit: () {
           showAlertDialog(
-            context: context,
-            message: "Are you sure to cancel this order?",
-            acceptFunc: cancelOrderSubmission
-          );
+              context: context,
+              message: "Are you sure to cancel this order?",
+              acceptFunc: cancelOrderSubmission);
         },
       );
     return Container();
@@ -374,7 +394,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
     final Tuple2<void, String> cancelOrderResponse =
         await OrderRepo.instance.cancelOrder(orderId: order.id);
-    
 
     if (cancelOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
       Util.showSnackBar(

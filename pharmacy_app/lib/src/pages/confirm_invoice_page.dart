@@ -223,6 +223,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
               context,
               MaterialPageRoute(
                   builder: (context) => OrderDetailsPage(
+                        showRepeatOrderCancelButton: false,
                         order: widget.order,
                       )),
             );

@@ -116,7 +116,11 @@ class _OrderCardState extends State<OrderCard> {
     if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
+        MaterialPageRoute(
+            builder: (context) => OrderDetailsPage(
+                  order: order,
+                  showRepeatOrderCancelButton: false,
+                )),
       );
     }
 
@@ -139,7 +143,9 @@ class _OrderCardState extends State<OrderCard> {
     if (order.status == OrderEnum.ORDER_STATUS_CANCELED) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => OrderDetailsPage(order: order)),
+        MaterialPageRoute(
+            builder: (context) => OrderDetailsPage(
+                showRepeatOrderCancelButton: false, order: order)),
       );
     }
   }
