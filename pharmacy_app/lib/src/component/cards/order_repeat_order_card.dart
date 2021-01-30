@@ -73,8 +73,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Repeat Order",
+            Util.en_bn_du(text: 'Repeat Order'),
             style: TextStyle(
+                fontFamily: Util.en_bn_font(),
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: Util.greenishColor()),
@@ -82,8 +83,11 @@ class OrderRepeatOrderCard extends StatelessWidget {
           Container(
             width: size.width - 100,
             child: Text(
-              "Select this option if you want to get this order on a regular basis",
+              Util.en_bn_du(
+                  text:
+                      'Select this option if you want to get this order on a regular basis'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
                   fontSize: 13),
@@ -112,8 +116,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "Repeat Order",
+                Util.en_bn_du(text: 'Repeat Order'),
                 style: TextStyle(
+                    fontFamily: Util.en_bn_font(),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Util.greenishColor()),
@@ -121,8 +126,11 @@ class OrderRepeatOrderCard extends StatelessWidget {
               Container(
                 width: size.width - 100,
                 child: Text(
-                  "Select this option if you want to get this order on a regular basis",
+                  Util.en_bn_du(
+                      text:
+                          'Select this option if you want to get this order on a regular basis'),
                   style: TextStyle(
+                      fontFamily: Util.en_bn_font(),
                       color: Colors.grey,
                       fontWeight: FontWeight.bold,
                       fontSize: 13),
@@ -143,8 +151,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("Every",
+              Text(Util.en_bn_du(text: 'Every'),
                   style: TextStyle(
+                      fontFamily: Util.en_bn_font(),
                       fontWeight: FontWeight.bold,
                       color: Util.purplishColor())),
               DropDownItem(
@@ -167,8 +176,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Day",
+                    Text(Util.en_bn_du(text: 'Day')   ,
                         style: TextStyle(
+                            fontFamily: Util.en_bn_font(),
                             fontWeight: FontWeight.bold,
                             color: Util.purplishColor())),
                     SizedBox(height: 1),

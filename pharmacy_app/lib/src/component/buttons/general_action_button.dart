@@ -32,8 +32,8 @@ class GeneralActionButton extends StatelessWidget {
         minWidth: double.infinity,
         onPressed: () => (isProcessing == false) ? callBack() : () {},
         child: Text(
-          title,
-          style: TextStyle(color: Colors.white),
+          Util.en_bn_du(text: title),
+          style: TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
         ),
         color: getButtonColor(),
       ),

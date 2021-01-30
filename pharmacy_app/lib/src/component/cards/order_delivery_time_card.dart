@@ -56,9 +56,11 @@ class OrderDeliveryAddressCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)",
+            Util.en_bn_du(text: 'DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)'),
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: Util.greenishColor()),
+                fontFamily: Util.en_bn_font(),
+                fontWeight: FontWeight.bold,
+                color: Util.greenishColor()),
           ),
           SizedBox(height: 15),
           Row(
@@ -69,8 +71,9 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Day",
+                      Util.en_bn_du(text: 'Day'),
                       style: TextStyle(
+                          fontFamily: Util.en_bn_font(),
                           fontWeight: FontWeight.bold,
                           color: Util.purplishColor()),
                     ),
@@ -90,8 +93,9 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Time",
+                      Util.en_bn_du(text: 'Time'),
                       style: TextStyle(
+                          fontFamily: Util.en_bn_font(),
                           fontWeight: FontWeight.bold,
                           color: Util.purplishColor()),
                     ),

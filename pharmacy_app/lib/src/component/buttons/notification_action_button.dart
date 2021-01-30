@@ -65,6 +65,7 @@ class _NotificationActionButton extends State<NotificationActionButton> {
   }
 
   Widget buildBadgeText(count) {
+    final String textCount =count < 100 ? '$count' : '99+';
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
@@ -77,9 +78,10 @@ class _NotificationActionButton extends State<NotificationActionButton> {
           horizontal: count < 10 ? 6.0 : 3.0,
         ),
         child: Text(
-          count < 100 ? '$count' : '99+',
+          Util.en_bn_du(text: textCount),
           overflow: TextOverflow.fade,
           style: TextStyle(
+            fontFamily: Util.en_bn_font(),
             fontSize: 12.0,
             color: Colors.white,
             fontWeight: FontWeight.w400,

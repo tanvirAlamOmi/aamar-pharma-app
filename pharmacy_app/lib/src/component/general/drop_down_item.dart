@@ -32,7 +32,9 @@ class DropDownItem extends StatelessWidget {
       this.height,
       this.dropDownContainerColor,
       this.dropDownTextColor,
-      this.padding, this.iconSize, this.iconColor})
+      this.padding,
+      this.iconSize,
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -91,10 +93,12 @@ class DropDownItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Text(
-              menuItem,
+              Util.en_bn_du(text: menuItem),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  color: dropDownTextColor ?? Colors.grey, fontSize: 15),
+                  fontFamily: Util.en_bn_font(),
+                  color: dropDownTextColor ?? Colors.grey,
+                  fontSize: 15),
             ),
           ),
         ],

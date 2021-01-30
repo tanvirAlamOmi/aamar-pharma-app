@@ -1,25 +1,12 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
-import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
-import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/pages/order_page.dart';
+
 
 class AddNewAddressPage extends StatefulWidget {
   final Function() callBack;
@@ -59,8 +46,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
           centerTitle: true,
           leading: AppBarBackButton(),
           title: Text(
-            'ADD ADDRESS',
-            style: TextStyle(color: Colors.white),
+            Util.en_bn_du(text: 'ADD ADDRESS'),
+            style:
+                TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
           ),
         ),
         body: buildBody(context));
@@ -94,9 +82,11 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Address Type",
+          Text(Util.en_bn_du(text: 'Address Type'),
               style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
+                  fontFamily: Util.en_bn_font(),
+                  fontWeight: FontWeight.bold,
+                  color: Util.purplishColor())),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -104,8 +94,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: addressTypeController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: "Home",
-                hintStyle: TextStyle(fontSize: 13),
+                hintText: Util.en_bn_du(text: 'Home/Office'),
+                hintStyle:
+                    TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -124,9 +115,11 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("Address",
+          Text(Util.en_bn_du(text: 'Address'),
               style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
+                  fontFamily: Util.en_bn_font(),
+                  fontWeight: FontWeight.bold,
+                  color: Util.purplishColor())),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -134,8 +127,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: fullAddressController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: "39/A Housing Estate...",
-                hintStyle: TextStyle(fontSize: 13),
+                hintText: Util.en_bn_du(text: '39/A Housing Estate...'),
+                hintStyle:
+                    TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -154,7 +148,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text("Select Area",
+          Text(Util.en_bn_du(text: 'Select Area'),
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: Util.purplishColor())),
           SizedBox(height: 1),

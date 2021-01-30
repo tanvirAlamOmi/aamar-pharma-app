@@ -125,8 +125,9 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           ),
           SizedBox(width: 5),
           Text(
-            "REMOVE",
-            style: TextStyle(color: Colors.red, fontSize: 12),
+            Util.en_bn_du(text: 'REMOVE'),
+            style: TextStyle(
+                fontFamily: Util.en_bn_font(), color: Colors.red, fontSize: 12),
           )
         ],
       ),

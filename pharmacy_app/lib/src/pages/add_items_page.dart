@@ -58,8 +58,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'ADD ITEMS',
-              style: TextStyle(color: Colors.white),
+              Util.en_bn_du(text: 'ADD ITEMS'),
+              style:
+                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
             ),
           ),
           body: buildBody(context)),
@@ -149,8 +150,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Item Name",
+                  Text(Util.en_bn_du(text: 'Item Name'),
                       style: TextStyle(
+                          fontFamily: Util.en_bn_font(),
                           fontWeight: FontWeight.bold,
                           color: Util.purplishColor())),
                   SizedBox(height: 3),
@@ -160,8 +162,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       controller: itemNameController,
                       decoration: new InputDecoration(
                         isDense: true,
-                        hintText: "Napa, Astesin",
-                        hintStyle: TextStyle(fontSize: 13),
+                        hintText: Util.en_bn_du(text: 'Napa, Astesin'),
+                        hintStyle: TextStyle(
+                            fontFamily: Util.en_bn_font(), fontSize: 13),
                         fillColor: Colors.white,
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -181,8 +184,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Unit",
+                        Text(Util.en_bn_du(text: 'Unit'),
                             style: TextStyle(
+                                fontFamily: Util.en_bn_font(),
                                 fontWeight: FontWeight.bold,
                                 color: Util.purplishColor())),
                         SizedBox(height: 3),
@@ -192,8 +196,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemUnitController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: "e.g. mg,ml",
-                              hintStyle: TextStyle(fontSize: 13),
+                              hintText: Util.en_bn_du(text: 'e.g. mg,ml'),
+                              hintStyle: TextStyle(
+                                  fontFamily: Util.en_bn_font(), fontSize: 13),
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 0, vertical: 5),
@@ -211,8 +216,10 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text("Quantity",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(Util.en_bn_du(text: 'Quantity'),
+                            style: TextStyle(
+                                fontFamily: Util.en_bn_font(),
+                                fontWeight: FontWeight.bold)),
                         SizedBox(height: 3),
                         SizedBox(
                           height: 35, // set this
@@ -221,8 +228,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: "e.g. 10,15",
-                              hintStyle: TextStyle(fontSize: 13),
+                              hintText: Util.en_bn_du(text: 'e.g. 10,15'),
+                              hintStyle: TextStyle(
+                                  fontFamily: Util.en_bn_font(), fontSize: 13),
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 0, vertical: 5),
@@ -258,9 +266,11 @@ class _AddItemsPageState extends State<AddItemsPage> {
     if (orderManualItemList.length == 0) return Container();
     return Container(
       child: Text(
-        "ADDED ITEMS",
-        style:
-            TextStyle(color: Util.greenishColor(), fontWeight: FontWeight.bold),
+        Util.en_bn_du(text: 'ADDED ITEMS'),
+        style: TextStyle(
+            fontFamily: Util.en_bn_font(),
+            color: Util.greenishColor(),
+            fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -307,8 +317,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
           ),
           SizedBox(height: 5),
           Text(
-            "REMOVE",
-            style: TextStyle(color: Colors.red, fontSize: 10),
+            Util.en_bn_du(text: 'REMOVE'),
+            style: TextStyle(
+                fontFamily: Util.en_bn_font(), color: Colors.red, fontSize: 10),
           )
         ],
       ),

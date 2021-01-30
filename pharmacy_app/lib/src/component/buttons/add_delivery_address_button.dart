@@ -1,7 +1,6 @@
-import 'package:pharmacy_app/src/bloc/stream.dart';
-import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/add_new_address.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class AddDeliveryAddressButton extends StatelessWidget {
   final Function() callBack;
@@ -34,8 +33,11 @@ class AddDeliveryAddressButton extends StatelessWidget {
                   )),
         );
       },
-      title: Text("Add New Address",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+      title: Text(Util.en_bn_du(text: 'Add New Address'),
+          style: TextStyle(
+              fontFamily: Util.en_bn_font(),
+              fontWeight: FontWeight.bold,
+              fontSize: 12)),
       trailing: Icon(Icons.keyboard_arrow_right),
     );
   }

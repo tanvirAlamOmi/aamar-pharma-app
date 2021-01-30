@@ -42,8 +42,9 @@ class TimeChooseButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 3),
-              Text("Time",
+              Text(Util.en_bn_du(text: 'Time'),
                   style: TextStyle(
+                      fontFamily: Util.en_bn_font(),
                       fontWeight: FontWeight.bold,
                       color: Util.purplishColor())),
               SizedBox(height: 10),
@@ -86,8 +87,10 @@ class TimeChooseButton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("SELECT DELIVERY TIME ",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(Util.en_bn_du(text: 'SELECT DELIVERY TIME'),
+                        style: TextStyle(
+                            fontFamily: Util.en_bn_font(),
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 15),
                     Divider(height: 1, color: Colors.grey[700]),
                     hourMinute12H(),
@@ -106,8 +109,10 @@ class TimeChooseButton extends StatelessWidget {
                             width: 60,
                             height: 30,
                             child: Text(
-                              "OK",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              Util.en_bn_du(text: 'OK'),
+                              style: TextStyle(
+                                  fontFamily: Util.en_bn_font(),
+                                  fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
                           ),

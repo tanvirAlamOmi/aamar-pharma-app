@@ -63,9 +63,10 @@ class CustomMessageBox extends StatelessWidget {
               CrossButton(),
               SizedBox(height: 8),
               Text(
-                messageTitle,
+                Util.en_bn_du(text: messageTitle) ,
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                    fontFamily: Util.en_bn_font(),
                     color: Util.purplishColor(),
                     fontWeight: FontWeight.bold,
                     fontSize: 15),

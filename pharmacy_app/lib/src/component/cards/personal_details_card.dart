@@ -42,14 +42,16 @@ class PersonalDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "PERSONAL DETAILS",
+                Util.en_bn_du(text: 'PERSONAL DETAILS')   ,
                 style: TextStyle(
+                    fontFamily: Util.en_bn_font(),
                     color: Util.greenishColor(), fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               Text(
-                "Name",
+                Util.en_bn_du(text: 'NAME')   ,
                 style: TextStyle(
+                    fontFamily: Util.en_bn_font(),
                     color: Util.purplishColor(), fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 3),
@@ -81,8 +83,9 @@ class PersonalDetailsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Email",
+                      Util.en_bn_du(text: 'EMAIL')   ,
                       style: TextStyle(
+                          fontFamily: Util.en_bn_font(),
                           color: Util.purplishColor(),
                           fontWeight: FontWeight.bold),
                     ),
@@ -113,8 +116,9 @@ class PersonalDetailsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Phone Number",
+                      Util.en_bn_du(text: 'Phone Number')   ,
                       style: TextStyle(
+                          fontFamily: Util.en_bn_font(),
                           color: Util.purplishColor(),
                           fontWeight: FontWeight.bold),
                     ),

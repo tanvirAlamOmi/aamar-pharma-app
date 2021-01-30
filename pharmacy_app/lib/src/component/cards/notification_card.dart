@@ -35,10 +35,7 @@ class _NotificationCardState extends State<NotificationCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Container(
         padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
         width: double.infinity,
