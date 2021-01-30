@@ -98,9 +98,16 @@ class OrderRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
+        String confirmInvoiceOrderItemListRequest = order
+            .invoice.invoiceItemList
+            .map((singleInvoiceItem) => singleInvoiceItem.toJsonEncodedString())
+            .toList()
+            .toString();
+
         final confirmInvoiceOrderResponse = await OrderRepo.instance
             .getOrderClient()
-            .confirmInvoiceOrderResponse(jwtToken, order.toJsonEncodedString());
+            .confirmInvoiceOrderResponse(
+                jwtToken, confirmInvoiceOrderItemListRequest);
 
         if (confirmInvoiceOrderResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {

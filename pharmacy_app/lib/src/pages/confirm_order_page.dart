@@ -175,7 +175,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoadingWidget(status: 'Confirming Order...'),
+        LoadingWidget(status: 'Submitting Order...'),
         SizedBox(height: 10),
         Text(uploadStatus, textAlign: TextAlign.center)
       ],

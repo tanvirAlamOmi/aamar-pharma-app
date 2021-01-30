@@ -6,6 +6,7 @@ import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
@@ -65,6 +66,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   Widget buildBody(BuildContext context) {
+    if (isProcessing) return buildLoadingWidget();
     return SingleChildScrollView(
       child: Container(
         alignment: Alignment.center,
@@ -108,6 +110,16 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildLoadingWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LoadingWidget(status: 'Confirming Order...'),
+      ],
     );
   }
 
@@ -298,9 +310,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     return;
     isProcessing = true;
     refreshUI();
-
-
-
 
     Tuple2<void, String> confirmInvoiceOrderResponse =
         await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);

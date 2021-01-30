@@ -399,10 +399,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Repeat Order is cancelled");
       await Future.delayed(Duration(milliseconds: 1000));
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      Navigator.of(context).pop();
       await Future.delayed(Duration(milliseconds: 500));
-      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+      Streamer.putEventStream(Event(EventType.REFRESH_REPEAT_ORDER_PAGE));
     } else {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
@@ -443,4 +442,3 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 }
 
-enum CHOICE_ENUM { DELIVERY_DAY, DELIVERY_TIME }
