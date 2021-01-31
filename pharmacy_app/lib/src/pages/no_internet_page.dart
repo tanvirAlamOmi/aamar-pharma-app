@@ -59,8 +59,12 @@ class _NoInternetPageState extends State<NoInternetPage> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
           child: Text(
-            "No internet connection or Server is down.",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 15),
+            Util.en_bn_du(text: 'No internet connection or Server is down.'),
+            style: TextStyle(
+                fontFamily: Util.en_bn_font(),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 15),
           ),
         ),
       ),

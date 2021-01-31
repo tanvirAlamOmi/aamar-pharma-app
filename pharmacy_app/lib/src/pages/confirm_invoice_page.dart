@@ -58,8 +58,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'CONFIRM ORDER',
-              style: TextStyle(color: Colors.white),
+              Util.en_bn_du(text: ' CONFIRM ORDER'),
+              style:
+                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
             ),
           ),
           body: buildBody(context)),
@@ -102,16 +103,17 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 buildCashWarningTitle(),
                 SizedBox(height: 20),
                 GeneralActionRoundButton(
-                    title: "CONFIRM ORDER",
-                    isProcessing: false,
-                    callBackOnSubmit: () {
-                      showAlertDialog(
-                          context: context,
-                          height: 150,
-                          message: "Are you sure to confirm this invoice for this order?",
-                          acceptFunc: confirmInvoiceOrder);
-                    },
-                  )
+                  title: "CONFIRM ORDER",
+                  isProcessing: false,
+                  callBackOnSubmit: () {
+                    showAlertDialog(
+                        context: context,
+                        height: 150,
+                        message:
+                            "Are you sure to confirm this invoice for this order?",
+                        acceptFunc: confirmInvoiceOrder);
+                  },
+                )
               ],
             ),
             buildTutorialBox()
@@ -207,8 +209,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         children: [
           Container(
             child: Text(
-              "We only accept cash on delivery.",
+              Util.en_bn_du(text: 'We only accept cash on delivery.'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   color: Util.greenishColor(),
                   fontWeight: FontWeight.bold,
                   fontSize: 12),
@@ -216,8 +219,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           ),
           Container(
             child: Text(
-              "Please keep cash ready upon delivery.",
+              Util.en_bn_du(text: 'Please keep cash ready upon delivery.'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   color: Util.greenishColor(),
                   fontWeight: FontWeight.bold,
                   fontSize: 12),
@@ -249,8 +253,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                       )),
             );
           },
-          title: Text("View Order Details",
+          title: Text(Util.en_bn_du(text: 'View Order Details'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   fontWeight: FontWeight.bold,
                   color: Util.greenishColor(),
                   fontSize: 14)),
@@ -265,9 +270,14 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
       child: Container(
         child: Text(
-          "Before confirming order, please check invoice, edit quantity or remove items.",
+          Util.en_bn_du(
+              text:
+                  'Before confirming order, please check invoice, edit quantity or remove items.'),
           style: TextStyle(
-              color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+              fontFamily: Util.en_bn_font(),
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+              fontSize: 12),
         ),
       ),
     );

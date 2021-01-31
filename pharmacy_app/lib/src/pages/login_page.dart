@@ -91,22 +91,29 @@ class LoginPageState extends State<LoginPage> {
       children: <Widget>[
         SizedBox(height: 30),
         Text(
-          "LOGIN",
+          Util.en_bn_du(text: 'LOGIN'),
           style: TextStyle(
+              fontFamily: Util.en_bn_font(),
               color: Util.greenishColor(),
               fontWeight: FontWeight.bold,
               fontSize: 20),
         ),
         SizedBox(height: 20),
         Text(
-          "Enter your mobile number",
+          Util.en_bn_du(text: 'Enter your mobile number'),
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13),
+              fontFamily: Util.en_bn_font(),
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 13),
         ),
         SizedBox(height: 3),
         Text(
-          "We will send you a verification code by text message(SMS)",
+          Util.en_bn_du(
+              text:
+                  'We will send you a verification code by text message(SMS)'),
           style: TextStyle(
+              fontFamily: Util.en_bn_font(),
               color: Colors.grey[500],
               fontWeight: FontWeight.normal,
               fontSize: 11),

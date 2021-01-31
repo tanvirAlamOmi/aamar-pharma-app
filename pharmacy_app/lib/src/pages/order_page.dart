@@ -58,7 +58,10 @@ class _OrderPageState extends State<OrderPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text("ORDERS"),
+          title: Text(
+            Util.en_bn_du(text: 'Orders'),
+            style: TextStyle(fontFamily: Util.en_bn_font()),
+          ),
         ),
         body: Stack(
           children: [

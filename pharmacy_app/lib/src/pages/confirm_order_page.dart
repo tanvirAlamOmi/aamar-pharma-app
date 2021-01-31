@@ -151,10 +151,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-      },
+      onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
@@ -162,8 +159,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'CONFIRM ORDER',
-              style: TextStyle(color: Colors.white),
+              Util.en_bn_du(text: 'CONFIRM ORDER'),
+              style:
+                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
             ),
           ),
           body: buildBody(context)),

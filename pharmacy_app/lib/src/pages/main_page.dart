@@ -86,15 +86,18 @@ class _MainPageState extends State<MainPage> {
   List<BottomNavigationBarItem> buildBottomBarItems() {
     return [
       BottomNavigationBarItem(
-        title: Text('Home', style: TextStyle(fontSize: 13)),
+        title: Text(Util.en_bn_du(text: 'Home'),
+            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
         icon: Icon(Icons.home, size: 24),
       ),
       BottomNavigationBarItem(
-        title: Text('Order', style: TextStyle(fontSize: 13)),
+        title: Text(Util.en_bn_du(text: 'Order'),
+            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
         icon: Icon(Icons.add_shopping_cart, size: 24),
       ),
       BottomNavigationBarItem(
-        title: Text('Account', style: TextStyle(fontSize: 13)),
+        title: Text(Util.en_bn_du(text: 'Account'),
+            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
         icon: Icon(Icons.account_circle, size: 24),
       ),
     ];

@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/component/feed/feed_container.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -31,7 +32,10 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         elevation: 1,
         centerTitle: true,
-        title: Text("Notifications"),
+        title: Text(
+          Util.en_bn_du(text: 'Notifications'),
+          style: TextStyle(fontFamily: Util.en_bn_font()),
+        ),
       ),
       body: FeedContainer(FeedInfo(OrderEnum.FEED_NOTIFICATION), key: key),
     );

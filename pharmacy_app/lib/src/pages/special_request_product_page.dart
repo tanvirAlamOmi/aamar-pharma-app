@@ -58,8 +58,9 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'REQUEST PRODUCT',
-              style: TextStyle(color: Colors.white),
+              Util.en_bn_du(text: 'REQUEST PRODUCT'),
+              style:
+                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
             ),
           ),
           body: buildBody(context)),
@@ -125,8 +126,9 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                       ),
                       SizedBox(height: 3),
                       Text(
-                        "ADD PHOTO",
+                        Util.en_bn_du(text: 'ADD PHOTO'),
                         style: TextStyle(
+                            fontFamily: Util.en_bn_font(),
                             color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
@@ -150,9 +152,11 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Item Name",
+            Text(Util.en_bn_du(text: 'Item Name'),
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Util.purplishColor())),
+                    fontFamily: Util.en_bn_font(),
+                    fontWeight: FontWeight.bold,
+                    color: Util.purplishColor())),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this
@@ -182,9 +186,11 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Quantity",
+            Text(Util.en_bn_du(text: 'Quantity'),
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Util.purplishColor())),
+                    fontFamily: Util.en_bn_font(),
+                    fontWeight: FontWeight.bold,
+                    color: Util.purplishColor())),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this
@@ -216,8 +222,9 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Add Notes",
+              Util.en_bn_du(text: 'Add Notes'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   color: Util.purplishColor(),
                   fontSize: 12,
                   fontWeight: FontWeight.bold),

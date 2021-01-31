@@ -58,7 +58,10 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text("REPEAT ORDERS"),
+          title: Text(
+            Util.en_bn_du(text: 'REPEAT ORDERS'),
+            style: TextStyle(fontFamily: Util.en_bn_font()),
+          ),
           leading: AppBarBackButton(),
         ),
         body: Stack(

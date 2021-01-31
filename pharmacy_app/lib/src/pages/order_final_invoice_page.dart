@@ -167,8 +167,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Amar Pharma",
+              Util.en_bn_du(text: 'Aamar Pharma'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   color: Util.purplishColor(),
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
@@ -230,8 +231,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Invoice Number",
+                    Util.en_bn_du(text: 'Invoice Number'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -250,8 +252,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Date Of Issue",
+                    Util.en_bn_du(text: 'Date Of Issue'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -280,8 +283,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Billed to",
+                    Util.en_bn_du(text: 'Billed to'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -346,8 +350,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                       )),
             );
           },
-          title: Text("View Order Details",
+          title: Text(Util.en_bn_du(text: 'View Order Details'),
               style: TextStyle(
+                  fontFamily: Util.en_bn_font(),
                   fontWeight: FontWeight.bold,
                   color: Util.greenishColor(),
                   fontSize: 14)),

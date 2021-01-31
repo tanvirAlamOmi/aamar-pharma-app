@@ -59,8 +59,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             centerTitle: true,
             leading: AppBarBackButton(),
             title: Text(
-              'ORDER DETAILS',
-              style: TextStyle(color: Colors.white),
+              Util.en_bn_du(text: 'ORDER DETAILS'),
+              style:
+                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
             ),
           ),
           body: buildBody(context)),
@@ -147,9 +148,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
       child: Text(
-        "ADDED ITEMS",
-        style:
-            TextStyle(color: Util.greenishColor(), fontWeight: FontWeight.bold),
+        Util.en_bn_du(text: 'ADDED ITEMS'),
+        style: TextStyle(
+            fontFamily: Util.en_bn_font(),
+            color: Util.greenishColor(),
+            fontWeight: FontWeight.bold),
       ),
     ));
 
@@ -187,9 +190,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "DELIVERY ADDRESS",
+            Util.en_bn_du(text: 'DELIVERY ADDRESS'),
             style: TextStyle(
-                color: Util.greenishColor(), fontWeight: FontWeight.bold),
+                fontFamily: Util.en_bn_font(),
+                color: Util.greenishColor(),
+                fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           Container(
@@ -198,9 +203,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Area",
+                  Util.en_bn_du(text: 'Area'),
                   style: TextStyle(
-                      color: Util.purplishColor(), fontWeight: FontWeight.bold),
+                      fontFamily: Util.en_bn_font(),
+                      color: Util.purplishColor(),
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 3),
                 SizedBox(
@@ -228,8 +235,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Address",
+                Text(Util.en_bn_du(text: 'Address'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 3),
@@ -267,13 +275,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("PERSONAL DETAILS",
+                Text(Util.en_bn_du(text: 'PERSONAL DETAILS'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.greenishColor(),
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 20),
-                Text("Name",
+                Text(Util.en_bn_du(text: 'Name'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 3),
@@ -305,8 +315,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Email",
+                      Text(Util.en_bn_du(text: 'Email'),
                           style: TextStyle(
+                              fontFamily: Util.en_bn_font(),
                               color: Util.purplishColor(),
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),
@@ -337,8 +348,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("Phone Number",
+                      Text(Util.en_bn_du(text: 'Phone Number'),
                           style: TextStyle(
+                              fontFamily: Util.en_bn_font(),
                               color: Util.purplishColor(),
                               fontWeight: FontWeight.bold)),
                       SizedBox(height: 3),

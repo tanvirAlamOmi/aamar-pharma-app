@@ -113,9 +113,6 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.status == OrderEnum.ORDER_STATUS_CONFIRMED) {
-      print(order.toJsonEncodedString());
-    }
     if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,

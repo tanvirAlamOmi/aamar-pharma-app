@@ -161,8 +161,8 @@ class _UploadPrescriptionVerifyPageState
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            "Add Notes",
-            style: TextStyle(
+            Util.en_bn_du(text: 'Add Notes') ,
+            style: TextStyle(  fontFamily: Util.en_bn_font(),
                 color: Util.purplishColor(),
                 fontSize: 12,
                 fontWeight: FontWeight.bold),

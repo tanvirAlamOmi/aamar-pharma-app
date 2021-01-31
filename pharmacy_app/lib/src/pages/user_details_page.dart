@@ -70,7 +70,9 @@ class _AccountPageState extends State<AccountPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text('MY DETAILS', style: TextStyle(color: Colors.white)),
+          title: Text(Util.en_bn_du(text: 'MY DETAILS'),
+              style: TextStyle(
+                  fontFamily: Util.en_bn_font(), color: Colors.white)),
         ),
         body: SingleChildScrollView(child: buildBody(context)),
       ),

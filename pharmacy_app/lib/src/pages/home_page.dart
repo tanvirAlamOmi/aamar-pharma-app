@@ -246,8 +246,9 @@ class _HomePageState extends State<HomePage> {
                   width: 100,
                   height: 50,
                   child: Text(
-                    title,
+                    Util.en_bn_du(text: title),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -287,8 +288,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Icon(Icons.add_call, size: 18, color: Colors.white),
                   Text(
-                    "CALL US",
+                    Util.en_bn_du(text: 'CALL US'),
                     style: TextStyle(
+                        fontFamily: Util.en_bn_font(),
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 13),
@@ -303,15 +305,19 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "ORDER DELIVERY TIME",
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  Util.en_bn_du(text: 'ORDER DELIVERY TIME'),
+                  style: TextStyle(
+                      fontFamily: Util.en_bn_font(),
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "10 AM TO 10 PM",
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  Util.en_bn_du(text: '10 AM TO 10 PM'),
+                  style: TextStyle(
+                      fontFamily: Util.en_bn_font(),
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 )
               ],
