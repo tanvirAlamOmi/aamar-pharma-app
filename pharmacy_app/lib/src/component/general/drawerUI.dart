@@ -108,7 +108,10 @@ class _MainDrawerState extends State<MainDrawer> {
                 fontSize: 15),
           ),
           leading: Icon(Icons.call, color: Util.purplishColor()),
-          onTap: () {}),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/consult_pharmacist');
+          }),
     );
     children.add(
       ListTile(

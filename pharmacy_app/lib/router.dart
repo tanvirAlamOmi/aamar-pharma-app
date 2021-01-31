@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/pages/consult_pharmacist_page.dart';
 import 'package:pharmacy_app/src/pages/initial_tutorial_scrolling_page.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/main_page.dart';
@@ -62,11 +63,11 @@ final Map<String, RouterMethod> _definitions = {
       },
     );
   },
-  '/choose_branch': (settings, _) {
+  '/consult_pharmacist': (settings, _) {
     return MaterialPageRoute(
       settings: settings,
       builder: (context) {
-        return Container();
+        return ConsultPharmacistPage();
       },
     );
   },

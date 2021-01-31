@@ -152,4 +152,56 @@ class OrderRepo {
     }
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
+
+  Future<Tuple2<void, String>> specialRequestOrder({Order order}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.token;
+
+        final orderWithItemNameResponse = await OrderRepo.instance
+            .getOrderClient()
+            .orderWithItems(jwtToken, order.toJsonEncodedString());
+
+        if (orderWithItemNameResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, orderWithItemNameResponse['result']);
+        }
+      } catch (err) {
+        print("Error in orderWithItemName() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<void, String>> consultPharmacistOrder(
+      {String name, String phone}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.token;
+
+        final consultPharmacistOrderRequest =
+            jsonEncode(<String, dynamic>{'name': name, 'phone': phone});
+
+        final consultPharmacistOrderResponse = await OrderRepo.instance
+            .getOrderClient()
+            .consultPharmacistOrder(jwtToken, consultPharmacistOrderRequest);
+
+        if (consultPharmacistOrderResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, consultPharmacistOrderResponse['result']);
+        }
+      } catch (err) {
+        print("Error in consultPharmacistOrder() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
 }
