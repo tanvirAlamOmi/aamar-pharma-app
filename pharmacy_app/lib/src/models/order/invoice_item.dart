@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+
 class InvoiceItem {
   String itemName;
   int itemUnitPrice;
@@ -10,8 +12,10 @@ class InvoiceItem {
   String toJsonEncodedString() {
     return jsonEncode(<String, dynamic>{
       'item_name': itemName,
-      'item_unit_price': itemUnitPrice,
-      'item_quantity': itemQuantity
+      'quantity': itemQuantity.toString(),
+      'rate': itemUnitPrice.toString(),
+      'unit': ClientEnum.NA,
+      'image': ClientEnum.NA,
     });
   }
 }

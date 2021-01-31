@@ -51,13 +51,13 @@ class QueryRepo {
           ..error = false;
 
         // Dummy Response Add
-        int x = 0;
-        final FeedResponse dummyOrderFeedResponse =
-            await getDummyFeed(feedRequest);
-        dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
-          orderFeedResponse.feedItems.insert(x, singleFeedItem);
-          x = x + 1;
-        });
+        // int x = 0;
+        // final FeedResponse dummyOrderFeedResponse =
+        //     await getDummyFeed(feedRequest);
+        // dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
+        //   orderFeedResponse.feedItems.insert(x, singleFeedItem);
+        //   x = x + 1;
+        // });
         // End Dummy Response
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);

@@ -4,6 +4,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
@@ -103,7 +104,14 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 GeneralActionRoundButton(
                     title: "CONFIRM ORDER",
                     isProcessing: false,
-                    callBackOnSubmit: confirmInvoiceOrder)
+                    callBackOnSubmit: () {
+                      showAlertDialog(
+                          context: context,
+                          height: 150,
+                          message: "Are you sure to confirm this invoice for this order?",
+                          acceptFunc: confirmInvoiceOrder);
+                    },
+                  )
               ],
             ),
             buildTutorialBox()
@@ -306,8 +314,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void confirmInvoiceOrder() async {
-    print(widget.order.toJsonEncodedString());
-    return;
     isProcessing = true;
     refreshUI();
 

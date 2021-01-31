@@ -113,6 +113,9 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
+    if (order.status == OrderEnum.ORDER_STATUS_CONFIRMED) {
+      print(order.toJsonEncodedString());
+    }
     if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,
@@ -129,6 +132,14 @@ class _OrderCardState extends State<OrderCard> {
         context,
         MaterialPageRoute(
             builder: (context) => ConfirmInvoicePage(order: order)),
+      );
+    }
+
+    if (order.status == OrderEnum.ORDER_STATUS_CONFIRMED) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OrderFinalInvoicePage(order: order)),
       );
     }
 

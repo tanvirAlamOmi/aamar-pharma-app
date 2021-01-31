@@ -97,10 +97,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         isProcessing: isProcessing,
         color: Util.redishColor(),
         callBackOnSubmit: () {
-          // showAlertDialog(
-          //     context: context,
-          //     message: "Are you sure to stop this repeat order?",
-          //     acceptFunc: cancelRepeatOrderSubmission);
+          showAlertDialog(
+              context: context,
+              message: "Are you sure to stop this repeat order?",
+              acceptFunc: cancelRepeatOrderSubmission);
         },
       );
     return Container();
@@ -441,4 +441,3 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     if (mounted) setState(() {});
   }
 }
-

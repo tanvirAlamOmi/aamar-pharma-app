@@ -98,11 +98,14 @@ class OrderRepo {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
-        String confirmInvoiceOrderItemListRequest = order
-            .invoice.invoiceItemList
-            .map((singleInvoiceItem) => singleInvoiceItem.toJsonEncodedString())
-            .toList()
-            .toString();
+        final confirmInvoiceOrderItemListRequest = jsonEncode(<String, dynamic>{
+          'items': order.invoice.invoiceItemList
+              .map((singleInvoiceItem) =>
+                  singleInvoiceItem.toJsonEncodedString())
+              .toList()
+              .toString(),
+          'id_order': order.id,
+        });
 
         final confirmInvoiceOrderResponse = await OrderRepo.instance
             .getOrderClient()
