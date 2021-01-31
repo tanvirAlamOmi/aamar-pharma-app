@@ -112,7 +112,7 @@ class OrderClient {
   }
 
   Future<dynamic> specialRequestOrder(
-      String jwtToken, String orderRequest) async {
+      String jwtToken, String specialRequestOrderProductRequest) async {
     final http.Response response = await http
         .post(
             ServerConfig.SERVER_HOST +
@@ -122,7 +122,7 @@ class OrderClient {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: orderRequest)
+            body: specialRequestOrderProductRequest)
         .timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);

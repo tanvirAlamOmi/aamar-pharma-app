@@ -153,21 +153,33 @@ class OrderRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<void, String>> specialRequestOrder({Order order}) async {
+  Future<Tuple2<void, String>> specialRequestOrder(
+      {String productImage,
+      String itemName,
+      int itemQuantity,
+      String note}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
+        return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
 
-        final orderWithItemNameResponse = await OrderRepo.instance
+        final specialRequestOrderProductRequest = jsonEncode(<String, dynamic>{
+          'image': productImage,
+          'item_name': itemName,
+          'item_quantity': itemQuantity,
+          'note': note,
+        });
+
+        final specialRequestProductOrderResponse = await OrderRepo.instance
             .getOrderClient()
-            .orderWithItems(jwtToken, order.toJsonEncodedString());
+            .specialRequestOrder(jwtToken, specialRequestOrderProductRequest);
 
-        if (orderWithItemNameResponse['result'] ==
+        if (specialRequestProductOrderResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
           return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
         } else {
-          return Tuple2(null, orderWithItemNameResponse['result']);
+          return Tuple2(null, specialRequestProductOrderResponse['result']);
         }
       } catch (err) {
         print("Error in orderWithItemName() in OrderRepo");

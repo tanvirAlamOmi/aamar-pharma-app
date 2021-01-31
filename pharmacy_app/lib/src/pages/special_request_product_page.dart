@@ -1,23 +1,16 @@
-import 'dart:io';
 import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
+import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
-import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 
 class SpecialRequestProductPage extends StatefulWidget {
   SpecialRequestProductPage({Key key}) : super(key: key);
@@ -36,6 +29,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   final TextEditingController noteController = new TextEditingController();
 
   Uint8List imageData;
+  bool isProcessing = false;
 
   @override
   void initState() {
@@ -257,8 +251,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
     return GeneralActionRoundButton(
       title: "SUBMIT",
       height: 40,
-      isProcessing: false,
-      callBackOnSubmit: proceedToConfirmOrderPage,
+      isProcessing: isProcessing,
+      callBackOnSubmit: onSubmit,
     );
   }
 
@@ -298,11 +292,52 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
     }
   }
 
-  void proceedToConfirmOrderPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ConfirmOrderPage()),
-    );
+  void onSubmit() async {
+    if (itemNameController.text.isEmpty && imageData == null) {
+      Util.showSnackBar(
+          message: 'Please provide name or picture of the item',
+          scaffoldKey: _scaffoldKey);
+      return;
+    }
+
+    isProcessing = true;
+    refreshUI();
+
+    Util.showSnackBar(
+        message: 'Please wait...', scaffoldKey: _scaffoldKey, duration: 1000);
+
+    String requestedProductImageUrl = "";
+    if (imageData != null) {
+      requestedProductImageUrl = await Util.uploadImageToFirebase(
+          imageFile: imageData, folderPath: 'request-product/');
+    }
+
+    Tuple2<void, String> specialRequestProductOrderResponse =
+        await OrderRepo.instance.specialRequestOrder();
+
+    if (specialRequestProductOrderResponse.item2 ==
+        ClientEnum.RESPONSE_SUCCESS) {
+      Navigator.of(context).pop();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RequestReceivedSuccessPage(
+                  icon: Icons.favorite,
+                  pageTitle: 'REQUEST RECEIVED',
+                  title: 'Your request has been received.',
+                  message:
+                      'We will notify you when we have your requested product.',
+                )),
+      );
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.",
+          duration: 1500);
+    }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void refreshUI() {
