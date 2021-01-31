@@ -158,11 +158,13 @@ class OrderRepo {
       String itemName,
       int itemQuantity,
       String note}) async {
+    await Future.delayed(Duration(seconds: 1));
+    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
-        return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
 
         final specialRequestOrderProductRequest = jsonEncode(<String, dynamic>{
           'image': productImage,
@@ -182,7 +184,7 @@ class OrderRepo {
           return Tuple2(null, specialRequestProductOrderResponse['result']);
         }
       } catch (err) {
-        print("Error in orderWithItemName() in OrderRepo");
+        print("Error in specialRequestOrder() in OrderRepo");
         print(err);
       }
     }
@@ -191,6 +193,9 @@ class OrderRepo {
 
   Future<Tuple2<void, String>> consultPharmacistOrder(
       {String name, String phone}) async {
+    await Future.delayed(Duration(seconds: 1));
+    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+
     int retry = 0;
     while (retry++ < 2) {
       try {

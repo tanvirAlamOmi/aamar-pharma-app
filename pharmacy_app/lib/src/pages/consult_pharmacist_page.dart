@@ -1,26 +1,12 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
-import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
+
 
 class ConsultPharmacistPage extends StatefulWidget {
   ConsultPharmacistPage({Key key}) : super(key: key);
@@ -197,7 +183,8 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
     isProcessing = true;
     refreshUI();
 
-    Util.showSnackBar(message: 'Please wait...', scaffoldKey: _scaffoldKey,duration: 1000);
+    Util.showSnackBar(
+        message: 'Please wait...', scaffoldKey: _scaffoldKey, duration: 1000);
 
     Tuple2<void, String> consultPharmacistOrderResponse =
         await OrderRepo.instance.consultPharmacistOrder(
