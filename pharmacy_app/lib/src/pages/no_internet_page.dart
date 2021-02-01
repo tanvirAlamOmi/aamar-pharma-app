@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NoInternetPage extends StatefulWidget {
@@ -58,14 +59,8 @@ class _NoInternetPageState extends State<NoInternetPage> {
       child: Container(
         child: Padding(
           padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-          child: Text(
-            Util.en_bn_du(text: 'No internet connection or Server is down.'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
-          ),
+          child: CustomText('No internet connection or Server is down.',
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
         ),
       ),
     );

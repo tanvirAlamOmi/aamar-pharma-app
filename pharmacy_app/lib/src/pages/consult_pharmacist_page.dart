@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-
 
 class ConsultPharmacistPage extends StatefulWidget {
   ConsultPharmacistPage({Key key}) : super(key: key);
@@ -41,11 +41,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
-              Util.en_bn_du(text: 'REQUEST CALL BACK'),
-              style:
-                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-            ),
+            title: CustomText('REQUEST CALL BACK', color: Colors.white),
           ),
           body: buildBody(context)),
     );
@@ -74,17 +70,12 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
     return Container(
       width: size.width - 150,
       alignment: Alignment.center,
-      child: Text(
-        Util.en_bn_du(
-            text:
-                'For any kind of queries, feel free to consult with a pharmacist.'),
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: Util.en_bn_font(),
-            color: Colors.grey,
-            fontWeight: FontWeight.bold,
-            fontSize: 15),
-      ),
+      child: CustomText(
+          'For any kind of queries, feel free to consult with a pharmacist.',
+          textAlign: TextAlign.center,
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+          fontSize: 15),
     );
   }
 
@@ -96,11 +87,8 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(Util.en_bn_du(text: 'Name'),
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    fontWeight: FontWeight.bold,
-                    color: Util.purplishColor())),
+            CustomText('Name',
+                fontWeight: FontWeight.bold, color: Util.purplishColor()),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this
@@ -130,11 +118,8 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(Util.en_bn_du(text: 'Phone Number'),
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    fontWeight: FontWeight.bold,
-                    color: Util.purplishColor())),
+            CustomText('Phone Number',
+                fontWeight: FontWeight.bold, color: Util.purplishColor()),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this

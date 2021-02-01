@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -160,13 +161,10 @@ class _UploadPrescriptionVerifyPageState
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            Util.en_bn_du(text: 'Add Notes') ,
-            style: TextStyle(  fontFamily: Util.en_bn_font(),
-                color: Util.purplishColor(),
-                fontSize: 12,
-                fontWeight: FontWeight.bold),
-          ),
+          CustomText('Add Notes',
+              color: Util.purplishColor(),
+              fontSize: 12,
+              fontWeight: FontWeight.bold),
           SizedBox(height: 5),
           TextFormField(
             autofocus: false,

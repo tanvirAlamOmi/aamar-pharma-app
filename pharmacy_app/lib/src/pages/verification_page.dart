@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
@@ -70,11 +71,8 @@ class VerificationPageState extends State<VerificationPage> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text(
-            Util.en_bn_du(text: 'Phone Verification'),
-            style: TextStyle(
-              fontFamily: Util.en_bn_font(),
-            ),
+          title: CustomText(
+            'Phone Verification',
           ),
           centerTitle: true,
           leading: isProcessing

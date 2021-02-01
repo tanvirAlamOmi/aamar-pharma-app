@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
@@ -53,9 +54,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
+            title: CustomText(
               'ORDER DETAILS',
-              style: TextStyle(color: Colors.white),
+              color: Colors.white,
             ),
           ),
           body: buildBody(context)),
@@ -166,13 +167,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            child: Text(
-              Util.en_bn_du(text: 'Aamar Pharma'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  color: Util.purplishColor(),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+            child: CustomText(
+              'Aamar Pharma',
+              color: Util.purplishColor(),
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
           ),
           SizedBox(height: 10),
@@ -230,13 +229,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    Util.en_bn_du(text: 'Invoice Number'),
-                    style: TextStyle(
-                        fontFamily: Util.en_bn_font(),
-                        color: Util.purplishColor(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                  child: CustomText(
+                    'Invoice Number',
+                    color: Util.purplishColor(),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
                 ),
                 Container(
@@ -251,13 +248,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    Util.en_bn_du(text: 'Date Of Issue'),
-                    style: TextStyle(
-                        fontFamily: Util.en_bn_font(),
-                        color: Util.purplishColor(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                  child: CustomText(
+                    'Date Of Issue',
+                    color: Util.purplishColor(),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
                 ),
                 Container(
@@ -282,13 +277,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    Util.en_bn_du(text: 'Billed to'),
-                    style: TextStyle(
-                        fontFamily: Util.en_bn_font(),
-                        color: Util.purplishColor(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                  child: CustomText(
+                    'Billed to',
+                    color: Util.purplishColor(),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
                   ),
                 ),
                 Container(
@@ -350,12 +343,10 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                       )),
             );
           },
-          title: Text(Util.en_bn_du(text: 'View Order Details'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  fontWeight: FontWeight.bold,
-                  color: Util.greenishColor(),
-                  fontSize: 14)),
+          title: CustomText('View Order Details',
+              fontWeight: FontWeight.bold,
+              color: Util.greenishColor(),
+              fontSize: 14),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),

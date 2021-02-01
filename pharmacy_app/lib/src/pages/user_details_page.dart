@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.d
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
@@ -70,9 +71,7 @@ class _AccountPageState extends State<AccountPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text(Util.en_bn_du(text: 'MY DETAILS'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(), color: Colors.white)),
+          title: CustomText('MY DETAILS', color: Colors.white),
         ),
         body: SingleChildScrollView(child: buildBody(context)),
       ),

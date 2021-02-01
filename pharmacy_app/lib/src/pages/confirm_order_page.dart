@@ -158,11 +158,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
-              Util.en_bn_du(text: 'CONFIRM ORDER'),
-              style:
-                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-            ),
+            title: CustomText('CONFIRM ORDER', color: Colors.white),
           ),
           body: buildBody(context)),
     );

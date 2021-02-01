@@ -4,6 +4,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
@@ -53,11 +54,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text(
-            Util.en_bn_convert(text: 'HOME'),
-            style:
-                TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-          ),
+          title: CustomText('HOME', color: Colors.white),
           actions: [NotificationActionButton()],
         ),
         body: buildBody(context));
@@ -186,13 +183,11 @@ class _HomePageState extends State<HomePage> {
   Widget buildTitle() {
     return Container(
       padding: EdgeInsets.only(top: 10),
-      child: Text(
-        Util.en_bn_convert(text: 'ORDER MEDICINES AND MORE'),
+      child: CustomText(
+        'ORDER MEDICINES AND MORE',
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: Util.en_bn_font(),
-            fontWeight: FontWeight.bold,
-            color: Util.greenishColor()),
+        fontWeight: FontWeight.bold,
+        color: Util.greenishColor(),
       ),
     );
   }
@@ -202,15 +197,11 @@ class _HomePageState extends State<HomePage> {
       width: 250,
       height: 50,
       padding: EdgeInsets.only(top: 10),
-      child: Text(
-        Util.en_bn_convert(
-            text: 'All medicines except OTC medicines require prescription*'),
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: Util.en_bn_font(),
-            fontWeight: FontWeight.bold,
-            color: Colors.red),
-      ),
+      child: CustomText(
+          'All medicines except OTC medicines require prescription*',
+          textAlign: TextAlign.center,
+          fontWeight: FontWeight.bold,
+          color: Colors.red),
     );
   }
 
@@ -245,15 +236,11 @@ class _HomePageState extends State<HomePage> {
               Container(
                   width: 100,
                   height: 50,
-                  child: Text(
-                    Util.en_bn_du(text: title),
-                    style: TextStyle(
-                        fontFamily: Util.en_bn_font(),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
-                    textAlign: TextAlign.center,
-                  ))
+                  child: CustomText(title,
+                      textAlign: TextAlign.center,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13))
             ],
           ),
         ),
@@ -287,15 +274,11 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.add_call, size: 18, color: Colors.white),
-                  Text(
-                    Util.en_bn_du(text: 'CALL US'),
-                    style: TextStyle(
-                        fontFamily: Util.en_bn_font(),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
-                    textAlign: TextAlign.center,
-                  ),
+                  CustomText('CALL US',
+                      textAlign: TextAlign.center,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13),
                 ],
               ),
             ),
@@ -304,22 +287,14 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  Util.en_bn_du(text: 'ORDER DELIVERY TIME'),
-                  style: TextStyle(
-                      fontFamily: Util.en_bn_font(),
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
-                  Util.en_bn_du(text: '10 AM TO 10 PM'),
-                  style: TextStyle(
-                      fontFamily: Util.en_bn_font(),
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                )
+                CustomText('ORDER DELIVERY TIME',
+                    textAlign: TextAlign.center,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold),
+                CustomText('10 AM TO 10 PM',
+                    textAlign: TextAlign.center,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold)
               ],
             )
           ],

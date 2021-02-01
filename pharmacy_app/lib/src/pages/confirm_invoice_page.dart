@@ -204,23 +204,16 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: CustomText(
-              'We only accept cash on delivery.',
-
-                  color: Util.greenishColor(),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12 
-            ),
+            child: CustomText('We only accept cash on delivery.',
+                color: Util.greenishColor(),
+                fontWeight: FontWeight.bold,
+                fontSize: 12),
           ),
           Container(
-            child: Text(
-              Util.en_bn_du(text: 'Please keep cash ready upon delivery.'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  color: Util.greenishColor(),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12),
-            ),
+            child: CustomText('Please keep cash ready upon delivery.',
+                color: Util.greenishColor(),
+                fontWeight: FontWeight.bold,
+                fontSize: 12),
           )
         ],
       ),
@@ -248,12 +241,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                       )),
             );
           },
-          title: Text(Util.en_bn_du(text: 'View Order Details'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  fontWeight: FontWeight.bold,
-                  color: Util.greenishColor(),
-                  fontSize: 14)),
+          title: CustomText('View Order Details',
+              fontWeight: FontWeight.bold,
+              color: Util.greenishColor(),
+              fontSize: 14),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),
       ),
@@ -264,15 +255,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
       child: Container(
-        child: Text(
-          Util.en_bn_du(
-              text:
-                  'Before confirming order, please check invoice, edit quantity or remove items.'),
-          style: TextStyle(
-              fontFamily: Util.en_bn_font(),
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-              fontSize: 12),
+        child: CustomText(
+          'Before confirming order, please check invoice, edit quantity or remove items.',
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
         ),
       ),
     );

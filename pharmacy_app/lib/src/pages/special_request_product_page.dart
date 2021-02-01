@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 
 class SpecialRequestProductPage extends StatefulWidget {
   SpecialRequestProductPage({Key key}) : super(key: key);
@@ -51,11 +50,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
-              Util.en_bn_du(text: 'REQUEST PRODUCT'),
-              style:
-                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-            ),
+            title: CustomText('REQUEST PRODUCT', color: Colors.white),
           ),
           body: buildBody(context)),
     );
@@ -119,14 +114,10 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                         size: 20,
                       ),
                       SizedBox(height: 3),
-                      Text(
-                        Util.en_bn_du(text: 'ADD PHOTO'),
-                        style: TextStyle(
-                            fontFamily: Util.en_bn_font(),
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      )
+                      CustomText('ADD PHOTO',
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold)
                     ],
                   ),
                 )
@@ -146,11 +137,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(Util.en_bn_du(text: 'Item Name'),
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    fontWeight: FontWeight.bold,
-                    color: Util.purplishColor())),
+            CustomText('Item Name',
+                fontWeight: FontWeight.bold, color: Util.purplishColor()),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this
@@ -180,11 +168,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(Util.en_bn_du(text: 'Quantity'),
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    fontWeight: FontWeight.bold,
-                    color: Util.purplishColor())),
+            CustomText('Quantity',
+                fontWeight: FontWeight.bold, color: Util.purplishColor()),
             SizedBox(height: 3),
             SizedBox(
               height: 35, // set this
@@ -215,14 +200,10 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              Util.en_bn_du(text: 'Add Notes'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  color: Util.purplishColor(),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
+            CustomText('Add Notes',
+                color: Util.purplishColor(),
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
             SizedBox(height: 10),
             TextFormField(
               autofocus: false,

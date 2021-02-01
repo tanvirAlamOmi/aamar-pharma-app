@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
@@ -58,10 +59,7 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: Text(
-            Util.en_bn_du(text: 'REPEAT ORDERS'),
-            style: TextStyle(fontFamily: Util.en_bn_font()),
-          ),
+          title: CustomText('REPEAT ORDERS'),
           leading: AppBarBackButton(),
         ),
         body: Stack(

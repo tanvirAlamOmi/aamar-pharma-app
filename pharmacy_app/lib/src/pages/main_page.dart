@@ -1,5 +1,6 @@
 import 'package:pharmacy_app/src/bloc/auto_refresh_timer.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/home_page.dart';
 import 'package:pharmacy_app/src/pages/user_details_page.dart';
@@ -86,18 +87,15 @@ class _MainPageState extends State<MainPage> {
   List<BottomNavigationBarItem> buildBottomBarItems() {
     return [
       BottomNavigationBarItem(
-        title: Text(Util.en_bn_du(text: 'Home'),
-            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
+        title: CustomText('Home', fontSize: 13),
         icon: Icon(Icons.home, size: 24),
       ),
       BottomNavigationBarItem(
-        title: Text(Util.en_bn_du(text: 'Order'),
-            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
+        title: CustomText('Order', fontSize: 13),
         icon: Icon(Icons.add_shopping_cart, size: 24),
       ),
       BottomNavigationBarItem(
-        title: Text(Util.en_bn_du(text: 'Account'),
-            style: TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13)),
+        title: CustomText('Account', fontSize: 13),
         icon: Icon(Icons.account_circle, size: 24),
       ),
     ];

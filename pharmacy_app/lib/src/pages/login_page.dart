@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
@@ -90,34 +91,18 @@ class LoginPageState extends State<LoginPage> {
     return Column(
       children: <Widget>[
         SizedBox(height: 30),
-        Text(
-          Util.en_bn_du(text: 'LOGIN'),
-          style: TextStyle(
-              fontFamily: Util.en_bn_font(),
-              color: Util.greenishColor(),
-              fontWeight: FontWeight.bold,
-              fontSize: 20),
-        ),
+        CustomText('LOGIN',
+            color: Util.greenishColor(),
+            fontWeight: FontWeight.bold,
+            fontSize: 20),
         SizedBox(height: 20),
-        Text(
-          Util.en_bn_du(text: 'Enter your mobile number'),
-          style: TextStyle(
-              fontFamily: Util.en_bn_font(),
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontSize: 13),
-        ),
+        CustomText('Enter your mobile number',
+            color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13),
         SizedBox(height: 3),
-        Text(
-          Util.en_bn_du(
-              text:
-                  'We will send you a verification code by text message(SMS)'),
-          style: TextStyle(
-              fontFamily: Util.en_bn_font(),
-              color: Colors.grey[500],
-              fontWeight: FontWeight.normal,
-              fontSize: 11),
-        ),
+        CustomText('We will send you a verification code by text message(SMS)',
+            color: Colors.grey[500],
+            fontWeight: FontWeight.normal,
+            fontSize: 11),
       ],
     );
   }
