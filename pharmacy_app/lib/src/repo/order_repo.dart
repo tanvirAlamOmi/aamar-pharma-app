@@ -159,17 +159,15 @@ class OrderRepo {
       int itemQuantity,
       String note}) async {
     await Future.delayed(Duration(seconds: 1));
-    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
-
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.token;
 
         final specialRequestOrderProductRequest = jsonEncode(<String, dynamic>{
-          'image': productImage,
           'item_name': itemName,
-          'item_quantity': itemQuantity,
+          'quantity': itemQuantity,
+          'image': productImage,
           'note': note,
         });
 

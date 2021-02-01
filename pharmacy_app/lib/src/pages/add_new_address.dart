@@ -47,7 +47,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
           elevation: 1,
           centerTitle: true,
           leading: AppBarBackButton(),
-          title: CustomText('ADD ADDRESS', color: Colors.white),
+          title: CustomText('ADD ADDRESS',
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         body: buildBody(context));
   }

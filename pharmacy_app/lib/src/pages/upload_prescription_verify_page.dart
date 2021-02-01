@@ -195,7 +195,10 @@ class _UploadPrescriptionVerifyPageState
   }
 
   void removeItem(dynamic index) {
-    if (widget.prescriptionImageFileList.length == 1) return;
+    if (widget.prescriptionImageFileList.length == 1) {
+      Util.showSnackBar(message: '1 image is mandatory for the prescription', scaffoldKey: _scaffoldKey);
+      return;
+    }
     widget.prescriptionImageFileList
         .remove(widget.prescriptionImageFileList[index]);
     refreshUI();

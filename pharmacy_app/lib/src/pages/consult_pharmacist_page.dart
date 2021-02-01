@@ -41,7 +41,8 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('REQUEST CALL BACK', color: Colors.white),
+            title: CustomText('REQUEST CALL BACK',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );

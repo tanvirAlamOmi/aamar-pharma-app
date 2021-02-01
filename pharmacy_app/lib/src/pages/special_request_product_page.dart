@@ -25,6 +25,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
 
   final TextEditingController itemQuantityController =
       new TextEditingController();
+  final TextEditingController phoneNumberController =
+      new TextEditingController();
   final TextEditingController noteController = new TextEditingController();
 
   Uint8List imageData;
@@ -50,7 +52,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('REQUEST PRODUCT', color: Colors.white),
+            title: CustomText('REQUEST PRODUCT',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -67,6 +70,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
           SizedBox(height: 10),
           buildProductQuantityInputWidget(),
           SizedBox(height: 10),
+          buildPhoneNumberInputWidget(),
           buildNoteInputWidget(),
           buildSubmitButton()
         ],
@@ -174,10 +178,43 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
             SizedBox(
               height: 35, // set this
               child: TextField(
+                keyboardType: TextInputType.number,
                 controller: itemQuantityController,
                 decoration: new InputDecoration(
                   isDense: true,
                   hintText: "20",
+                  hintStyle: TextStyle(fontSize: 13),
+                  fillColor: Colors.white,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildPhoneNumberInputWidget() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CustomText('Phone Number',
+                fontWeight: FontWeight.bold, color: Util.purplishColor()),
+            SizedBox(height: 3),
+            SizedBox(
+              height: 35, // set this
+              child: TextField(
+                keyboardType: TextInputType.number,
+                controller: phoneNumberController,
+                decoration: new InputDecoration(
+                  isDense: true,
+                  hintText: "01xxxxxxxxx",
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -233,7 +270,12 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
       title: "SUBMIT",
       height: 40,
       isProcessing: isProcessing,
-      callBackOnSubmit: onSubmit,
+      callBackOnSubmit: () {
+        showAlertDialog(
+            context: context,
+            message: 'Are you sure to submit this request?',
+            acceptFunc: onSubmit);
+      },
     );
   }
 
@@ -278,6 +320,13 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
       Util.showSnackBar(
           message: 'Please provide name or picture of the item',
           scaffoldKey: _scaffoldKey);
+      return;
+    }
+
+    if (phoneNumberController.text.length != 11) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
       return;
     }
 

@@ -71,7 +71,8 @@ class _AccountPageState extends State<AccountPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: CustomText('MY DETAILS', color: Colors.white),
+          title: CustomText('MY DETAILS',
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         body: SingleChildScrollView(child: buildBody(context)),
       ),

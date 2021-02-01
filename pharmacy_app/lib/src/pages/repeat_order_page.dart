@@ -59,7 +59,8 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: CustomText('REPEAT ORDERS'),
+          title: CustomText('REPEAT ORDERS',
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           leading: AppBarBackButton(),
         ),
         body: Stack(

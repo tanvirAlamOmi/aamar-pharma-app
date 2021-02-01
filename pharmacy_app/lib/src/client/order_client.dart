@@ -117,7 +117,7 @@ class OrderClient {
         .post(
             ServerConfig.SERVER_HOST +
                 ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/order-with-items',
+                '/api/appapi/request-product',
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
