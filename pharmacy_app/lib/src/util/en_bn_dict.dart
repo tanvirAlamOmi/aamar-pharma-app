@@ -13,10 +13,6 @@ class EnBnDict {
     return textMessage;
   }
 
-  static String en_bn_du({String text}) {
-    return text;
-  }
-
   static String en_bn_font() {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
       return null;

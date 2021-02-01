@@ -36,7 +36,9 @@ class AddDeliveryAddressButton extends StatelessWidget {
         );
       },
       title: CustomText('Add New Address',
-          fontWeight: FontWeight.bold, fontSize: 12),
+          textAlign: TextAlign.start,
+          fontWeight: FontWeight.bold,
+          fontSize: 13.5),
       trailing: Icon(Icons.keyboard_arrow_right),
     );
   }

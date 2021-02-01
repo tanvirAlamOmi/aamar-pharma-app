@@ -147,7 +147,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       controller: itemNameController,
                       decoration: new InputDecoration(
                         isDense: true,
-                        hintText: EnBnDict.en_bn_du(text: 'Napa, Astesin'),
+                        hintText: EnBnDict.en_bn_convert(text: 'Napa, Astesin'),
                         hintStyle: TextStyle(
                             fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                         fillColor: Colors.white,
@@ -179,7 +179,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemUnitController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: EnBnDict.en_bn_du(text: 'e.g. mg,ml'),
+                              hintText: EnBnDict.en_bn_convert(text: 'e.g. mg,ml'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),
@@ -211,7 +211,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: EnBnDict.en_bn_du(text: 'e.g. 10,15'),
+                              hintText: EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),

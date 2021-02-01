@@ -49,7 +49,7 @@ class TimeChooseButton extends StatelessWidget {
               SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   buildTimeText(),
                   SizedBox(width: 10),

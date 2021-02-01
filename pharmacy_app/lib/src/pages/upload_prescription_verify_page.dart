@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
@@ -49,10 +50,8 @@ class _UploadPrescriptionVerifyPageState
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
-              'UPLOAD PRESCRIPTION',
-              style: TextStyle(color: Colors.white),
-            ),
+            title: CustomText('UPLOAD PRESCRIPTION',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -163,7 +162,7 @@ class _UploadPrescriptionVerifyPageState
         children: [
           CustomText('Add Notes',
               color: Util.purplishColor(),
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: FontWeight.bold),
           SizedBox(height: 5),
           TextFormField(
@@ -175,8 +174,10 @@ class _UploadPrescriptionVerifyPageState
                 color: Colors.black,
                 fontSize: 17),
             decoration: new InputDecoration(
-              hintText: "Notes e.g. I need all the medicines",
-              hintStyle: TextStyle(fontSize: 13),
+              hintText: EnBnDict.en_bn_convert(
+                  text: "Notes e.g. I need all the medicines"),
+              hintStyle:
+                  TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
               fillColor: Colors.white,
               border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(5.0),

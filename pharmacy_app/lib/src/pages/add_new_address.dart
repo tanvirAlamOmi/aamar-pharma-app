@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
@@ -88,7 +89,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: addressTypeController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: EnBnDict.en_bn_du(text: 'Home/Office'),
+                hintText: EnBnDict.en_bn_convert(text: 'Home/Office'),
                 hintStyle:
                     TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
@@ -118,7 +119,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: fullAddressController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: EnBnDict.en_bn_du(text: '39/A Housing Estate...'),
+                hintText: EnBnDict.en_bn_convert(text: '39/A Housing Estate...'),
                 hintStyle:
                     TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
@@ -133,6 +134,12 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   }
 
   Widget buildAreaSelectionDropDown() {
+    return                     DropDownItem(
+        dropDownList: areaList,
+        selectedItem: selectedArea,
+        setSelectedItem: setSelectedDeliveryTimeTime,
+        callBackRefreshUI: refreshUI);
+
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       child: Column(
