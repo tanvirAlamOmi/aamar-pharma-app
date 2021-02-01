@@ -119,7 +119,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: fullAddressController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: EnBnDict.en_bn_convert(text: '39/A Housing Estate...'),
+                hintText:
+                    EnBnDict.en_bn_convert(text: '39/A Housing Estate...'),
                 hintStyle:
                     TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
@@ -133,11 +134,12 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
     );
   }
 
+
   Widget buildAreaSelectionDropDown() {
-    return                     DropDownItem(
+    return DropDownItem(
         dropDownList: areaList,
         selectedItem: selectedArea,
-        setSelectedItem: setSelectedDeliveryTimeTime,
+        setSelectedItem: setSelectedArea,
         callBackRefreshUI: refreshUI);
 
     return Container(
@@ -196,6 +198,11 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
       ),
     );
   }
+
+  void setSelectedArea(dynamic value) {
+    selectedArea = value;
+  }
+
 
   void submitData() async {
     if (addressTypeController.text.isEmpty ||
