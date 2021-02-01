@@ -205,23 +205,7 @@ class Util {
     return deliveryAddressDetails;
   }
 
-  static String en_bn_convert({String text}) {
-    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return text;
-    }
-    return EN_BN_DICT.DICTINARY[text];
-  }
 
-  static String en_bn_du({String text}) {
-    return text;
-  }
-
-  static String en_bn_font() {
-    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return null;
-    }
-    return 'solaiman';
-  }
 
   static getDefualtInvoice() {
     return Invoice(invoiceItemList: [

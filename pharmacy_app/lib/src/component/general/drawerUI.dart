@@ -9,6 +9,8 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'common_ui.dart';
+
 class MainDrawer extends StatefulWidget {
   static final MainDrawer _drawer = new MainDrawer._internal();
 
@@ -57,14 +59,10 @@ class _MainDrawerState extends State<MainDrawer> {
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(text: 'REPEAT ORDERS'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('REPEAT ORDERS',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading: Icon(Icons.shopping_bag, color: Util.purplishColor()),
           onTap: () {
             Navigator.pop(context);
@@ -78,14 +76,10 @@ class _MainDrawerState extends State<MainDrawer> {
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(text: 'SPECIAL REQUEST'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('SPECIAL REQUEST',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading: Icon(Icons.ac_unit_sharp, color: Util.purplishColor()),
           onTap: () {
             Navigator.pop(context);
@@ -99,14 +93,10 @@ class _MainDrawerState extends State<MainDrawer> {
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(text: 'CONSULT PHARMACIST'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('CONSULT PHARMACIST',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading: Icon(Icons.call, color: Util.purplishColor()),
           onTap: () {
             Navigator.pop(context);
@@ -116,14 +106,10 @@ class _MainDrawerState extends State<MainDrawer> {
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(text: 'HELP & FAQ'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('HELP & FAQ',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading:
               Icon(Icons.mark_email_read_rounded, color: Util.purplishColor()),
           onTap: () {}),
@@ -131,29 +117,20 @@ class _MainDrawerState extends State<MainDrawer> {
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(text: 'ABOUT'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('ABOUT',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading: Icon(Icons.info, color: Util.purplishColor()),
           onTap: () {}),
     );
     children.add(
       ListTile(
           dense: true,
-          title: Text(
-            Util.en_bn_convert(
-                text: 'LANGUAGE (${Store.instance.appState.language})'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-                fontSize: 15),
-          ),
+          title: CustomText('LANGUAGE (${Store.instance.appState.language})',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              fontSize: 15),
           leading: Icon(Icons.language, color: Util.purplishColor()),
           onTap: () async {
             await Store.instance.updateLanguage(
@@ -166,14 +143,10 @@ class _MainDrawerState extends State<MainDrawer> {
       children.add(
         ListTile(
             dense: true,
-            title: Text(
-              Util.en_bn_convert(text: 'LOG OUT'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 15),
-            ),
+            title: CustomText('LOG OUT',
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
             leading: Icon(
               Icons.logout,
               color: Util.purplishColor(),

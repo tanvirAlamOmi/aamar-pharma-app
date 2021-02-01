@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
-import 'package:pharmacy_app/src/models/order/order.dart';
-import 'package:pharmacy_app/src/models/states/ui_state.dart';
-import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
-import 'package:pharmacy_app/src/pages/order_details_page.dart';
-import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NotificationCard extends StatefulWidget {
@@ -73,7 +67,11 @@ class _NotificationCardState extends State<NotificationCard> {
           children: [
             Container(
               width: 30,
-              child: Icon(Icons.shopping_bag,color: Util.greenishColor(),size: 28,),
+              child: Icon(
+                Icons.shopping_bag,
+                color: Util.greenishColor(),
+                size: 28,
+              ),
             ),
             SizedBox(width: 10),
             Expanded(
@@ -86,7 +84,8 @@ class _NotificationCardState extends State<NotificationCard> {
                           color: Colors.black, fontWeight: FontWeight.bold)),
                   SizedBox(height: 5),
                   Text(notificationItem.message,
-                      style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
+                      style:
+                          TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
                 ],
               ),
             ),
@@ -99,8 +98,6 @@ class _NotificationCardState extends State<NotificationCard> {
       ),
     );
   }
-
-
 
   void refreshUI() {
     if (mounted) setState(() {});

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/pages/notification_page.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NotificationActionButton extends StatefulWidget {
@@ -65,7 +67,7 @@ class _NotificationActionButton extends State<NotificationActionButton> {
   }
 
   Widget buildBadgeText(count) {
-    final String textCount =count < 100 ? '$count' : '99+';
+    final String textCount = count < 100 ? '$count' : '99+';
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50.0),
@@ -77,15 +79,12 @@ class _NotificationActionButton extends State<NotificationActionButton> {
           vertical: 3.0,
           horizontal: count < 10 ? 6.0 : 3.0,
         ),
-        child: Text(
-          Util.en_bn_du(text: textCount),
+        child: CustomText(
+          textCount,
           overflow: TextOverflow.fade,
-          style: TextStyle(
-            fontFamily: Util.en_bn_font(),
-            fontSize: 12.0,
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
+          fontSize: 12.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
         ),
       ),
     );

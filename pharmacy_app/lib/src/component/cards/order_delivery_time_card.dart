@@ -1,11 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class OrderDeliveryAddressCard extends StatelessWidget {
@@ -55,13 +51,8 @@ class OrderDeliveryAddressCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            Util.en_bn_du(text: 'DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontWeight: FontWeight.bold,
-                color: Util.greenishColor()),
-          ),
+          CustomText('DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)',
+              fontWeight: FontWeight.bold, color: Util.greenishColor()),
           SizedBox(height: 15),
           Row(
             children: [
@@ -70,12 +61,10 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      Util.en_bn_du(text: 'Day'),
-                      style: TextStyle(
-                          fontFamily: Util.en_bn_font(),
-                          fontWeight: FontWeight.bold,
-                          color: Util.purplishColor()),
+                    CustomText(
+                      'Day',
+                      fontWeight: FontWeight.bold,
+                      color: Util.purplishColor(),
                     ),
                     DropDownItem(
                       dropDownList: deliveryTimeDay,
@@ -92,12 +81,10 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      Util.en_bn_du(text: 'Time'),
-                      style: TextStyle(
-                          fontFamily: Util.en_bn_font(),
-                          fontWeight: FontWeight.bold,
-                          color: Util.purplishColor()),
+                    CustomText(
+                      'Time',
+                      fontWeight: FontWeight.bold,
+                      color: Util.purplishColor(),
                     ),
                     DropDownItem(
                         dropDownList: deliveryTimeTime,

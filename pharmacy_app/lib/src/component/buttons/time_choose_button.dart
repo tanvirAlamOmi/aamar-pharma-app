@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/clock_spinner.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class TimeChooseButton extends StatelessWidget {
@@ -42,11 +44,8 @@ class TimeChooseButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: 3),
-              Text(Util.en_bn_du(text: 'Time'),
-                  style: TextStyle(
-                      fontFamily: Util.en_bn_font(),
-                      fontWeight: FontWeight.bold,
-                      color: Util.purplishColor())),
+              CustomText('Time',
+                  fontWeight: FontWeight.bold, color: Util.purplishColor()),
               SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,10 +86,8 @@ class TimeChooseButton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(Util.en_bn_du(text: 'SELECT DELIVERY TIME'),
-                        style: TextStyle(
-                            fontFamily: Util.en_bn_font(),
-                            fontWeight: FontWeight.bold)),
+                    CustomText('SELECT DELIVERY TIME',
+                        fontWeight: FontWeight.bold),
                     SizedBox(height: 15),
                     Divider(height: 1, color: Colors.grey[700]),
                     hourMinute12H(),
@@ -108,13 +105,9 @@ class TimeChooseButton extends StatelessWidget {
                             color: Colors.transparent,
                             width: 60,
                             height: 30,
-                            child: Text(
-                              Util.en_bn_du(text: 'OK'),
-                              style: TextStyle(
-                                  fontFamily: Util.en_bn_font(),
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
+                            child: CustomText('OK',
+                                textAlign: TextAlign.center,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

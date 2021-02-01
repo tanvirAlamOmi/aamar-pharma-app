@@ -57,11 +57,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: Text(
-              Util.en_bn_du(text: ' CONFIRM ORDER'),
-              style:
-                  TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-            ),
+            title: CustomText('CONFIRM ORDER', color: Colors.white),
           ),
           body: buildBody(context)),
     );
@@ -208,13 +204,12 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: Text(
-              Util.en_bn_du(text: 'We only accept cash on delivery.'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
+            child: CustomText(
+              'We only accept cash on delivery.',
+
                   color: Util.greenishColor(),
                   fontWeight: FontWeight.bold,
-                  fontSize: 12),
+                  fontSize: 12 
             ),
           ),
           Container(

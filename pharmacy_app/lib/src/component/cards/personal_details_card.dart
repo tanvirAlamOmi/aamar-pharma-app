@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class PersonalDetailsCard extends StatelessWidget {
@@ -41,19 +42,11 @@ class PersonalDetailsCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                Util.en_bn_du(text: 'PERSONAL DETAILS')   ,
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    color: Util.greenishColor(), fontWeight: FontWeight.bold),
-              ),
+              CustomText('PERSONAL DETAILS',
+                  color: Util.greenishColor(), fontWeight: FontWeight.bold),
               SizedBox(height: 20),
-              Text(
-                Util.en_bn_du(text: 'NAME')   ,
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    color: Util.purplishColor(), fontWeight: FontWeight.bold),
-              ),
+              CustomText('NAME',
+                  color: Util.purplishColor(), fontWeight: FontWeight.bold),
               SizedBox(height: 3),
               SizedBox(
                 height: 35, // set this
@@ -82,13 +75,9 @@ class PersonalDetailsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      Util.en_bn_du(text: 'EMAIL')   ,
-                      style: TextStyle(
-                          fontFamily: Util.en_bn_font(),
-                          color: Util.purplishColor(),
-                          fontWeight: FontWeight.bold),
-                    ),
+                    CustomText('EMAIL',
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold),
                     SizedBox(height: 3),
                     SizedBox(
                       height: 35, // set this
@@ -99,8 +88,8 @@ class PersonalDetailsCard extends StatelessWidget {
                           hintText: "Your Email",
                           hintStyle: TextStyle(fontSize: 13),
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 5),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                         ),
                       ),
                     )
@@ -115,13 +104,9 @@ class PersonalDetailsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      Util.en_bn_du(text: 'Phone Number')   ,
-                      style: TextStyle(
-                          fontFamily: Util.en_bn_font(),
-                          color: Util.purplishColor(),
-                          fontWeight: FontWeight.bold),
-                    ),
+                    CustomText('Phone Number',
+                        color: Util.purplishColor(),
+                        fontWeight: FontWeight.bold),
                     SizedBox(height: 3),
                     SizedBox(
                       height: 35, // set this
@@ -132,8 +117,8 @@ class PersonalDetailsCard extends StatelessWidget {
                           hintText: "Your Phone Number",
                           hintStyle: TextStyle(fontSize: 13),
                           fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 5),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                         ),
                       ),
                     )

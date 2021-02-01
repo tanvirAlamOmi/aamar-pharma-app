@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -28,7 +29,8 @@ class CustomMessageBox extends StatelessWidget {
     this.messageTitle,
     this.startPoint,
     this.midPoint,
-    this.endPoint, this.callBackAction,
+    this.endPoint,
+    this.callBackAction,
   }) : super(key: key);
 
   @override
@@ -62,15 +64,11 @@ class CustomMessageBox extends StatelessWidget {
             children: [
               CrossButton(),
               SizedBox(height: 8),
-              Text(
-                Util.en_bn_du(text: messageTitle) ,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    color: Util.purplishColor(),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15),
-              )
+              CustomText(messageTitle,
+                  textAlign: TextAlign.center,
+                  color: Util.purplishColor(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15)
             ],
           ),
         ),

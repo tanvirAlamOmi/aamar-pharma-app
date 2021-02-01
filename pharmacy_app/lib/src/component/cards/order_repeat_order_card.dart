@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/buttons/time_choose_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -72,26 +73,19 @@ class OrderRepeatOrderCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            Util.en_bn_du(text: 'Repeat Order'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(),
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Util.greenishColor()),
+          CustomText(
+            'Repeat Order',
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Util.greenishColor(),
           ),
           Container(
             width: size.width - 100,
-            child: Text(
-              Util.en_bn_du(
-                  text:
-                      'Select this option if you want to get this order on a regular basis'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13),
-            ),
+            child: CustomText(
+                'Select this option if you want to get this order on a regular basis',
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 13),
           )
         ],
       ),
@@ -115,26 +109,19 @@ class OrderRepeatOrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(
-                Util.en_bn_du(text: 'Repeat Order'),
-                style: TextStyle(
-                    fontFamily: Util.en_bn_font(),
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Util.greenishColor()),
+              CustomText(
+                'Repeat Order',
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Util.greenishColor(),
               ),
               Container(
                 width: size.width - 100,
-                child: Text(
-                  Util.en_bn_du(
-                      text:
-                          'Select this option if you want to get this order on a regular basis'),
-                  style: TextStyle(
-                      fontFamily: Util.en_bn_font(),
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
-                ),
+                child: CustomText(
+                    'Select this option if you want to get this order on a regular basis',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13),
               )
             ],
           ),
@@ -151,11 +138,8 @@ class OrderRepeatOrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(Util.en_bn_du(text: 'Every'),
-                  style: TextStyle(
-                      fontFamily: Util.en_bn_font(),
-                      fontWeight: FontWeight.bold,
-                      color: Util.purplishColor())),
+              CustomText('Every',
+                  fontWeight: FontWeight.bold, color: Util.purplishColor()),
               DropDownItem(
                 dropDownList: repeatDeliveryLongGap,
                 selectedItem: selectedRepeatDeliveryLongGap,
@@ -176,11 +160,9 @@ class OrderRepeatOrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(Util.en_bn_du(text: 'Day')   ,
-                        style: TextStyle(
-                            fontFamily: Util.en_bn_font(),
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor())),
+                    CustomText('Day',
+                        fontWeight: FontWeight.bold,
+                        color: Util.purplishColor()),
                     SizedBox(height: 1),
                     DropDownItem(
                       dropDownList: repeatDeliveryDayBar,

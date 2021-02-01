@@ -7,6 +7,8 @@ import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
+import 'common_ui.dart';
+
 class DropDownItem extends StatelessWidget {
   final List<dynamic> dropDownList;
   final dynamic selectedItem;
@@ -92,14 +94,10 @@ class DropDownItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            child: Text(
-              Util.en_bn_du(text: menuItem),
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  color: dropDownTextColor ?? Colors.grey,
-                  fontSize: 15),
-            ),
+            child: CustomText(menuItem,
+                overflow: TextOverflow.ellipsis,
+                color: dropDownTextColor ?? Colors.grey,
+                fontSize: 15),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -88,13 +89,11 @@ class AllAddressCard extends StatelessWidget {
                           height: 23,
                         ),
                         SizedBox(height: 2),
-                        Text(
-                          Util.en_bn_du(text: 'REMOVE'),
-                          style: TextStyle(
-                              fontFamily: Util.en_bn_font(),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: Colors.red),
+                        CustomText(
+                          'REMOVE',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: Colors.red,
                         ),
                       ],
                     )

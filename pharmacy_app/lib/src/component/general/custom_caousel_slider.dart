@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
+import 'common_ui.dart';
+
 class CustomCarouselSlider extends StatefulWidget {
   final List<Widget> carouselListWidget;
   final bool showRemoveImageButton;
@@ -124,11 +126,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             height: 25,
           ),
           SizedBox(width: 5),
-          Text(
-            Util.en_bn_du(text: 'REMOVE'),
-            style: TextStyle(
-                fontFamily: Util.en_bn_font(), color: Colors.red, fontSize: 12),
-          )
+          CustomText('REMOVE', color: Colors.red, fontSize: 12)
         ],
       ),
     );

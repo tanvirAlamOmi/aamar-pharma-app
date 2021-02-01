@@ -1,6 +1,8 @@
 import 'package:pharmacy_app/src/bloc/stream.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class GeneralActionButton extends StatelessWidget {
@@ -31,9 +33,9 @@ class GeneralActionButton extends StatelessWidget {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         minWidth: double.infinity,
         onPressed: () => (isProcessing == false) ? callBack() : () {},
-        child: Text(
-          Util.en_bn_du(text: title),
-          style: TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
+        child: CustomText(
+          title,
+          color: Colors.white,
         ),
         color: getButtonColor(),
       ),

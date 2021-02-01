@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class HomePageSliderSingleCard extends StatelessWidget {
@@ -34,12 +35,11 @@ class HomePageSliderSingleCard extends StatelessWidget {
         child: Container(
       alignment: Alignment.center,
       padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
-      child: Text(
-          Util.en_bn_du(
-              text:
-                  'We offer Medicines Wellness, Products Devices and More, products that you wont get any where in the world'),
-          style: TextStyle(
-              fontFamily: Util.en_bn_font(), color: Colors.grey, fontSize: 12)),
+      child: CustomText(
+          'We offer Medicines Wellness, Products Devices and More,'
+          ' products that you wont get any where in the world',
+          color: Colors.grey,
+          fontSize: 12),
     ));
   }
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-
 
 class AddNewAddressPage extends StatefulWidget {
   final Function() callBack;
@@ -45,11 +46,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
           elevation: 1,
           centerTitle: true,
           leading: AppBarBackButton(),
-          title: Text(
-            Util.en_bn_du(text: 'ADD ADDRESS'),
-            style:
-                TextStyle(fontFamily: Util.en_bn_font(), color: Colors.white),
-          ),
+          title: CustomText('ADD ADDRESS', color: Colors.white),
         ),
         body: buildBody(context));
   }
@@ -82,11 +79,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(Util.en_bn_du(text: 'Address Type'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  fontWeight: FontWeight.bold,
-                  color: Util.purplishColor())),
+          CustomText('Address Type',
+              fontWeight: FontWeight.bold, color: Util.purplishColor()),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -94,9 +88,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: addressTypeController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: Util.en_bn_du(text: 'Home/Office'),
+                hintText: EnBnDict.en_bn_du(text: 'Home/Office'),
                 hintStyle:
-                    TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13),
+                    TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -115,11 +109,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(Util.en_bn_du(text: 'Address'),
-              style: TextStyle(
-                  fontFamily: Util.en_bn_font(),
-                  fontWeight: FontWeight.bold,
-                  color: Util.purplishColor())),
+          CustomText('Address',
+              fontWeight: FontWeight.bold, color: Util.purplishColor()),
           SizedBox(height: 3),
           SizedBox(
             height: 35, // set this
@@ -127,9 +118,9 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               controller: fullAddressController,
               decoration: new InputDecoration(
                 isDense: true,
-                hintText: Util.en_bn_du(text: '39/A Housing Estate...'),
+                hintText: EnBnDict.en_bn_du(text: '39/A Housing Estate...'),
                 hintStyle:
-                    TextStyle(fontFamily: Util.en_bn_font(), fontSize: 13),
+                    TextStyle(fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                 fillColor: Colors.white,
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -148,9 +139,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(Util.en_bn_du(text: 'Select Area'),
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, color: Util.purplishColor())),
+          CustomText('Select Area',
+              fontWeight: FontWeight.bold, color: Util.purplishColor()),
           SizedBox(height: 1),
           Container(
             decoration: BoxDecoration(

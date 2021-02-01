@@ -1,4 +1,27 @@
-class EN_BN_DICT {
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
+
+class EnBnDict {
+  static String en_bn_convert({String text}) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return text;
+    }
+    return EnBnDict.DICTINARY[text];
+  }
+
+  static String en_bn_du({String text}) {
+    return text;
+  }
+
+  static String en_bn_font() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return null;
+    }
+    return 'solaiman';
+  }
+
+
+
   static final DICTINARY = {
     //Drawer
     'REPEAT ORDERS': 'অর্ডার রিপিট করুন',
