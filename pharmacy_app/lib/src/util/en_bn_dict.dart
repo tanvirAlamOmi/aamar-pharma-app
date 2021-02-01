@@ -3,10 +3,14 @@ import 'package:pharmacy_app/src/store/store.dart';
 
 class EnBnDict {
   static String en_bn_convert({String text}) {
+    String textMessage = text;
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return text;
+      return textMessage;
     }
-    return EnBnDict.DICTINARY[text];
+    if (EnBnDict.DICTINARY.containsKey(textMessage)) {
+      return EnBnDict.DICTINARY[text];
+    }
+    return textMessage;
   }
 
   static String en_bn_du({String text}) {
@@ -19,8 +23,6 @@ class EnBnDict {
     }
     return 'solaiman';
   }
-
-
 
   static final DICTINARY = {
     //Drawer

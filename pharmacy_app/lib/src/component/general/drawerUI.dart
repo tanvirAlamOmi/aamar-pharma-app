@@ -60,6 +60,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('REPEAT ORDERS',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -77,6 +78,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('SPECIAL REQUEST',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -94,6 +96,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('CONSULT PHARMACIST',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -107,6 +110,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('HELP & FAQ',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -118,6 +122,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('ABOUT',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -128,6 +133,7 @@ class _MainDrawerState extends State<MainDrawer> {
       ListTile(
           dense: true,
           title: CustomText('LANGUAGE (${Store.instance.appState.language})',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Colors.grey[700],
               fontSize: 15),
@@ -144,6 +150,7 @@ class _MainDrawerState extends State<MainDrawer> {
         ListTile(
             dense: true,
             title: CustomText('LOG OUT',
+                textAlign: TextAlign.start,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[700],
                 fontSize: 15),

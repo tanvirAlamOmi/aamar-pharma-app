@@ -22,7 +22,7 @@ Widget CustomText(String title,
     style: TextStyle(
         fontFamily: EnBnDict.en_bn_font(),
         fontWeight: fontWeight ?? FontWeight.normal,
-        fontSize: fontSize ?? 13,
+        fontSize: fontSize ?? 14.5,
         color: color ?? Colors.black),
   );
 }

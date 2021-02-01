@@ -39,7 +39,8 @@ class HomePageSliderSingleCard extends StatelessWidget {
           'We offer Medicines Wellness, Products Devices and More,'
           ' products that you wont get any where in the world',
           color: Colors.grey,
-          fontSize: 12),
+          textAlign: TextAlign.start,
+          fontSize: 13.5),
     ));
   }
 

@@ -54,7 +54,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           elevation: 1,
           centerTitle: true,
-          title: CustomText('HOME', color: Colors.white),
+          title: CustomText('HOME',
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           actions: [NotificationActionButton()],
         ),
         body: buildBody(context));
@@ -187,6 +188,7 @@ class _HomePageState extends State<HomePage> {
         'ORDER MEDICINES AND MORE',
         textAlign: TextAlign.center,
         fontWeight: FontWeight.bold,
+        fontSize: 15,
         color: Util.greenishColor(),
       ),
     );
@@ -200,6 +202,7 @@ class _HomePageState extends State<HomePage> {
       child: CustomText(
           'All medicines except OTC medicines require prescription*',
           textAlign: TextAlign.center,
+          fontSize: 13,
           fontWeight: FontWeight.bold,
           color: Colors.red),
     );

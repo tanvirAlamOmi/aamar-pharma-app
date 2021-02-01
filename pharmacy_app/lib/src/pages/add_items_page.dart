@@ -1,26 +1,15 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
-import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 
@@ -59,7 +48,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('ADD ITEMS', color: Colors.white),
+            title: CustomText('ADD ITEMS',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -210,7 +200,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CustomText('Quantity', fontWeight: FontWeight.bold),
+                        CustomText('Quantity',
+                            fontWeight: FontWeight.bold,
+                            color: Util.purplishColor()),
                         SizedBox(height: 3),
                         SizedBox(
                           height: 35, // set this
@@ -278,8 +270,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
           clipBehavior: Clip.antiAlias, // Add This
           child: ListTile(
             title: Text(singleItem.itemName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            subtitle: Text("QUANTITY: " + singleItem.quantity.toString()),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            subtitle: Text("QUANTITY: " + singleItem.quantity.toString(),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
@@ -301,9 +294,10 @@ class _AddItemsPageState extends State<AddItemsPage> {
             callBackDeleteItem: removeItemFromList,
             refreshUI: refreshUI,
             objectIdentifier: singleItem,
+            iconSize: 16,
           ),
           SizedBox(height: 5),
-          CustomText('REMOVE', color: Colors.red, fontSize: 10)
+          CustomText('REMOVE', fontWeight: FontWeight.w500, color: Colors.red, fontSize: 10)
         ],
       ),
     );
