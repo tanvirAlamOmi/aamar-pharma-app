@@ -4,7 +4,7 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class OrderDeliveryAddressCard extends StatelessWidget {
+class OrderDeliveryTimeScheduleCard extends StatelessWidget {
   final Function() callBackRefreshUI;
 
   final Function(dynamic value) setSelectedDeliveryTimeDay;
@@ -15,7 +15,7 @@ class OrderDeliveryAddressCard extends StatelessWidget {
   final List<String> deliveryTimeTime;
   final String selectedDeliveryTimeTime;
 
-  const OrderDeliveryAddressCard(
+  const OrderDeliveryTimeScheduleCard(
       {Key key,
       this.callBackRefreshUI,
       this.deliveryTimeTime,
@@ -64,6 +64,7 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                     CustomText(
                       'Day',
                       fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.start,
                       color: Util.purplishColor(),
                     ),
                     DropDownItem(
@@ -84,6 +85,7 @@ class OrderDeliveryAddressCard extends StatelessWidget {
                     CustomText(
                       'Time',
                       fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.start,
                       color: Util.purplishColor(),
                     ),
                     DropDownItem(

@@ -158,21 +158,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('CONFIRM ORDER', color: Colors.white),
+            title: CustomText('CONFIRM ORDER',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
-    );
-  }
-
-  Widget buildLoadingWidget() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        LoadingWidget(status: 'Submitting Order...'),
-        SizedBox(height: 10),
-        Text(uploadStatus, textAlign: TextAlign.center)
-      ],
     );
   }
 
@@ -186,7 +175,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                OrderDeliveryAddressCard(
+                OrderDeliveryTimeScheduleCard(
                   callBackRefreshUI: refreshUI,
                   deliveryTimeDay: deliveryTimeDay,
                   selectedDeliveryTimeDay: selectedDeliveryTimeDay,
@@ -238,6 +227,18 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildLoadingWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LoadingWidget(status: 'Submitting Order...'),
+        SizedBox(height: 10),
+        Text(uploadStatus, textAlign: TextAlign.center)
+      ],
     );
   }
 

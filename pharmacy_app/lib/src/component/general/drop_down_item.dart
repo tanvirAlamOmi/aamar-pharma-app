@@ -95,6 +95,7 @@ class DropDownItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: CustomText(menuItem,
+                textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
                 color: dropDownTextColor ?? Colors.grey,
                 fontSize: 15),

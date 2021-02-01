@@ -75,6 +75,7 @@ class OrderRepeatOrderCard extends StatelessWidget {
         children: [
           CustomText(
             'Repeat Order',
+            textAlign: TextAlign.start,
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: Util.greenishColor(),
@@ -83,6 +84,7 @@ class OrderRepeatOrderCard extends StatelessWidget {
             width: size.width - 100,
             child: CustomText(
                 'Select this option if you want to get this order on a regular basis',
+                textAlign: TextAlign.start,
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
                 fontSize: 13),
@@ -119,6 +121,7 @@ class OrderRepeatOrderCard extends StatelessWidget {
                 width: size.width - 100,
                 child: CustomText(
                     'Select this option if you want to get this order on a regular basis',
+                    textAlign: TextAlign.start,
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
                     fontSize: 13),
