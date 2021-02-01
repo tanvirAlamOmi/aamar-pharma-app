@@ -57,6 +57,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
       child: Container(
         child: Column(
           children: <Widget>[
+            SizedBox(height: 20),
             buildAddressTypeTextField(),
             buildAreaSelectionDropDown(),
             buildFullAddressTextField(),
@@ -134,14 +135,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
     );
   }
 
-
   Widget buildAreaSelectionDropDown() {
-    return DropDownItem(
-        dropDownList: areaList,
-        selectedItem: selectedArea,
-        setSelectedItem: setSelectedArea,
-        callBackRefreshUI: refreshUI);
-
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       child: Column(
@@ -152,48 +146,13 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
               fontWeight: FontWeight.bold, color: Util.purplishColor()),
           SizedBox(height: 1),
           Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(width: 1, color: Colors.black),
-              ),
-              color: Colors.transparent,
-            ),
-            height: 35,
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                dropdownColor: const Color.fromARGB(255, 45, 65, 89),
-                isDense: true,
-                isExpanded: true,
-                value: selectedArea,
-                onChanged: (value) {
-                  if (value == null) return;
-                  selectedArea = value;
-                  if (mounted) setState(() {});
-                },
-                items: areaList.map((item) {
-                  return buildDropDownMenuItem(item);
-                }).toList(),
-              ),
-            ),
+            height: 38,
+            child: DropDownItem(
+                dropDownList: areaList,
+                selectedItem: selectedArea,
+                setSelectedItem: setSelectedArea,
+                callBackRefreshUI: refreshUI),
           )
-        ],
-      ),
-    );
-  }
-
-  DropdownMenuItem<String> buildDropDownMenuItem(String menuItem) {
-    return DropdownMenuItem(
-      value: menuItem,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              menuItem,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey, fontSize: 13),
-            ),
-          ),
         ],
       ),
     );
@@ -202,7 +161,6 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   void setSelectedArea(dynamic value) {
     selectedArea = value;
   }
-
 
   void submitData() async {
     if (addressTypeController.text.isEmpty ||

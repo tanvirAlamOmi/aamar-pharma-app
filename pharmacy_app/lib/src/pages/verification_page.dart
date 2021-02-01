@@ -71,9 +71,8 @@ class VerificationPageState extends State<VerificationPage> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: CustomText(
-            'Phone Verification',
-          ),
+          title: CustomText('Phone Verification',
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           centerTitle: true,
           leading: isProcessing
               ? Container()

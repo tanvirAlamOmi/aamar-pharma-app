@@ -40,12 +40,14 @@ class LoginPageState extends State<LoginPage> {
       onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
         key: _scaffoldKey,
-        body: Column(
-          children: <Widget>[
-            buildLogoTitle(),
-            SizedBox(height: 10.0),
-            buildBody(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              buildLogoTitle(),
+              SizedBox(height: 10.0),
+              buildBody(),
+            ],
+          ),
         ),
       ),
     );
