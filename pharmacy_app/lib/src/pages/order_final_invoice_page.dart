@@ -54,10 +54,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText(
-              'ORDER DETAILS',
-              color: Colors.white,
-            ),
+            title: CustomText('ORDER INVOICE DETAILS',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -140,7 +138,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     subTotal = 0;
     deliveryFee = 20;
     totalAmount = 0;
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       final unitPrice = singleItem.itemUnitPrice;
       final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);
@@ -239,7 +237,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "0001",
+                    widget.order.id.toString(),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -258,7 +256,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "20/02/15",
+                    widget.order.deliveryDate,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -344,6 +342,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             );
           },
           title: CustomText('View Order Details',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Util.greenishColor(),
               fontSize: 14),

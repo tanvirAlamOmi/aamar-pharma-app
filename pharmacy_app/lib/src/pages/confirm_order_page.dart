@@ -284,11 +284,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void removeItem(dynamic singleItem) {
-    widget.order.invoice.invoiceItemList.remove(singleItem);
+    widget.order.invoiceItemList.remove(singleItem);
   }
 
   void incrementItemQuantity(InvoiceItem invoiceItem) {
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
         singleItem.itemQuantity = singleItem.itemQuantity + 1;
         break;
@@ -297,7 +297,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void decrementItemQuantity(InvoiceItem invoiceItem) {
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
         if (singleItem.itemQuantity == 1) {
           return;
@@ -311,7 +311,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void calculatePricing() {
     subTotal = 0;
     totalAmount = 0;
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       final unitPrice = singleItem.itemUnitPrice;
       final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);
@@ -547,7 +547,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           .orderWithItemName(order: AppVariableStates.instance.order);
     } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME_REORDER) {
       final List<OrderManualItem> items = [];
-      for (final invoiceItem in widget.order.invoice.invoiceItemList) {
+      for (final invoiceItem in widget.order.invoiceItemList) {
         items.add(OrderManualItem()
           ..itemName = invoiceItem.itemName
           ..unit = ClientEnum.NA

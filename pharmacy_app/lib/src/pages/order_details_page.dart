@@ -58,7 +58,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('ORDER DETAILS', color: Colors.white),
+            title: CustomText('ORDER DETAILS',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -160,8 +161,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           clipBehavior: Clip.antiAlias, // Add This
           child: ListTile(
             title: Text(singleItem.itemName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            subtitle: Text("QUANTITY: " + singleItem.quantity.toString()),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            subtitle: Text(
+              "QUANTITY: " + singleItem.quantity.toString(),
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+            ),
           ),
         ),
       ));
@@ -255,7 +259,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               children: [
                 CustomText('PERSONAL DETAILS',
                     color: Util.greenishColor(), fontWeight: FontWeight.bold),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 CustomText('Name',
                     color: Util.purplishColor(), fontWeight: FontWeight.bold),
                 SizedBox(height: 3),
@@ -319,9 +323,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomText('Phone Number',
-
-                              color: Util.purplishColor(),
-                              fontWeight: FontWeight.bold ),
+                          color: Util.purplishColor(),
+                          fontWeight: FontWeight.bold),
                       SizedBox(height: 3),
                       SizedBox(
                         height: 35, // set this

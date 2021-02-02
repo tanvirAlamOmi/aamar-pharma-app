@@ -57,7 +57,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             elevation: 1,
             centerTitle: true,
             leading: AppBarBackButton(),
-            title: CustomText('CONFIRM ORDER', color: Colors.white),
+            title: CustomText('CONFIRM ORDER',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           body: buildBody(context)),
     );
@@ -242,6 +243,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             );
           },
           title: CustomText('View Order Details',
+              textAlign: TextAlign.start,
               fontWeight: FontWeight.bold,
               color: Util.greenishColor(),
               fontSize: 14),
@@ -257,6 +259,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       child: Container(
         child: CustomText(
           'Before confirming order, please check invoice, edit quantity or remove items.',
+          textAlign: TextAlign.start,
           color: Colors.red,
           fontWeight: FontWeight.bold,
           fontSize: 12,
@@ -266,11 +269,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void removeItem(dynamic singleItem) {
-    widget.order.invoice.invoiceItemList.remove(singleItem);
+    widget.order.invoiceItemList.remove(singleItem);
   }
 
   void incrementItemQuantity(InvoiceItem invoiceItem) {
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
         singleItem.itemQuantity = singleItem.itemQuantity + 1;
         break;
@@ -279,7 +282,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void decrementItemQuantity(InvoiceItem invoiceItem) {
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
         if (singleItem.itemQuantity == 1) {
           return;
@@ -295,7 +298,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void calculatePricing() {
     subTotal = 0;
     totalAmount = 0;
-    for (final singleItem in widget.order.invoice.invoiceItemList) {
+    for (final singleItem in widget.order.invoiceItemList) {
       final unitPrice = singleItem.itemUnitPrice;
       final quantity = singleItem.itemQuantity;
       subTotal = subTotal + (unitPrice * quantity);

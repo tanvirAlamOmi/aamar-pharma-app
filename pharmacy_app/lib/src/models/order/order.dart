@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:pharmacy_app/src/models/order/invoice.dart';
+import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
@@ -24,9 +25,7 @@ class Order {
   String day; // Repeat Order - Saturday, Sunday...
   String time; // Repeat Order - time
   String nextOrderDay; // Repeat Order - Next Delivery Date
-
-  // My custom defined
-  Invoice invoice = Util.getDefualtInvoice();
+  List<InvoiceItem> invoiceItemList;
 
   Order(
       {this.id,
@@ -48,36 +47,45 @@ class Order {
       this.every,
       this.day,
       this.time,
-      this.nextOrderDay});
+      this.nextOrderDay,
+      this.invoiceItemList});
 
   factory Order.fromJson(Map<String, dynamic> jsonData) {
     return Order(
-        id: jsonData['id'],
-        idCustomer: jsonData['id_customer'],
-        idAddress: jsonData['id_address'],
-        prescription: jsonData['prescription'],
-        items: (jsonData['items'] == null)
-            ? null
-            : jsonData['items']
-                .map((singleManualItem) =>
-                    OrderManualItem.fromJson(singleManualItem))
-                .toList()
-                .cast<OrderManualItem>(),
-        name: jsonData['name'],
-        email: jsonData['email'],
-        mobileNo: jsonData['mobile_no'],
-        note: jsonData['note'],
-        repeatOrder: jsonData['repeat_order'],
-        deliveryTime: jsonData['delivery_time'],
-        deliveryDate: jsonData['delivery_date'],
-        createdAt: jsonData['created_at'],
-        status: jsonData['status'],
-        rejectionReason: jsonData['rejection_reason'],
-        orderedWith: jsonData['ordered_with'],
-        every: jsonData['every'],
-        day: jsonData['day'],
-        time: jsonData['time'],
-        nextOrderDay: jsonData['nextOrderDay']);
+      id: jsonData['id'],
+      idCustomer: jsonData['id_customer'],
+      idAddress: jsonData['id_address'],
+      prescription: jsonData['prescription'],
+      items: (jsonData['items'] == null)
+          ? null
+          : jsonData['items']
+              .map((singleManualItem) =>
+                  OrderManualItem.fromJson(singleManualItem))
+              .toList()
+              .cast<OrderManualItem>(),
+      name: jsonData['name'],
+      email: jsonData['email'],
+      mobileNo: jsonData['mobile_no'],
+      note: jsonData['note'],
+      repeatOrder: jsonData['repeat_order'],
+      deliveryTime: jsonData['delivery_time'],
+      deliveryDate: jsonData['delivery_date'],
+      createdAt: jsonData['created_at'],
+      status: jsonData['status'],
+      rejectionReason: jsonData['rejection_reason'],
+      orderedWith: jsonData['ordered_with'],
+      every: jsonData['every'],
+      day: jsonData['day'],
+      time: jsonData['time'],
+      nextOrderDay: jsonData['nextOrderDay'],
+      invoiceItemList: (jsonData['invoice'] == null)
+          ? null
+          : jsonData['invoice']
+              .map((singleInvoiceItem) =>
+                  InvoiceItem.fromJson(singleInvoiceItem))
+              .toList()
+              .cast<InvoiceItem>(),
+    );
   }
 
   String toJsonEncodedString() {
@@ -106,9 +114,9 @@ class Order {
       'day': day,
       'time': time,
       'nextOrderDay': nextOrderDay,
-      'invoice-items': (invoice == null)
+      'invoice-items': (invoiceItemList == null)
           ? null
-          : invoice.invoiceItemList
+          : invoiceItemList
               .map((singleInvoiceItem) =>
                   singleInvoiceItem.toJsonEncodedString())
               .toList()

@@ -97,7 +97,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
           alignment: Alignment.centerRight),
     ]));
 
-    order.invoice.invoiceItemList.forEach((singleItem) {
+    order.invoiceItemList.forEach((singleItem) {
       children.add(TableRow(children: [
         customTableCell(buildCrossColumn(singleItem)),
         customTableCell(buildItemNameColumn(singleItem),
