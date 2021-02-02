@@ -158,7 +158,7 @@ class OrderRepo {
       String itemName,
       int itemQuantity,
       String note}) async {
-    await Future.delayed(Duration(seconds: 1));
+    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
     int retry = 0;
     while (retry++ < 2) {
       try {

@@ -316,9 +316,9 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   }
 
   void onSubmit() async {
-    if (itemNameController.text.isEmpty && imageData == null) {
+    if (itemNameController.text.isEmpty) {
       Util.showSnackBar(
-          message: 'Please provide name or picture of the item',
+          message: 'Please provide name of the item',
           scaffoldKey: _scaffoldKey);
       return;
     }

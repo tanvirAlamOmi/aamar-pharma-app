@@ -299,7 +299,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                           enabled: false,
                           decoration: new InputDecoration(
                             isDense: true,
-                            hintText: "Notes e.g. I need all the medicines",
+                            hintText: "Email Address",
                             hintStyle: TextStyle(fontSize: 13),
                             fillColor: Colors.white,
                             contentPadding: EdgeInsets.symmetric(
@@ -332,7 +332,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                           style: textStyle,
                           decoration: new InputDecoration(
                             isDense: true,
-                            hintText: "Notes e.g. I need all the medicines",
+                            hintText: "Phone Number",
                             hintStyle: TextStyle(fontSize: 13),
                             fillColor: Colors.white,
                             contentPadding: EdgeInsets.symmetric(

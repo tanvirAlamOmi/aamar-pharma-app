@@ -214,6 +214,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   title: "SUBMIT",
                   isProcessing: false,
                   callBackOnSubmit: () {
+                    Util.removeFocusNode(context);
                     showAlertDialog(
                         context: context,
                         message: "CONFIRM SUBMITTING ORDER?",
@@ -429,12 +430,20 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
+    if (!emailController.text.contains('@') || !emailController.text.contains('.com')) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid email address");
+      return;
+    }
+
     if (phoneController.text.length != 11) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid 11 digit Bangladeshi Number");
       return;
     }
+
 
     String deliveryDate = "";
     if (selectedDeliveryTimeDay == OrderEnum.DAY_TODAY) {
