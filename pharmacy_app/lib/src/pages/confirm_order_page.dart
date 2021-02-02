@@ -169,8 +169,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
-          drawer: MainDrawer(),
           appBar: AppBar(
+            leading: AppBarBackButton(),
             elevation: 1,
             centerTitle: true,
             title: CustomText('CONFIRM ORDER',

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'dart:math';
+
+import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 
 class ItemScrollPhysics extends ScrollPhysics {
   /// Creates physics for snapping to item.
@@ -197,8 +201,6 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
     minuteController = new ScrollController(
         initialScrollOffset:
             (currentSelectedMinuteIndex - 1) * _getItemHeight());
-//    print(currentSelectedMinuteIndex);
-//    print((currentSelectedMinuteIndex - 1) * _getItemHeight());
 
     currentSelectedSecondIndex =
         (currentTime.second / widget.secondsInterval).floor() +
@@ -221,7 +223,6 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
 
   @override
   Widget build(BuildContext context) {
-    // print(minuteController.offset);
     List<Widget> contents = [
       Container(
         child: new SizedBox(
@@ -368,7 +369,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             height: _getItemHeight(),
             alignment: Alignment.center,
             child: new Text(
-              text,
+              processEnBn(text),
               style: selectedIndex == index
                   ? _getHighlightedTextStyle()
                   : _getNormalTextStyle(),
@@ -417,7 +418,9 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
       },
       child: new ListView.builder(
         itemBuilder: (context, index) {
-          String text = index == 1 ? 'AM' : (index == 2 ? 'PM' : '');
+          String text = index == 1
+              ? EnBnDict.en_bn_convert(text: 'AM')
+              : (index == 2 ? EnBnDict.en_bn_convert(text: 'PM') : '');
           return new Container(
             height: _getItemHeight(),
             alignment: Alignment.center,
@@ -446,5 +449,16 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
             : new Container()
       ],
     );
+  }
+
+  String processEnBn(String textNumber) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return textNumber;
+    }
+    String textNumberInBn = '';
+    for (int i = 0; i < textNumber.length; i++) {
+      textNumberInBn += EnBnDict.en_bn_convert(text: textNumber[i]);
+    }
+    return textNumberInBn;
   }
 }

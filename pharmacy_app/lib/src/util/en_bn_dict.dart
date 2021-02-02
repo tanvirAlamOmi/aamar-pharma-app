@@ -69,6 +69,11 @@ class EnBnDict {
     'All medicines except OTC medicines require prescription*':
         'ওটিসি ওষুধ ছাড়া বাকিগুলোর ক্ষেত্রে অবশই প্রেসক্রিপশন আবশ্যক*',
 
+
+    //
+    'AM': 'দিন',
+    'PM': 'রাত',
+
     // Numbers
     ':': ':',
     '0': '০',
