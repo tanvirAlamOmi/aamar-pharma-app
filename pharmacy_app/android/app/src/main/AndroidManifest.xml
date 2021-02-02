@@ -17,7 +17,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Amar Pharma"
+        android:label="Aamar Pharma"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:theme"
         android:largeHeap="true"

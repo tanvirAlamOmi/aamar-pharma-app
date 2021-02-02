@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 import 'common_ui.dart';
@@ -94,7 +96,7 @@ class DropDownItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            child: CustomText(menuItem,
+            child: CustomText(processEnBn(text: menuItem),
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
                 color: dropDownTextColor ?? Colors.grey,
@@ -103,5 +105,24 @@ class DropDownItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String processEnBn({String text}) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return text;
+    }
+    if (text.contains('PM') || text.contains('AM')) {
+      final String timeDeliveryStartHour = text.split('-')[0];
+      final String timeDeliveryEndHour = text.split('-')[1];
+
+      final String timeDeliveryScheduleInBangla =
+          EnBnDict.time_bn_convert_with_time_type(text: timeDeliveryStartHour) +
+              '-' +
+              EnBnDict.time_bn_convert_with_time_type(
+                  text: timeDeliveryEndHour);
+
+      return timeDeliveryScheduleInBangla;
+    }
+    return text;
   }
 }

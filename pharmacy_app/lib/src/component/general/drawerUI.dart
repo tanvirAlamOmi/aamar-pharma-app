@@ -142,7 +142,7 @@ class _MainDrawerState extends State<MainDrawer> {
             await Store.instance.updateLanguage(
                 languageOption: Store.instance.appState.language);
             refreshUI();
-            Streamer.putEventStream(Event(EventType.REFRESH_HOME_PAGE));
+            Streamer.putEventStream(Event(EventType.CHANGE_LANGUAGE));
           }),
     );
     if (Store.instance.appState.user.id != null)

@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -33,11 +35,25 @@ class _UploadPrescriptionVerifyPageState
   @override
   void initState() {
     super.initState();
+    eventChecker();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_UPLOAD_PRESCRIPTION_VERIFY_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
+        refreshUI();
+      }
+
+      if (data.eventType == EventType.CHANGE_LANGUAGE) {
+        refreshUI();
+      }
+    });
   }
 
   @override
@@ -196,7 +212,9 @@ class _UploadPrescriptionVerifyPageState
 
   void removeItem(dynamic index) {
     if (widget.prescriptionImageFileList.length == 1) {
-      Util.showSnackBar(message: '1 image is mandatory for the prescription', scaffoldKey: _scaffoldKey);
+      Util.showSnackBar(
+          message: '1 image is mandatory for the prescription',
+          scaffoldKey: _scaffoldKey);
       return;
     }
     widget.prescriptionImageFileList

@@ -10,6 +10,7 @@ import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
@@ -96,6 +97,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   void initState() {
     super.initState();
+    eventChecker();
     setTime();
     setSelectionData();
     setUserTextControllerData();
@@ -104,6 +106,19 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_CONFIRM_ORDER_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
+        refreshUI();
+      }
+
+      if (data.eventType == EventType.CHANGE_LANGUAGE) {
+        refreshUI();
+      }
+    });
   }
 
   void setUserTextControllerData() {
@@ -154,10 +169,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
+          drawer: MainDrawer(),
           appBar: AppBar(
             elevation: 1,
             centerTitle: true,
-            leading: AppBarBackButton(),
             title: CustomText('CONFIRM ORDER',
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
@@ -430,7 +445,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (!emailController.text.contains('@') || !emailController.text.contains('.com')) {
+    if (!emailController.text.contains('@') ||
+        !emailController.text.contains('.com')) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid email address");
@@ -443,7 +459,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           message: "Please provide a valid 11 digit Bangladeshi Number");
       return;
     }
-
 
     String deliveryDate = "";
     if (selectedDeliveryTimeDay == OrderEnum.DAY_TODAY) {

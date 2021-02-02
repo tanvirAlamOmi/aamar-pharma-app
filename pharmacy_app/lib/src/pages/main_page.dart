@@ -37,10 +37,16 @@ class _MainPageState extends State<MainPage> {
     Streamer.getEventStream().listen((data) {
       if (data.eventType == EventType.REFRESH_MAIN_PAGE) {}
 
+      if (data.eventType == EventType.CHANGE_LANGUAGE) {
+        refreshUI();
+      }
+
       if (data.eventType == EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE) {
         currentTabIndex = 1;
         refreshUI();
       }
+
+
     });
   }
 

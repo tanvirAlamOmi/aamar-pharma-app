@@ -69,9 +69,8 @@ class Util {
   }
 
   static Future<void> getPermissions() async {
-    if (Platform.isAndroid) {
-      await Permission.locationAlways.request();
-    }
+    await Permission.camera.request();
+    await Permission.storage.request();
   }
 
   static Future<void> handleErrorResponse(
@@ -132,7 +131,13 @@ class Util {
     else
       AM_PM = "AM";
 
-    return hour + ":" + minute + " " + AM_PM;
+    final timeInEnglish = hour + ":" + minute + " " + AM_PM;
+
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_BANGLA) {
+      return EnBnDict.time_bn_convert_with_time_type(text: timeInEnglish);
+    }
+
+    return timeInEnglish;
   }
 
   static String createImageUUID() {
@@ -204,8 +209,6 @@ class Util {
 
     return deliveryAddressDetails;
   }
-
-
 
   static getDefualtInvoice() {
     return Invoice(invoiceItemList: [

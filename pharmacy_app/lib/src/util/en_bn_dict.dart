@@ -1,5 +1,6 @@
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:intl/intl.dart';
 
 class EnBnDict {
   static String en_bn_convert({String text}) {
@@ -11,6 +12,38 @@ class EnBnDict {
       return EnBnDict.DICTINARY[text];
     }
     return textMessage;
+  }
+
+  static String time_bn_convert_with_time_type({String text}) {
+    DateTime date = DateFormat.jm().parse(text);
+    String timeType = '';
+
+    if (date.hour >= 0 && date.hour < 6) {
+      timeType = 'রাত';
+    } else if (date.hour >= 6 && date.hour < 12) {
+      timeType = 'সকাল';
+    } else if (date.hour >= 12 && date.hour < 17) {
+      timeType = 'দুপুর';
+    } else if (date.hour >= 17 && date.hour < 19) {
+      timeType = 'সন্ধ্যা';
+    } else if (date.hour >= 19 && date.hour <= 23) {
+      timeType = 'রাত';
+    }
+
+    text = text.replaceAll('AM', '');
+    text = text.replaceAll('PM', '');
+    text = text.replaceAll(' ', '');
+
+    String numberBangla = '';
+    for (int i = 0; i < text.length; i++) {
+      if (EnBnDict.DICTINARY.containsKey(text[i])) {
+        numberBangla += EnBnDict.DICTINARY[text[i]];
+      } else {
+        numberBangla += text[i];
+      }
+    }
+    numberBangla += ' ' + timeType;
+    return numberBangla;
   }
 
   static String en_bn_font() {
@@ -37,6 +70,7 @@ class EnBnDict {
         'ওটিসি ওষুধ ছাড়া বাকিগুলোর ক্ষেত্রে অবশই প্রেসক্রিপশন আবশ্যক*',
 
     // Numbers
+    ':': ':',
     '0': '০',
     '1': '১',
     '2': '২',
@@ -49,3 +83,29 @@ class EnBnDict {
     '9': '৯',
   };
 }
+
+//
+// static String time_bn_convert({String text}) {
+// if (text.contains('PM')) {
+// String textHourPortion = text.split(':')[0];
+// String textMinutePortion = text.split(':')[1];
+//
+// textHourPortion = (int.parse(textHourPortion) + 12).toString();
+//
+// text = textHourPortion + ':' + textMinutePortion;
+// }
+//
+// text = text.replaceAll('AM', '');
+// text = text.replaceAll('PM', '');
+// text = text.replaceAll(' ', '');
+//
+// String numberBangla = '';
+// for (int i = 0; i < text.length; i++) {
+// if (EnBnDict.DICTINARY.containsKey(text[i])) {
+// numberBangla += EnBnDict.DICTINARY[text[i]];
+// } else {
+// numberBangla += text[i];
+// }
+// }
+// return numberBangla;
+// }

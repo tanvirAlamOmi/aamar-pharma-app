@@ -46,13 +46,12 @@ class TimeChooseButton extends StatelessWidget {
               SizedBox(height: 3),
               CustomText('Time',
                   fontWeight: FontWeight.bold, color: Util.purplishColor()),
-              SizedBox(height: 10),
+              SizedBox(height: 8),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   buildTimeText(),
-                  SizedBox(width: 10),
                   Icon(Icons.watch_later, size: 18)
                 ],
               )
@@ -66,7 +65,7 @@ class TimeChooseButton extends StatelessWidget {
   Widget buildTimeText() {
     return Text(
       Util.formatDateToStringOnlyHourMinute(selectedTime),
-      style: TextStyle(color: Colors.black, fontSize: 13),
+      style: TextStyle(color: Colors.black, fontSize: 15),
     );
   }
 
