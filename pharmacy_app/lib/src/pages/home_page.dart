@@ -14,6 +14,7 @@ import 'package:pharmacy_app/src/component/cards/carousel_slider_card.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -273,20 +274,25 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              color: Util.purplishColor(),
-              width: 70,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add_call, size: 18, color: Colors.white),
-                  CustomText('CALL US',
-                      textAlign: TextAlign.center,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13),
-                ],
+            GestureDetector(
+              onTap: () {
+                launch("tel:${01301958612}");
+              },
+              child: Container(
+                color: Util.purplishColor(),
+                width: 70,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add_call, size: 18, color: Colors.white),
+                    CustomText('CALL US',
+                        textAlign: TextAlign.center,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13),
+                  ],
+                ),
               ),
             ),
             SizedBox(width: 50),
