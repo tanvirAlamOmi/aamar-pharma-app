@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
@@ -190,48 +193,42 @@ class LoginPageState extends State<LoginPage> {
   }
 
   void makePhoneLogin() async {
-    final isInternet = await Util.checkInternet();
-    if (isInternet) {
-      String phoneWithoutCC = phoneController.text;
-      if (countryCode == '' || phoneWithoutCC == '') {
-        Util.showSnackBar(
-            scaffoldKey: _scaffoldKey,
-            message: 'Please provide your phone number');
-        return;
-      }
-
-      if (phoneController.text.length != 11) {
-        Util.showSnackBar(
-            scaffoldKey: _scaffoldKey,
-            message: "Please provide a valid 11 digit Bangladeshi Number");
-        return;
-      }
-
-      if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
-        Util.showSnackBar(
-            scaffoldKey: _scaffoldKey,
-            message: "Please provide a valid 11 digit Bangladeshi Number");
-        return;
-      }
-
-      final phone = countryCode + phoneController.text;
-      await Store.instance.setPhoneNumber(phoneController.text);
-      await AuthRepo.instance.sendSMSCode(phone);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => VerificationPage(
-                  phoneNumber: phoneController.text,
-                  onVerificationNextStep: AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
-                )),
-      );
-    } else {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          '/noInternet', (Route<dynamic> route) => false);
+    if (phoneController.text.length != 11) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
     }
+
+    if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
+    AppVariableStates.instance.submitFunction = onVerificationNextStep;
+
+    final phone = countryCode + phoneController.text;
+    await Store.instance.setPhoneNumber(phoneController.text);
+    await AuthRepo.instance.sendSMSCode(phone);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => VerificationPage(
+                phoneNumber: phoneController.text,
+                onVerificationNextStep:
+                    AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
+              )),
+    );
   }
 
-  String getHintTextPhone() {
-    return "Enter your mobile number";
+  void onVerificationNextStep() {
+    Navigator.of(context).pop();
+    Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
+  }
+
+  void refreshUI() {
+    if (mounted) setState(() {});
   }
 }

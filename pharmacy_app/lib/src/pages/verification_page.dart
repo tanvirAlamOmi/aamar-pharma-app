@@ -247,9 +247,8 @@ class VerificationPageState extends State<VerificationPage> {
         AppVariableStates.instance.submitFunction();
       } else if (widget.onVerificationNextStep ==
           AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE) {
-        Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
         Navigator.of(context).pop(); // pop verification Page
-        Navigator.of(context).pop();
+        AppVariableStates.instance.submitFunction();
       }
     } else {
       Util.showSnackBar(

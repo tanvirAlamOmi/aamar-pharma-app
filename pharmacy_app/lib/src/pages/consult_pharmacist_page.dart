@@ -23,12 +23,14 @@ class ConsultPharmacistPage extends StatefulWidget {
 class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final TextEditingController nameController = new TextEditingController();
-  final TextEditingController phoneController = new TextEditingController();
+  TextEditingController phoneController;
   bool isProcessing = false;
 
   @override
   void initState() {
     super.initState();
+    phoneController = new TextEditingController(
+        text: Store.instance.appState.user.phone ?? '');
   }
 
   @override
@@ -211,7 +213,6 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
     Tuple2<void, String> consultPharmacistOrderResponse =
         await OrderRepo.instance.consultPharmacistOrder(
             name: nameController.text, phone: phoneController.text);
-
 
     if (consultPharmacistOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
       Navigator.of(context).pop();

@@ -30,9 +30,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
 
   final TextEditingController itemQuantityController =
       new TextEditingController();
-  final TextEditingController phoneNumberController =
-      new TextEditingController();
   final TextEditingController noteController = new TextEditingController();
+  TextEditingController phoneNumberController;
 
   Uint8List imageData;
   bool isProcessing = false;
@@ -40,6 +39,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   @override
   void initState() {
     super.initState();
+    phoneNumberController = new TextEditingController(text: Store.instance.appState.user.phone ?? '');
   }
 
   @override
