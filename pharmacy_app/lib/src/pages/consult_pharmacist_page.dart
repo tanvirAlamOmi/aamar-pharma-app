@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
+import 'package:pharmacy_app/src/pages/verification_page.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -148,11 +153,11 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
       title: "SUBMIT",
       height: 40,
       isProcessing: isProcessing,
-      callBackOnSubmit: onSubmit,
+      callBackOnSubmit: processConsultPharmacistOrder,
     );
   }
 
-  void onSubmit() async {
+  void processConsultPharmacistOrder() async {
     if (nameController.text.isEmpty || phoneController.text.isEmpty) {
       Util.showSnackBar(
           message: 'Please fill all the data', scaffoldKey: _scaffoldKey);
@@ -166,6 +171,37 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
       return;
     }
 
+    if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
+    AppVariableStates.instance.submitFunction = submitConsultPharmacistOrder;
+
+    if (Store.instance.appState.user.id == 0 ||
+        Store.instance.appState.user.id == null) {
+      final countryCode = "+88";
+      final phone = countryCode + phoneController.text;
+      await Store.instance.setPhoneNumber(phoneController.text);
+      await AuthRepo.instance.sendSMSCode(phone);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+                  phoneNumber: phoneController.text,
+                  onVerificationNextStep:
+                      AppEnum.ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER,
+                )),
+      );
+    } else {
+      submitConsultPharmacistOrder();
+    }
+  }
+
+  void submitConsultPharmacistOrder() async {
     isProcessing = true;
     refreshUI();
 
@@ -175,6 +211,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
     Tuple2<void, String> consultPharmacistOrderResponse =
         await OrderRepo.instance.consultPharmacistOrder(
             name: nameController.text, phone: phoneController.text);
+
 
     if (consultPharmacistOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
       Navigator.of(context).pop();

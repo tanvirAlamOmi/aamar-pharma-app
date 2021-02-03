@@ -137,6 +137,20 @@ class _AccountPageState extends State<AccountPage> {
       return;
     }
 
+    if (phoneController.text.length != 11) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
+    if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
     user.phone = phoneController.text;
     user.name = nameController.text;
     user.email = emailController.text;

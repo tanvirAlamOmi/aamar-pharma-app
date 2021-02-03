@@ -154,11 +154,10 @@ class OrderRepo {
   }
 
   Future<Tuple2<void, String>> specialRequestOrder(
-      {String productImage,
-      String itemName,
-      int itemQuantity,
+      {String itemName,
+      String productImage,
+      String itemQuantity,
       String note}) async {
-    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
     int retry = 0;
     while (retry++ < 2) {
       try {
@@ -166,9 +165,10 @@ class OrderRepo {
 
         final specialRequestOrderProductRequest = jsonEncode(<String, dynamic>{
           'item_name': itemName,
-          'quantity': itemQuantity,
+          'quantity': int.parse(itemQuantity),
           'image': productImage,
           'note': note,
+          'id_customer': Store.instance.appState.user.id
         });
 
         final specialRequestProductOrderResponse = await OrderRepo.instance
@@ -191,7 +191,6 @@ class OrderRepo {
 
   Future<Tuple2<void, String>> consultPharmacistOrder(
       {String name, String phone}) async {
-    await Future.delayed(Duration(seconds: 1));
     return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
 
     int retry = 0;

@@ -4,9 +4,14 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
+import 'package:pharmacy_app/src/pages/verification_page.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -274,7 +279,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
         showAlertDialog(
             context: context,
             message: 'Are you sure to submit this request?',
-            acceptFunc: onSubmit);
+            acceptFunc: processRequestOrder);
       },
     );
   }
@@ -315,7 +320,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
     }
   }
 
-  void onSubmit() async {
+  void processRequestOrder() async {
     if (itemNameController.text.isEmpty) {
       Util.showSnackBar(
           message: 'Please provide name of the item',
@@ -330,20 +335,55 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
       return;
     }
 
+    if (!Util.verifyNumberDigitOnly(numberText: phoneNumberController.text)) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
+    AppVariableStates.instance.submitFunction = submitRequestOrder;
+
+    if (Store.instance.appState.user.id == 0 ||
+        Store.instance.appState.user.id == null) {
+      final countryCode = "+88";
+      final phone = countryCode + phoneNumberController.text;
+      await Store.instance.setPhoneNumber(phoneNumberController.text);
+      await AuthRepo.instance.sendSMSCode(phone);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+                  phoneNumber: phoneNumberController.text,
+                  onVerificationNextStep:
+                      AppEnum.ON_VERIFICATION_CONFIRM_REQUEST_ORDER,
+                )),
+      );
+    } else {
+      submitRequestOrder();
+    }
+  }
+
+  void submitRequestOrder() async {
     isProcessing = true;
     refreshUI();
 
     Util.showSnackBar(
         message: 'Please wait...', scaffoldKey: _scaffoldKey, duration: 1000);
 
-    String requestedProductImageUrl = "";
+    String requestedProductImageUrl = ClientEnum.NA;
     if (imageData != null) {
       requestedProductImageUrl = await Util.uploadImageToFirebase(
           imageFile: imageData, folderPath: 'request-product/');
     }
 
     Tuple2<void, String> specialRequestProductOrderResponse =
-        await OrderRepo.instance.specialRequestOrder();
+        await OrderRepo.instance.specialRequestOrder(
+            itemName: itemNameController.text,
+            itemQuantity: itemQuantityController.text,
+            productImage: requestedProductImageUrl,
+            note: noteController.text);
 
     if (specialRequestProductOrderResponse.item2 ==
         ClientEnum.RESPONSE_SUCCESS) {

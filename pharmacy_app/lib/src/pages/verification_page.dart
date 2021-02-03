@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
@@ -15,15 +16,13 @@ import 'package:tuple/tuple.dart';
 
 class VerificationPage extends StatefulWidget {
   final String phoneNumber;
-  final bool arrivedFromConfirmOrderPage;
-  final bool arrivedFromUserDetailsPage;
+  final String onVerificationNextStep;
 
-  const VerificationPage(
-      {Key key,
-      this.arrivedFromConfirmOrderPage,
-      this.phoneNumber,
-      this.arrivedFromUserDetailsPage})
-      : super(key: key);
+  const VerificationPage({
+    Key key,
+    this.phoneNumber,
+    this.onVerificationNextStep,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => new VerificationPageState();
 }
@@ -156,7 +155,7 @@ class VerificationPageState extends State<VerificationPage> {
       child: TextFormField(
         autofocus: true,
         controller: codeController,
-        keyboardType: TextInputType.phone,
+        keyboardType: TextInputType.number,
         style: TextStyle(
           fontSize: 18.0,
           color: Colors.grey[800],
@@ -225,7 +224,7 @@ class VerificationPageState extends State<VerificationPage> {
     User user = userResponse.item1;
     String responseCode = userResponse.item2;
 
-    onVerificationNextStep(responseCode: userResponse.item2, user: user);
+    onVerificationNextStep(responseCode: responseCode, user: user);
   }
 
   void onVerificationNextStep({String responseCode, User user}) {
@@ -233,18 +232,25 @@ class VerificationPageState extends State<VerificationPage> {
     refreshUI();
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
-      if (widget.arrivedFromConfirmOrderPage == true) {
-        Navigator.of(context).pop();
-        AppVariableStates.instance.submitOrder();
-      }
-
-      if (widget.arrivedFromUserDetailsPage == true) {
+      if (widget.onVerificationNextStep ==
+          AppEnum.ON_VERIFICATION_CONFIRM_ORDER) {
+        Navigator.of(context).pop(); // pop verification Page
+        AppVariableStates.instance.submitFunction();
+        Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+      } else if (widget.onVerificationNextStep ==
+          AppEnum.ON_VERIFICATION_CONFIRM_REQUEST_ORDER) {
+        Navigator.of(context).pop(); // pop verification Page
+        AppVariableStates.instance.submitFunction();
+      } else if (widget.onVerificationNextStep ==
+          AppEnum.ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER) {
+        Navigator.of(context).pop(); // pop verification Page
+        AppVariableStates.instance.submitFunction();
+      } else if (widget.onVerificationNextStep ==
+          AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE) {
         Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(); // pop verification Page
         Navigator.of(context).pop();
       }
-
-      Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
     } else {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,

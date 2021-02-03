@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-import 'package:pharmacy_app/src/models/order/invoice.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:flutter/cupertino.dart';
@@ -210,8 +209,13 @@ class Util {
     return deliveryAddressDetails;
   }
 
+  static bool verifyNumberDigitOnly({String numberText}) {
+    RegExp _numeric = RegExp(r'^-?[0-9]+$');
+    return _numeric.hasMatch(numberText);
+  }
+
   static getDefualtInvoice() {
-    return Invoice(invoiceItemList: [
+    return [
       InvoiceItem()
         ..itemName = "Napa"
         ..itemQuantity = 10
@@ -224,7 +228,7 @@ class Util {
         ..itemName = "Seclo 40"
         ..itemQuantity = 5
         ..itemUnitPrice = 25,
-    ]);
+    ];
   }
 
   static void prettyPrintJson(String input) {

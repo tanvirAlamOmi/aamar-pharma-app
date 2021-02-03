@@ -9,7 +9,7 @@ class AppVariableStates {
   String orderFilterStatus = OrderEnum.ORDER_STATUS_ALL;
   String initialLanguageChoose = "LANGUAGE (ENGLISH)";
   Order order = new Order();
-  Function submitOrder;
+  Function submitFunction;
 
   static AppVariableStates _appVaryState;
   static AppVariableStates get instance =>

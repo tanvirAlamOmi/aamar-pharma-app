@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
@@ -202,8 +203,14 @@ class LoginPageState extends State<LoginPage> {
       if (phoneController.text.length != 11) {
         Util.showSnackBar(
             scaffoldKey: _scaffoldKey,
-            message:
-                'Please provide a valid 11 digit Bangladeshi phone number');
+            message: "Please provide a valid 11 digit Bangladeshi Number");
+        return;
+      }
+
+      if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
+        Util.showSnackBar(
+            scaffoldKey: _scaffoldKey,
+            message: "Please provide a valid 11 digit Bangladeshi Number");
         return;
       }
 
@@ -215,7 +222,7 @@ class LoginPageState extends State<LoginPage> {
         MaterialPageRoute(
             builder: (context) => VerificationPage(
                   phoneNumber: phoneController.text,
-                  arrivedFromUserDetailsPage: true,
+                  onVerificationNextStep: AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
                 )),
       );
     } else {

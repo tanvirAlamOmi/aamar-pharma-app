@@ -14,17 +14,17 @@ class User {
 
   User.blank()
       : id = 0,
-        name = "GUEST",
-        email = "N/A",
-        phone = "N/A",
-        token = "NONE";
+        name = "",
+        email = "",
+        phone = "",
+        token = "";
 
   User.none()
       : id = null,
-        name = "GUEST",
-        email = "N/A",
-        phone = "N/A",
-        token = "NONE";
+        name = "",
+        email = "",
+        phone = "",
+        token = "";
 
   User.basic()
       : id = 1,

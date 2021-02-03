@@ -20,7 +20,8 @@ class RequestReceivedSuccessPage extends StatelessWidget {
           leading: AppBarBackButtonCross(),
           elevation: 1,
           centerTitle: true,
-          title: CustomText(pageTitle, color: Colors.white),
+          title: CustomText(pageTitle,
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         body: buildBody());
   }

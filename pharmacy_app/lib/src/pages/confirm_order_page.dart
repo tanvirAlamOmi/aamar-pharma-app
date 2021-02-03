@@ -12,6 +12,7 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -460,6 +461,13 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
+    if (!Util.verifyNumberDigitOnly(numberText: phoneController.text)) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid 11 digit Bangladeshi Number");
+      return;
+    }
+
     String deliveryDate = "";
     if (selectedDeliveryTimeDay == OrderEnum.DAY_TODAY) {
       var todayDateTime = DateTime.now();
@@ -495,7 +503,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..time = time;
 
     AppVariableStates.instance.order = order;
-    AppVariableStates.instance.submitOrder = submitOrder;
+    AppVariableStates.instance.submitFunction = submitOrder;
 
     if (Store.instance.appState.user.id == null) {
       final countryCode = "+88";
@@ -508,7 +516,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         MaterialPageRoute(
             builder: (context) => VerificationPage(
                   phoneNumber: phoneController.text,
-                  arrivedFromConfirmOrderPage: true,
+                  onVerificationNextStep: AppEnum.ON_VERIFICATION_CONFIRM_ORDER,
                 )),
       );
     } else {
