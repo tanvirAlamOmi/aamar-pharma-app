@@ -39,7 +39,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   @override
   void initState() {
     super.initState();
-    phoneNumberController = new TextEditingController(text: Store.instance.appState.user.phone ?? '');
+    phoneNumberController = new TextEditingController(
+        text: Store.instance.appState.user.phone ?? '');
   }
 
   @override
@@ -323,8 +324,15 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   void processRequestOrder() async {
     if (itemNameController.text.isEmpty) {
       Util.showSnackBar(
-          message: 'Please provide name of the item',
+          message: 'Please provide the name of the item',
           scaffoldKey: _scaffoldKey);
+      return;
+    }
+
+    if (itemQuantityController.text.isEmpty) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide the quantity of the item");
       return;
     }
 

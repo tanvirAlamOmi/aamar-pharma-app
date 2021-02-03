@@ -137,6 +137,14 @@ class _AccountPageState extends State<AccountPage> {
       return;
     }
 
+    if (!emailController.text.contains('@') ||
+        !emailController.text.contains('.com')) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a valid email address");
+      return;
+    }
+
     if (phoneController.text.length != 11) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
