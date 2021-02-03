@@ -123,9 +123,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   void setUserTextControllerData() {
-    String name = "asd";
-    String email = "asd@.com";
-    String phone = "01231231231";
+    String name = "";
+    String email = "";
+    String phone = "";
 
     if (widget.order != null) {
       name = widget.order.name;
@@ -170,9 +170,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       onTap: () => Util.removeFocusNode(context),
       child: Scaffold(
           key: _scaffoldKey,
-          drawer: MainDrawer(),
           appBar: AppBar(
-            //leading: AppBarBackButton(),
+            leading: AppBarBackButton(),
             elevation: 1,
             centerTitle: true,
             title: CustomText('CONFIRM ORDER',
@@ -502,9 +501,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..every = every
       ..day = day
       ..time = time;
-
-    print(order.toJsonEncodedString());
-    return;
 
     AppVariableStates.instance.order = order;
     AppVariableStates.instance.submitFunction = submitOrder;

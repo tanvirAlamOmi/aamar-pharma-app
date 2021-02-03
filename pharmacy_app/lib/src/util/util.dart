@@ -132,10 +132,6 @@ class Util {
 
     final timeInEnglish = hour + ":" + minute + " " + AM_PM;
 
-    if (Store.instance.appState.language == ClientEnum.LANGUAGE_BANGLA) {
-      return EnBnDict.time_bn_convert_with_time_type(text: timeInEnglish);
-    }
-
     return timeInEnglish;
   }
 

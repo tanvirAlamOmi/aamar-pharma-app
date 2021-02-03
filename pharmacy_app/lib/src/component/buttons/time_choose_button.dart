@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/clock_spinner.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
@@ -64,7 +66,7 @@ class TimeChooseButton extends StatelessWidget {
 
   Widget buildTimeText() {
     return Text(
-      Util.formatDateToStringOnlyHourMinute(selectedTime),
+      timeFormatInLanguage(),
       style: TextStyle(color: Colors.black, fontSize: 15),
     );
   }
@@ -131,5 +133,15 @@ class TimeChooseButton extends StatelessWidget {
         callBackRefreshUI();
       },
     );
+  }
+
+  String timeFormatInLanguage() {
+    final timeInEnglish = Util.formatDateToStringOnlyHourMinute(selectedTime);
+
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_BANGLA) {
+      return EnBnDict.time_bn_convert_with_time_type(text: timeInEnglish);
+    }
+
+    return timeInEnglish;
   }
 }
