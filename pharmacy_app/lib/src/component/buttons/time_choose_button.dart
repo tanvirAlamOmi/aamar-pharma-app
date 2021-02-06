@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/clock_spinner.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -99,6 +101,22 @@ class TimeChooseButton extends StatelessWidget {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () {
+                            final DateTime selectedRepeatedTime =
+                                AppVariableStates.instance.selectedRepeatedTime;
+                            if ((selectedRepeatedTime.hour >= 0 &&
+                                    selectedRepeatedTime.hour <= 9) ||
+                                selectedRepeatedTime.hour >= 22 &&
+                                    selectedRepeatedTime.hour <= 24) {
+                              Util.showSnackBar(
+                                  scaffoldKey: UIState.instance.scaffoldKey,
+                                  message:
+                                      'Please select a time between 10 AM to 10 PM',
+                                  duration: 2000);
+                            } else {
+                              setSelectedTime(selectedRepeatedTime);
+                            }
+
+                            callBackRefreshUI();
                             Navigator.pop(dialogContext);
                           },
                           child: Container(
@@ -122,15 +140,18 @@ class TimeChooseButton extends StatelessWidget {
   }
 
   Widget hourMinute12H() {
+    final bool is24HourMode =
+        (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH)
+            ? false
+            : true;
     return new TimePickerSpinner(
       itemHeight: 30,
       itemWidth: 50,
       spacing: 50,
       time: selectedTime,
-      is24HourMode: false,
-      onTimeChange: (time) {z
-        setSelectedTime(time);
-        callBackRefreshUI();
+      is24HourMode: is24HourMode,
+      onTimeChange: (DateTime time) {
+        AppVariableStates.instance.selectedRepeatedTime = time;
       },
     );
   }

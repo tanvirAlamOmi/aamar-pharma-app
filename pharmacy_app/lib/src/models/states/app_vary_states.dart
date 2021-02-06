@@ -8,6 +8,7 @@ class AppVariableStates {
   String firebaseSMSToken = "";
   String orderFilterStatus = OrderEnum.ORDER_STATUS_ALL;
   String initialLanguageChoose = "LANGUAGE (ENGLISH)";
+  DateTime selectedRepeatedTime = DateTime.now();
   Order order = new Order();
   Function submitFunction;
 

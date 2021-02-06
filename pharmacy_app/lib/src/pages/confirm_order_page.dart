@@ -19,6 +19,7 @@ import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
@@ -102,6 +103,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     setTime();
     setSelectionData();
     setUserTextControllerData();
+    UIState.instance.scaffoldKey = _scaffoldKey;
   }
 
   @override
