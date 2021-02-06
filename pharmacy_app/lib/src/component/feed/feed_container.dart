@@ -111,14 +111,15 @@ class _FeedContainerState extends State<FeedContainer>
       if (feedResponse.status) {
         addItems(feedResponse.feedItems, feedRequest);
       }
-    }
-    if (responseCode == ClientEnum.RESPONSE_CONNECTION_ERROR) {
+    } else if (responseCode == ClientEnum.RESPONSE_CONNECTION_ERROR) {
       Util.showSnackBar(
           scaffoldKey: UIState.instance.scaffoldKey,
           message: "Something went wrong. Please try again");
     }
-    if (feedResponse.feedItems == null || feedResponse.feedItems.isEmpty)
+    if (feedResponse.feedItems == null || feedResponse.feedItems.isEmpty) {
       noItem = true;
+    }
+
     isProcessing = false;
 
     if (mounted) setState(() {});
@@ -129,6 +130,10 @@ class _FeedContainerState extends State<FeedContainer>
         feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
       Streamer.putTotalOrderStream(feedResponse.feedItems.length);
     }
+
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+      noItem = false; 
+    }
   }
 
   void addItems(List<FeedItem> items, FeedRequest feedRequest) {
@@ -138,11 +143,9 @@ class _FeedContainerState extends State<FeedContainer>
           .add(FeedItem(viewCardType: OrderEnum.FEED_ITEM_ORDER_FILTER_CARD));
     }
 
-    if (items.length > 0 &&
-        feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
       feedItems.add(FeedItem(
-          viewCardType:
-              OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
+          viewCardType: OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
     }
 
     feedItems.addAll(items);
