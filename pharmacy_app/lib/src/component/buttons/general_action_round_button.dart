@@ -10,6 +10,7 @@ class GeneralActionRoundButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final double height;
   final Color color;
+  final Color textColor;
 
   GeneralActionRoundButton(
       {this.isProcessing,
@@ -18,7 +19,7 @@ class GeneralActionRoundButton extends StatelessWidget {
       this.title,
       this.color,
       this.padding,
-      Key key})
+      Key key, this.textColor})
       : super(key: key);
 
   @override
@@ -34,7 +35,7 @@ class GeneralActionRoundButton extends StatelessWidget {
         onPressed: () => (isProcessing == false) ? callBackOnSubmit() : () {},
         child: CustomText(
           title,
-          color: Colors.white,
+          color: textColor ?? Colors.white,
         ),
         color: getButtonColor(),
       ),

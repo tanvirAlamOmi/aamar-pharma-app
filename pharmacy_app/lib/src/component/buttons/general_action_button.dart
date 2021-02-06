@@ -7,7 +7,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 
 class GeneralActionButton extends StatelessWidget {
   final bool isProcessing;
-  final void Function() callBack;
+  final void Function() callBackOnSubmit;
   final String title;
   final EdgeInsetsGeometry padding;
   final double height;
@@ -15,7 +15,7 @@ class GeneralActionButton extends StatelessWidget {
 
   GeneralActionButton(
       {this.isProcessing,
-      this.callBack,
+      this.callBackOnSubmit,
       this.height,
       this.title,
       this.color,
@@ -32,7 +32,7 @@ class GeneralActionButton extends StatelessWidget {
         height: height ?? 50,
         shape: Border.all(width: 1.0, color: Colors.transparent),
         minWidth: double.infinity,
-        onPressed: () => (isProcessing == false) ? callBack() : () {},
+        onPressed: () => (isProcessing == false) ? callBackOnSubmit() : () {},
         child: CustomText(
           title,
           color: Colors.white,

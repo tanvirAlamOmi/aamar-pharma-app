@@ -39,9 +39,9 @@ class FeedCardHandler extends StatelessWidget {
         OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD) {
       return RequestOrderPageButtonCard(key: GlobalKey());
     }
-    if (feedItem.viewCardType ==
-        OrderEnum.FEED_ITEM_REQUEST_ORDER_CARD) {
-      return RequestOrderCard(requestOrder: feedItem.requestOrder, key: GlobalKey());
+    if (feedItem.viewCardType == OrderEnum.FEED_ITEM_REQUEST_ORDER_CARD) {
+      return RequestOrderCard(
+          requestOrder: feedItem.requestOrder, key: GlobalKey());
     }
     if (feedItem.viewCardType == OrderEnum.FEED_ITEM_ORDER_CARD) {
       return OrderCard(order: feedItem.order, key: GlobalKey());

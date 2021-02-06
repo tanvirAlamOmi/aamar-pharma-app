@@ -237,7 +237,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 color: Util.greenishColor(),
                 isProcessing: false,
-                callBack: addItemsToList,
+                callBackOnSubmit: addItemsToList,
               ),
             )
           ],

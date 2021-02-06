@@ -25,7 +25,8 @@ class RequestOrderPageButtonCard extends StatelessWidget {
         elevation: 0,
         clipBehavior: Clip.antiAlias, // Add This
         child: GeneralActionRoundButton(
-          title: "SUBMIT",
+          padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+          title: "REQUEST PRODUCT",
           height: 40,
           isProcessing: false,
           callBackOnSubmit: () {

@@ -85,14 +85,14 @@ class _RequestOrderPageState extends State<RequestOrderPage> {
           switch (Store.instance.appState.tutorialBoxNumberRequestOrderPage) {
             case 0:
               return Positioned(
-                top: 150,
-                right: 20,
+                top: 70,
+                right: 50,
                 child: CustomMessageBox(
-                  width: 190,
+                  width: 250,
                   height: 150,
-                  startPoint: 40,
-                  midPoint: 50,
-                  endPoint: 60,
+                  startPoint: 60,
+                  midPoint: 70,
+                  endPoint: 80,
                   arrowDirection: ClientEnum.ARROW_TOP,
                   callBackAction: updateTutorialBox,
                   callBackRefreshUI: refreshTutorialBox,
