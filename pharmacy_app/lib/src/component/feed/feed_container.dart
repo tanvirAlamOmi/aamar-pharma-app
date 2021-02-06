@@ -93,7 +93,8 @@ class _FeedContainerState extends State<FeedContainer>
       setState(() {
         feedItemsPermData.clear();
         feedItems.clear();
-        AppVariableStates.instance.orderFilterStatus = OrderEnum.ORDER_STATUS_ALL;
+        AppVariableStates.instance.orderFilterStatus =
+            OrderEnum.ORDER_STATUS_ALL;
       });
   }
 
@@ -124,15 +125,24 @@ class _FeedContainerState extends State<FeedContainer>
 
     // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
     if (feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER ||
-        feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER) {
+        feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER ||
+        feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
       Streamer.putTotalOrderStream(feedResponse.feedItems.length);
     }
   }
 
   void addItems(List<FeedItem> items, FeedRequest feedRequest) {
-    if (items.length > 0 && feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER) {
+    if (items.length > 0 &&
+        feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER) {
       feedItems
           .add(FeedItem(viewCardType: OrderEnum.FEED_ITEM_ORDER_FILTER_CARD));
+    }
+
+    if (items.length > 0 &&
+        feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+      feedItems.add(FeedItem(
+          viewCardType:
+              OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
     }
 
     feedItems.addAll(items);
@@ -167,10 +177,7 @@ class _FeedContainerState extends State<FeedContainer>
       backgroundColor: new Color.fromARGB(255, 4, 72, 71),
       color: Colors.white,
       child: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
-        },
+        onTap: () => Util.removeFocusNode(context),
         child: Container(
           color: Colors.grey[50],
           child: ListView.builder(

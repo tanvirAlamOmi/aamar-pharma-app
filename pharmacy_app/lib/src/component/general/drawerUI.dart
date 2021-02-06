@@ -2,6 +2,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
 import 'package:pharmacy_app/src/pages/repeat_order_page.dart';
+import 'package:pharmacy_app/src/pages/request_order_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -88,7 +89,7 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SpecialRequestProductPage()),
+                  builder: (context) => RequestOrderPage()),
             );
           }),
     );

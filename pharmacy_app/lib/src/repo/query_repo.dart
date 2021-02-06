@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
+import 'package:pharmacy_app/src/models/order/request_order.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -105,6 +106,43 @@ class QueryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  Future<Tuple2<FeedResponse, String>> getRequestOrderFeedData(
+      FeedRequest feedRequest) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        final String jwtToken = Store.instance.appState.user.token;
+        final int userId = Store.instance.appState.user.id;
+
+        final feedResponse = await QueryRepo.instance
+            .getQueryClient()
+            .getRequestOrderFeed(jwtToken, feedRequest, userId);
+
+        final List<RequestOrder> allRequestOrders = List<dynamic>.from(
+                feedResponse.map((singleRequestOrder) =>
+                    RequestOrder.fromJson(singleRequestOrder)))
+            .cast<RequestOrder>();
+
+        final orderFeedResponse = FeedResponse()
+          ..status = true
+          ..lastFeed = false
+          ..feedItems = allRequestOrders
+              .map((singleRequestOrder) => FeedItem()
+                ..requestOrder = singleRequestOrder
+                ..viewCardType = OrderEnum.FEED_ITEM_REQUEST_ORDER_CARD)
+              .toList()
+          ..response = ClientEnum.RESPONSE_SUCCESS
+          ..error = false;
+
+        return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
+      } catch (err) {
+        print("Error in getOrderFeedData() in QueryRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
     if (feedRequest.feedInfo.feedType == OrderEnum.FEED_NOTIFICATION)
       return Tuple2(
@@ -127,6 +165,8 @@ class QueryRepo {
       return getOrderFeedData(feedRequest);
     if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER)
       return getRepeatOrderFeedData(feedRequest);
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER)
+      return getRequestOrderFeedData(feedRequest);
 
     return null;
   }

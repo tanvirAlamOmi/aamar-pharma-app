@@ -17,6 +17,7 @@ class AppState {
   int tutorialBoxNumberOrderPage = 0;
   int tutorialBoxNumberRepeatOrderPage = 0;
   int tutorialBoxNumberOrderFinalInvoicePage = 0;
+  int tutorialBoxNumberRequestOrderPage = 0;
 
   AppState() {}
 
@@ -46,6 +47,8 @@ class AppState {
         data['TUTORIAL_BOX_NUMBER_REPEAT_ORDER_PAGE'] ?? 0;
     tutorialBoxNumberOrderFinalInvoicePage =
         data['TUTORIAL_BOX_NUMBER_ORDER_FINAL_INVOICE_PAGE'] ?? 0;
+    tutorialBoxNumberRequestOrderPage =
+        data['TUTORIAL_BOX_NUMBER_REQUEST_ORDER_PAGE'] ?? 0;
   }
 
   Map<String, dynamic> toJsonMap() {
@@ -73,6 +76,9 @@ class AppState {
         tutorialBoxNumberRepeatOrderPage;
     data['TUTORIAL_BOX_NUMBER_ORDER_FINAL_INVOICE_PAGE'] =
         tutorialBoxNumberOrderFinalInvoicePage;
+    data['TUTORIAL_BOX_NUMBER_REQUEST_ORDER_PAGE'] =
+        tutorialBoxNumberRequestOrderPage;
+
 
     return data;
   }

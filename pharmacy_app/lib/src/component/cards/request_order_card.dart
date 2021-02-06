@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
+import 'package:pharmacy_app/src/models/order/request_order.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class NotificationCard extends StatelessWidget {
-  final NotificationItem notificationItem;
-  NotificationCard({this.notificationItem, Key key}) : super(key: key);
+class RequestOrderCard extends StatelessWidget {
+  final RequestOrder requestOrder;
+  RequestOrderCard({this.requestOrder, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class NotificationCard extends StatelessWidget {
         child: Material(
           shadowColor: Colors.grey[100].withOpacity(0.4),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           elevation: 5,
           clipBehavior: Clip.antiAlias, // Add This
           child: buildBody(context),
@@ -60,13 +61,13 @@ class NotificationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(notificationItem.title,
+                  Text(requestOrder.itemName,
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
                   SizedBox(height: 5),
-                  Text(notificationItem.message,
+                  Text(requestOrder.quantity.toString(),
                       style:
-                          TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
+                      TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
                 ],
               ),
             ),
