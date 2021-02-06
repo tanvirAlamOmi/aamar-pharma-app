@@ -132,7 +132,7 @@ class _FeedContainerState extends State<FeedContainer>
     }
 
     if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
-      noItem = false; 
+      noItem = false;
     }
   }
 
