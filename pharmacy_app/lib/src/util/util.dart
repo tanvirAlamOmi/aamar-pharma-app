@@ -70,6 +70,7 @@ class Util {
   static Future<void> getPermissions() async {
     await Permission.camera.request();
     await Permission.storage.request();
+    await Permission.mediaLibrary.request();
   }
 
   static Future<void> handleErrorResponse(

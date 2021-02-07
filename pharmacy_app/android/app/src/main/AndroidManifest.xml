@@ -21,7 +21,8 @@
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:theme"
         android:largeHeap="true"
-        android:theme="@style/MainTheme">
+        android:theme="@style/MainTheme"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
