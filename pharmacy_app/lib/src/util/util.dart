@@ -228,6 +228,10 @@ class Util {
     ];
   }
 
+  static int getReferralCode(){
+    return Random().nextInt(100000);
+  }
+
   static void prettyPrintJson(String input) {
     const JsonDecoder decoder = JsonDecoder();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');

@@ -99,7 +99,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   buildAllAddressCardBasedOnLoginState() {
-    if (user.id == 0) return Container();
+    if (user.id == 0 || user.id == null) return Container();
     return AllAddressCard(
         selectedDeliveryAddressIndex: selectedDeliveryAddressIndex,
         setSelectedDeliveryAddressIndex: setSelectedDeliveryAddressIndex,

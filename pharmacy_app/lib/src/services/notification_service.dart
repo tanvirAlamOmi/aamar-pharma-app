@@ -34,7 +34,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-void firebaseCloudMessagingListeners() async {
+Future<void> firebaseCloudMessagingListeners() async {
   int soundId = await rootBundle
       .load("assets/sounds/alert1.mp3")
       .then((ByteData soundData) {

@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
+import 'package:pharmacy_app/src/services/dynamic_link_service.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/services/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class App extends StatefulWidget {
 }
 
 class _AppSate extends State<App> {
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -21,15 +25,19 @@ class _AppSate extends State<App> {
   }
 
   void initProject() async {
+    AppVariableStates.instance.context = context;
+    AppVariableStates.instance.navigatorKey = navigatorKey;
     await Store.initStore();
     await firebaseCloudMessagingListeners();
+    await DynamicLinksApi.instance.handleDynamicLink();
   }
 
   @override
   Widget build(BuildContext context) {
     // start app
     return MaterialApp(
-      title: 'Amar Pharma',
+      navigatorKey: navigatorKey,
+      title: 'Aamar Pharma',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Util.colorFromHex("#473FA8"),
