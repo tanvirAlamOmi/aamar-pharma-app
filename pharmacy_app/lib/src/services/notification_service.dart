@@ -18,6 +18,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
   print('on onBackgroundMessage ${message.data}');
+  // Do not navigate route from here.
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -67,6 +68,7 @@ Future<void> firebaseCloudMessagingListeners() async {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage message) {
+      // On click to start the app from beginning, this is executed.
       if (message != null) {
         print('on getInitialMessage $message.data');
         navigateToSpecificScreen();
@@ -74,6 +76,7 @@ Future<void> firebaseCloudMessagingListeners() async {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      // On foreground app, this is executed.
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
 
@@ -98,6 +101,7 @@ Future<void> firebaseCloudMessagingListeners() async {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
+      // On click the push message this is executed.
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessageOpenedApp ${message.data}');
       navigateToSpecificScreen();
