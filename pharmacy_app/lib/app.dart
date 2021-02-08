@@ -16,7 +16,8 @@ class App extends StatefulWidget {
 }
 
 class _AppSate extends State<App> {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: "navigator");
 
   @override
   void initState() {
@@ -25,7 +26,6 @@ class _AppSate extends State<App> {
   }
 
   void initProject() async {
-    AppVariableStates.instance.context = context;
     AppVariableStates.instance.navigatorKey = navigatorKey;
     await Store.initStore();
     await firebaseCloudMessagingListeners();
@@ -34,7 +34,6 @@ class _AppSate extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    // start app
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: 'Aamar Pharma',

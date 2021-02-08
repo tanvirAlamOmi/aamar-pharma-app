@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/configs/server_config.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:soundpool/soundpool.dart';
@@ -14,15 +15,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-Soundpool pool = Soundpool(streamType: StreamType.notification);
-
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message ${message.messageId}");
+  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+  print('on onBackgroundMessage ${message.data}');
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'amar_pharma', // id
-    'Amar Pharma', // title
+    'aamar_pharma', // id
+    'Aamar Pharma', // title
     'This channel is used for Aamar Pharma notifications.', // description
     importance: Importance.max,
     enableVibration: true,
@@ -35,12 +35,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> firebaseCloudMessagingListeners() async {
-  int soundId = await rootBundle
-      .load("assets/sounds/alert1.mp3")
-      .then((ByteData soundData) {
-    return pool.load(soundData);
-  });
-
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   print("FIREBASE  initialized");
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -69,22 +64,43 @@ Future<void> firebaseCloudMessagingListeners() async {
         FirebaseMessaging.instance.subscribeToTopic("pharma-admin-dev");
     }
 
-    FirebaseMessaging.onMessage.listen((message) async {
-      await pool.play(soundId);
-      Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      print('on onMessage $message');
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage message) {
+      if (message != null) {
+        print('on getInitialMessage $message.data');
+        navigateToSpecificScreen();
+      }
     });
 
-    FirebaseMessaging.onBackgroundMessage((message) async {
-      await pool.play(soundId);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                // TODO add a proper drawable resource to android, for now using
+                //      one that already exists in example app.
+                icon: 'launch_background',
+              ),
+            ));
+      }
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      print('on onMessage $message');
+      print('on onMessage $message.data');
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
-      await pool.play(soundId);
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      print('on onMessage $message');
+      print('on onMessageOpenedApp ${message.data}');
+      navigateToSpecificScreen();
     });
   } catch (error) {
     print("ERROR in FCM Service");
@@ -92,8 +108,9 @@ Future<void> firebaseCloudMessagingListeners() async {
   }
 }
 
-Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
-  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+void navigateToSpecificScreen() async {
+  AppVariableStates.instance.navigatorKey.currentState
+      .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
 }
 
 void iOSPermission() {

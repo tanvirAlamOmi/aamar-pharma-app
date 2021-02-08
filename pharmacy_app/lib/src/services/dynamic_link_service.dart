@@ -10,7 +10,6 @@ class DynamicLinksApi {
   Future<void> handleDynamicLink() async {
     await dynamicLink.getInitialLink();
     dynamicLink.onLink(onSuccess: (PendingDynamicLinkData data) async {
-      print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
       handleSuccessLinking(data);
     }, onError: (OnLinkErrorException error) async {
       print(error.message.toString());

@@ -26,7 +26,6 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    firebaseCloudMessagingListeners();
   }
 
   @override
