@@ -43,7 +43,7 @@ class User {
         email = Store.instance.appState.user.email,
         phone = Store.instance.appState.user.phone,
         token = "custom-token-api",
-        dynamicReferralLink = Store.instance.appState.user.dynamicReferralLink;
+        dynamicReferralLink = AppVariableStates.instance.dynamicLink;
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(

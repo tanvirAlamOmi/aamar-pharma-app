@@ -29,7 +29,7 @@ class DynamicLinksApi {
 
     print("Dynamic Deep Link Referral Data: " + deepLink.toString());
 
-    if (Store.instance.appState.user.id != null && deepLink != null) {
+    if (Store.instance.appState.user.id == null && deepLink != null) {
       bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
         String code = deepLink.queryParameters['refer_code'];
