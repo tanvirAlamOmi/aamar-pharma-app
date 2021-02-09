@@ -11,7 +11,7 @@ class DynamicLinksApi {
   static DynamicLinksApi _instance;
   static DynamicLinksApi get instance => _instance ??= DynamicLinksApi();
 
-  Future<void> handleDynamicLink() async {
+  Future<void> handleReferralLink() async {
     // Install the app and get first dynamic link data.
     final PendingDynamicLinkData data = await dynamicLink.getInitialLink();
     handleSuccessLinking(data);
@@ -24,12 +24,12 @@ class DynamicLinksApi {
   }
 
   void handleSuccessLinking(PendingDynamicLinkData data) async {
-    print("Handling Dynamic Link");
+    print("Handling Dynamic Link Click");
     final Uri deepLink = data?.link;
 
-    print("Dynamic Deep Link: " + deepLink.toString());
+    print("Dynamic Deep Link Referral Data: " + deepLink.toString());
 
-    if (deepLink != null) {
+    if (Store.instance.appState.user.id != null && deepLink != null) {
       bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
         String code = deepLink.queryParameters['refer_code'];
@@ -47,7 +47,9 @@ class DynamicLinksApi {
     }
   }
 
-  Future<String> createReferralLink() async {
+  Future<void> createDynamicReferralLink() async {
+    if (Store.instance.appState.user.id != null) return;
+
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
       uriPrefix: 'https://aamarpharma.page.link',
       link: Uri.parse(
@@ -68,6 +70,6 @@ class DynamicLinksApi {
 
     final Uri dynamicUrl = shortLink.shortUrl;
     AppVariableStates.instance.dynamicLink = dynamicUrl.toString();
-    return dynamicUrl.toString();
+    print("User Based Dynamic Link: " + AppVariableStates.instance.dynamicLink);
   }
 }

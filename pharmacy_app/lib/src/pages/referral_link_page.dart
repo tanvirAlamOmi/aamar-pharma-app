@@ -11,7 +11,7 @@ class ReferralLinkPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         appBar: AppBar(
           leading: AppBarBackButtonCross(),
           elevation: 1,
@@ -60,10 +60,13 @@ class ReferralLinkPage extends StatelessWidget {
               child: IconButton(
                 icon: Icon(Icons.copy),
                 iconSize: 30,
+                color: Colors.grey,
                 onPressed: () {
                   Clipboard.setData(ClipboardData(
                       text: Store.instance.appState.user.dynamicReferralLink));
-                  Util.showSnackBar(scaffoldKey: _scaffoldKey, message: "Referral Link Copied");
+                  Util.showSnackBar(
+                      scaffoldKey: _scaffoldKey,
+                      message: "Referral Link Copied");
                 },
               ),
             )

@@ -8,6 +8,7 @@ import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/order_page.dart';
+import 'package:pharmacy_app/src/services/dynamic_link_service.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
@@ -31,6 +32,7 @@ class _MainPageState extends State<MainPage> {
     eventChecker();
     AutoRefreshTimer.instance.stopTimer();
     AutoRefreshTimer.instance.autoRefresh();
+    DynamicLinksApi.instance.createDynamicReferralLink();
   }
 
   void eventChecker() async {
@@ -45,8 +47,6 @@ class _MainPageState extends State<MainPage> {
         currentTabIndex = 1;
         refreshUI();
       }
-
-
     });
   }
 

@@ -68,7 +68,14 @@ class Store {
   }
 
   setReferralCode(String referralCode) async {
+    // Even if a user does not login first time, referral code will exist until
+    // he login with that referral code
     appState.referralCode = referralCode;
+    await putAppData();
+  }
+
+  setDynamicReferralLink(String deepLink)async {
+    appState.user.dynamicReferralLink = deepLink;
     await putAppData();
   }
 

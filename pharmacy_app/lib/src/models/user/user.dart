@@ -12,10 +12,17 @@ class User {
   String token;
   String dynamicReferralLink;
 
-  User({this.id, this.name, this.email, this.phone, this.userType, this.token, this.dynamicReferralLink});
+  User(
+      {this.id,
+      this.name,
+      this.email,
+      this.phone,
+      this.userType,
+      this.token,
+      this.dynamicReferralLink});
 
   User.blank()
-      : id = 0,
+      : id = null,
         name = "",
         email = "",
         phone = "",
@@ -36,7 +43,7 @@ class User {
         email = Store.instance.appState.user.email,
         phone = Store.instance.appState.user.phone,
         token = "custom-token-api",
-        dynamicReferralLink = AppVariableStates.instance.dynamicLink;
+        dynamicReferralLink = Store.instance.appState.user.dynamicReferralLink;
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(
@@ -70,6 +77,7 @@ class User {
     data['phone'] = phone;
     data['user_type'] = userType;
     data['token'] = token;
+    data['dynamic_referral_link'] = dynamicReferralLink;
     return data;
   }
 }
