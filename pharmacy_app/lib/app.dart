@@ -30,6 +30,7 @@ class _AppSate extends State<App> {
     await Store.initStore();
     await firebaseCloudMessagingListeners();
     await DynamicLinksApi.instance.handleDynamicLink();
+    print(await DynamicLinksApi.instance.createReferralLink());
   }
 
   @override

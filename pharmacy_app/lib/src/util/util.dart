@@ -229,7 +229,7 @@ class Util {
   }
 
   static int getReferralCode(){
-    return Random().nextInt(100000);
+    return Random().nextInt(100000) + 100000;
   }
 
   static void prettyPrintJson(String input) {

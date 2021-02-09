@@ -250,6 +250,10 @@ class VerificationPageState extends State<VerificationPage> {
           AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE) {
         Navigator.of(context).pop(); // pop verification Page
         AppVariableStates.instance.submitFunction();
+      } else if (widget.onVerificationNextStep ==
+          AppEnum.ON_VERIFICATION_USING_REFERRAL_CODE) {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       }
     } else {
       Util.showSnackBar(

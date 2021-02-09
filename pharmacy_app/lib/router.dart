@@ -40,10 +40,11 @@ final Map<String, RouterMethod> _definitions = {
     );
   },
   '/login': (settings, _) {
+    final  String referralCode = settings.arguments;
     return MaterialPageRoute(
       settings: settings,
       builder: (context) {
-        return LoginPage();
+        return LoginPage(referralCode: referralCode);
       },
     );
   },

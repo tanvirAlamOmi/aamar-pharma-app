@@ -86,18 +86,20 @@ Future<void> firebaseCloudMessagingListeners() async {
             notification.title,
             notification.body,
             NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
-                icon: 'launch_background',
-              ),
-            ));
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  channel.description,
+                  icon: 'launch_background',
+                ),
+                iOS: IOSNotificationDetails(
+                  presentAlert: true,
+                  presentBadge: true,
+                  presentSound: true,
+                )));
       }
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      print('on onMessage $message.data');
+      print('on onMessage ${message.data['code']}');
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {

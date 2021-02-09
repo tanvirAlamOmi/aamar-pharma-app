@@ -1,4 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class DynamicLinksApi {
@@ -8,31 +10,45 @@ class DynamicLinksApi {
   static DynamicLinksApi get instance => _instance ??= DynamicLinksApi();
 
   Future<void> handleDynamicLink() async {
-    await dynamicLink.getInitialLink();
+    // Install the app and get first dynamic link data.
+    final PendingDynamicLinkData data = await dynamicLink.getInitialLink();
+    handleSuccessLinking(data);
+
     dynamicLink.onLink(onSuccess: (PendingDynamicLinkData data) async {
-      handleSuccessLinking(data);
+      // If app is installed, this will work. No code to execute here currently
     }, onError: (OnLinkErrorException error) async {
       print(error.message.toString());
     });
   }
 
-  void handleSuccessLinking(PendingDynamicLinkData data) {
+  void handleSuccessLinking(PendingDynamicLinkData data) async{
+    print("Handling Dynamic Link");
     final Uri deepLink = data?.link;
 
+    print(deepLink);
+
     if (deepLink != null) {
-      var isRefer = deepLink.pathSegments.contains('refer');
+      bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
-        var code = deepLink.queryParameters['code'];
-        print(code.toString());
-        if (code != null) {}
+        var code = deepLink.queryParameters['refer_code'];
+        if (code != null) {
+          await Future.delayed(Duration(seconds: 5));
+          AppVariableStates.instance.navigatorKey.currentState
+              .pushNamedAndRemoveUntil(
+            '/login',
+            (Route<dynamic> route) => false,
+            arguments: code,
+          );
+        }
       }
     }
   }
 
   Future<String> createReferralLink() async {
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-      uriPrefix: 'https://devscore.page.link',
-      link: Uri.parse('https://arbreesolutions.com?code=${Util.getReferralCode()}'),
+      uriPrefix: 'https://aamarpharma.page.link',
+      link: Uri.parse(
+          'https://arbreesolutions.com?refer_code=${Util.getReferralCode()}'),
       androidParameters: AndroidParameters(
         packageName: 'com.arbree.pharmacy_app',
       ),

@@ -13,6 +13,9 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class LoginPage extends StatefulWidget {
+  final String referralCode;
+
+  const LoginPage({Key key, this.referralCode}) : super(key: key);
   @override
   State<StatefulWidget> createState() => new LoginPageState();
 }
@@ -69,7 +72,8 @@ class LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(3, 30, 0, 0),
-          child: AppBarBackButton(),
+          child:
+              (widget.referralCode == null) ? AppBarBackButton() : Container(),
         ),
       ],
     );
@@ -93,22 +97,32 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget buildTitle() {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 30),
-        CustomText('LOGIN',
-            color: Util.greenishColor(),
-            fontWeight: FontWeight.bold,
-            fontSize: 20),
-        SizedBox(height: 20),
-        CustomText('Enter your mobile number',
-            color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13),
+    final children = List<Widget>();
+
+    if (widget.referralCode != null) {
+      children.addAll([
         SizedBox(height: 3),
-        CustomText('We will send you a verification code by text message(SMS)',
-            color: Colors.grey[500],
-            fontWeight: FontWeight.normal,
-            fontSize: 11),
-      ],
+        CustomText('Referral Code ${widget.referralCode}',
+            color: Colors.red[500], fontWeight: FontWeight.bold, fontSize: 15),
+      ]);
+    }
+
+    children.addAll([
+      SizedBox(height: 30),
+      CustomText('LOGIN',
+          color: Util.greenishColor(),
+          fontWeight: FontWeight.bold,
+          fontSize: 20),
+      SizedBox(height: 20),
+      CustomText('Enter your mobile number',
+          color: Colors.black, fontWeight: FontWeight.normal, fontSize: 13),
+      SizedBox(height: 3),
+      CustomText('We will send you a verification code by text message(SMS)',
+          color: Colors.grey[500], fontWeight: FontWeight.normal, fontSize: 11),
+    ]);
+
+    return Column(
+      children: children,
     );
   }
 
@@ -211,15 +225,29 @@ class LoginPageState extends State<LoginPage> {
     final phone = countryCode + phoneController.text;
     await Store.instance.setPhoneNumber(phoneController.text);
     await AuthRepo.instance.sendSMSCode(phone);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => VerificationPage(
-                phoneNumber: phoneController.text,
-                onVerificationNextStep:
-                    AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
-              )),
-    );
+
+    if(widget.referralCode != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+              phoneNumber: phoneController.text,
+              onVerificationNextStep:
+              AppEnum.ON_VERIFICATION_USING_REFERRAL_CODE,
+            )),
+      );
+    }else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VerificationPage(
+              phoneNumber: phoneController.text,
+              onVerificationNextStep:
+              AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
+            )),
+      );
+    }
+
   }
 
   void onVerificationNextStep() {
