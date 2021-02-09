@@ -11,6 +11,8 @@ class AppVariableStates {
   DateTime selectedRepeatedTime = DateTime.now();
   Order order = new Order();
   BuildContext context;
+  bool loginWithReferral = false;
+  String dynamicLink = "";
   GlobalKey<NavigatorState> navigatorKey;
   Function submitFunction;
 

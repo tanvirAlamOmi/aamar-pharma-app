@@ -251,7 +251,7 @@ class VerificationPageState extends State<VerificationPage> {
         Navigator.of(context).pop(); // pop verification Page
         AppVariableStates.instance.submitFunction();
       } else if (widget.onVerificationNextStep ==
-          AppEnum.ON_VERIFICATION_USING_REFERRAL_CODE) {
+          AppEnum.LOGIN_USING_REFERRAL_CODE) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       }

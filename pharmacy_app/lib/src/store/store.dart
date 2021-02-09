@@ -67,6 +67,11 @@ class Store {
     await putAppData();
   }
 
+  setReferralCode(String referralCode) async {
+    appState.referralCode = referralCode;
+    await putAppData();
+  }
+
   getFirebasePushNotificationToken() {
     return appState.firebasePushNotificationToken;
   }

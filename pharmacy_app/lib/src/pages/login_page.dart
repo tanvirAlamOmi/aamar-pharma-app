@@ -13,9 +13,6 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class LoginPage extends StatefulWidget {
-  final String referralCode;
-
-  const LoginPage({Key key, this.referralCode}) : super(key: key);
   @override
   State<StatefulWidget> createState() => new LoginPageState();
 }
@@ -72,8 +69,9 @@ class LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(3, 30, 0, 0),
-          child:
-              (widget.referralCode == null) ? AppBarBackButton() : Container(),
+          child: (AppVariableStates.instance.loginWithReferral == false)
+              ? AppBarBackButton()
+              : Container(),
         ),
       ],
     );
@@ -99,10 +97,10 @@ class LoginPageState extends State<LoginPage> {
   Widget buildTitle() {
     final children = List<Widget>();
 
-    if (widget.referralCode != null) {
+    if (Store.instance.appState.referralCode.isNotEmpty) {
       children.addAll([
         SizedBox(height: 3),
-        CustomText('Referral Code ${widget.referralCode}',
+        CustomText('Referral Code ${Store.instance.appState.referralCode}',
             color: Colors.red[500], fontWeight: FontWeight.bold, fontSize: 15),
       ]);
     }
@@ -226,28 +224,26 @@ class LoginPageState extends State<LoginPage> {
     await Store.instance.setPhoneNumber(phoneController.text);
     await AuthRepo.instance.sendSMSCode(phone);
 
-    if(widget.referralCode != null){
+    if (Store.instance.appState.referralCode.isNotEmpty) {
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => VerificationPage(
-              phoneNumber: phoneController.text,
-              onVerificationNextStep:
-              AppEnum.ON_VERIFICATION_USING_REFERRAL_CODE,
-            )),
+                  phoneNumber: phoneController.text,
+                  onVerificationNextStep: AppEnum.LOGIN_USING_REFERRAL_CODE,
+                )),
       );
-    }else {
+    } else {
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => VerificationPage(
-              phoneNumber: phoneController.text,
-              onVerificationNextStep:
-              AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
-            )),
+                  phoneNumber: phoneController.text,
+                  onVerificationNextStep:
+                      AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
+                )),
       );
     }
-
   }
 
   void onVerificationNextStep() {

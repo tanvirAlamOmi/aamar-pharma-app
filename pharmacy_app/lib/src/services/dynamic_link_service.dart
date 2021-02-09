@@ -1,6 +1,8 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class DynamicLinksApi {
@@ -21,23 +23,24 @@ class DynamicLinksApi {
     });
   }
 
-  void handleSuccessLinking(PendingDynamicLinkData data) async{
+  void handleSuccessLinking(PendingDynamicLinkData data) async {
     print("Handling Dynamic Link");
     final Uri deepLink = data?.link;
 
-    print(deepLink);
+    print("Dynamic Deep Link: " + deepLink.toString());
 
     if (deepLink != null) {
       bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
-        var code = deepLink.queryParameters['refer_code'];
+        String code = deepLink.queryParameters['refer_code'];
         if (code != null) {
           await Future.delayed(Duration(seconds: 5));
+          await Store.instance.setReferralCode(code);
+          AppVariableStates.instance.loginWithReferral = true;
           AppVariableStates.instance.navigatorKey.currentState
               .pushNamedAndRemoveUntil(
             '/login',
             (Route<dynamic> route) => false,
-            arguments: code,
           );
         }
       }
@@ -64,7 +67,7 @@ class DynamicLinksApi {
         await dynamicLinkParameters.buildShortLink();
 
     final Uri dynamicUrl = shortLink.shortUrl;
-    print(dynamicUrl);
+    AppVariableStates.instance.dynamicLink = dynamicUrl.toString();
     return dynamicUrl.toString();
   }
 }

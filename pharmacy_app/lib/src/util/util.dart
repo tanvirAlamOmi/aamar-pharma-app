@@ -179,7 +179,9 @@ class Util {
 
   static void removeFocusNode(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+    if (!currentFocus.hasPrimaryFocus && currentFocus.hasFocus) {
+      FocusManager.instance.primaryFocus.unfocus();
+    }
   }
 
   static Uint8List convertToUIntListFromByTeData(ByteData imageBinaryData) {
@@ -228,8 +230,8 @@ class Util {
     ];
   }
 
-  static int getReferralCode(){
-    return Random().nextInt(100000) + 100000;
+  static String getReferralCode() {
+    return Uuid().v4().toString().split("-")[0];
   }
 
   static void prettyPrintJson(String input) {

@@ -38,19 +38,22 @@ class _MainDrawerState extends State<MainDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 150,
-            child: buildImageLogoWidget(),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: buildDrawer(context),
-          )
-        ],
+    return GestureDetector(
+      onTap: () => Util.removeFocusNode(context),
+      child: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 150,
+              child: buildImageLogoWidget(),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: buildDrawer(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -88,8 +91,7 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.pop(context);
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => RequestOrderPage()),
+              MaterialPageRoute(builder: (context) => RequestOrderPage()),
             );
           }),
     );
@@ -146,6 +148,21 @@ class _MainDrawerState extends State<MainDrawer> {
             Streamer.putEventStream(Event(EventType.CHANGE_LANGUAGE));
           }),
     );
+    if (Store.instance.appState.user.id != null)
+      children.add(
+        ListTile(
+            dense: true,
+            title: CustomText('REFER A FRIEND',
+                textAlign: TextAlign.start,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+                fontSize: 15),
+            leading: Icon(Icons.receipt, color: Util.purplishColor()),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context).pushNamed('/refer_a_friend');
+            }),
+      );
     if (Store.instance.appState.user.id != null)
       children.add(
         ListTile(

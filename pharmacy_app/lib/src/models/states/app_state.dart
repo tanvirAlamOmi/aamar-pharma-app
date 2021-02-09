@@ -8,6 +8,7 @@ class AppState {
   List<DeliveryAddressDetails> allDeliveryAddress =
       new List<DeliveryAddressDetails>();
   String firebasePushNotificationToken = "";
+  String referralCode = "";
   int initialTutorialScrollingPage = 0;
   int tutorialBoxNumberHomePage = 0;
   int tutorialBoxNumberAddItemsPage = 0;
@@ -32,6 +33,7 @@ class AppState {
             .toList()
             .cast<DeliveryAddressDetails>();
     firebasePushNotificationToken = data['FIREBASE_PUSH_NOTIFICATION_TOKEN'];
+    referralCode = data['REFERRAL_CODE'];
     initialTutorialScrollingPage = data['INITIAL_TUTORIAL_SCROLLING_PAGE'];
     tutorialBoxNumberHomePage = data['TUTORIAL_BOX_NUMBER_HOME_PAGE'] ?? 0;
     tutorialBoxNumberAddItemsPage =
@@ -62,6 +64,7 @@ class AppState {
             .map((singleDeliveryAddress) => singleDeliveryAddress.toJsonMap())
             .toList();
     data['FIREBASE_PUSH_NOTIFICATION_TOKEN'] = firebasePushNotificationToken;
+    data['REFERRAL_CODE'] = referralCode;
     data['INITIAL_TUTORIAL_SCROLLING_PAGE'] = initialTutorialScrollingPage;
     data['TUTORIAL_BOX_NUMBER_HOME_PAGE'] = tutorialBoxNumberHomePage;
     data['TUTORIAL_BOX_NUMBER_ADD_ITEMS_PAGE'] = tutorialBoxNumberAddItemsPage;
@@ -78,7 +81,6 @@ class AppState {
         tutorialBoxNumberOrderFinalInvoicePage;
     data['TUTORIAL_BOX_NUMBER_REQUEST_ORDER_PAGE'] =
         tutorialBoxNumberRequestOrderPage;
-
 
     return data;
   }
