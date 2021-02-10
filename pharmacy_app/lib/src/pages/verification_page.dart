@@ -202,7 +202,10 @@ class VerificationPageState extends State<VerificationPage> {
           Util.showSnackBar(
               scaffoldKey: _scaffoldKey,
               message: "Resending code in 10 seconds");
+          final String phoneNumber = '+88${Store.instance.appState.user.phone}';
+          print(phoneNumber);
           await Future.delayed(Duration(seconds: 10));
+          await AuthRepo.instance.sendSMSCode(phoneNumber);
           Util.showSnackBar(scaffoldKey: _scaffoldKey, message: "Code Resent");
         },
       ),

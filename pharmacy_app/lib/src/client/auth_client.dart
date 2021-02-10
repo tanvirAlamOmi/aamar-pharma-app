@@ -44,7 +44,7 @@ class AuthClient {
   Future<void> sendSMSCode(String phoneNumber) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      timeout: const Duration(seconds: 180),
+      timeout: const Duration(seconds: 120),
       verificationCompleted: (AuthCredential authCredential) async {
         try {
           final User firebaseUser =
