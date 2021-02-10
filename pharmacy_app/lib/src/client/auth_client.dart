@@ -44,7 +44,7 @@ class AuthClient {
   Future<void> sendSMSCode(String phoneNumber) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      timeout: const Duration(seconds: 45),
+      timeout: const Duration(seconds: 180),
       verificationCompleted: (AuthCredential authCredential) async {
         try {
           final User firebaseUser =
@@ -62,7 +62,7 @@ class AuthClient {
               userResponse.item1 != null) {
             Streamer.putEventStream(Event(EventType.REFRESH_VERIFICATION_PAGE));
           } else {
-            Streamer.putErrorStream(userResponse.item2);
+            Streamer.putErrorStream('Auto Verification Failed. ' + userResponse.item2);
           }
         } catch (error) {
           Streamer.putErrorStream(error.toString());
@@ -72,7 +72,10 @@ class AuthClient {
         AppVariableStates.instance.firebaseSMSToken = token;
       },
       codeAutoRetrievalTimeout: (id) {},
-      verificationFailed: (err) {},
+      verificationFailed: (FirebaseAuthException authException) {
+        Streamer.putErrorStream(
+            'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+      },
     );
   }
 

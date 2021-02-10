@@ -112,7 +112,7 @@ class PersonalDetailsCard extends StatelessWidget {
                       height: 35, // set this
                       child: TextField(
                         controller: phoneController,
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.number,
                         decoration: new InputDecoration(
                           isDense: true,
                           hintText: "Your Phone Number",

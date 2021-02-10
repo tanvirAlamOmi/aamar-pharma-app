@@ -25,7 +25,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   final TextEditingController fullAddressController =
       new TextEditingController();
 
-  List<String> areaList = ["Mirupur", "Banani", "Gulshan"];
+  List<String> areaList = ["Mirpur", "Banani", "Gulshan"];
   String selectedArea;
 
   @override

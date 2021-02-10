@@ -140,12 +140,16 @@ class VerificationPageState extends State<VerificationPage> {
   }
 
   Widget buildOtpMessage() {
-    return Container(
-        alignment: Alignment.center,
-        child: Text(
-            'Enter the verification code sent to +88-' + widget.phoneNumber,
-            maxLines: 2,
-            style: TextStyle(fontSize: 13.0, color: Colors.grey)));
+    return Column(
+      children: [
+        Container(
+            alignment: Alignment.center,
+            child: Text(
+                'Enter the verification code sent to +88-' + widget.phoneNumber,
+                maxLines: 2,
+                style: TextStyle(fontSize: 13.0, color: Colors.grey))),
+      ],
+    );
   }
 
   Widget buildOtpInput() {

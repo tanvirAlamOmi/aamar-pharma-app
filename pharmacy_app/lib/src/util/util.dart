@@ -184,6 +184,21 @@ class Util {
     }
   }
 
+  static bool isEmail({String emailAddress}) {
+    // Null or empty string is invalid
+    if (emailAddress == null || emailAddress.isEmpty) {
+      return true;
+    }
+
+    const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    final regExp = RegExp(pattern);
+
+    if (!regExp.hasMatch(emailAddress)) {
+      return false;
+    }
+    return true;
+  }
+
   static Uint8List convertToUIntListFromByTeData(ByteData imageBinaryData) {
     Uint8List imageData = imageBinaryData.buffer.asUint8List(
         imageBinaryData.offsetInBytes, imageBinaryData.lengthInBytes);

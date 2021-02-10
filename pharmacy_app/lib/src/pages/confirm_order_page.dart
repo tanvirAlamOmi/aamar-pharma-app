@@ -448,8 +448,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (!emailController.text.contains('@') ||
-        !emailController.text.contains('.com')) {
+    if (!Util.isEmail(emailAddress: emailController.text)) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid email address");

@@ -103,7 +103,7 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
         child: Text(
-          "Next DELIVERY ON - ${order.nextOrderDay.replaceAll("-", "/")}",
+          "NEXT DELIVERY ON - ${order.nextOrderDay.replaceAll("-", "/")}",
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),
