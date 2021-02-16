@@ -29,7 +29,7 @@ class QueryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        final String jwtToken = Store.instance.appState.user.token;
+        final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
         final feedResponse = await QueryRepo.instance
@@ -75,7 +75,7 @@ class QueryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        final String jwtToken = Store.instance.appState.user.token;
+        final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
         final feedResponse = await QueryRepo.instance
@@ -111,7 +111,7 @@ class QueryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        final String jwtToken = Store.instance.appState.user.token;
+        final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
         final feedResponse = await QueryRepo.instance

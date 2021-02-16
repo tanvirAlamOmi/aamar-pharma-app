@@ -32,7 +32,6 @@ class _MainPageState extends State<MainPage> {
     eventChecker();
     AutoRefreshTimer.instance.stopTimer();
     AutoRefreshTimer.instance.autoRefresh();
-    DynamicLinksApi.instance.createDynamicReferralLink();
   }
 
   void eventChecker() async {

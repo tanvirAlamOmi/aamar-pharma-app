@@ -24,7 +24,7 @@ class DeliveryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final String addDeliveryAddressRequest = jsonEncode(<String, dynamic>{
           'add_type': deliveryAddressDetails.addType,
@@ -61,7 +61,7 @@ class DeliveryRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
         int customerId = Store.instance.appState.user.id;
 
         final deliveryAddressListResponse = await DeliveryRepo.instance

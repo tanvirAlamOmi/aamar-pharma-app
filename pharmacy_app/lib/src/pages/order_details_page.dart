@@ -175,9 +175,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildDeliveryAddressDetails() {
-    final DeliveryAddressDetails deliveryAddressDetails =
-        Util.getDeliveryAddress(order.idAddress);
-
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
       child: Column(
@@ -200,7 +197,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: deliveryAddressDetails.addType),
+                        text: widget.order.deliveryAddressDetails.addType),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,
@@ -228,7 +225,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: deliveryAddressDetails.address),
+                        text: widget.order.deliveryAddressDetails.address),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,

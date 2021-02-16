@@ -47,13 +47,13 @@ class DynamicLinksApi {
     }
   }
 
-  Future<void> createDynamicReferralLink() async {
-    if (Store.instance.appState.user.id != null) return;
+  Future<String> createDynamicReferralLink({String referralCode}) async {
+    if (Store.instance.appState.user.id != null) return null;
 
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
       uriPrefix: 'https://aamarpharma.page.link',
       link: Uri.parse(
-          'https://arbreesolutions.com?refer_code=${Util.getReferralCode()}'),
+          'https://arbreesolutions.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(
         packageName: 'com.arbree.pharmacy_app',
       ),
@@ -69,6 +69,7 @@ class DynamicLinksApi {
         await dynamicLinkParameters.buildShortLink();
 
     final Uri dynamicUrl = shortLink.shortUrl;
+    return dynamicUrl.toString();
     AppVariableStates.instance.dynamicLink = dynamicUrl.toString();
     print("User Based Dynamic Link: " + AppVariableStates.instance.dynamicLink);
   }

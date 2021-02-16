@@ -22,7 +22,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final orderWithPrescriptionResponse = await OrderRepo.instance
             .getOrderClient()
@@ -46,7 +46,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final orderWithItemNameResponse = await OrderRepo.instance
             .getOrderClient()
@@ -70,7 +70,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final cancelOrderRequest =
             jsonEncode(<String, dynamic>{'id_order': orderId});
@@ -96,7 +96,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final confirmInvoiceOrderItemListRequest = jsonEncode(<String, dynamic>{
           'items': order.invoiceItemList
@@ -130,7 +130,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final cancelRepeatOrderRequest =
             jsonEncode(<String, dynamic>{'id_order': orderId});
@@ -161,7 +161,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final specialRequestOrderProductRequest = jsonEncode(<String, dynamic>{
           'item_name': itemName,
@@ -196,7 +196,7 @@ class OrderRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String jwtToken = Store.instance.appState.user.token;
+        String jwtToken = Store.instance.appState.user.loginToken;
 
         final consultPharmacistOrderRequest =
             jsonEncode(<String, dynamic>{'name': name, 'phone': phone});

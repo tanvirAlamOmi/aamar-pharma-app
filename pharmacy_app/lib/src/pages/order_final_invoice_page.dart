@@ -209,9 +209,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildOrderAddress() {
-    final DeliveryAddressDetails deliveryAddressDetails =
-        Util.getDeliveryAddress(widget.order.idAddress);
-
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
@@ -285,7 +282,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    deliveryAddressDetails.address,
+                    widget.order.deliveryAddressDetails.address,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,
@@ -295,7 +292,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    deliveryAddressDetails.area,
+                    widget.order.deliveryAddressDetails.area,
                     style: TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.normal,

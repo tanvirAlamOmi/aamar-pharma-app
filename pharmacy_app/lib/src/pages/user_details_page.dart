@@ -54,7 +54,7 @@ class _AccountPageState extends State<AccountPage> {
 
   void setUserDetailsData() {
     user = Store.instance.appState.user;
-    if (user.id == null) user = User.blank();
+    if (user.id == null) user = User.none();
 
     nameController = new TextEditingController(text: user.name);
     emailController = new TextEditingController(text: user.email);

@@ -3,7 +3,9 @@ import 'package:pharmacy_app/src/client/auth_client.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/user/user.dart' as PharmaUser;
+import 'package:pharmacy_app/src/services/dynamic_link_service.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:convert';
 
@@ -24,18 +26,25 @@ class AuthRepo {
 
     while (retry++ < 2) {
       try {
+        final String self_referral_code = Util.getReferralCode();
+
         String signInRequest = jsonEncode(<String, dynamic>{
-          'AUTH_TOKEN': authToken,
-          'PHONE_NUMBER': phoneNumber,
-          'SIGNIN_TYPE': ClientEnum.SIGNIN_PHONE
+          // 'FIREBASE_AUTH_TOKEN': authToken,
+          'verified_phone': phoneNumber,
+          'fcm_token': Store.instance.appState.firebasePushNotificationToken,
+          'referral_code': Store.instance.appState.referralCode,
+          'self_referral_code': self_referral_code,
+          'dynamic_referral_link': await DynamicLinksApi.instance
+              .createDynamicReferralLink(referralCode: self_referral_code)
         });
 
         final signInResponse =
             await AuthRepo.instance.getAuthClient().signIn(signInRequest);
 
-        if (signInResponse['STATUS'] == true) {
+
+        if (signInResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
           final user =
-              PharmaUser.User.fromJson(json.decode(signInResponse['USER']));
+              PharmaUser.User.fromJson(signInResponse['user']);
 
           await Store.instance.updateUser(user);
           await Store.instance.setReferralCode('');
