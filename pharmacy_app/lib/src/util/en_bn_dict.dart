@@ -74,6 +74,7 @@ class EnBnDict {
     'HELP & FAQ': 'সাহায্য এবং প্রশ্ন',
     'ABOUT': 'জানুন আমাদের সম্পর্কে',
     'LANGUAGE (BANGLA)': 'ভাষা(বাংলা)',
+    'REFER A FRIEND': 'পরিচিতজনকে রেফার করুন',
     'LOG OUT': 'লগ আউট',
 
     // Bottom Navigation Bar
@@ -151,10 +152,28 @@ class EnBnDict {
     '39/A Housing Estate...': '৩৯/এ হাউজিং এস্টেট',
     'Select Area': 'এলাকা নির্বাচন করুন',
 
+    // Login Page
+    'LOGIN' : 'লগিন',
+    'Enter your mobile number': 'আপনার মোবাইল নাম্বারটি দিন',
+    'We will send you a verification code by text message(SMS)' :
+      'আমরা আপ্নকে এস,এম,এস এর মাধ্যমে একটি ভেরিফিকেসন কোড পাঠাবো',
+
+    // Verification Page
+    'PHONE VERIFICATION' : 'ফোন ভেরিফিকেইসন',
+    'SUBMIT CODE': 'কোড সংযুক্ত করুন',
+    'Resend Code': 'আবার কোড পাঠান',
+    'CONTINUE': 'পরবর্তী ধাপ',
+
+    // My Details Page
+    'MY DETAILS': 'আমার বৃত্তান্ত',
+    'SAVE': 'সেইভ করুন',
+
+
 
     // General
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
+    'PROCEED': 'পরবর্তী ধাপ',
 
     //
     'AM': 'দিন',

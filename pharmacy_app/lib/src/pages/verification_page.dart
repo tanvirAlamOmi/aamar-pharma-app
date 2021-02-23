@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 
 class VerificationPage extends StatefulWidget {
   final String phoneNumber;
@@ -70,7 +71,7 @@ class VerificationPageState extends State<VerificationPage> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: CustomText('Phone Verification',
+          title: CustomText('PHONE VERIFICATION',
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           centerTitle: true,
           leading: isProcessing
@@ -144,12 +145,19 @@ class VerificationPageState extends State<VerificationPage> {
       children: [
         Container(
             alignment: Alignment.center,
-            child: Text(
-                'Enter the verification code sent to +88-' + widget.phoneNumber,
+            child: Text(getOTPMessage(),
                 maxLines: 2,
                 style: TextStyle(fontSize: 13.0, color: Colors.grey))),
       ],
     );
+  }
+
+  String getOTPMessage() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return 'Enter the verification code sent to +88-' + widget.phoneNumber;
+    } else {
+      return 'আপনার +৮৮-${EnBnDict.en_bn_number_convert(number: int.parse(widget.phoneNumber))} নাম্বারে পাঠানো ওটিপি কোড দিন';
+    }
   }
 
   Widget buildOtpInput() {
@@ -196,8 +204,8 @@ class VerificationPageState extends State<VerificationPage> {
       alignment: Alignment(0.0, 0.0),
       child: FlatButton.icon(
         icon: Icon(Icons.restore),
-        label: Text('Resend Code',
-            style: TextStyle(fontSize: 15.0, color: Colors.blueGrey)),
+        label: CustomText('Resend Code',
+            fontSize: 15.0, color: Colors.blueGrey),
         onPressed: () async {
           Util.showSnackBar(
               scaffoldKey: _scaffoldKey,
