@@ -95,6 +95,12 @@ class EnBnDict {
     '10 AM TO 10 PM': 'সকাল ১০ টা থেকে রাত ১০ টা ',
     'CALL US': 'কল করুন',
 
+    // Upload Prescription Verify Page
+    'UPLOAD PRESCRIPTION': 'প্রেসক্রিপশন আপলোড',
+    ' UPLOADED PHOTO(s)': 'টি আপলোডকৃত ছবি',
+    'Add Notes': 'নোট/নির্দেশনা যুক্ত করুন',
+    'Notes e.g. I need all the medicines': 'উদাঃ আমার সবগুলো ওষুধ প্রয়োজনীয়',
+
     //Add Items Page
     'ADD ITEMS': 'আইটেম যুক্ত করুন ',
     'Item Name': 'আইটেমের নাম',
