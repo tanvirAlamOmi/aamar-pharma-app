@@ -21,7 +21,7 @@ class EnBnDict {
     }
 
     String numberInBn = '';
-    for (int i = 0 ; i < number.toString().length; i++){
+    for (int i = 0; i < number.toString().length; i++) {
       numberInBn += EnBnDict.DICTINARY[number.toString()[i]];
     }
     return numberInBn;
@@ -107,12 +107,39 @@ class EnBnDict {
     'ADDED ITEMS': 'আপনার আইটেমসমূহ',
     'QUANTITY: ': 'পরিমাণ: ',
 
-
-
+    // Confirm Order Page
+    'CONFIRM ORDER': 'অর্ডার নিশ্চিত করুন',
+    'DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)':
+        'ডেলিভারির সময়(প্রতিদিন সকাল ১০টা থেকে রাত ১০টা)',
+    'Day': 'দিন',
+    'Time': 'সময়',
+    'Today': 'আজ',
+    'Tomorrow': 'আগামীকাল',
+    'Repeat Order': 'রিপিট অর্ডার',
+    'Select this option if you want to get this order on a regular basis':
+        'এই অর্ডারটি নিয়মিত ডেলিভারি পেতে হলে এই অপশনটি নির্বাচন করুন',
+    'Every': 'প্রতি',
+    'Week': '১ সপ্তাহ পর',
+    '15 Days': '১৫ দিন পর',
+    '1 Month': '১ মাস পর',
+    'Saturday': 'শনিবার',
+    'Sunday': 'রবিবার',
+    'Monday': 'সোমবার',
+    'Tuesday': 'মঙ্গলবার',
+    'Wednesday': 'বুধবার',
+    'Thursday': 'বৃহস্পতিবার',
+    'Friday': 'শুক্রবার',
+    'Add New Address': 'নতুন ঠিকানা যুক্ত করুন',
+    'PERSONAL DETAILS': 'ব্যক্তিগত তত্থ্য',
+    'NAME': 'নাম',
+    'EMAIL': 'ইমেইল',
+    'Phone Number': 'ফোন নাম্বার',
+    'Mr. XYZ': 'উদাঃ জনাব সৈকত',
+    'Your Phone Number': 'আপনার মোবাইল নাম্বার',
 
     // General
     'REMOVE': 'রিমোভ করুন',
-
+    'SUBMIT': 'সম্পন্ন করুন',
 
     //
     'AM': 'দিন',

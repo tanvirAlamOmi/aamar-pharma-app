@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class PersonalDetailsCard extends StatelessWidget {
@@ -54,7 +55,7 @@ class PersonalDetailsCard extends StatelessWidget {
                   controller: nameController,
                   decoration: new InputDecoration(
                     isDense: true,
-                    hintText: "Mr. XYZ",
+                    hintText: EnBnDict.en_bn_convert(text: 'Mr. XYZ'),
                     hintStyle: TextStyle(fontSize: 13),
                     fillColor: Colors.white,
                     contentPadding:
@@ -85,7 +86,7 @@ class PersonalDetailsCard extends StatelessWidget {
                         controller: emailController,
                         decoration: new InputDecoration(
                           isDense: true,
-                          hintText: "Your Email",
+                          hintText:  EnBnDict.en_bn_convert(text: 'myemail@arbree.com'),
                           hintStyle: TextStyle(fontSize: 13),
                           fillColor: Colors.white,
                           contentPadding:
@@ -115,7 +116,8 @@ class PersonalDetailsCard extends StatelessWidget {
                         keyboardType: TextInputType.number,
                         decoration: new InputDecoration(
                           isDense: true,
-                          hintText: "Your Phone Number",
+                          hintText:
+                              EnBnDict.en_bn_convert(text: 'Your Phone Number'),
                           hintStyle: TextStyle(fontSize: 13),
                           fillColor: Colors.white,
                           contentPadding:
