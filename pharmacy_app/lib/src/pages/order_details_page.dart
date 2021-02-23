@@ -197,7 +197,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   child: TextField(
                     style: textStyle,
                     controller: TextEditingController(
-                        text: widget.order.deliveryAddressDetails.addType),
+                        text: widget.order.deliveryAddressDetails.area),
                     enabled: false,
                     decoration: new InputDecoration(
                       isDense: true,

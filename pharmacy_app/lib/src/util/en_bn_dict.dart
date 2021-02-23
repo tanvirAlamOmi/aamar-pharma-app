@@ -15,7 +15,7 @@ class EnBnDict {
     return textMessage;
   }
 
-  static String en_bn_number_convert({int number}) {
+  static String en_bn_number_convert({dynamic number}) {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
       return number.toString();
     }
@@ -151,15 +151,16 @@ class EnBnDict {
     'Address': 'ঠিকানা',
     '39/A Housing Estate...': '৩৯/এ হাউজিং এস্টেট',
     'Select Area': 'এলাকা নির্বাচন করুন',
+    'Area': 'এলাকা',
 
     // Login Page
-    'LOGIN' : 'লগিন',
+    'LOGIN': 'লগিন',
     'Enter your mobile number': 'আপনার মোবাইল নাম্বারটি দিন',
-    'We will send you a verification code by text message(SMS)' :
-      'আমরা আপ্নকে এস,এম,এস এর মাধ্যমে একটি ভেরিফিকেসন কোড পাঠাবো',
+    'We will send you a verification code by text message(SMS)':
+        'আমরা আপ্নকে এস,এম,এস এর মাধ্যমে একটি ভেরিফিকেসন কোড পাঠাবো',
 
     // Verification Page
-    'PHONE VERIFICATION' : 'ফোন ভেরিফিকেইসন',
+    'PHONE VERIFICATION': 'ফোন ভেরিফিকেইসন',
     'SUBMIT CODE': 'কোড সংযুক্ত করুন',
     'Resend Code': 'আবার কোড পাঠান',
     'CONTINUE': 'পরবর্তী ধাপ',
@@ -168,12 +169,29 @@ class EnBnDict {
     'MY DETAILS': 'আমার বৃত্তান্ত',
     'SAVE': 'সেইভ করুন',
 
+    // Order Details Page
+    'ORDER DETAILS': 'অর্ডার বৃত্তান্ত',
+    'Email': 'ইমেইল',
+    'DELIVERY ADDRESS': 'ডেলিভারি ঠিকানা',
+    'CANCEL ORDER': 'অর্ডার কেন্সেল করুন',
 
+    // Confirm Invoice Page
+    'We only accept cash on delivery.':
+        'আমরা ডেলিভারিতে কেবল নগদ টাকা গ্রহণ করে থাকি',
+    'Please keep cash ready upon delivery.':
+        'অনুগ্রহপূর্বক ডেলিভারির সময় নগদ টাকা প্রস্তুত রাখুন।',
+    'Before confirming order, please check invoice, edit quantity or remove items.':
+        'অর্ডার নিশ্চিত করার আগে অনুগ্রহপূর্বক চালান বর্ণনা চেক করুন এবং প্রয়োজন হলে পরিমাণ বা আইটেম পরিবর্তন করুন',
+
+    // Order Card
+    'Order ID:': 'অর্ডার নাম্বার:',
+    'Delivery:': 'ডেলিভারি:',
 
     // General
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
     'PROCEED': 'পরবর্তী ধাপ',
+    '-': '-',
 
     //
     'AM': 'দিন',

@@ -18,7 +18,7 @@ class QueryClient {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
       },
-    ).timeout(Duration(seconds: 300));
+    ).timeout(Duration(seconds: 10));
 
     final jsonResponse = json.decode(response.body);
     return jsonResponse;

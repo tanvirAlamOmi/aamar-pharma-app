@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
-import 'package:pharmacy_app/src/models/states/ui_state.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -75,11 +76,13 @@ class _OrderCardState extends State<OrderCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Order ID: " + order.id.toString(),
+                Text(
+                    EnBnDict.en_bn_convert(text: 'Order ID:') +
+                        EnBnDict.en_bn_number_convert(number: order.id),
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
-                Text("Delivery: ${order.deliveryDate} (${order.deliveryTime}) ",
+                Text(getDeliveryTimeText(),
                     style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
               ],
             ),
@@ -92,6 +95,15 @@ class _OrderCardState extends State<OrderCard> {
         ),
       ),
     );
+  }
+
+  String getDeliveryTimeText() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return 'Delivery: ${order.deliveryDate} (${order.deliveryTime})';
+    }
+    return EnBnDict.en_bn_convert(text: 'Delivery:') +
+        EnBnDict.en_bn_number_convert(number: order.deliveryDate) +
+        "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0]) + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
   }
 
   Widget buildOrderStatus() {

@@ -24,6 +24,7 @@ class _NoInternetPageState extends State<NoInternetPage> {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
+          color: Util.purplishColor(),
           padding: EdgeInsets.all(15.0),
           child: SingleChildScrollView(
             child: Column(
