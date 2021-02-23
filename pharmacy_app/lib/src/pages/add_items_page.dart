@@ -147,7 +147,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       controller: itemNameController,
                       decoration: new InputDecoration(
                         isDense: true,
-                        hintText: EnBnDict.en_bn_convert(text: 'Napa, Astesin'),
+                        hintText:
+                            EnBnDict.en_bn_convert(text: 'Napa, Histasin'),
                         hintStyle: TextStyle(
                             fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                         fillColor: Colors.white,
@@ -179,7 +180,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemUnitController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: EnBnDict.en_bn_convert(text: 'e.g. mg,ml'),
+                              hintText:
+                                  EnBnDict.en_bn_convert(text: 'e.g. mg,ml'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),
@@ -211,7 +213,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
+                              hintText:
+                                  EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),
@@ -271,8 +274,10 @@ class _AddItemsPageState extends State<AddItemsPage> {
           child: ListTile(
             title: Text(singleItem.itemName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-            subtitle: Text("QUANTITY: " + singleItem.quantity.toString(),
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
+            subtitle: CustomText(
+                EnBnDict.en_bn_convert(text: 'QUANTITY: ') +
+                    EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+            textAlign: TextAlign.start),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
@@ -297,7 +302,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
             iconSize: 16,
           ),
           SizedBox(height: 5),
-          CustomText('REMOVE', fontWeight: FontWeight.w500, color: Colors.red, fontSize: 10)
+          CustomText('REMOVE',
+              fontWeight: FontWeight.w500, color: Colors.red, fontSize: 10)
         ],
       ),
     );

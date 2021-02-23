@@ -15,6 +15,18 @@ class EnBnDict {
     return textMessage;
   }
 
+  static String en_bn_number_convert({int number}) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return number.toString();
+    }
+
+    String numberInBn = '';
+    for (int i = 0 ; i < number.toString().length; i++){
+      numberInBn += EnBnDict.DICTINARY[number.toString()[i]];
+    }
+    return numberInBn;
+  }
+
   static String time_bn_convert_with_time_type({String text}) {
     DateTime date = DateFormat.jm().parse(text);
     String timeType = '';
@@ -82,6 +94,25 @@ class EnBnDict {
     'ORDER DELIVERY TIME': 'অর্ডার ডেলিভারির সময়',
     '10 AM TO 10 PM': 'সকাল ১০ টা থেকে রাত ১০ টা ',
     'CALL US': 'কল করুন',
+
+    //Add Items Page
+    'ADD ITEMS': 'আইটেম যুক্ত করুন ',
+    'Item Name': 'আইটেমের নাম',
+    'Napa, Histasin': 'নাপা, হিস্টাসিন ',
+    'Unit': 'একক',
+    'e.g. mg,ml': 'উদাঃ মি,গ্রা, এমএল ',
+    'Quantity': 'পরিমাণ',
+    'e.g. 10,15': 'উদাঃ ১০,১৫ ',
+    'ADD ITEM': 'আইটেম যোগ করুন ',
+    'ADDED ITEMS': 'আপনার আইটেমসমূহ',
+    'QUANTITY: ': 'পরিমাণ: ',
+
+
+
+
+    // General
+    'REMOVE': 'রিমোভ করুন',
+
 
     //
     'AM': 'দিন',
