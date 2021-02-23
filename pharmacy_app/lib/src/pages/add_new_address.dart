@@ -41,16 +41,19 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          elevation: 1,
-          centerTitle: true,
-          leading: AppBarBackButton(),
-          title: CustomText('ADD ADDRESS',
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
-        ),
-        body: buildBody(context));
+    return GestureDetector(
+      onTap: () => Util.removeFocusNode(context),
+      child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            elevation: 1,
+            centerTitle: true,
+            leading: AppBarBackButton(),
+            title: CustomText('ADD ADDRESS',
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          body: buildBody(context)),
+    );
   }
 
   Widget buildBody(BuildContext context) {

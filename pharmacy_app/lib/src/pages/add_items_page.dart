@@ -326,6 +326,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
   void addItemsToList() {
     if (itemNameController.text.isEmpty || itemQuantityController.text.isEmpty)
       return;
+    Util.removeFocusNode(context);
     orderManualItemList.add(OrderManualItem()
       ..itemName = itemNameController.text
       ..unit = itemUnitController.text

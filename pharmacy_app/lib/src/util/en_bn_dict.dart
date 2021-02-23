@@ -137,6 +137,15 @@ class EnBnDict {
     'Mr. XYZ': 'উদাঃ জনাব সৈকত',
     'Your Phone Number': 'আপনার মোবাইল নাম্বার',
 
+    // Add New Address Page
+    'ADD ADDRESS': 'ঠিকানা যুক্ত করুন',
+    'Address Type': 'ঠিকানার ধরণ',
+    'Home/Office': 'বাসা/অফিস',
+    'Address': 'ঠিকানা',
+    '39/A Housing Estate...': '৩৯/এ হাউজিং এস্টেট',
+    'Select Area': 'এলাকা নির্বাচন করুন',
+
+
     // General
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
