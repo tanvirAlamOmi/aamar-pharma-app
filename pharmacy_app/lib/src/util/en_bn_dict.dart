@@ -8,6 +8,7 @@ class EnBnDict {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
       return textMessage;
     }
+
     if (EnBnDict.DICTINARY.containsKey(textMessage)) {
       return EnBnDict.DICTINARY[text];
     }
@@ -63,12 +64,24 @@ class EnBnDict {
     'LANGUAGE (BANGLA)': 'ভাষা(বাংলা)',
     'LOG OUT': 'লগ আউট',
 
+    // Bottom Navigation Bar
+    'Home': 'হোম',
+    'Orders': 'অর্ডারসমূহ',
+    'Account': 'একাউন্ট',
+
     // HomePage
     'HOME': 'হোম',
     'ORDER MEDICINES AND MORE': 'ওষুধ এবং অন্যান্য অর্ডার করুন',
+    'We offer medicines, wellness products, COVID essentials, Devices and more':
+        'আমাদের রয়েছে ঔষধ, স্বাস্থ্যদ্রব্য, জরুরি কোভিড দ্রব্য, ডিভাইস ইত্যাদি..',
+    'ORDER MEDICINES AND MORE': 'ওষুধ এবং অন্যান্য অর্ডার করুন',
     'All medicines except OTC medicines require prescription*':
-        'ওটিসি ওষুধ ছাড়া বাকিগুলোর ক্ষেত্রে অবশই প্রেসক্রিপশন আবশ্যক*',
-
+        'ওটিসি ওষুধ ছাড়া বাকিগুলোর ক্ষেত্রে প্রেসক্রিপশন আবশ্যক*',
+    'UPLOAD PRESCRIPTION / PHOTO': 'প্রেসক্রিপশন/ছবি আপলোড করুন',
+    'ADD ITEMS MANUALLY': 'ম্যানুয়্যালি আইটেম যুক্ত করুন',
+    'ORDER DELIVERY TIME': 'অর্ডার ডেলিভারির সময়',
+    '10 AM TO 10 PM': 'সকাল ১০ টা থেকে রাত ১০ টা ',
+    'CALL US': 'কল করুন',
 
     //
     'AM': 'দিন',

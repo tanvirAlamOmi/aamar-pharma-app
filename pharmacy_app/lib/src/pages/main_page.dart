@@ -8,7 +8,7 @@ import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/order_page.dart';
-import 'package:pharmacy_app/src/services/dynamic_link_service.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
@@ -92,15 +92,15 @@ class _MainPageState extends State<MainPage> {
   List<BottomNavigationBarItem> buildBottomBarItems() {
     return [
       BottomNavigationBarItem(
-        label: 'Home',
+        label: labelEnBn('Home'),
         icon: Icon(Icons.home, size: 24),
       ),
       BottomNavigationBarItem(
-        label: 'Order',
+        label: labelEnBn('Orders'),
         icon: Icon(Icons.add_shopping_cart, size: 24),
       ),
       BottomNavigationBarItem(
-        label: 'Account',
+        label: labelEnBn('Account'),
         icon: Icon(Icons.account_circle, size: 24),
       ),
     ];
@@ -108,5 +108,9 @@ class _MainPageState extends State<MainPage> {
 
   void refreshUI() {
     if (mounted) setState(() {});
+  }
+
+  String labelEnBn(String title) {
+    return EnBnDict.en_bn_convert(text: title);
   }
 }

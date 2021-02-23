@@ -88,12 +88,12 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     buildContainer(
-                        "UPLOAD PRESCRIPTION / PHOTO",
+                        'UPLOAD PRESCRIPTION / PHOTO',
                         Icon(Icons.add_shopping_cart, color: Colors.white),
                         uploadPrescriptionOption),
                     SizedBox(width: 10),
                     buildContainer(
-                        "ADD ITEMS MANUALLY",
+                        'ADD ITEMS MANUALLY',
                         Icon(Icons.add_shopping_cart, color: Colors.white),
                         navigateToAddItems)
                   ],

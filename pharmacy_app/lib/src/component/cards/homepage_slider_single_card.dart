@@ -36,8 +36,7 @@ class HomePageSliderSingleCard extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
       child: CustomText(
-          'We offer Medicines Wellness, Products Devices and More,'
-          ' products that you wont get any where in the world',
+          'We offer medicines, wellness products, COVID essentials, Devices and more',
           color: Colors.grey,
           textAlign: TextAlign.start,
           fontSize: 13.5),
