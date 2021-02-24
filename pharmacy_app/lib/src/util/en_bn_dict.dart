@@ -144,6 +144,9 @@ class EnBnDict {
     'Mr. XYZ': 'উদাঃ জনাব সৈকত',
     'Your Phone Number': 'আপনার মোবাইল নাম্বার',
 
+    // Order Page
+    'ORDERS': 'অর্ডারসমূহ',
+
     // Add New Address Page
     'ADD ADDRESS': 'ঠিকানা যুক্ত করুন',
     'Address Type': 'ঠিকানার ধরণ',
@@ -177,37 +180,52 @@ class EnBnDict {
 
     // Confirm Invoice Page
     'We only accept cash on delivery.':
-        'আমরা ডেলিভারিতে কেবল নগদ টাকা গ্রহণ করে থাকি',
+        'আমরা ডেলিভারিতে কেবল নগদ টাকা গ্রহণ করে থাকি।',
     'Please keep cash ready upon delivery.':
         'অনুগ্রহপূর্বক ডেলিভারির সময় নগদ টাকা প্রস্তুত রাখুন।',
     'Before confirming order, please check invoice, edit quantity or remove items.':
         'অর্ডার নিশ্চিত করার আগে অনুগ্রহপূর্বক চালান বর্ণনা চেক করুন এবং প্রয়োজন হলে পরিমাণ বা আইটেম পরিবর্তন করুন',
+    'View Order Details': 'অর্ডারের বৃত্তান্ত দেখুন',
+    'Item': 'আইটেম',
+    'Unit Cost': 'ইউনিট মূল্য',
+    'Amount': 'টাকার অঙ্ক',
+    'Subtotal': 'সাবটোটাল',
+    'Delivery Fee': 'ডেলিভারি ফী',
+    'Total': 'মোট টাকা',
 
     // Order Card
     'Order ID:': 'অর্ডার নাম্বার:',
     'Delivery:': 'ডেলিভারি:',
-    
+
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
     'REQUEST PRODUCT': 'পণ্যের আবেদন',
     'ADD PHOTO': 'ছবি যুক্ত করুন',
     'REQUEST RECEIVED': 'আবেদন গ্রহন',
     'Your request has been received.': 'আপনার আবেদনটি গৃহীত হয়েছে।',
-    'We will notify you when we have your requested product.': 'আপনার প্রয়োজনীয় পণ্যটির ব্যবস্থাপূর্বক আপনাকে জানানো হবে।',
+    'We will notify you when we have your requested product.':
+        'আপনার প্রয়োজনীয় পণ্যটির ব্যবস্থাপূর্বক আপনাকে জানানো হবে।',
 
+    // Consult Pharmacist Page
+    'REQUEST CALL BACK': 'কল ব্যাকের আবেদন',
+    'For any kind of queries, feel free to consult with a pharmacist.':
+        'আপনার যেকোনো জিজ্ঞাসা বা পরামর্শের জন্য বিশেষজ্ঞের কাছে কল ব্যাকের আবেদন জানান।',
+    'Name': 'নাম',
+    'You will get a call back within 30 minutes.':
+        '৩০ মিনিটের মধ্যে আপনি কল ব্যাক পাবেন।',
 
     // General
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
     'PROCEED': 'পরবর্তী ধাপ',
-    '-': '-',
-    '01xxxxxxxxx': '০১*********',
 
-    //
+    '01xxxxxxxxx': '০১*********',
     'AM': 'দিন',
     'PM': 'রাত',
 
     // Numbers
+    '.': '.',
+    '-': '-',
     ':': ':',
     '0': '০',
     '1': '১',
@@ -221,29 +239,3 @@ class EnBnDict {
     '9': '৯',
   };
 }
-
-//
-// static String time_bn_convert({String text}) {
-// if (text.contains('PM')) {
-// String textHourPortion = text.split(':')[0];
-// String textMinutePortion = text.split(':')[1];
-//
-// textHourPortion = (int.parse(textHourPortion) + 12).toString();
-//
-// text = textHourPortion + ':' + textMinutePortion;
-// }
-//
-// text = text.replaceAll('AM', '');
-// text = text.replaceAll('PM', '');
-// text = text.replaceAll(' ', '');
-//
-// String numberBangla = '';
-// for (int i = 0; i < text.length; i++) {
-// if (EnBnDict.DICTINARY.containsKey(text[i])) {
-// numberBangla += EnBnDict.DICTINARY[text[i]];
-// } else {
-// numberBangla += text[i];
-// }
-// }
-// return numberBangla;
-// }

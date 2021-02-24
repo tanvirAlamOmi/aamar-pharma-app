@@ -5,6 +5,8 @@ import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
+import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/models/order/request_order.dart';
@@ -52,14 +54,14 @@ class QueryRepo {
           ..error = false;
 
         // Dummy Response Add
-        // int x = 0;
-        // final FeedResponse dummyOrderFeedResponse =
-        //     await getDummyFeed(feedRequest);
-        // dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
-        //   orderFeedResponse.feedItems.insert(x, singleFeedItem);
-        //   x = x + 1;
-        // });
-        // return Tuple2(dummyOrderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
+        int x = 0;
+        final FeedResponse dummyOrderFeedResponse =
+            await getDummyFeed(feedRequest);
+        dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
+          orderFeedResponse.feedItems.insert(x, singleFeedItem);
+          x = x + 1;
+        });
+        return Tuple2(dummyOrderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
         // End Dummy Response
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
@@ -177,55 +179,82 @@ class QueryRepo {
       FeedItem(
         viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
-            id: 1026,
-            prescription: Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                ",",
-            orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-            status: OrderEnum.ORDER_STATUS_DELIVERED,
-            idAddress: 0,
-            name: "ABC",
-            mobileNo: "01528285415",
-            email: "abc@gmail.com"),
+          id: 1026,
+          prescription: Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              ",",
+          orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+          status: OrderEnum.ORDER_STATUS_DELIVERED,
+          idAddress: 0,
+          name: "ABC",
+          mobileNo: "01528285415",
+          email: "abc@gmail.com",
+          deliveryDate: '2021-02-29',
+          deliveryTime: '10:15 AM-12:08 PM',
+          deliveryAddressDetails: DeliveryAddressDetails()
+            ..area = 'Banani'
+            ..id = 1
+            ..address = '39/A Banani',
+        ),
       ),
       FeedItem(
         viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
-            id: 1023,
-            prescription: Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                "," +
-                Util.getStaticImageURL() +
-                ",",
-            orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-            status: OrderEnum.ORDER_STATUS_PENDING,
-            idAddress: 0,
-            name: "ABC",
-            mobileNo: "01528285415",
-            email: "abc@gmail.com"),
+          id: 1023,
+          prescription: Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              "," +
+              Util.getStaticImageURL() +
+              ",",
+          orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
+          status: OrderEnum.ORDER_STATUS_PENDING,
+          idAddress: 0,
+          name: "ABC",
+          mobileNo: "01528285415",
+          email: "abc@gmail.com",
+          deliveryDate: '2021-02-29',
+          deliveryTime: '10:15 AM-12:08 PM',
+          deliveryAddressDetails: DeliveryAddressDetails()
+            ..area = 'Gulshan'
+            ..id = 1
+            ..address = '39/A Gulshan',
+        ),
       ),
       FeedItem(
         viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
         order: Order(
-            id: 1024,
-            items: [
-              OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
-              OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
-            ],
-            orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-            status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
-            idAddress: 0,
-            name: "ABC",
-            mobileNo: "01528285415",
-            email: "abc@gmail.com"),
+          id: 1024,
+          items: [
+            OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
+            OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
+          ],
+          orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
+          status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
+          idAddress: 0,
+          name: "ABC",
+          mobileNo: "01528285415",
+          email: "abc@gmail.com",
+          deliveryDate: '2021-02-29',
+          deliveryTime: '10:15 AM-12:08 PM',
+          deliveryAddressDetails: DeliveryAddressDetails()
+            ..area = 'Mirpur'
+            ..id = 1
+            ..address = '39/A Mirpur',
+          invoiceItemList: [
+            InvoiceItem()
+              ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
+              ..itemQuantity = 12
+              ..itemUnitPrice = 2
+          ],
+        ),
       )
     ]);
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class OrderInvoiceTableCard extends StatelessWidget {
@@ -54,7 +55,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
       this.showIncDecButtons,
       this.showSubTotalRow,
       this.showTotalRow,
-      this.showItemNameColumn, this.padding})
+      this.showItemNameColumn,
+      this.padding})
       : super(key: key);
 
   @override
@@ -86,14 +88,18 @@ class OrderInvoiceTableCard extends StatelessWidget {
     children.add(TableRow(children: [
       customTableCell(Text(showCrossColumn ? "" : "", style: columnTextStyle)),
       customTableCell(
-          Text(showItemNameColumn ? "Item" : "", style: columnTextStyle),
+          Text(showItemNameColumn ? EnBnDict.en_bn_convert(text: 'Item') : "",
+              style: columnTextStyle),
           alignment: Alignment.centerLeft),
+      customTableCell(Text(
+          showUnitCostColumn ? EnBnDict.en_bn_convert(text: 'Unit Cost') : "",
+          style: columnTextStyle)),
+      customTableCell(Text(
+          showQuantityColumn ? EnBnDict.en_bn_convert(text: 'Quantity') : "",
+          style: columnTextStyle)),
       customTableCell(
-          Text(showUnitCostColumn ? "Unit Cost" : "", style: columnTextStyle)),
-      customTableCell(
-          Text(showQuantityColumn ? "Quantity" : "", style: columnTextStyle)),
-      customTableCell(
-          Text(showAmountColumn ? "Amount" : "", style: columnTextStyle),
+          Text(showAmountColumn ? EnBnDict.en_bn_convert(text: 'Amount') : "",
+              style: columnTextStyle),
           alignment: Alignment.centerRight),
     ]));
 
@@ -122,8 +128,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text("Subtotal", style: columnTextStyle)),
-        customTableCell(Text(subTotal.toString(), style: dataTextStyle),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Subtotal') , style: columnTextStyle)),
+        customTableCell(
+            Text(EnBnDict.en_bn_number_convert(number: subTotal),
+                style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
 
@@ -132,8 +140,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text("Delivery Fee", style: columnTextStyle)),
-        customTableCell(Text(deliveryFee.toString(), style: dataTextStyle),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Delivery Fee') , style: columnTextStyle)),
+        customTableCell(
+            Text(EnBnDict.en_bn_number_convert(number: deliveryFee),
+                style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
     }
@@ -152,13 +162,13 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text("Total",
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Total'),
             style: TextStyle(
                 fontSize: 15,
                 color: Util.purplishColor(),
                 fontWeight: FontWeight.bold))),
         customTableCell(
-            Text(totalAmount.toString(),
+            Text(EnBnDict.en_bn_number_convert(number: totalAmount),
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             alignment: Alignment.centerRight),
@@ -237,7 +247,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: double.infinity,
-        child: Text(singleItem.itemUnitPrice.toString(), style: dataTextStyle));
+        child: Text(
+            EnBnDict.en_bn_number_convert(number: singleItem.itemUnitPrice),
+            style: dataTextStyle));
   }
 
   Widget buildQuantityColumn(InvoiceItem singleItem) {
@@ -245,7 +257,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
       return Container(
           alignment: Alignment.center,
           width: 25,
-          child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
+          child:
+              Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
     else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -269,7 +282,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
             Container(
                 alignment: Alignment.center,
                 width: 25,
-                child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle)),
+                child: Text(
+                    EnBnDict.en_bn_number_convert(
+                        number: singleItem.itemQuantity),
+                    style: dataTextStyle)),
             GestureDetector(
               onTap: () {
                 callBackIncrementItemQuantity(singleItem);
@@ -290,7 +306,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: 25,
-        child: Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
+        child: Text(
+            EnBnDict.en_bn_number_convert(number: singleItem.itemQuantity),
+            style: dataTextStyle));
   }
 
   Widget buildAmountColumn(InvoiceItem singleItem) {
@@ -304,7 +322,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   String getPrice(InvoiceItem singleItem) {
     final unitPrice = singleItem.itemUnitPrice;
     final quantity = singleItem.itemQuantity;
-    final price = (unitPrice * quantity).toString();
-    return price;
+    final price = (unitPrice * quantity);
+    return EnBnDict.en_bn_number_convert(number: price);
   }
 }

@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -104,7 +105,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
                 controller: nameController,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText: "Mr. XYZ",
+                  hintText: EnBnDict.en_bn_convert(text: 'Mr. XYZ'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -136,7 +137,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
                 keyboardType: TextInputType.number,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText: "01XXXXXXXXX",
+                  hintText: EnBnDict.en_bn_convert(text: '01xxxxxxxxx'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -222,7 +223,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
             builder: (context) => RequestReceivedSuccessPage(
                   icon: Icons.call,
                   pageTitle: 'REQUEST RECEIVED',
-                  title: 'Your request has been received. ',
+                  title: 'Your request has been received.',
                   message: 'You will get a call back within 30 minutes.',
                 )),
       );

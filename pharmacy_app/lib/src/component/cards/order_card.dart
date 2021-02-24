@@ -97,15 +97,6 @@ class _OrderCardState extends State<OrderCard> {
     );
   }
 
-  String getDeliveryTimeText() {
-    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return 'Delivery: ${order.deliveryDate} (${order.deliveryTime})';
-    }
-    return EnBnDict.en_bn_convert(text: 'Delivery:') +
-        EnBnDict.en_bn_number_convert(number: order.deliveryDate) +
-        "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0]) + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
-  }
-
   Widget buildOrderStatus() {
     return Container(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -122,6 +113,15 @@ class _OrderCardState extends State<OrderCard> {
         color: Util.purplishColor(),
       ),
     );
+  }
+
+  String getDeliveryTimeText() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return 'Delivery: ${order.deliveryDate} (${order.deliveryTime})';
+    }
+    return EnBnDict.en_bn_convert(text: 'Delivery: ') +
+        EnBnDict.en_bn_number_convert(number: order.deliveryDate) +
+        "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0]) + '-' + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
   }
 
   void navigateToSpecificPage() {
