@@ -186,12 +186,22 @@ class EnBnDict {
     // Order Card
     'Order ID:': 'অর্ডার নাম্বার:',
     'Delivery:': 'ডেলিভারি:',
+    
+    // Special Request Product Page
+    'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
+    'REQUEST PRODUCT': 'পণ্যের আবেদন',
+    'ADD PHOTO': 'ছবি যুক্ত করুন',
+    'REQUEST RECEIVED': 'আবেদন গ্রহন',
+    'Your request has been received.': 'আপনার আবেদনটি গৃহীত হয়েছে।',
+    'We will notify you when we have your requested product.': 'আপনার প্রয়োজনীয় পণ্যটির ব্যবস্থাপূর্বক আপনাকে জানানো হবে।',
+
 
     // General
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
     'PROCEED': 'পরবর্তী ধাপ',
     '-': '-',
+    '01xxxxxxxxx': '০১*********',
 
     //
     'AM': 'দিন',

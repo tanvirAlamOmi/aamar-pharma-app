@@ -14,6 +14,7 @@ import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -158,7 +159,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                 controller: itemNameController,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText: "Napa, Astesin",
+                  hintText: EnBnDict.en_bn_convert(text: 'Napa, Histasin'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -190,7 +191,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                 controller: itemQuantityController,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText: "20",
+                  hintText:  EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -222,7 +223,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                 controller: phoneNumberController,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText: "01xxxxxxxxx",
+                  hintText: EnBnDict.en_bn_convert(text: '01xxxxxxxxx'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -259,7 +260,8 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                   color: Colors.black,
                   fontSize: 15),
               decoration: new InputDecoration(
-                hintText: "Notes e.g. I need all the medicines",
+                hintText: EnBnDict.en_bn_convert(
+                    text: "Notes e.g. I need all the medicines"),
                 hintStyle: TextStyle(fontSize: 13),
                 fillColor: Colors.white,
                 border: new OutlineInputBorder(
