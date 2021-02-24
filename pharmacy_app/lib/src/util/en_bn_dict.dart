@@ -193,6 +193,13 @@ class EnBnDict {
     'Delivery Fee': 'ডেলিভারি ফী',
     'Total': 'মোট টাকা',
 
+    // Order Final Invoice Page
+    'ORDER INVOICE DETAILS' : 'অর্ডার চালান',
+    'REORDER' : 'পুনরায় এই অর্ডার করুন',
+    'Invoice Number': 'চালান ক্রমিক নং',
+    'Date Of Issue' : 'চালানের তারিখ',
+    'Billed to': 'বিল',
+
     // Order Card
     'Order ID:': 'অর্ডার নাম্বার:',
     'Delivery:': 'ডেলিভারি:',

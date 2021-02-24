@@ -11,6 +11,7 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 
@@ -234,7 +235,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.id.toString(),
+                    EnBnDict.en_bn_number_convert(number: widget.order.id),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -253,7 +254,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.order.deliveryDate,
+                    EnBnDict.en_bn_number_convert(
+                        number: widget.order.deliveryDate),
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,

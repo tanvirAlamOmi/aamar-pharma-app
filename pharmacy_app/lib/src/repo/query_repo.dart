@@ -200,6 +200,12 @@ class QueryRepo {
             ..area = 'Banani'
             ..id = 1
             ..address = '39/A Banani',
+          invoiceItemList: [
+            InvoiceItem()
+              ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
+              ..itemQuantity = 12
+              ..itemUnitPrice = 2
+          ],
         ),
       ),
       FeedItem(
