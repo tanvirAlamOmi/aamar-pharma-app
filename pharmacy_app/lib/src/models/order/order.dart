@@ -16,6 +16,7 @@ class Order {
   String repeatOrder;
   String deliveryTime;
   String deliveryDate;
+  String deliveryCharge;
   String createdAt;
   String status; // Order Status
   String rejectionReason;
@@ -40,6 +41,7 @@ class Order {
       this.repeatOrder,
       this.deliveryTime,
       this.deliveryDate,
+      this.deliveryCharge,
       this.createdAt,
       this.status,
       this.rejectionReason,
@@ -71,6 +73,7 @@ class Order {
         repeatOrder: jsonData['repeat_order'],
         deliveryTime: jsonData['delivery_time'],
         deliveryDate: jsonData['delivery_date'],
+        deliveryCharge: jsonData['del_charge'],
         createdAt: jsonData['created_at'],
         status: jsonData['status'],
         rejectionReason: jsonData['rejection_reason'],
@@ -108,6 +111,7 @@ class Order {
       'repeat_order': repeatOrder,
       'delivery_time': deliveryTime,
       'delivery_date': deliveryDate,
+      'del_charge': deliveryCharge,
       'created_at': createdAt,
       'status': status,
       'rejection_reason': rejectionReason,

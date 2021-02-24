@@ -312,7 +312,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
   Widget buildSubmitButton() {
     if (orderManualItemList.length == 0) return Container();
     return GeneralActionRoundButton(
-      title: "SUBMIT",
+      title: "PROCEED",
       height: 40,
       isProcessing: false,
       callBackOnSubmit: proceedToConfirmOrderPage,

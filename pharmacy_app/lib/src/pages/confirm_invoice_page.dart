@@ -125,7 +125,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoadingWidget(status: 'Confirming Order...'),
+        LoadingWidget(status: 'Confirming Order and Invoice...'),
       ],
     );
   }

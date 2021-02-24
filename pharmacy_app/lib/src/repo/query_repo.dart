@@ -54,14 +54,14 @@ class QueryRepo {
           ..error = false;
 
         // Dummy Response Add
-        int x = 0;
-        final FeedResponse dummyOrderFeedResponse =
-            await getDummyFeed(feedRequest);
-        dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
-          orderFeedResponse.feedItems.insert(x, singleFeedItem);
-          x = x + 1;
-        });
-        return Tuple2(dummyOrderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
+        // int x = 0;
+        // final FeedResponse dummyOrderFeedResponse =
+        //     await getDummyFeed(feedRequest);
+        // dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
+        //   orderFeedResponse.feedItems.insert(x, singleFeedItem);
+        //   x = x + 1;
+        // });
+        // return Tuple2(dummyOrderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
         // End Dummy Response
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
@@ -102,7 +102,7 @@ class QueryRepo {
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in getOrderFeedData() in QueryRepo");
+        print("Error in getRepeatOrderFeedData() in QueryRepo");
         print(err);
       }
     }

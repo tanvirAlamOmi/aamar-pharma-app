@@ -6,7 +6,7 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
-import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class RepeatOrderCard extends StatefulWidget {
@@ -75,11 +75,21 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Order ID: " + order.id.toString(),
+                Text(
+                    EnBnDict.en_bn_convert(text: 'Order ID: ') +
+                        EnBnDict.en_bn_number_convert(number: order.id),
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
-                Text("Every ${order.every} - ${order.day}, ${order.time}",
+                Text(
+                    EnBnDict.en_bn_convert(text: 'Every') +
+                        ' ' +
+                        EnBnDict.en_bn_convert(text: order.every) +
+                        " - " +
+                        EnBnDict.en_bn_convert(text: order.day) +
+                        ',' +
+                        EnBnDict.time_bn_convert_with_time_type(
+                            text: order.time),
                     style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
               ],
             ),
@@ -103,7 +113,10 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
         child: Text(
-          "NEXT DELIVERY ON - ${order.nextOrderDay.replaceAll("-", "/")}",
+          EnBnDict.en_bn_convert(text: 'NEXT DELIVERY ON') +
+              ' - ' +
+              EnBnDict.en_bn_number_convert(
+                  number: order.nextOrderDay.replaceAll("-", "/")),
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),

@@ -152,6 +152,8 @@ class EnBnDict {
         '১১ ডিজিটের যথাযথ মোবাইল নাম্বার আবশ্যক',
     'CONFIRM SUBMITTING ORDER?': 'অর্ডারটি নিশ্চিত করতে আপনার সম্মতি আছে?',
     'Order is submitted.': 'অর্ডারটি গৃহীত হয়েছে।',
+    'Submitting Order...': 'অর্ডারটি নেয়া হচ্ছে',
+
 
     // Order Page
     'ORDERS': 'অর্ডারসমূহ',
@@ -193,7 +195,8 @@ class EnBnDict {
     'Email': 'ইমেইল',
     'DELIVERY ADDRESS': 'ডেলিভারি ঠিকানা',
     'CANCEL ORDER': 'অর্ডার ক্যান্সেল করুন',
-    'Are you sure to cancel this order?' : 'আপনি কি এই অর্ডারটি ক্যান্সেল করতে চাচ্ছেন?',
+    'Are you sure to cancel this order?':
+        'আপনি কি এই অর্ডারটি ক্যান্সেল করতে চাচ্ছেন?',
 
     // Confirm Invoice Page
     'We only accept cash on delivery.':
@@ -209,7 +212,13 @@ class EnBnDict {
     'Subtotal': 'সাবটোটাল',
     'Delivery Fee': 'ডেলিভারি ফী',
     'Total': 'মোট টাকা',
-    'Are you sure to confirm this invoice for this order?' : 'আপনি কি এই অর্ডারটির জন্য এই চালান এবং দামের বিষয়টি নিশ্চিত করেছেন?',
+    'Are you sure to confirm this invoice for this order?':
+        'আপনি কি এই অর্ডারটির জন্য এই চালান এবং দামের বিষয়টি নিশ্চিত করেছেন?',
+    'CANCEL REPEAT ORDER': 'অর্ডারের পুনরাবৃত্তি বন্ধ করুন',
+    'Are you sure to stop this repeat order?':
+    'এই অর্ডারের পুনরাবৃত্তি বন্ধ করে দিতে চাচ্ছেন?',
+    'Repeat Order is cancelled': 'অর্ডারের পুনরাবৃত্তি বন্ধ হয়েছে।',
+    'Order is cancelled' : 'অর্ডারটি ক্যান্সেল করা হয়েছে।',
 
     // Order Final Invoice Page
     'ORDER INVOICE DETAILS': 'অর্ডার চালান',
@@ -224,16 +233,19 @@ class EnBnDict {
 
     // Drop Down Filter Card
     'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
-    'Pending' : 'প্রক্রিয়াধীন অর্ডারসমূহ',
-    'Invoice sent' : 'চালান দেয়া হয়েছে এমন অর্ডারসমূহ',
-    'Confirmed' : 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
-    'Delivered' : 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
-    'Canceled' : 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
-    'PENDING' : 'প্রক্রিয়াধীন',
-    'INVOICE SENT' : 'চালান দেয়া হয়েছে',
-    'CONFIRMED' : 'নিশ্চিত করা হয়েছে',
-    'DELIVERED' : 'ডেলিভারি সম্পন্ন হয়েছে',
-    'CANCELED' : 'ক্যান্সেল করা হয়েছে',
+    'Pending': 'প্রক্রিয়াধীন অর্ডারসমূহ',
+    'Invoice sent': 'চালান দেয়া হয়েছে এমন অর্ডারসমূহ',
+    'Confirmed': 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
+    'Delivered': 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
+    'Canceled': 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
+    'PENDING': 'প্রক্রিয়াধীন',
+    'INVOICE SENT': 'চালান দেয়া হয়েছে',
+    'CONFIRMED': 'নিশ্চিত করা হয়েছে',
+    'DELIVERED': 'ডেলিভারি সম্পন্ন হয়েছে',
+    'CANCELED': 'ক্যান্সেল করা হয়েছে',
+
+    // Repeat Order Card
+    'NEXT DELIVERY ON': 'পরবর্তী ডেলিভারি',
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
@@ -262,7 +274,6 @@ class EnBnDict {
     'NO': 'না',
     'Something went wrong. Please try again.':
         'কিছু সমস্যা বিদ্যমান। অনুগ্রহপূর্বক আবার চেষ্টা করুন।',
-
     '01xxxxxxxxx': '০১*********',
     'AM': 'দিন',
     'PM': 'রাত',
@@ -271,6 +282,7 @@ class EnBnDict {
     '.': '.',
     '-': '-',
     ':': ':',
+    '/': '/',
     '0': '০',
     '1': '১',
     '2': '২',
