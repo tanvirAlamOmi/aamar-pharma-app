@@ -448,7 +448,15 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (!Util.isEmail(emailAddress: emailController.text)) {
+    if (nameController.text.isEmpty ) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please provide a name");
+      return;
+    }
+
+
+    if (emailController.text.isEmpty || !Util.isEmail(emailAddress: emailController.text)) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid email address");

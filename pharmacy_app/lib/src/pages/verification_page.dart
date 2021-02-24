@@ -154,9 +154,9 @@ class VerificationPageState extends State<VerificationPage> {
 
   String getOTPMessage() {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
-      return 'Enter the verification code sent to +88-' + widget.phoneNumber;
+      return 'Enter the verification code sent to +88' + widget.phoneNumber;
     } else {
-      return 'আপনার +৮৮-${EnBnDict.en_bn_number_convert(number: int.parse(widget.phoneNumber))} নাম্বারে পাঠানো ওটিপি কোড দিন';
+      return 'আপনার +৮৮${EnBnDict.en_bn_number_convert(number: widget.phoneNumber)} নাম্বারে পাঠানো ওটিপি কোড দিন';
     }
   }
 
@@ -211,7 +211,6 @@ class VerificationPageState extends State<VerificationPage> {
               scaffoldKey: _scaffoldKey,
               message: "Resending code in 10 seconds");
           final String phoneNumber = '+88${Store.instance.appState.user.phone}';
-          print(phoneNumber);
           await Future.delayed(Duration(seconds: 10));
           await AuthRepo.instance.sendSMSCode(phoneNumber);
           Util.showSnackBar(scaffoldKey: _scaffoldKey, message: "Code Resent");

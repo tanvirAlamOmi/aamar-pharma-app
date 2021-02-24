@@ -42,9 +42,8 @@ Widget noItemView(dynamic refreshCallback) {
                   children: <Widget>[
                     SizedBox(height: 10),
                     Padding(padding: EdgeInsets.symmetric(vertical: 100.0)),
-                    Text("Empty List",
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.center),
+                    CustomText("Empty List",
+                        fontSize: 20, textAlign: TextAlign.center),
                     SizedBox(height: 10),
                   ],
                 ),
@@ -137,20 +136,6 @@ Widget noServerView(dynamic refreshCallback) {
   );
 }
 
-Widget CustomTextWidget(String textData, {bool bold, int maxLines}) {
-  return Expanded(
-    child: Text(
-      textData,
-      style: TextStyle(
-          fontSize: 14.0,
-          color: Colors.black,
-          fontWeight: (bold == true) ? FontWeight.bold : FontWeight.normal),
-      maxLines: maxLines ?? 1,
-      overflow: TextOverflow.ellipsis,
-    ),
-  );
-}
-
 void showAlertDialog(
     {BuildContext context,
     String message,
@@ -163,7 +148,7 @@ void showAlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0)), //this right here
           child: Container(
-            height: height ?? 130,
+            height: height ?? 160,
             width: 50,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -171,16 +156,17 @@ void showAlertDialog(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("ARE YOU SURE ?",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  CustomText('ARE YOU SURE..',
+                      fontSize: 12, fontWeight: FontWeight.bold),
                   SizedBox(height: 5),
                   Divider(height: 1, color: Colors.grey[700]),
                   SizedBox(height: 15),
-                  Text(message,
+                  CustomText(message,
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
                   SizedBox(height: 20),
+                  Container(width:200,child: Divider(height: 1, color: Colors.grey[700])),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -193,9 +179,10 @@ void showAlertDialog(
                           color: Colors.transparent,
                           width: 60,
                           height: 30,
-                          child: Text(
+                          child: CustomText(
                             "NO",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -211,9 +198,10 @@ void showAlertDialog(
                           color: Colors.transparent,
                           width: 60,
                           height: 30,
-                          child: Text(
+                          child: CustomText(
                             "YES",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
                             textAlign: TextAlign.center,
                           ),
                         ),

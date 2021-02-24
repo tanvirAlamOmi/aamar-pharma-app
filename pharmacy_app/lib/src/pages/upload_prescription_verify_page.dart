@@ -87,7 +87,7 @@ class _UploadPrescriptionVerifyPageState
                 buildPrescriptionImageList(),
                 buildNoteBox(),
                 GeneralActionRoundButton(
-                  title: "SUBMIT",
+                  title: "PROCEED",
                   isProcessing: isProcessing,
                   callBackOnSubmit: proceedToConfirmOrderPage,
                   padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),

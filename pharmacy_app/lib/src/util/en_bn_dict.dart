@@ -101,6 +101,8 @@ class EnBnDict {
     ' UPLOADED PHOTO(s)': 'টি আপলোডকৃত ছবি',
     'Add Notes': 'নোট/নির্দেশনা যুক্ত করুন',
     'Notes e.g. I need all the medicines': 'উদাঃ আমার সবগুলো ওষুধ প্রয়োজনীয়',
+    '1 image is mandatory for the prescription':
+        'প্রেসক্রিপশনের জন্য অন্তত একটি ছবি আবশ্যক',
 
     //Add Items Page
     'ADD ITEMS': 'আইটেম যুক্ত করুন ',
@@ -143,6 +145,13 @@ class EnBnDict {
     'Phone Number': 'ফোন নাম্বার',
     'Mr. XYZ': 'উদাঃ জনাব সৈকত',
     'Your Phone Number': 'আপনার মোবাইল নাম্বার',
+    'Please add a delivery address': 'অনুগ্রহপূর্বক ডেলিভারি ঠিকানা যুক্ত করুন',
+    'Please provide a name': 'দয়া করে নামের ঘরটি পূর্ণ করুন',
+    'Please provide a valid email address': 'যথাযথ ইমেইল এড্রেস আবশ্যক',
+    'Please provide a valid 11 digit Bangladeshi Number':
+        '১১ ডিজিটের যথাযথ মোবাইল নাম্বার আবশ্যক',
+    'CONFIRM SUBMITTING ORDER?': 'অর্ডারটি নিশ্চিত করতে আপনার সম্মতি আছে?',
+    'Order is submitted.': 'অর্ডারটি গৃহীত হয়েছে।',
 
     // Order Page
     'ORDERS': 'অর্ডারসমূহ',
@@ -155,6 +164,10 @@ class EnBnDict {
     '39/A Housing Estate...': '৩৯/এ হাউজিং এস্টেট',
     'Select Area': 'এলাকা নির্বাচন করুন',
     'Area': 'এলাকা',
+    'Please fill all the data': 'অনুগ্রহপূর্বক শবগুলো ঘর পূর্ণ করুন',
+    'Please wait': 'অনুগ্রহপূর্বক অপেক্ষা করুন।',
+    'Delivery Address Added Successfully':
+        'নতুন ডেলিভারি এড্রেস যুক্ত করা হয়েছে।',
 
     // Login Page
     'LOGIN': 'লগিন',
@@ -164,9 +177,12 @@ class EnBnDict {
 
     // Verification Page
     'PHONE VERIFICATION': 'ফোন ভেরিফিকেইসন',
-    'SUBMIT CODE': 'কোড সংযুক্ত করুন',
+    'SUBMIT CODE': 'কোড যাচাই করুন',
     'Resend Code': 'আবার কোড পাঠান',
     'CONTINUE': 'পরবর্তী ধাপ',
+    'Please enter the code.': 'অনুগ্রহপূর্বক কোডটি দিন।',
+    'Resending code in 10 seconds': '১০ সেকেন্ডের মধ্যে আবার কোড পাঠানো হচ্ছে।',
+    'Code Resent': 'কোড পাঠানো হয়েছে।',
 
     // My Details Page
     'MY DETAILS': 'আমার বৃত্তান্ত',
@@ -194,10 +210,10 @@ class EnBnDict {
     'Total': 'মোট টাকা',
 
     // Order Final Invoice Page
-    'ORDER INVOICE DETAILS' : 'অর্ডার চালান',
-    'REORDER' : 'পুনরায় এই অর্ডার করুন',
+    'ORDER INVOICE DETAILS': 'অর্ডার চালান',
+    'REORDER': 'পুনরায় এই অর্ডার করুন',
     'Invoice Number': 'চালান ক্রমিক নং',
-    'Date Of Issue' : 'চালানের তারিখ',
+    'Date Of Issue': 'চালানের তারিখ',
     'Billed to': 'বিল',
 
     // Order Card
@@ -225,6 +241,12 @@ class EnBnDict {
     'REMOVE': 'রিমোভ করুন',
     'SUBMIT': 'সম্পন্ন করুন',
     'PROCEED': 'পরবর্তী ধাপ',
+    'Empty List': 'কোন তথ্য/তালিকা নেই',
+    'ARE YOU SURE..': 'আপনি কি নিশ্চিত..',
+    'YES': 'হ্যাঁ',
+    'NO': 'না',
+    'Something went wrong. Please try again.':
+        'কিছু সমস্যা বিদ্যমান। অনুগ্রহপূর্বক আবার চেষ্টা করুন।',
 
     '01xxxxxxxxx': '০১*********',
     'AM': 'দিন',

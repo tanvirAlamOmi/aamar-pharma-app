@@ -39,7 +39,7 @@ class Util {
   static showSnackBar(
       {GlobalKey<ScaffoldState> scaffoldKey, String message, int duration}) {
     scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
+      content: Text(EnBnDict.en_bn_convert(text: message)),
       duration: Duration(milliseconds: duration ?? 3000),
     ));
   }

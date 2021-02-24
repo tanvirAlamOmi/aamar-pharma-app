@@ -32,8 +32,6 @@ class DeliveryRepo {
           'area': deliveryAddressDetails.area,
         });
 
-        print(addDeliveryAddressRequest);
-
         final addDeliveryAddressResponse = await DeliveryRepo.instance
             .getDeliveryClient()
             .addDeliveryAddress(jwtToken, addDeliveryAddressRequest);
