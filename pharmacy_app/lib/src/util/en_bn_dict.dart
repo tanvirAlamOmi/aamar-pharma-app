@@ -234,7 +234,7 @@ class EnBnDict {
 
     // Order Card
     'Order ID: ': 'অর্ডার ক্রমিক নং: ',
-    'Delivery:': 'ডেলিভারি:',
+    'Delivery: ': 'ডেলিভারি: ',
 
     // Drop Down Filter Card
     'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
