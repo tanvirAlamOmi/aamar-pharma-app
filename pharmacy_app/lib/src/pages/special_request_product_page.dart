@@ -191,7 +191,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
                 controller: itemQuantityController,
                 decoration: new InputDecoration(
                   isDense: true,
-                  hintText:  EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
+                  hintText: EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
                   hintStyle: TextStyle(fontSize: 13),
                   fillColor: Colors.white,
                   contentPadding:
@@ -381,8 +381,10 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
     isProcessing = true;
     refreshUI();
 
+    Util.removeFocusNode(context);
+
     Util.showSnackBar(
-        message: 'Please wait...', scaffoldKey: _scaffoldKey, duration: 1000);
+        message: 'Please wait', scaffoldKey: _scaffoldKey, duration: 1000);
 
     String requestedProductImageUrl = ClientEnum.NA;
     if (imageData != null) {

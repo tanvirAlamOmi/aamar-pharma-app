@@ -158,6 +158,8 @@ class _AccountPageState extends State<AccountPage> {
       return;
     }
 
+    Util.removeFocusNode(context);
+
     user.phone = phoneController.text;
     user.name = nameController.text;
     user.email = emailController.text;

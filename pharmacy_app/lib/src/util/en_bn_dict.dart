@@ -98,7 +98,7 @@ class EnBnDict {
 
     // Upload Prescription Verify Page
     'UPLOAD PRESCRIPTION': 'প্রেসক্রিপশন আপলোড',
-    ' UPLOADED PHOTO(s)': 'টি আপলোডকৃত ছবি',
+    'UPLOADED PHOTO(s)': 'টি আপলোডকৃত ছবি',
     'Add Notes': 'নোট/নির্দেশনা যুক্ত করুন',
     'Notes e.g. I need all the medicines': 'উদাঃ আমার সবগুলো ওষুধ প্রয়োজনীয়',
     '1 image is mandatory for the prescription':
@@ -153,7 +153,7 @@ class EnBnDict {
     'CONFIRM SUBMITTING ORDER?': 'অর্ডারটি নিশ্চিত করতে আপনার সম্মতি আছে?',
     'Order is submitted.': 'অর্ডারটি গৃহীত হয়েছে।',
     'Submitting Order...': 'অর্ডারটি নেয়া হচ্ছে',
-
+    'UPLOADED PRESCRIPTION(s)': 'টি প্রেসক্রিপশন আপলোড',
 
     // Order Page
     'ORDERS': 'অর্ডারসমূহ',
@@ -185,10 +185,13 @@ class EnBnDict {
     'Please enter the code.': 'অনুগ্রহপূর্বক কোডটি দিন।',
     'Resending code in 10 seconds': '১০ সেকেন্ডের মধ্যে আবার কোড পাঠানো হচ্ছে।',
     'Code Resent': 'কোড পাঠানো হয়েছে।',
+    'Verifying Code...': 'কোড যাচাই করা হচ্ছে...',
 
     // My Details Page
     'MY DETAILS': 'আমার বৃত্তান্ত',
     'SAVE': 'সেইভ করুন',
+    'Please fill all the information': 'অনুগ্রহপূর্বক সবগুলো ঘর পূর্ণ করুন',
+    'Updated user': 'আপনার ব্যক্তিগত তথ্য পরিবর্তন করা হল।',
 
     // Order Details Page
     'ORDER DETAILS': 'অর্ডার বৃত্তান্ত',
@@ -216,9 +219,11 @@ class EnBnDict {
         'আপনি কি এই অর্ডারটির জন্য এই চালান এবং দামের বিষয়টি নিশ্চিত করেছেন?',
     'CANCEL REPEAT ORDER': 'অর্ডারের পুনরাবৃত্তি বন্ধ করুন',
     'Are you sure to stop this repeat order?':
-    'এই অর্ডারের পুনরাবৃত্তি বন্ধ করে দিতে চাচ্ছেন?',
+        'এই অর্ডারের পুনরাবৃত্তি বন্ধ করে দিতে চাচ্ছেন?',
     'Repeat Order is cancelled': 'অর্ডারের পুনরাবৃত্তি বন্ধ হয়েছে।',
-    'Order is cancelled' : 'অর্ডারটি ক্যান্সেল করা হয়েছে।',
+    'Order is cancelled': 'অর্ডারটি ক্যান্সেল করা হয়েছে।',
+    'Order is confirmed.': 'অর্ডারটি নিশ্চিত করা হয়েছে।',
+    'Confirming Order and Invoice...': 'অর্ডার এবং চালান নিশ্চিত করা হচ্ছে...',
 
     // Order Final Invoice Page
     'ORDER INVOICE DETAILS': 'অর্ডার চালান',
@@ -246,6 +251,12 @@ class EnBnDict {
 
     // Repeat Order Card
     'NEXT DELIVERY ON': 'পরবর্তী ডেলিভারি',
+
+    // Time Choose Button
+    'SELECT DELIVERY TIME': 'ডেলিভারি টাইম নির্ধারণ করুন',
+    'OK': 'ঠিক আছে',
+    'Please select a time between 10 AM to 10 PM':
+        'অনুগ্রহপূর্বক সকাল ১০টা থেকে রাত ১০টার মধ্যেকার কোন একটা সময়  করুন',
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',

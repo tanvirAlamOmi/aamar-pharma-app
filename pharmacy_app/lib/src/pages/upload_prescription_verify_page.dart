@@ -134,7 +134,8 @@ class _UploadPrescriptionVerifyPageState
       child: Text(
         EnBnDict.en_bn_number_convert(
                 number: widget.prescriptionImageFileList.length) +
-            EnBnDict.en_bn_convert(text: ' UPLOADED PHOTO(s)'),
+            ' ' +
+            EnBnDict.en_bn_convert(text: 'UPLOADED PHOTO(s)'),
         style: TextStyle(
             color: Util.greenishColor(),
             fontSize: 15,

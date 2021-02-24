@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 
 class LoadingWidget extends StatelessWidget {
   final String status;
@@ -38,10 +39,11 @@ class LoadingWidget extends StatelessWidget {
     }
     // add status
     children.add(
-      Text(
+      CustomText(
         status,
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.grey),
+        fontSize: 14,
+        color: Colors.grey,
       ),
     );
     // Add padding to all children

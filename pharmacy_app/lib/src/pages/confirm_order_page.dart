@@ -28,6 +28,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:tuple/tuple.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
   final String note;
@@ -256,7 +257,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       children: [
         LoadingWidget(status: 'Submitting Order...'),
         SizedBox(height: 10),
-        Text(uploadStatus, textAlign: TextAlign.center)
+        CustomText(uploadStatus, textAlign: TextAlign.center)
       ],
     );
   }
@@ -448,15 +449,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (nameController.text.isEmpty ) {
+    if (nameController.text.isEmpty) {
       Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message: "Please provide a name");
+          scaffoldKey: _scaffoldKey, message: "Please provide a name");
       return;
     }
 
-
-    if (emailController.text.isEmpty || !Util.isEmail(emailAddress: emailController.text)) {
+    if (emailController.text.isEmpty ||
+        !Util.isEmail(emailAddress: emailController.text)) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
           message: "Please provide a valid email address");
@@ -546,7 +546,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       int imageNumber = 1;
       List<String> imageUrl = [];
       for (final image in widget.prescriptionImageFileList) {
-        uploadStatus = "Uploading ${imageNumber} prescription";
+        uploadStatus = EnBnDict.en_bn_number_convert(number: imageNumber) +
+            ' ' +
+            EnBnDict.en_bn_convert(text: 'UPLOADED PRESCRIPTION(s)');
         refreshUI();
         imageNumber += 1;
 

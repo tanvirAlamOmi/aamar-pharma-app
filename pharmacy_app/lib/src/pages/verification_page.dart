@@ -107,7 +107,7 @@ class VerificationPageState extends State<VerificationPage> {
   Widget buildVerificationLoadingWidget() {
     return Column(
       children: <Widget>[
-        LoadingWidget(status: 'Verify login...'),
+        LoadingWidget(status: 'Verifying Code...'),
       ],
     );
   }
@@ -241,9 +241,10 @@ class VerificationPageState extends State<VerificationPage> {
     onVerificationNextStep(responseCode: responseCode, user: user);
   }
 
-  void onVerificationNextStep({String responseCode, User user}) {
+  void onVerificationNextStep({String responseCode, User user}) async{
     isProcessing = true;
     refreshUI();
+
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
       if (widget.onVerificationNextStep ==

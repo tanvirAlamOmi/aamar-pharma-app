@@ -31,7 +31,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   double subTotal = 0;
-  double deliveryFee = 20;
+  double deliveryFee = 0;
   double totalAmount = 0;
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
@@ -40,6 +40,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     calculatePricing();
+    deliveryFee = double.parse(widget.order.deliveryCharge);
   }
 
   @override

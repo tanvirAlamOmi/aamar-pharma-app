@@ -200,6 +200,7 @@ class QueryRepo {
             ..area = 'Banani'
             ..id = 1
             ..address = '39/A Banani',
+          deliveryCharge: '20.00',
           invoiceItemList: [
             InvoiceItem()
               ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
@@ -232,6 +233,7 @@ class QueryRepo {
             ..area = 'Gulshan'
             ..id = 1
             ..address = '39/A Gulshan',
+          deliveryCharge: '150.00',
         ),
       ),
       FeedItem(
@@ -254,6 +256,7 @@ class QueryRepo {
             ..area = 'Mirpur'
             ..id = 1
             ..address = '39/A Mirpur',
+          deliveryCharge: '25.00',
           invoiceItemList: [
             InvoiceItem()
               ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
