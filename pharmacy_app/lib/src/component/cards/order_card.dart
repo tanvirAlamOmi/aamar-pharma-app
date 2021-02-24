@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/component/general/common_ui.dart';
 
 class OrderCard extends StatefulWidget {
   final Order order;
@@ -77,7 +78,7 @@ class _OrderCardState extends State<OrderCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    EnBnDict.en_bn_convert(text: 'Order ID:') +
+                    EnBnDict.en_bn_convert(text: 'Order ID: ') +
                         EnBnDict.en_bn_number_convert(number: order.id),
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
@@ -105,15 +106,17 @@ class _OrderCardState extends State<OrderCard> {
       child: RaisedButton(
         shape: Border.all(width: 1.0, color: Colors.transparent),
         onPressed: () {},
-        child: Text(
+        child: CustomText(
           order.status.toUpperCase(),
-          style: TextStyle(color: Colors.white, fontSize: 12),
+          color: Colors.white, fontSize: 13,
           textAlign: TextAlign.center,
         ),
         color: Util.purplishColor(),
       ),
     );
   }
+
+
 
   String getDeliveryTimeText() {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {

@@ -18,11 +18,8 @@ class DropDownFilterCard extends StatelessWidget {
     OrderEnum.ORDER_STATUS_PENDING,
     OrderEnum.ORDER_STATUS_INVOICE_SENT,
     OrderEnum.ORDER_STATUS_CONFIRMED,
-    OrderEnum.ORDER_STATUS_PROCESSING,
-    OrderEnum.ORDER_STATUS_ON_THE_WAY,
     OrderEnum.ORDER_STATUS_DELIVERED,
     OrderEnum.ORDER_STATUS_CANCELED,
-    OrderEnum.ORDER_STATUS_REJECTED
   ];
   String selectedOrderFilterStatus;
 

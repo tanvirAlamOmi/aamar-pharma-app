@@ -192,7 +192,8 @@ class EnBnDict {
     'ORDER DETAILS': 'অর্ডার বৃত্তান্ত',
     'Email': 'ইমেইল',
     'DELIVERY ADDRESS': 'ডেলিভারি ঠিকানা',
-    'CANCEL ORDER': 'অর্ডার কেন্সেল করুন',
+    'CANCEL ORDER': 'অর্ডার ক্যান্সেল করুন',
+    'Are you sure to cancel this order?' : 'আপনি কি এই অর্ডারটি ক্যান্সেল করতে চাচ্ছেন?',
 
     // Confirm Invoice Page
     'We only accept cash on delivery.':
@@ -208,6 +209,7 @@ class EnBnDict {
     'Subtotal': 'সাবটোটাল',
     'Delivery Fee': 'ডেলিভারি ফী',
     'Total': 'মোট টাকা',
+    'Are you sure to confirm this invoice for this order?' : 'আপনি কি এই অর্ডারটির জন্য এই চালান এবং দামের বিষয়টি নিশ্চিত করেছেন?',
 
     // Order Final Invoice Page
     'ORDER INVOICE DETAILS': 'অর্ডার চালান',
@@ -217,8 +219,21 @@ class EnBnDict {
     'Billed to': 'বিল',
 
     // Order Card
-    'Order ID:': 'অর্ডার নাম্বার:',
+    'Order ID: ': 'অর্ডার ক্রমিক নং: ',
     'Delivery:': 'ডেলিভারি:',
+
+    // Drop Down Filter Card
+    'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
+    'Pending' : 'প্রক্রিয়াধীন অর্ডারসমূহ',
+    'Invoice sent' : 'চালান দেয়া হয়েছে এমন অর্ডারসমূহ',
+    'Confirmed' : 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
+    'Delivered' : 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
+    'Canceled' : 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
+    'PENDING' : 'প্রক্রিয়াধীন',
+    'INVOICE SENT' : 'চালান দেয়া হয়েছে',
+    'CONFIRMED' : 'নিশ্চিত করা হয়েছে',
+    'DELIVERED' : 'ডেলিভারি সম্পন্ন হয়েছে',
+    'CANCELED' : 'ক্যান্সেল করা হয়েছে',
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',

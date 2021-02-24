@@ -105,7 +105,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   callBackOnSubmit: () {
                     showAlertDialog(
                         context: context,
-                        height: 150,
+                        height: 170,
                         message:
                             "Are you sure to confirm this invoice for this order?",
                         acceptFunc: confirmInvoiceOrder);
