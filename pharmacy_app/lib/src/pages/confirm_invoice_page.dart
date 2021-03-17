@@ -31,7 +31,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
   double subTotal = 0;
-  double deliveryFee = 0;
+  double deliveryCharge = 0;
   double totalAmount = 0;
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
@@ -40,7 +40,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     calculatePricing();
-    deliveryFee = double.parse(widget.order.deliveryCharge);
+    deliveryCharge = double.parse(widget.order.deliveryCharge);
   }
 
   @override
@@ -80,7 +80,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 SizedBox(height: 20),
                 OrderInvoiceTableCard(
                   subTotal: subTotal,
-                  deliveryFee: deliveryFee,
+                  deliveryFee: deliveryCharge,
                   totalAmount: totalAmount,
                   order: widget.order,
                   callBackIncrementItemQuantity: incrementItemQuantity,
@@ -270,6 +270,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void removeItem(dynamic singleItem) {
+    if(widget.order.invoiceItemList.length == 1) {
+      Util.showSnackBar(message: 'You can not remove the last item',scaffoldKey: _scaffoldKey);
+      return;
+    }
     widget.order.invoiceItemList.remove(singleItem);
   }
 
@@ -305,7 +309,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       subTotal = subTotal + (unitPrice * quantity);
     }
 
-    totalAmount = subTotal + deliveryFee;
+    totalAmount = subTotal + deliveryCharge;
     if (mounted) setState(() {});
   }
 

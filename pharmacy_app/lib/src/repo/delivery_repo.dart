@@ -80,7 +80,8 @@ class DeliveryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<List<DeliveryAddressDetails>, String>> coveredDeliveryPlaces() async {
+  Future<Tuple2<List<DeliveryAddressDetails>, String>>
+      coveredDeliveryPlaces() async {
     int retry = 0;
     while (retry++ < 2) {
       try {

@@ -203,7 +203,7 @@ class QueryRepo {
           deliveryCharge: '20.00',
           invoiceItemList: [
             InvoiceItem()
-              ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
+              ..itemName = 'Napa'
               ..itemQuantity = 12
               ..itemUnitPrice = 2
           ],
@@ -259,9 +259,13 @@ class QueryRepo {
           deliveryCharge: '25.00',
           invoiceItemList: [
             InvoiceItem()
-              ..itemName = 'Napa asdasd asidh iashdiu hasiudh iluashdilu asiludiasdiuhasd'
+              ..itemName = 'Napa'
               ..itemQuantity = 12
-              ..itemUnitPrice = 2
+              ..itemUnitPrice = 2,
+            InvoiceItem()
+              ..itemName = 'Dexpoten'
+              ..itemQuantity = 2
+              ..itemUnitPrice = 50
           ],
         ),
       )
