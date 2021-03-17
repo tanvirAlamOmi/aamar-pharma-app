@@ -270,8 +270,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void removeItem(dynamic singleItem) {
-    if(widget.order.invoiceItemList.length == 1) {
-      Util.showSnackBar(message: 'You can not remove the last item',scaffoldKey: _scaffoldKey);
+    if (widget.order.invoiceItemList.length == 1) {
+      Util.showSnackBar(
+          message: 'You can not remove the last item',
+          scaffoldKey: _scaffoldKey);
       return;
     }
     widget.order.invoiceItemList.remove(singleItem);
