@@ -46,7 +46,7 @@ class DeliveryRepo {
           return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
         }
       } catch (err) {
-        print("Error in addDeliveryAddress() in OrderRepo");
+        print("Error in addDeliveryAddress() in DeliveryRepo");
         print(err);
       }
     }
@@ -73,7 +73,31 @@ class DeliveryRepo {
 
         return Tuple2(itemList, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in addDeliveryAddress() in OrderRepo");
+        print("Error in addDeliveryAddress() in DeliveryRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<List<DeliveryAddressDetails>, String>> coveredDeliveryPlaces() async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final deliveryAddressListResponse = await DeliveryRepo.instance
+            .getDeliveryClient()
+            .coveredDeliveryPlaces(jwtToken);
+
+        final List<DeliveryAddressDetails> itemList = List<dynamic>.from(
+                deliveryAddressListResponse.map((singleItem) =>
+                    DeliveryAddressDetails.fromJson(singleItem)))
+            .cast<DeliveryAddressDetails>();
+
+        return Tuple2(itemList, ClientEnum.RESPONSE_SUCCESS);
+      } catch (err) {
+        print("Error in coveredDeliveryPlaces() in DeliveryRepo");
         print(err);
       }
     }

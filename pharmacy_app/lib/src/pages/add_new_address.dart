@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
+import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
@@ -52,7 +53,30 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             title: CustomText('ADD ADDRESS',
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          body: buildBody(context)),
+          body: FutureBuilder(
+              future: DeliveryRepo.instance.coveredDeliveryPlaces(),
+              builder: (_, snapshot) {
+                if (snapshot.data == null) {
+                  return LoadingWidget(status: "Loading Data");
+                } else if (snapshot.data != null) {
+                  Tuple2<List<DeliveryAddressDetails>, String>
+                      coveredDeliveryAddressListResponse = snapshot.data;
+                  List<DeliveryAddressDetails> coveredDeliveryAddressList =
+                      coveredDeliveryAddressListResponse.item1;
+                  String response = coveredDeliveryAddressListResponse.item2;
+
+                  if (response == ClientEnum.RESPONSE_SUCCESS &&
+                      coveredDeliveryAddressList.isNotEmpty) {
+                    areaList.clear();
+                    coveredDeliveryAddressList.forEach((singleDeliveryAddress) {
+                      areaList.add(singleDeliveryAddress.name);
+                    });
+                    selectedArea = areaList[0];
+                  }
+                  return buildBody(context);
+                }
+                return LoadingWidget(status: "Loading Data");
+              })),
     );
   }
 

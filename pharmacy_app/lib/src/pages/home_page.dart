@@ -67,44 +67,45 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        alignment: Alignment.center,
-        child: Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 20),
-                HomePageCarouselSliderCard(),
-                buildTitle(),
-                SizedBox(height: 15),
-                buildPrescriptionWantedTitle(),
-                SizedBox(height: 20),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buildContainer(
-                        'UPLOAD PRESCRIPTION / PHOTO',
-                        Icon(Icons.add_shopping_cart, color: Colors.white),
-                        uploadPrescriptionOption),
-                    SizedBox(width: 10),
-                    buildContainer(
-                        'ADD ITEMS MANUALLY',
-                        Icon(Icons.add_shopping_cart, color: Colors.white),
-                        navigateToAddItems)
-                  ],
-                ),
-                SizedBox(height: 30),
-                buildHotlineText(),
-                SizedBox(height: 20),
-              ],
-            ),
-            buildTutorialBox()
-          ],
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 20),
+                  HomePageCarouselSliderCard(),
+                  buildTitle(),
+                  SizedBox(height: 15),
+                  buildPrescriptionWantedTitle(),
+                  SizedBox(height: 20),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildContainer(
+                          'UPLOAD PRESCRIPTION / PHOTO',
+                          Icon(Icons.add_shopping_cart, color: Colors.white),
+                          uploadPrescriptionOption),
+                      SizedBox(width: 10),
+                      buildContainer(
+                          'ADD ITEMS MANUALLY',
+                          Icon(Icons.add_shopping_cart, color: Colors.white),
+                          navigateToAddItems)
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  buildHotlineText(),
+                  SizedBox(height: 20),
+                ],
+              ),
+              buildTutorialBox()
+            ],
+          ),
         ),
       ),
     );

@@ -25,11 +25,27 @@ class DeliveryClient {
     return jsonResponse;
   }
 
-  Future<dynamic> deliveryAddressListCustomer(String jwtToken, int customerId) async {
+  Future<dynamic> deliveryAddressListCustomer(
+      String jwtToken, int customerId) async {
     final http.Response response = await http.get(
       ServerConfig.SERVER_HOST +
           ServerConfig.SERVER_PORT +
           '/api/appapi/addresslist/${customerId}',
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ).timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
+  Future<dynamic> coveredDeliveryPlaces(String jwtToken) async {
+    final http.Response response = await http.get(
+      ServerConfig.SERVER_HOST +
+          ServerConfig.SERVER_PORT +
+          '/api/appapi/area-covered',
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',

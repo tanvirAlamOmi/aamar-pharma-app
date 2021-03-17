@@ -115,8 +115,8 @@ Future<void> firebaseCloudMessagingListeners() async {
 }
 
 void navigateToSpecificScreen() async {
-  AppVariableStates.instance.navigatorKey.currentState
-      .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+  // AppVariableStates.instance.navigatorKey.currentState
+  //     .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
 }
 
 void iOSPermission() {
