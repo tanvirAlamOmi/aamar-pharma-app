@@ -393,7 +393,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       widget.order.prescription =
           Util.imageURLAsCSV(imageList: newPrescriptionList);
     }
-    
+
 
     Tuple2<void, String> confirmInvoiceOrderResponse =
         await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);
