@@ -336,7 +336,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   String getPrice(InvoiceItem singleItem) {
     final unitPrice = singleItem.itemUnitPrice;
     final quantity = singleItem.itemQuantity;
-    final price = (unitPrice * quantity);
+    final price = (unitPrice * quantity) ;
     return EnBnDict.en_bn_number_convert(number: price);
   }
 }

@@ -43,9 +43,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   @override
   void initState() {
     super.initState();
+    deliveryCharge = double.parse(widget.order.deliveryCharge);
     calculatePricing();
     checkIfPrescriptionRequired();
-    deliveryCharge = double.parse(widget.order.deliveryCharge);
   }
 
   @override
@@ -393,6 +393,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       widget.order.prescription =
           Util.imageURLAsCSV(imageList: newPrescriptionList);
     }
+    
 
     Tuple2<void, String> confirmInvoiceOrderResponse =
         await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);
