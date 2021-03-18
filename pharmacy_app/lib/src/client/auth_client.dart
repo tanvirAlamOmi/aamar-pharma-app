@@ -19,11 +19,6 @@ class AuthClient {
   }
 
   Future<dynamic> signIn(String signInRequest) async {
-    // return json.decode(jsonEncode(<String, dynamic>{
-    //   'USER': PharmaUser.User.basic().toJsonString(),
-    //   'STATUS': true,
-    //   'RESPONSE_MESSAGE': ClientEnum.RESPONSE_SUCCESS
-    // }));
     final http.Response response = await http
         .post(
           ServerConfig.SERVER_HOST +

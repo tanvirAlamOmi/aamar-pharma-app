@@ -30,18 +30,47 @@ class NotificationRepo {
 
         final notificationCountResponse = await NotificationRepo.instance
             .getNotificationClient()
-            .notificationCount(jwtToken, customerId);
+            .notificationCount(jwtToken);
 
         if (notificationCountResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
           final int totalNotification =
-              notificationCountResponse['NOTIFICATION'];
+              notificationCountResponse['notification'];
           return Tuple2(totalNotification, ClientEnum.RESPONSE_SUCCESS);
         } else {
           return Tuple2(null, notificationCountResponse['result']);
         }
       } catch (err) {
         print("Error in notificationCount() in NotificationRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<void, String>> changeNotificationStatus({int id, String notificationStatus}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final String changeNotificationStatusRequest = jsonEncode(<String, dynamic>{
+          'id': id,
+          'status': notificationStatus,
+        });
+
+        final changeNotificationStatusResponse = await NotificationRepo.instance
+            .getNotificationClient()
+            .changeNotificationStatus(jwtToken,changeNotificationStatusRequest);
+
+        if (changeNotificationStatusResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, changeNotificationStatusResponse['result']);
+        }
+      } catch (err) {
+        print("Error in changeNotificationStatus() in NotificationRepo");
         print(err);
       }
     }

@@ -56,6 +56,22 @@ class QueryClient {
     return jsonResponse;
   }
 
+  Future<dynamic> getNotificationsFeed(
+      String jwtToken, FeedRequest feedRequest) async {
+    final http.Response response = await http.post(
+      ServerConfig.SERVER_HOST +
+          ServerConfig.SERVER_PORT.toString() +
+          '/api/appapi/notifications/',
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ).timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   static QueryClient _instance;
   static QueryClient get instance => _instance ??= QueryClient();
 }

@@ -204,8 +204,8 @@ class VerificationPageState extends State<VerificationPage> {
       alignment: Alignment(0.0, 0.0),
       child: FlatButton.icon(
         icon: Icon(Icons.restore),
-        label: CustomText('Resend Code',
-            fontSize: 15.0, color: Colors.blueGrey),
+        label:
+            CustomText('Resend Code', fontSize: 15.0, color: Colors.blueGrey),
         onPressed: () async {
           Util.showSnackBar(
               scaffoldKey: _scaffoldKey,
@@ -241,10 +241,9 @@ class VerificationPageState extends State<VerificationPage> {
     onVerificationNextStep(responseCode: responseCode, user: user);
   }
 
-  void onVerificationNextStep({String responseCode, User user}) async{
+  void onVerificationNextStep({String responseCode, User user}) async {
     isProcessing = true;
     refreshUI();
-
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
       if (widget.onVerificationNextStep ==

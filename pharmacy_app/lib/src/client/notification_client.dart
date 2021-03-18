@@ -9,14 +9,8 @@ class NotificationClient {
     print("NotificationClient Initialized");
   }
 
-  Future<dynamic> notificationCount(String jwtToken, int userId) async {
-    var random = new Random();
-    return json.decode(jsonEncode(<String, dynamic>{
-      'NOTIFICATION': random.nextInt(100),
-      'STATUS': true,
-      'result': ClientEnum.RESPONSE_SUCCESS
-    }));
-    final http.Response response = await http.get(
+  Future<dynamic> notificationCount(String jwtToken) async {
+    final http.Response response = await http.post(
       ServerConfig.SERVER_HOST +
           ServerConfig.SERVER_PORT +
           '/api/appapi/notification-count',
@@ -29,6 +23,23 @@ class NotificationClient {
     final jsonResponse = json.decode(response.body);
     return jsonResponse;
   }
+
+  Future<dynamic> changeNotificationStatus(String jwtToken, String changeNotificationStatusRequest) async {
+    final http.Response response = await http.post(
+      ServerConfig.SERVER_HOST +
+          ServerConfig.SERVER_PORT +
+          '/api/appapi/change-notif-status',
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: changeNotificationStatusRequest
+    ).timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
 
   static NotificationClient _instance;
   static NotificationClient get instance => _instance ??= NotificationClient();
