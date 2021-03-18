@@ -20,6 +20,7 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
+import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
@@ -591,6 +592,16 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       await Future.delayed(Duration(milliseconds: 500));
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => RequestReceivedSuccessPage(
+              icon: Icons.shopping_cart,
+              pageTitle: 'ORDER RECEIVED',
+              title: 'Your order has been placed.',
+              message: 'We will get back to you within 30 minutes.',
+            )),
+      );
       await Future.delayed(Duration(milliseconds: 500));
       Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
     } else {
