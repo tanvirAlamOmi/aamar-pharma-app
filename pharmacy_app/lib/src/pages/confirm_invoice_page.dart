@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
@@ -6,7 +8,7 @@ import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
-import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/component/cards/upload_prescription_card.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -33,6 +35,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   double subTotal = 0;
   double deliveryCharge = 0;
   double totalAmount = 0;
+  bool prescriptionRequired = false;
+  List<Uint8List> prescriptionImageFileList = [];
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
@@ -40,12 +44,22 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     calculatePricing();
+    checkIfPrescriptionRequired();
     deliveryCharge = double.parse(widget.order.deliveryCharge);
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void checkIfPrescriptionRequired() {
+    for (int i = 0; i < widget.order.invoiceItemList.length; i++) {
+      if (widget.order.invoiceItemList[i].isPrescriptionRequired == 'true') {
+        prescriptionRequired = true;
+        break;
+      }
+    }
   }
 
   @override
@@ -97,7 +111,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   showSubTotalRow: true,
                   showTotalRow: true,
                 ),
-                SizedBox(height: 20),
+                buildIsPrescriptionRequiredTitle(),
+                SizedBox(height: 10),
+                buildUploadPrescriptionCard(),
+                SizedBox(height: 10),
                 buildCashWarningTitle(),
                 SizedBox(height: 20),
                 GeneralActionRoundButton(
@@ -196,6 +213,41 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void updateTutorialBox() async {
     Store.instance.appState.tutorialBoxNumberConfirmInvoicePage += 1;
     await Store.instance.putAppData();
+  }
+
+  Widget buildIsPrescriptionRequiredTitle() {
+    if (prescriptionRequired)
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: CustomText('*Prescription required',
+                  color: Util.redishColor(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  textAlign: TextAlign.start),
+            ),
+          ],
+        ),
+      );
+
+    return Container();
+  }
+
+  Widget buildUploadPrescriptionCard() {
+    if (prescriptionRequired)
+      return UploadPrescriptionOrderCard(
+        order: widget.order,
+        scaffoldKey: _scaffoldKey,
+        prescriptionImageFileList: prescriptionImageFileList,
+        refreshUI: refreshUI,
+      );
+
+    return Container();
   }
 
   Widget buildCashWarningTitle() {
@@ -318,6 +370,29 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void confirmInvoiceOrder() async {
     isProcessing = true;
     refreshUI();
+
+    if (prescriptionRequired && prescriptionImageFileList.length == 0) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Please Upload the required prescriptions}",
+          duration: 1500);
+      return;
+    }
+
+    if (prescriptionRequired) {
+      List<String> newPrescriptionList = [];
+      for (final image in prescriptionImageFileList) {
+        newPrescriptionList.add(await Util.uploadImageToFirebase(
+            imageFile: image, folderPath: 'prescription/'));
+      }
+      final List<String> previousPrescriptionList =
+          Util.CSVToImageList(imagePathAsList: widget.order.prescription);
+
+      newPrescriptionList.addAll(previousPrescriptionList);
+
+      widget.order.prescription =
+          Util.imageURLAsCSV(imageList: newPrescriptionList);
+    }
 
     Tuple2<void, String> confirmInvoiceOrderResponse =
         await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);

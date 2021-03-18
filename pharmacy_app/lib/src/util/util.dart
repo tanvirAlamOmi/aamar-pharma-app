@@ -173,6 +173,7 @@ class Util {
   }
 
   static List<String> CSVToImageList({String imagePathAsList}) {
+    if (imagePathAsList == null) return [];
     final List<String> imageList = imagePathAsList.split(",");
     return imageList;
   }

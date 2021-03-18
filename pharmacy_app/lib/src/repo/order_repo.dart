@@ -99,6 +99,7 @@ class OrderRepo {
         String jwtToken = Store.instance.appState.user.loginToken;
 
         final confirmInvoiceOrderItemListRequest = jsonEncode(<String, dynamic>{
+          'prescription': order.prescription,
           'items': order.invoiceItemList
               .map((singleInvoiceItem) =>
                   singleInvoiceItem.toJsonEncodedString())

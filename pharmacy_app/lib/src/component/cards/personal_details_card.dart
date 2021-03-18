@@ -46,7 +46,7 @@ class PersonalDetailsCard extends StatelessWidget {
               CustomText('PERSONAL DETAILS',
                   color: Util.greenishColor(), fontWeight: FontWeight.bold),
               SizedBox(height: 20),
-              CustomText('NAME',
+              CustomText('NAME*',
                   color: Util.purplishColor(), fontWeight: FontWeight.bold),
               SizedBox(height: 3),
               SizedBox(
@@ -105,7 +105,7 @@ class PersonalDetailsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CustomText('Phone Number',
+                    CustomText('Phone Number*',
                         color: Util.purplishColor(),
                         fontWeight: FontWeight.bold),
                     SizedBox(height: 3),

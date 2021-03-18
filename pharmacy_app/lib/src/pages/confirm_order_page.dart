@@ -461,7 +461,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       return;
     }
 
-    if (emailController.text.isEmpty ||
+    if (emailController.text.isNotEmpty &&
         !Util.isEmail(emailAddress: emailController.text)) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,

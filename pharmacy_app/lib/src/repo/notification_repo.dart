@@ -26,7 +26,6 @@ class NotificationRepo {
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.loginToken;
-        int customerId = Store.instance.appState.user.id;
 
         final notificationCountResponse = await NotificationRepo.instance
             .getNotificationClient()

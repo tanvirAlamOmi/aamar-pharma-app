@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
@@ -16,7 +17,9 @@ import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class UploadPrescriptionVerifyPage extends StatefulWidget {
   final List<Uint8List> prescriptionImageFileList;
-  UploadPrescriptionVerifyPage({this.prescriptionImageFileList, Key key})
+  final String nextStep;
+  UploadPrescriptionVerifyPage(
+      {this.prescriptionImageFileList, Key key, this.nextStep})
       : super(key: key);
 
   @override
@@ -87,7 +90,7 @@ class _UploadPrescriptionVerifyPageState
                 buildPrescriptionImageList(),
                 buildNoteBox(),
                 GeneralActionRoundButton(
-                  title: "PROCEED",
+                  title: buttonText(),
                   isProcessing: isProcessing,
                   callBackOnSubmit: proceedToConfirmOrderPage,
                   padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
@@ -170,6 +173,7 @@ class _UploadPrescriptionVerifyPageState
   }
 
   Widget buildNoteBox() {
+    if (widget.nextStep == AppEnum.CONFIRM_INVOICE_PAGE) return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       color: Colors.white,
@@ -225,15 +229,33 @@ class _UploadPrescriptionVerifyPageState
   }
 
   void proceedToConfirmOrderPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ConfirmOrderPage(
-                note: noteBoxController.text,
-                orderType: OrderEnum.ORDER_WITH_PRESCRIPTION,
-                prescriptionImageFileList: widget.prescriptionImageFileList,
-              )),
-    );
+    switch (widget.nextStep) {
+      case AppEnum.CONFIRM_INVOICE_PAGE:
+        Navigator.pop(context);
+        break;
+      case AppEnum.HOME_PAGE:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmOrderPage(
+                    note: noteBoxController.text,
+                    orderType: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                    prescriptionImageFileList: widget.prescriptionImageFileList,
+                  )),
+        );
+        break;
+    }
+  }
+
+  String buttonText() {
+    switch (widget.nextStep) {
+      case AppEnum.CONFIRM_INVOICE_PAGE:
+        return 'CONFIRM';
+        break;
+      case AppEnum.HOME_PAGE:
+        return 'PROCEED';
+        break;
+    }
   }
 
   void refreshUI() {

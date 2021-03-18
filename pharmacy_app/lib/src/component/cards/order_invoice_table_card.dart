@@ -128,7 +128,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Subtotal') , style: columnTextStyle)),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Subtotal'),
+            style: columnTextStyle)),
         customTableCell(
             Text(EnBnDict.en_bn_number_convert(number: subTotal),
                 style: dataTextStyle),
@@ -140,7 +141,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Delivery Fee') , style: columnTextStyle)),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Delivery Fee'),
+            style: columnTextStyle)),
         customTableCell(
             Text(EnBnDict.en_bn_number_convert(number: deliveryFee),
                 style: dataTextStyle),
@@ -236,6 +238,18 @@ class OrderInvoiceTableCard extends StatelessWidget {
 
   Widget buildItemNameColumn(InvoiceItem singleItem) {
     if (showItemNameColumn != true) return Text("");
+    if (singleItem.isPrescriptionRequired == 'true') {
+      return Row(
+        children: [
+          Container(
+              alignment: Alignment.topLeft,
+              child: Text(singleItem.itemName, style: dataTextStyle)),
+          Container(
+              alignment: Alignment.topLeft,
+              child: Text('*', style: TextStyle(color: Util.redishColor())))
+        ],
+      );
+    }
     return Container(
         alignment: Alignment.topLeft,
         width: double.infinity,

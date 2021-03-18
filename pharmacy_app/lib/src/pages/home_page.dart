@@ -6,6 +6,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -364,13 +365,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  navigateToUploadPrescriptionPage(List<Uint8List> prescriptionImageFileList) {
+  void navigateToUploadPrescriptionPage(
+      List<Uint8List> prescriptionImageFileList) {
     if (prescriptionImageFileList.length == 0) return;
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
                 prescriptionImageFileList: prescriptionImageFileList,
+                nextStep: AppEnum.HOME_PAGE,
               )),
     );
   }
