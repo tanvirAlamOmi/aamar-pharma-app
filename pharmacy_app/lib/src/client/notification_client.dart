@@ -24,22 +24,23 @@ class NotificationClient {
     return jsonResponse;
   }
 
-  Future<dynamic> changeNotificationStatus(String jwtToken, String changeNotificationStatusRequest) async {
-    final http.Response response = await http.post(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT +
-          '/api/appapi/change-notif-status',
-      headers: {
-        'token': jwtToken,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: changeNotificationStatusRequest
-    ).timeout(Duration(seconds: 300));
+  Future<dynamic> changeNotificationStatus(
+      String jwtToken, String changeNotificationStatusRequest) async {
+    final http.Response response = await http
+        .post(
+            ServerConfig.SERVER_HOST +
+                ServerConfig.SERVER_PORT +
+                '/api/appapi/change-notif-status',
+            headers: {
+              'token': jwtToken,
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: changeNotificationStatusRequest)
+        .timeout(Duration(seconds: 10));
 
     final jsonResponse = json.decode(response.body);
     return jsonResponse;
   }
-
 
   static NotificationClient _instance;
   static NotificationClient get instance => _instance ??= NotificationClient();

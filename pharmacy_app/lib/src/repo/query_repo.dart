@@ -182,8 +182,8 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
-        notificationFeedResponse.feedItems.forEach((singleFeedItem) {
-          NotificationRepo.instance.changeNotificationStatus(
+        notificationFeedResponse.feedItems.forEach((singleFeedItem) async {
+          await NotificationRepo.instance.changeNotificationStatus(
               id: singleFeedItem.notificationItem.id,
               notificationStatus: ClientEnum.NOTIFICATION_SEEN);
         });
@@ -268,8 +268,8 @@ class QueryRepo {
               invoiceItemList: [
                 InvoiceItem()
                   ..itemName = 'Napa'
-                  ..itemQuantity = 12
-                  ..itemUnitPrice = 2
+                  ..quantity = 12
+                  ..rate = 2
               ],
             ),
           ),
@@ -324,12 +324,12 @@ class QueryRepo {
               invoiceItemList: [
                 InvoiceItem()
                   ..itemName = 'Napa'
-                  ..itemQuantity = 12
-                  ..itemUnitPrice = 2,
+                  ..quantity = 12
+                  ..rate = 2,
                 InvoiceItem()
                   ..itemName = 'Dexpoten'
-                  ..itemQuantity = 2
-                  ..itemUnitPrice = 50
+                  ..quantity = 2
+                  ..rate = 50
               ],
             ),
           )

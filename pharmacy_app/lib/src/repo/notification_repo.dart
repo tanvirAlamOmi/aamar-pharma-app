@@ -47,20 +47,23 @@ class NotificationRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<void, String>> changeNotificationStatus({int id, String notificationStatus}) async {
+  Future<Tuple2<void, String>> changeNotificationStatus(
+      {int id, String notificationStatus}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.loginToken;
 
-        final String changeNotificationStatusRequest = jsonEncode(<String, dynamic>{
+        final String changeNotificationStatusRequest =
+            jsonEncode(<String, dynamic>{
           'id': id,
           'status': notificationStatus,
         });
 
         final changeNotificationStatusResponse = await NotificationRepo.instance
             .getNotificationClient()
-            .changeNotificationStatus(jwtToken,changeNotificationStatusRequest);
+            .changeNotificationStatus(
+                jwtToken, changeNotificationStatusRequest);
 
         if (changeNotificationStatusResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {

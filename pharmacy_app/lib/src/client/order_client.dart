@@ -147,6 +147,24 @@ class OrderClient {
     return jsonResponse;
   }
 
+  Future<dynamic> singleOrder(
+      String jwtToken, String singleOrderRequest) async {
+    final http.Response response = await http
+        .post(
+        ServerConfig.SERVER_HOST +
+            ServerConfig.SERVER_PORT.toString() +
+            '/api/appapi/single-order',
+        headers: {
+          'token': jwtToken,
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: singleOrderRequest)
+        .timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   Future<dynamic> consultPharmacistOrder(
       String jwtToken, String consultPharmacistOrderRequest) async {
     final http.Response response = await http

@@ -262,7 +262,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         alignment: Alignment.center,
         width: double.infinity,
         child: Text(
-            EnBnDict.en_bn_number_convert(number: singleItem.itemUnitPrice),
+            EnBnDict.en_bn_number_convert(number: singleItem.rate),
             style: dataTextStyle));
   }
 
@@ -272,7 +272,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
           alignment: Alignment.center,
           width: 25,
           child:
-              Text(singleItem.itemQuantity.toString(), style: dataTextStyle));
+              Text(singleItem.quantity.toString(), style: dataTextStyle));
     else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -298,7 +298,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
                 width: 25,
                 child: Text(
                     EnBnDict.en_bn_number_convert(
-                        number: singleItem.itemQuantity),
+                        number: singleItem.quantity),
                     style: dataTextStyle)),
             GestureDetector(
               onTap: () {
@@ -321,7 +321,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         alignment: Alignment.center,
         width: 25,
         child: Text(
-            EnBnDict.en_bn_number_convert(number: singleItem.itemQuantity),
+            EnBnDict.en_bn_number_convert(number: singleItem.quantity),
             style: dataTextStyle));
   }
 
@@ -334,8 +334,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
   }
 
   String getPrice(InvoiceItem singleItem) {
-    final unitPrice = singleItem.itemUnitPrice;
-    final quantity = singleItem.itemQuantity;
+    final unitPrice = singleItem.rate;
+    final quantity = singleItem.quantity;
     final price = (unitPrice * quantity) ;
     return EnBnDict.en_bn_number_convert(number: price);
   }

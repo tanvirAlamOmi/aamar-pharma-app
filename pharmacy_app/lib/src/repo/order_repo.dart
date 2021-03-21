@@ -120,7 +120,7 @@ class OrderRepo {
           return Tuple2(null, confirmInvoiceOrderResponse['result']);
         }
       } catch (err) {
-        print("Error in confirmInvoiceOrderResponse() in OrderRepo");
+        print("Error in confirmInvoiceOrder() in OrderRepo");
         print(err);
       }
     }
@@ -143,15 +143,13 @@ class OrderRepo {
             .getOrderClient()
             .allowRepeatOrder(jwtToken, orderId, allowRepeatOrderRequest);
 
-        print(allowRepeatOrderResponse);
-
         if (allowRepeatOrderResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
           return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
         } else {
           return Tuple2(null, allowRepeatOrderResponse['result']);
         }
       } catch (err) {
-        print("Error in cancelRepeatOrder() in OrderRepo");
+        print("Error in allowRepeatOrder() in OrderRepo");
         print(err);
       }
     }
@@ -221,10 +219,35 @@ class OrderRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  Future<Tuple2<void, String>> singleOrder({int orderId}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final singleOrderRequest = jsonEncode(<String, dynamic>{
+          'order_id': orderId,
+        });
+
+        final singleOrderResponse = await OrderRepo.instance
+            .getOrderClient()
+            .singleOrder(jwtToken, singleOrderRequest);
+
+        if (singleOrderResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, singleOrderResponse['result']);
+        }
+      } catch (err) {
+        print("Error in singleOrder() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
   Future<Tuple2<void, String>> consultPharmacistOrder(
       {String name, String phone}) async {
-    return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
-
     int retry = 0;
     while (retry++ < 2) {
       try {

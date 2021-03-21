@@ -262,7 +262,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void incrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        singleItem.itemQuantity = singleItem.itemQuantity + 1;
+        singleItem.quantity = singleItem.quantity + 1;
         break;
       }
     }
@@ -271,10 +271,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void decrementItemQuantity(InvoiceItem invoiceItem) {
     for (final singleItem in widget.order.invoiceItemList) {
       if (singleItem == invoiceItem) {
-        if (singleItem.itemQuantity == 1) {
+        if (singleItem.quantity == 1) {
           return;
         }
-        singleItem.itemQuantity = singleItem.itemQuantity - 1;
+        singleItem.quantity = singleItem.quantity - 1;
         break;
       }
     }
@@ -284,8 +284,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     subTotal = 0;
     totalAmount = 0;
     for (final singleItem in widget.order.invoiceItemList) {
-      final unitPrice = singleItem.itemUnitPrice;
-      final quantity = singleItem.itemQuantity;
+      final unitPrice = singleItem.rate;
+      final quantity = singleItem.quantity;
       subTotal = subTotal + (unitPrice * quantity);
     }
 
@@ -511,7 +511,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         items.add(OrderManualItem()
           ..itemName = invoiceItem.itemName
           ..unit = ClientEnum.NA
-          ..quantity = invoiceItem.itemQuantity);
+          ..quantity = invoiceItem.quantity);
       }
       AppVariableStates.instance.order.items = items;
       orderSubmitResponse = await OrderRepo.instance
