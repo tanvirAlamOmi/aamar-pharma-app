@@ -169,6 +169,17 @@ class QueryRepo {
             .getQueryClient()
             .getNotificationsFeed(jwtToken, notificationRequest);
 
+        if (feedResponse['message'] == ClientEnum.RESPONSE_UNAUTHORIZED) {
+          return Tuple2(
+              FeedResponse()
+                ..status = true
+                ..lastFeed = false
+                ..feedItems = []
+                ..response = ClientEnum.RESPONSE_CONNECTION_ERROR
+                ..error = false,
+              ClientEnum.RESPONSE_SUCCESS);
+        }
+
         final List<NotificationItem> allNotifications = List<dynamic>.from(
                 feedResponse.map((singleNotification) =>
                     NotificationItem.fromJson(singleNotification)))
