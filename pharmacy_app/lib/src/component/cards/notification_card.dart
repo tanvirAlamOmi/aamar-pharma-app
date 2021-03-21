@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
 
 class NotificationCard extends StatelessWidget {
   final NotificationItem notificationItem;
@@ -31,13 +32,22 @@ class NotificationCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        buildTitle(),
+        buildTitle(context),
       ],
     );
   }
 
-  Widget buildTitle() {
+  Widget buildTitle(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NotificationToOrderPage(
+                    notificationItem: notificationItem,
+                  )),
+        );
+      },
       child: Container(
         height: 90,
         color: Colors.white,

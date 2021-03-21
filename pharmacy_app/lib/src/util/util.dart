@@ -250,6 +250,10 @@ class Util {
     return Uuid().v4().toString().split("-")[0];
   }
 
+  static void printBig(dynamic text){
+    debugPrint(text.toString(), wrapWidth: 1024);
+  }
+
   static void prettyPrintJson(String input) {
     const JsonDecoder decoder = JsonDecoder();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');

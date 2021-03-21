@@ -108,15 +108,14 @@ class _OrderCardState extends State<OrderCard> {
         onPressed: () {},
         child: CustomText(
           order.status.toUpperCase(),
-          color: Colors.white, fontSize: 13,
+          color: Colors.white,
+          fontSize: 13,
           textAlign: TextAlign.center,
         ),
         color: Util.purplishColor(),
       ),
     );
   }
-
-
 
   String getDeliveryTimeText() {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {

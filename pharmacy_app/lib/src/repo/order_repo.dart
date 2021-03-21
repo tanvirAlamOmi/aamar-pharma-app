@@ -6,6 +6,9 @@ import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
 
+import '../models/order/order.dart';
+import '../util/util.dart';
+
 class OrderRepo {
   OrderClient _orderClient;
 
@@ -219,25 +222,20 @@ class OrderRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<void, String>> singleOrder({int orderId}) async {
+  Future<Tuple2<Order, String>> singleOrder({int orderId}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.loginToken;
 
-        final singleOrderRequest = jsonEncode(<String, dynamic>{
-          'order_id': orderId,
-        });
-
         final singleOrderResponse = await OrderRepo.instance
             .getOrderClient()
-            .singleOrder(jwtToken, singleOrderRequest);
+            .singleOrder(jwtToken, orderId);
 
-        if (singleOrderResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
-          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
-        } else {
-          return Tuple2(null, singleOrderResponse['result']);
-        }
+        final List<Order> allOrders = List<dynamic>.from(singleOrderResponse
+            .map((singleOrder) => Order.fromJson(singleOrder))).cast<Order>();
+
+        return Tuple2(allOrders[0], ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in singleOrder() in OrderRepo");
         print(err);
