@@ -186,9 +186,11 @@ class QueryRepo {
           ..error = false;
 
         notificationFeedResponse.feedItems.forEach((singleFeedItem) async {
-          await NotificationRepo.instance.changeNotificationStatus(
-              id: singleFeedItem.notificationItem.id,
-              notificationStatus: ClientEnum.NOTIFICATION_SEEN);
+          if (singleFeedItem.notificationItem.status ==
+              ClientEnum.NOTIFICATION_UNSEEN)
+            NotificationRepo.instance.changeNotificationStatus(
+                id: singleFeedItem.notificationItem.id,
+                notificationStatus: ClientEnum.NOTIFICATION_SEEN);
         });
 
         // Dummy Response Add
