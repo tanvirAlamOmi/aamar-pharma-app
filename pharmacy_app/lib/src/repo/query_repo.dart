@@ -166,8 +166,6 @@ class QueryRepo {
             .getQueryClient()
             .getNotificationsFeed(jwtToken, notificationRequest);
 
-        print(feedResponse);
-
         final List<NotificationItem> allNotifications = List<dynamic>.from(
                 feedResponse.map((singleNotification) =>
                     NotificationItem.fromJson(singleNotification)))

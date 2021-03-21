@@ -28,6 +28,9 @@ class EnBnDict {
   }
 
   static String time_bn_convert_with_time_type({String text}) {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
+      return text;
+    }
     DateTime date = DateFormat.jm().parse(text);
     String timeType = '';
 

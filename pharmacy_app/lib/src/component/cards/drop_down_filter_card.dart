@@ -20,6 +20,7 @@ class DropDownFilterCard extends StatelessWidget {
     OrderEnum.ORDER_STATUS_CONFIRMED,
     OrderEnum.ORDER_STATUS_DELIVERED,
     OrderEnum.ORDER_STATUS_CANCELED,
+    OrderEnum.ORDER_STATUS_REJECTED,
   ];
   String selectedOrderFilterStatus;
 
