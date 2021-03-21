@@ -7,8 +7,15 @@ class NotificationItem {
   int idCustomer;
   String message;
   String status;
+  String orderStatus;
 
-  NotificationItem({this.id,this.idOrder,this.idCustomer,this.message,this.status});
+  NotificationItem(
+      {this.id,
+      this.idOrder,
+      this.idCustomer,
+      this.message,
+      this.status,
+      this.orderStatus});
 
   factory NotificationItem.fromJson(Map<String, dynamic> jsonData) {
     return NotificationItem(
@@ -17,6 +24,7 @@ class NotificationItem {
       idCustomer: jsonData['id_customer'],
       message: jsonData['message'],
       status: jsonData['status'],
+      orderStatus: jsonData['order_status'],
     );
   }
 }

@@ -60,7 +60,12 @@ class NotificationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(notificationItem.message,
+                  Text(notificationItem.orderStatus ?? '',
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold)),
+                  Text(notificationItem.message ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -68,10 +73,10 @@ class NotificationCard extends StatelessWidget {
                 ],
               ),
             ),
-            // Container(
-            //   width: 30,
-            //   child: Icon(Icons.chevron_right, size: 28.0),
-            // )
+            Container(
+              width: 30,
+              child: Icon(Icons.chevron_right, size: 28.0),
+            )
           ],
         ),
       ),

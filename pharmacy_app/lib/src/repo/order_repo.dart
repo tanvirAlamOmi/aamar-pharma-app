@@ -127,6 +127,37 @@ class OrderRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  Future<Tuple2<void, String>> allowRepeatOrder(
+      {int orderId, String dayInterval, String deliveryTime}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final allowRepeatOrderRequest = jsonEncode(<String, dynamic>{
+          'every': int.parse(dayInterval),
+          'time': deliveryTime
+        });
+
+        final allowRepeatOrderResponse = await OrderRepo.instance
+            .getOrderClient()
+            .allowRepeatOrder(jwtToken, orderId, allowRepeatOrderRequest);
+
+        print(allowRepeatOrderResponse);
+
+        if (allowRepeatOrderResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, allowRepeatOrderResponse['result']);
+        }
+      } catch (err) {
+        print("Error in cancelRepeatOrder() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
   Future<Tuple2<void, String>> cancelRepeatOrder({int orderId}) async {
     int retry = 0;
     while (retry++ < 2) {

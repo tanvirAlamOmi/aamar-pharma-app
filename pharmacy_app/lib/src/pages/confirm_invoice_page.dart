@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
@@ -19,6 +18,8 @@ import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
+
+import 'confirm_order_success_with_repeat_order.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;
@@ -394,7 +395,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           Util.imageURLAsCSV(imageList: newPrescriptionList);
     }
 
-
     Tuple2<void, String> confirmInvoiceOrderResponse =
         await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);
 
@@ -403,11 +403,17 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           scaffoldKey: _scaffoldKey,
           message: "Order is confirmed.",
           duration: 1500);
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: 1000));
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
-      await Future.delayed(Duration(milliseconds: 500));
-      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+      Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConfirmOrderSuccessWithRepeatOrder(
+                  orderId: widget.order.id,
+                )),
+      );
     } else {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,

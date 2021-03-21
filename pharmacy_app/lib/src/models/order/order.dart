@@ -108,6 +108,7 @@ class Order {
       'name': name,
       'email': email,
       'mobile_no': mobileNo,
+      'note': note,
       'repeat_order': repeatOrder,
       'delivery_time': deliveryTime,
       'delivery_date': deliveryDate,

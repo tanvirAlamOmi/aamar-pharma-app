@@ -14,6 +14,10 @@ import 'package:pharmacy_app/src/repo/notification_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
+import 'dart:convert';
+
+import '../models/general/App_Enum.dart';
+import '../models/general/Enum_Data.dart';
 
 class QueryRepo {
   QueryClient _queryClient;
@@ -154,9 +158,15 @@ class QueryRepo {
       try {
         final String jwtToken = Store.instance.appState.user.loginToken;
 
+        final String notificationRequest = jsonEncode(<String, dynamic>{
+          'status': ClientEnum.NOTIFICATION_UNSEEN,
+        });
+
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
-            .getNotificationsFeed(jwtToken, feedRequest);
+            .getNotificationsFeed(jwtToken, notificationRequest);
+
+        print(feedResponse);
 
         final List<NotificationItem> allNotifications = List<dynamic>.from(
                 feedResponse.map((singleNotification) =>

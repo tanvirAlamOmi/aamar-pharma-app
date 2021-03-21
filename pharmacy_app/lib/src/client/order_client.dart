@@ -93,6 +93,24 @@ class OrderClient {
     return jsonResponse;
   }
 
+  Future<dynamic> allowRepeatOrder(
+      String jwtToken, int orderId, String allowRepeatOrderRequest) async {
+    final http.Response response = await http
+        .post(
+            ServerConfig.SERVER_HOST +
+                ServerConfig.SERVER_PORT.toString() +
+                '/api/appapi/repeat-order/${orderId}',
+            headers: {
+              'token': jwtToken,
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: allowRepeatOrderRequest)
+        .timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   Future<dynamic> cancelRepeatOrder(
       String jwtToken, String repeatOrderCancelRequest) async {
     final http.Response response = await http

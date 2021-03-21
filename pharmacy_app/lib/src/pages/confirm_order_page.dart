@@ -70,28 +70,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   List<String> deliveryTimeTime = [];
   String selectedDeliveryTimeTime;
 
-  List<String> repeatDeliveryLongGap = [
-    OrderEnum.REPEAT_1_WEEK,
-    OrderEnum.REPEAT_15_DAYS,
-    OrderEnum.REPEAT_1_MONTH
-  ];
-  String selectedRepeatDeliveryLongGap;
-
-  List<String> repeatDeliveryDayBar = [
-    OrderEnum.DAY_SATURDAY,
-    OrderEnum.DAY_SUNDAY,
-    OrderEnum.DAY_MONDAY,
-    OrderEnum.DAY_TUESDAY,
-    OrderEnum.DAY_WEDNESDAY,
-    OrderEnum.DAY_THURSDAY,
-    OrderEnum.DAY_FRIDAY,
-  ];
-  String selectedRepeatDeliveryDayBar;
-
-  DateTime selectedRepeatDeliveryTime;
-
-  bool checkedRepeatOrder = false;
-
   int selectedDeliveryAddressIndex = 0;
 
   TextEditingController nameController;
@@ -157,9 +135,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     selectedDeliveryTimeDay = deliveryTimeDay[0];
     createDeliveryTimeTime();
     setDeliveryDayOnTimeLimitCross();
-    selectedRepeatDeliveryLongGap = repeatDeliveryLongGap[0];
-    selectedRepeatDeliveryDayBar = repeatDeliveryDayBar[0];
-    selectedRepeatDeliveryTime = DateTime.now();
   }
 
   void setDeliveryDayOnTimeLimitCross() {
@@ -204,20 +179,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   selectedDeliveryTimeTime: selectedDeliveryTimeTime,
                   setSelectedDeliveryTimeTime: setSelectedDeliveryTimeTime,
                 ),
-                // OrderRepeatOrderCard(
-                //   callBackRefreshUI: refreshUI,
-                //   checkedRepeatOrder: checkedRepeatOrder,
-                //   setRepeatOrder: setRepeatOrder,
-                //   repeatDeliveryLongGap: repeatDeliveryLongGap,
-                //   selectedRepeatDeliveryLongGap: selectedRepeatDeliveryLongGap,
-                //   setRepeatDeliveryLongGap: setSelectedRepeatDeliveryLongGap,
-                //   repeatDeliveryDayBar: repeatDeliveryDayBar,
-                //   selectedRepeatDeliveryDayBar: selectedRepeatDeliveryDayBar,
-                //   setSelectedRepeatDeliveryDayBar:
-                //       setSelectedRepeatDeliveryDayBar,
-                //   selectedRepeatDeliveryTime: selectedRepeatDeliveryTime,
-                //   setSelectedRepeatDeliveryTime: setSelectedRepeatDeliveryTime,
-                // ),
                 SizedBox(height: 10),
                 buildReOrderInvoiceTable(),
                 AddDeliveryAddressButton(callBack: refreshUI),
@@ -359,7 +320,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           break;
         }
         return Positioned(
-          top: (checkedRepeatOrder) ? 250 : 120,
+          top: 120,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,
@@ -395,24 +356,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     selectedDeliveryTimeTime = value;
   }
 
-  void setSelectedRepeatDeliveryLongGap(dynamic value) {
-    selectedRepeatDeliveryLongGap = value;
-  }
-
-  void setSelectedRepeatDeliveryDayBar(dynamic value) {
-    selectedRepeatDeliveryDayBar = value;
-  }
-
-  void setSelectedRepeatDeliveryTime(DateTime value) {
-    selectedRepeatDeliveryTime = value;
-  }
-
   void setSelectedDeliveryAddressIndex(int index) {
     selectedDeliveryAddressIndex = index;
-  }
-
-  void setRepeatOrder(value) {
-    checkedRepeatOrder = value;
   }
 
   void createDeliveryTimeTime() {
@@ -494,14 +439,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       deliveryDate = Util.formatDateToyyyy_MM_DD(todayDateTime);
     }
 
-    final String repeatOrder = checkedRepeatOrder ? "Yes" : "No";
-    final String every =
-        checkedRepeatOrder ? selectedRepeatDeliveryLongGap : null;
-    final String day = checkedRepeatOrder ? selectedRepeatDeliveryDayBar : null;
-    final String time = checkedRepeatOrder
-        ? Util.formatDateToStringOnlyHourMinute(selectedRepeatDeliveryTime)
-        : null;
-
     Order order = new Order()
       ..idAddress = Store
           .instance.appState.allDeliveryAddress[selectedDeliveryAddressIndex].id
@@ -511,12 +448,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..email = emailController.text
       ..mobileNo = phoneController.text
       ..note = widget.note
-      ..repeatOrder = repeatOrder
+      ..repeatOrder = ClientEnum.NO
       ..deliveryTime = selectedDeliveryTimeTime
-      ..deliveryDate = deliveryDate
-      ..every = every
-      ..day = day
-      ..time = time;
+      ..deliveryDate = deliveryDate;
 
     AppVariableStates.instance.order = order;
     AppVariableStates.instance.submitFunction = submitOrder;
@@ -596,11 +530,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         context,
         MaterialPageRoute(
             builder: (context) => RequestReceivedSuccessPage(
-              icon: Icons.shopping_cart,
-              pageTitle: 'ORDER RECEIVED',
-              title: 'Your order has been placed.',
-              message: 'We will get back to you within 30 minutes.',
-            )),
+                  icon: Icons.shopping_cart,
+                  pageTitle: 'ORDER RECEIVED',
+                  title: 'Your order has been placed.',
+                  message: 'We will get back to you within 30 minutes.',
+                )),
       );
       await Future.delayed(Duration(milliseconds: 500));
       Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
