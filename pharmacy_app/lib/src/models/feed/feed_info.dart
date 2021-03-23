@@ -1,4 +1,4 @@
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 
 class FeedInfo {
   int userId = 0;

@@ -8,7 +8,7 @@ import 'package:pharmacy_app/src/component/cards/notify_on_delivery_area.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -18,7 +18,7 @@ import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'confirm_order_success_with_repeat_order.dart';
+import 'repeat_order_choice_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -387,6 +387,7 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
+                isRepeatOrder: false,
                 prescriptionImageFileList: prescriptionImageFileList,
                 nextStep: AppEnum.HOME_PAGE,
               )),
@@ -396,7 +397,8 @@ class _HomePageState extends State<HomePage> {
   navigateToAddItems() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddItemsPage()),
+      MaterialPageRoute(
+          builder: (context) => AddItemsPage(isRepeatOrder: false)),
     );
   }
 

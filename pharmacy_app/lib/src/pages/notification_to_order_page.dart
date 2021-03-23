@@ -4,14 +4,14 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
-import '../models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import '../models/notification.dart';
 import '../models/order/order.dart';
 import '../repo/order_repo.dart';
@@ -90,26 +90,26 @@ class _NotificationToOrderPageState extends State<NotificationToOrderPage> {
   }
 
   Widget navigateToSpecificPage({Order order}) {
-    if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
+    if (order.status == AppEnum.ORDER_STATUS_PENDING) {
       return OrderDetailsPage(
         order: order,
         showRepeatOrderCancelButton: false,
       );
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT) {
+    if (order.status == AppEnum.ORDER_STATUS_INVOICE_SENT) {
       return ConfirmInvoicePage(order: order);
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_CONFIRMED) {
+    if (order.status == AppEnum.ORDER_STATUS_CONFIRMED) {
       return OrderFinalInvoicePage(order: order);
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_DELIVERED) {
+    if (order.status == AppEnum.ORDER_STATUS_DELIVERED) {
       return OrderFinalInvoicePage(order: order);
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_CANCELED) {
+    if (order.status == AppEnum.ORDER_STATUS_CANCELED) {
       return OrderDetailsPage(showRepeatOrderCancelButton: false, order: order);
     }
 

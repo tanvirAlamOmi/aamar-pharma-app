@@ -1,6 +1,6 @@
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 
 class AppState {
   String language = ClientEnum.LANGUAGE_ENGLISH;

@@ -13,13 +13,14 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
+import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
@@ -32,6 +33,7 @@ import 'package:tuple/tuple.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 
 class ConfirmOrderPage extends StatefulWidget {
+  final bool isRepeatOrder;
   final String note;
   final String orderType;
   final List<Uint8List> prescriptionImageFileList;
@@ -44,7 +46,8 @@ class ConfirmOrderPage extends StatefulWidget {
       Key key,
       this.prescriptionImageFileList,
       this.orderType,
-      this.order})
+      this.order,
+      this.isRepeatOrder})
       : super(key: key);
 
   @override
@@ -64,7 +67,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   DateTime officeTime;
   DateTime timeLimit;
 
-  List<String> deliveryTimeDay = [OrderEnum.DAY_TODAY, OrderEnum.DAY_TOMORROW];
+  List<String> deliveryTimeDay = [AppEnum.DAY_TODAY, AppEnum.DAY_TOMORROW];
   String selectedDeliveryTimeDay;
 
   List<String> deliveryTimeTime = [];
@@ -225,7 +228,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   }
 
   Widget buildReOrderInvoiceTable() {
-    if (widget.orderType != OrderEnum.ORDER_WITH_ITEM_NAME_REORDER)
+    if (widget.orderType != AppEnum.ORDER_WITH_ITEM_NAME_REORDER)
       return Container();
     return OrderInvoiceTableCard(
       subTotal: subTotal,
@@ -430,10 +433,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     }
 
     String deliveryDate = "";
-    if (selectedDeliveryTimeDay == OrderEnum.DAY_TODAY) {
+    if (selectedDeliveryTimeDay == AppEnum.DAY_TODAY) {
       var todayDateTime = DateTime.now();
       deliveryDate = Util.formatDateToyyyy_MM_DD(todayDateTime);
-    } else if (selectedDeliveryTimeDay == OrderEnum.DAY_TOMORROW) {
+    } else if (selectedDeliveryTimeDay == AppEnum.DAY_TOMORROW) {
       var todayDateTime = DateTime.now();
       todayDateTime = todayDateTime.add(Duration(days: 1));
       deliveryDate = Util.formatDateToyyyy_MM_DD(todayDateTime);
@@ -448,7 +451,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..email = emailController.text
       ..mobileNo = phoneController.text
       ..note = widget.note
-      ..repeatOrder = ClientEnum.NO
+      ..repeatOrder = (widget.isRepeatOrder) ? ClientEnum.YES : ClientEnum.NO
       ..deliveryTime = selectedDeliveryTimeTime
       ..deliveryDate = deliveryDate;
 
@@ -470,7 +473,14 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                 )),
       );
     } else {
-      submitOrder();
+      if (AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RepeatOrderChoicePage()),
+        );
+      } else {
+        submitOrder();
+      }
     }
   }
 
@@ -483,39 +493,44 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     AppVariableStates.instance.order.idCustomer =
         Store.instance.appState.user.id;
 
-    if (widget.orderType == OrderEnum.ORDER_WITH_PRESCRIPTION) {
-      int imageNumber = 1;
-      List<String> imageUrl = [];
-      for (final image in widget.prescriptionImageFileList) {
-        uploadStatus = EnBnDict.en_bn_number_convert(number: imageNumber) +
-            ' ' +
-            EnBnDict.en_bn_convert(text: 'UPLOADED PRESCRIPTION(s)');
-        refreshUI();
-        imageNumber += 1;
+    switch (widget.orderType) {
+      case AppEnum.ORDER_WITH_PRESCRIPTION:
+        int imageNumber = 1;
+        List<String> imageUrl = [];
 
-        imageUrl.add(await Util.uploadImageToFirebase(
-            imageFile: image, folderPath: 'prescription/'));
-      }
-      final String prescription = Util.imageURLAsCSV(imageList: imageUrl);
+        for (final image in widget.prescriptionImageFileList) {
+          uploadStatus = EnBnDict.en_bn_number_convert(number: imageNumber) +
+              ' ' +
+              EnBnDict.en_bn_convert(text: 'UPLOADED PRESCRIPTION(s)');
+          refreshUI();
+          imageNumber += 1;
 
-      AppVariableStates.instance.order.prescription = prescription;
+          imageUrl.add(await Util.uploadImageToFirebase(
+              imageFile: image, folderPath: 'prescription/'));
+        }
 
-      orderSubmitResponse = await OrderRepo.instance
-          .orderWithPrescription(order: AppVariableStates.instance.order);
-    } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME) {
-      orderSubmitResponse = await OrderRepo.instance
-          .orderWithItemName(order: AppVariableStates.instance.order);
-    } else if (widget.orderType == OrderEnum.ORDER_WITH_ITEM_NAME_REORDER) {
-      final List<OrderManualItem> items = [];
-      for (final invoiceItem in widget.order.invoiceItemList) {
-        items.add(OrderManualItem()
-          ..itemName = invoiceItem.itemName
-          ..unit = ClientEnum.NA
-          ..quantity = invoiceItem.quantity);
-      }
-      AppVariableStates.instance.order.items = items;
-      orderSubmitResponse = await OrderRepo.instance
-          .orderWithItemName(order: AppVariableStates.instance.order);
+        final String prescription = Util.imageURLAsCSV(imageList: imageUrl);
+        AppVariableStates.instance.order.prescription = prescription;
+        orderSubmitResponse = await OrderRepo.instance
+            .orderWithPrescription(order: AppVariableStates.instance.order);
+        break;
+
+      case AppEnum.ORDER_WITH_ITEM_NAME:
+        orderSubmitResponse = await OrderRepo.instance
+            .orderWithItemName(order: AppVariableStates.instance.order);
+        break;
+
+      case AppEnum.ORDER_WITH_ITEM_NAME_REORDER:
+        final List<OrderManualItem> items = [];
+        for (final invoiceItem in widget.order.invoiceItemList) {
+          items.add(OrderManualItem()
+            ..itemName = invoiceItem.itemName
+            ..unit = ClientEnum.NA
+            ..quantity = invoiceItem.quantity);
+        }
+        AppVariableStates.instance.order.items = items;
+        orderSubmitResponse = await OrderRepo.instance
+            .orderWithItemName(order: AppVariableStates.instance.order);
     }
 
     if (orderSubmitResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {

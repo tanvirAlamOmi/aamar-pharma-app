@@ -8,9 +8,9 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
@@ -188,7 +188,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     );
   }
 
-  uploadPrescriptionOption(BuildContext context) async {
+  void uploadPrescriptionOption(BuildContext context) async {
     var cameraStatus = await Permission.camera.status;
     var storageStatus = await Permission.storage.status;
     if (cameraStatus == PermissionStatus.permanentlyDenied ||
@@ -199,6 +199,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
               "Please provide Camera and Storage permissions from Settings");
     } else {
       try {
+        Navigator.pop(context);
         List<Asset> resultList = List<Asset>();
         final List<Uint8List> prescriptionImageFileList = new List();
 
@@ -225,10 +226,12 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     }
   }
 
-  navigateToAddItems(BuildContext context) {
+  void navigateToAddItems(BuildContext context) {
+    Navigator.pop(context);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddItemsPage()),
+      MaterialPageRoute(
+          builder: (context) => AddItemsPage(isRepeatOrder: true)),
     );
   }
 
@@ -240,6 +243,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
                 prescriptionImageFileList: prescriptionImageFileList,
+                isRepeatOrder: true,
                 nextStep: AppEnum.HOME_PAGE,
               )),
     );

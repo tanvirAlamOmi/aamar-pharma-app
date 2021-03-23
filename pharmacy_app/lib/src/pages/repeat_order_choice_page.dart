@@ -2,28 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 
 import '../component/buttons/general_action_round_button.dart';
 import '../component/general/common_ui.dart';
 import '../component/general/drop_down_item.dart';
-import '../models/general/Enum_Data.dart';
+import '../models/general/Client_Enum.dart';
 import '../repo/order_repo.dart';
 
-class ConfirmOrderSuccessWithRepeatOrder extends StatefulWidget {
-  final int orderId;
-
-  const ConfirmOrderSuccessWithRepeatOrder({Key key, this.orderId})
-      : super(key: key);
+class RepeatOrderChoicePage extends StatefulWidget {
+  const RepeatOrderChoicePage({
+    Key key,
+  }) : super(key: key);
 
   @override
-  _ConfirmOrderSuccessWithRepeatOrderState createState() =>
-      _ConfirmOrderSuccessWithRepeatOrderState();
+  _RepeatOrderChoicePageState createState() => _RepeatOrderChoicePageState();
 }
 
-class _ConfirmOrderSuccessWithRepeatOrderState
-    extends State<ConfirmOrderSuccessWithRepeatOrder> {
+class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
 
@@ -68,16 +67,17 @@ class _ConfirmOrderSuccessWithRepeatOrderState
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          leading: AppBarBackButtonCross(),
+          leading: AppBarBackButton(),
           elevation: 1,
           centerTitle: true,
-          title: CustomText('ORDER CONFIRMED',
+          title: CustomText('REPEAT ORDER',
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         body: buildBody());
   }
 
   Widget buildBody() {
+    if (isProcessing) return buildLoadingWidget();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -98,27 +98,24 @@ class _ConfirmOrderSuccessWithRepeatOrderState
   }
 
   Widget buildTitles() {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Container(
+        child: CustomText(
+            'Please select the interval and time you would like to get this order delivered on regular basis',
+            color: Colors.grey,
+            fontWeight: FontWeight.bold,
+            fontSize: 15),
+      ),
+    );
+  }
+
+  Widget buildLoadingWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          alignment: Alignment.center,
-          child: Icon(
-            Icons.lock,
-            size: 80,
-            color: Util.greenishColor(),
-          ),
-        ),
-        SizedBox(height: 30),
-        Container(
-          child: CustomText('Your invoice is confirmed',
-              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 17),
-        ),
-        SizedBox(height: 30),
-        Container(
-          alignment: Alignment.center,
-          child: CustomText('You can also get this order on a regular basis',
-              textAlign: TextAlign.center, color: Colors.grey),
-        ),
+        LoadingWidget(status: 'Submitting Order...'),
       ],
     );
   }
@@ -168,31 +165,12 @@ class _ConfirmOrderSuccessWithRepeatOrderState
   }
 
   void submit() async {
-    isProcessing = true;
-    refreshUI();
+    AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
+    AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
+    AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
 
-    Tuple2<void, String> allowRepeatOrderResponse = await OrderRepo.instance
-        .allowRepeatOrder(
-            orderId: widget.orderId,
-            dayInterval: selectedDeliveryDayInterval,
-            deliveryTime: selectedDeliveryTimeTime);
-
-    if (allowRepeatOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
-      Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message:
-              "You will receive this order every ${selectedDeliveryDayInterval} day(s) interval",
-          duration: 3000);
-      await Future.delayed(Duration(milliseconds: 3000));
-      Navigator.of(context).pop();
-    } else {
-      Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message: "Something went wrong. Please try again.",
-          duration: 1500);
-    }
-    isProcessing = false;
-    refreshUI();
+    Navigator.pop(context);
+    AppVariableStates.instance.submitFunction();
   }
 
   void setSelectedDeliveryDayInterval(dynamic value) {

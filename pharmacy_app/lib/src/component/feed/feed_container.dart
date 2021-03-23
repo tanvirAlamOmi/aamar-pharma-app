@@ -6,8 +6,8 @@ import 'package:pharmacy_app/src/models/feed/feed_request.dart';
 import 'package:pharmacy_app/src/models/feed/feed_response.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
@@ -94,7 +94,7 @@ class _FeedContainerState extends State<FeedContainer>
         feedItemsPermData.clear();
         feedItems.clear();
         AppVariableStates.instance.orderFilterStatus =
-            OrderEnum.ORDER_STATUS_ALL;
+            AppEnum.ORDER_STATUS_ALL;
       });
   }
 
@@ -123,32 +123,32 @@ class _FeedContainerState extends State<FeedContainer>
     if (mounted) setState(() {});
 
     // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER ||
-        feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER ||
-        feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER ||
+        feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER ||
+        feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
       Streamer.putTotalOrderStream(feedResponse.feedItems.length);
     }
 
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
       noItem = false;
     }
   }
 
   void addItems(List<FeedItem> items, FeedRequest feedRequest) {
     if (items.length > 0 &&
-        feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER) {
+        feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER) {
       feedItems
-          .add(FeedItem(viewCardType: OrderEnum.FEED_ITEM_ORDER_FILTER_CARD));
+          .add(FeedItem(viewCardType: AppEnum.FEED_ITEM_ORDER_FILTER_CARD));
     }
 
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER) {
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
       feedItems.add(FeedItem(
-          viewCardType: OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
+          viewCardType: AppEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
     }
 
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER) {
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER) {
       feedItems.add(FeedItem(
-          viewCardType: OrderEnum.FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD));
+          viewCardType: AppEnum.FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD));
     }
 
     feedItems.addAll(items);

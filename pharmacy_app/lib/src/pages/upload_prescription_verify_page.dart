@@ -4,22 +4,26 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 
 class UploadPrescriptionVerifyPage extends StatefulWidget {
   final List<Uint8List> prescriptionImageFileList;
   final String nextStep;
+  final bool isRepeatOrder;
   UploadPrescriptionVerifyPage(
-      {this.prescriptionImageFileList, Key key, this.nextStep})
+      {this.prescriptionImageFileList,
+      Key key,
+      this.nextStep,
+      this.isRepeatOrder})
       : super(key: key);
 
   @override
@@ -238,8 +242,9 @@ class _UploadPrescriptionVerifyPageState
           context,
           MaterialPageRoute(
               builder: (context) => ConfirmOrderPage(
+                    isRepeatOrder: widget.isRepeatOrder,
                     note: noteBoxController.text,
-                    orderType: OrderEnum.ORDER_WITH_PRESCRIPTION,
+                    orderType: AppEnum.ORDER_WITH_PRESCRIPTION,
                     prescriptionImageFileList: widget.prescriptionImageFileList,
                   )),
         );

@@ -5,8 +5,8 @@ import 'package:pharmacy_app/src/client/query_client.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/feed/feed_request.dart';
 import 'package:pharmacy_app/src/models/feed/feed_response.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
@@ -20,7 +20,7 @@ import 'package:tuple/tuple.dart';
 import 'dart:convert';
 
 import '../models/general/App_Enum.dart';
-import '../models/general/Enum_Data.dart';
+import '../models/general/Client_Enum.dart';
 
 class QueryRepo {
   QueryClient _queryClient;
@@ -56,7 +56,7 @@ class QueryRepo {
           ..feedItems = allOrders
               .map((singleOrder) => FeedItem()
                 ..order = singleOrder
-                ..viewCardType = OrderEnum.FEED_ITEM_ORDER_CARD)
+                ..viewCardType = AppEnum.FEED_ITEM_ORDER_CARD)
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
@@ -93,7 +93,7 @@ class QueryRepo {
           ..feedItems = allOrders
               .map((singleOrder) => FeedItem()
                 ..order = singleOrder
-                ..viewCardType = OrderEnum.FEED_ITEM_REPEAT_ORDER_CARD)
+                ..viewCardType = AppEnum.FEED_ITEM_REPEAT_ORDER_CARD)
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
@@ -130,7 +130,7 @@ class QueryRepo {
           ..feedItems = allRequestOrders
               .map((singleRequestOrder) => FeedItem()
                 ..requestOrder = singleRequestOrder
-                ..viewCardType = OrderEnum.FEED_ITEM_REQUEST_ORDER_CARD)
+                ..viewCardType = AppEnum.FEED_ITEM_REQUEST_ORDER_CARD)
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
@@ -174,7 +174,7 @@ class QueryRepo {
           ..feedItems = allNotifications
               .map((singleNotificationItem) => FeedItem()
                 ..notificationItem = singleNotificationItem
-                ..viewCardType = OrderEnum.FEED_ITEM_NOTIFICATION_CARD)
+                ..viewCardType = AppEnum.FEED_ITEM_NOTIFICATION_CARD)
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
@@ -209,13 +209,13 @@ class QueryRepo {
   }
 
   Future<Tuple2<FeedResponse, String>> getFeed(FeedRequest feedRequest) async {
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_NOTIFICATION)
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_NOTIFICATION)
       return getNotificationFeed(feedRequest);
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_ORDER)
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER)
       return getOrderFeedData(feedRequest);
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER)
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER)
       return getRepeatOrderFeedData(feedRequest);
-    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REQUEST_ORDER)
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER)
       return getRequestOrderFeedData(feedRequest);
 
     return null;
@@ -234,24 +234,24 @@ class QueryRepo {
 
   Future<FeedResponse> getDummyFeed(FeedRequest feedRequest) async {
     switch (feedRequest.feedInfo.feedType) {
-      case OrderEnum.FEED_NOTIFICATION:
+      case AppEnum.FEED_NOTIFICATION:
         return FeedResponse(status: true, feedItems: [
           FeedItem(
-              viewCardType: OrderEnum.FEED_ITEM_NOTIFICATION_CARD,
+              viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
               notificationItem:
                   NotificationItem(message: "Your Order has been confirmed")),
           FeedItem(
-              viewCardType: OrderEnum.FEED_ITEM_NOTIFICATION_CARD,
+              viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
               notificationItem: NotificationItem(
                   message:
                       "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
         ]);
         break;
 
-      case OrderEnum.FEED_ORDER:
+      case AppEnum.FEED_ORDER:
         return FeedResponse(status: true, feedItems: [
           FeedItem(
-            viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
+            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
             order: Order(
               id: 1026,
               prescription: Util.getStaticImageURL() +
@@ -262,8 +262,8 @@ class QueryRepo {
                   "," +
                   Util.getStaticImageURL() +
                   ",",
-              orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-              status: OrderEnum.ORDER_STATUS_DELIVERED,
+              orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
+              status: AppEnum.ORDER_STATUS_DELIVERED,
               idAddress: 0,
               name: "ABC",
               mobileNo: "01528285415",
@@ -284,7 +284,7 @@ class QueryRepo {
             ),
           ),
           FeedItem(
-            viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
+            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
             order: Order(
               id: 1023,
               prescription: Util.getStaticImageURL() +
@@ -295,8 +295,8 @@ class QueryRepo {
                   "," +
                   Util.getStaticImageURL() +
                   ",",
-              orderedWith: OrderEnum.ORDER_WITH_PRESCRIPTION,
-              status: OrderEnum.ORDER_STATUS_PENDING,
+              orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
+              status: AppEnum.ORDER_STATUS_PENDING,
               idAddress: 0,
               name: "ABC",
               mobileNo: "01528285415",
@@ -311,15 +311,15 @@ class QueryRepo {
             ),
           ),
           FeedItem(
-            viewCardType: OrderEnum.FEED_ITEM_ORDER_CARD,
+            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
             order: Order(
               id: 1024,
               items: [
                 OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
                 OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
               ],
-              orderedWith: OrderEnum.ORDER_WITH_ITEM_NAME,
-              status: OrderEnum.ORDER_STATUS_INVOICE_SENT,
+              orderedWith: AppEnum.ORDER_WITH_ITEM_NAME,
+              status: AppEnum.ORDER_STATUS_INVOICE_SENT,
               idAddress: 0,
               name: "ABC",
               mobileNo: "01528285415",

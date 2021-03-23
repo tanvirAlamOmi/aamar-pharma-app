@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -14,13 +14,13 @@ class DropDownFilterCard extends StatelessWidget {
   final Function callBack;
   final TextEditingController searchController = new TextEditingController();
   final List<String> orderFilterStatusList = [
-    OrderEnum.ORDER_STATUS_ALL,
-    OrderEnum.ORDER_STATUS_PENDING,
-    OrderEnum.ORDER_STATUS_INVOICE_SENT,
-    OrderEnum.ORDER_STATUS_CONFIRMED,
-    OrderEnum.ORDER_STATUS_DELIVERED,
-    OrderEnum.ORDER_STATUS_CANCELED,
-    OrderEnum.ORDER_STATUS_REJECTED,
+    AppEnum.ORDER_STATUS_ALL,
+    AppEnum.ORDER_STATUS_PENDING,
+    AppEnum.ORDER_STATUS_INVOICE_SENT,
+    AppEnum.ORDER_STATUS_CONFIRMED,
+    AppEnum.ORDER_STATUS_DELIVERED,
+    AppEnum.ORDER_STATUS_CANCELED,
+    AppEnum.ORDER_STATUS_REJECTED,
   ];
   String selectedOrderFilterStatus;
 

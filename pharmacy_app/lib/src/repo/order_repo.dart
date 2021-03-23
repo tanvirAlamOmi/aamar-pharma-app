@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:pharmacy_app/src/client/order_client.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';

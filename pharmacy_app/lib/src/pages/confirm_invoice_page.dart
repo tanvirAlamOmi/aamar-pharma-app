@@ -9,7 +9,7 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/cards/upload_prescription_card.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
@@ -19,7 +19,7 @@ import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-import 'confirm_order_success_with_repeat_order.dart';
+import 'repeat_order_choice_page.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;

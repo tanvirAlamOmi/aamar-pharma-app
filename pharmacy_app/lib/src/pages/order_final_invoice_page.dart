@@ -5,7 +5,7 @@ import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
@@ -13,7 +13,7 @@ import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 
 class OrderFinalInvoicePage extends StatefulWidget {
   final Order order;
@@ -107,7 +107,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     final size = MediaQuery.of(context).size;
     switch (Store.instance.appState.tutorialBoxNumberOrderFinalInvoicePage) {
       case 0:
-        if (widget.order.status != OrderEnum.ORDER_STATUS_DELIVERED)
+        if (widget.order.status != AppEnum.ORDER_STATUS_DELIVERED)
           return Container();
         return Positioned(
           top: 60,
@@ -152,7 +152,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildReOrderButton() {
-    if (widget.order.status != OrderEnum.ORDER_STATUS_DELIVERED)
+    if (widget.order.status != AppEnum.ORDER_STATUS_DELIVERED)
       return Container();
     return GeneralActionRoundButton(
       title: "REORDER",
@@ -367,7 +367,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 order: widget.order,
-                orderType: OrderEnum.ORDER_WITH_ITEM_NAME_REORDER,
+                orderType: AppEnum.ORDER_WITH_ITEM_NAME_REORDER,
               )),
     );
   }

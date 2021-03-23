@@ -4,11 +4,12 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -246,33 +247,50 @@ class VerificationPageState extends State<VerificationPage> {
     refreshUI();
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS && user != null) {
-      if (widget.onVerificationNextStep ==
-          AppEnum.ON_VERIFICATION_CONFIRM_ORDER) {
-        Navigator.of(context).pop(); // pop verification Page
-        AppVariableStates.instance.submitFunction();
-        Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      } else if (widget.onVerificationNextStep ==
-          AppEnum.ON_VERIFICATION_CONFIRM_REQUEST_ORDER) {
-        Navigator.of(context).pop(); // pop verification Page
-        AppVariableStates.instance.submitFunction();
-        Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-      } else if (widget.onVerificationNextStep ==
-          AppEnum.ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER) {
-        Navigator.of(context).pop(); // pop verification Page
-        AppVariableStates.instance.submitFunction();
-      } else if (widget.onVerificationNextStep ==
-          AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE) {
-        Navigator.of(context).pop(); // pop verification Page
-        AppVariableStates.instance.submitFunction();
-      } else if (widget.onVerificationNextStep ==
-          AppEnum.LOGIN_USING_REFERRAL_CODE) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      switch (widget.onVerificationNextStep) {
+        case AppEnum.ON_VERIFICATION_CONFIRM_ORDER:
+          Navigator.of(context).pop(); // pop verification Page
+          if(AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RepeatOrderChoicePage(
+
+                  )),
+            );
+          }
+
+          break;
+          AppVariableStates.instance.submitFunction();
+          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+          break;
+
+        case AppEnum.ON_VERIFICATION_CONFIRM_REQUEST_ORDER:
+          Navigator.of(context).pop(); // pop verification Page
+          AppVariableStates.instance.submitFunction();
+          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+          break;
+
+        case AppEnum.ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER:
+          Navigator.of(context).pop(); // pop verification Page
+          AppVariableStates.instance.submitFunction();
+          break;
+
+        case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
+          Navigator.of(context).pop(); // pop verification Page
+          AppVariableStates.instance.submitFunction();
+          break;
+
+        case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+          break;
+
+        default:
+          Util.showSnackBar(
+              scaffoldKey: _scaffoldKey,
+              message: "Something went wrong. Please try again.");
       }
-    } else {
-      Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message: "Something went wrong. Please try again.");
     }
 
     isProcessing = false;

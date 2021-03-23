@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/states/app_state.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';

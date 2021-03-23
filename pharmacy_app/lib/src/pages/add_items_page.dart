@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -10,11 +10,12 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 
 class AddItemsPage extends StatefulWidget {
-  AddItemsPage({Key key}) : super(key: key);
+  final bool isRepeatOrder;
+  AddItemsPage({Key key, this.isRepeatOrder}) : super(key: key);
 
   @override
   _AddItemsPageState createState() => _AddItemsPageState();
@@ -277,7 +278,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             subtitle: CustomText(
                 EnBnDict.en_bn_convert(text: 'QUANTITY: ') +
                     EnBnDict.en_bn_number_convert(number: singleItem.quantity),
-            textAlign: TextAlign.start),
+                textAlign: TextAlign.start),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
@@ -344,7 +345,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
       context,
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
-                orderType: OrderEnum.ORDER_WITH_ITEM_NAME,
+            isRepeatOrder: widget.isRepeatOrder,
+                orderType: AppEnum.ORDER_WITH_ITEM_NAME,
                 orderManualItemList: orderManualItemList,
               )),
     );

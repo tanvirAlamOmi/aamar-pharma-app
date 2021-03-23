@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:pharmacy_app/src/configs/server_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'dart:math';
 
 class NotificationClient {

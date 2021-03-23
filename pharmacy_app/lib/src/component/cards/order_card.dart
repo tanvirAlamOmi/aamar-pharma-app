@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/pages/confirm_invoice_page.dart';
@@ -127,7 +127,7 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.status == OrderEnum.ORDER_STATUS_PENDING) {
+    if (order.status == AppEnum.ORDER_STATUS_PENDING) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -138,7 +138,7 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT) {
+    if (order.status == AppEnum.ORDER_STATUS_INVOICE_SENT) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -146,7 +146,7 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_CONFIRMED) {
+    if (order.status == AppEnum.ORDER_STATUS_CONFIRMED) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -154,7 +154,7 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_DELIVERED) {
+    if (order.status == AppEnum.ORDER_STATUS_DELIVERED) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -162,7 +162,7 @@ class _OrderCardState extends State<OrderCard> {
       );
     }
 
-    if (order.status == OrderEnum.ORDER_STATUS_CANCELED) {
+    if (order.status == AppEnum.ORDER_STATUS_CANCELED) {
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -7,8 +7,8 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
@@ -105,7 +105,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildImageList() {
-    if (order.orderedWith != OrderEnum.ORDER_WITH_PRESCRIPTION)
+    if (order.orderedWith != AppEnum.ORDER_WITH_PRESCRIPTION)
       return Container();
 
     final List<String> imageList =
@@ -138,7 +138,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Widget buildItemList() {
-    if (order.orderedWith != OrderEnum.ORDER_WITH_ITEM_NAME) return Container();
+    if (order.orderedWith != AppEnum.ORDER_WITH_ITEM_NAME) return Container();
     final children = List<Widget>();
 
     children.add(Container(
@@ -353,8 +353,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Widget buildCancelOrderButton() {
     if (widget.showRepeatOrderCancelButton) return Container();
-    if (order.status == OrderEnum.ORDER_STATUS_PENDING ||
-        order.status == OrderEnum.ORDER_STATUS_INVOICE_SENT)
+    if (order.status == AppEnum.ORDER_STATUS_PENDING ||
+        order.status == AppEnum.ORDER_STATUS_INVOICE_SENT)
       return GeneralActionRoundButton(
         title: "CANCEL ORDER",
         isProcessing: isProcessing,

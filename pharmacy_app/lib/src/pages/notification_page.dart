@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
-import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
-import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -40,7 +38,7 @@ class _NotificationPageState extends State<NotificationPage> {
         title: CustomText('Notifications',
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
-      body: FeedContainer(FeedInfo(OrderEnum.FEED_NOTIFICATION), key: key),
+      body: FeedContainer(FeedInfo(AppEnum.FEED_NOTIFICATION), key: key),
     );
   }
 }

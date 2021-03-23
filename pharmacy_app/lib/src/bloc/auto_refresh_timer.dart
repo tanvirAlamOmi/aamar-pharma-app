@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/repo/notification_repo.dart';
 import 'package:tuple/tuple.dart';
 
