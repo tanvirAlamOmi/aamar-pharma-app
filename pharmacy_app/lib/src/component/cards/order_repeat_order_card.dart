@@ -29,17 +29,17 @@ class OrderRepeatOrderCard extends StatelessWidget {
 
   const OrderRepeatOrderCard(
       {Key key,
-      this.callBackRefreshUI,
-      this.repeatDeliveryDayBar,
-      this.selectedRepeatDeliveryDayBar,
-      this.setSelectedRepeatDeliveryDayBar,
-      this.setRepeatDeliveryLongGap,
-      this.repeatDeliveryLongGap,
-      this.selectedRepeatDeliveryLongGap,
-      this.checkedRepeatOrder,
-      this.setRepeatOrder,
-      this.selectedRepeatDeliveryTime,
-      this.setSelectedRepeatDeliveryTime})
+        this.callBackRefreshUI,
+        this.repeatDeliveryDayBar,
+        this.selectedRepeatDeliveryDayBar,
+        this.setSelectedRepeatDeliveryDayBar,
+        this.setRepeatDeliveryLongGap,
+        this.repeatDeliveryLongGap,
+        this.selectedRepeatDeliveryLongGap,
+        this.checkedRepeatOrder,
+        this.setRepeatOrder,
+        this.selectedRepeatDeliveryTime,
+        this.setSelectedRepeatDeliveryTime})
       : super(key: key);
 
   @override
@@ -60,13 +60,81 @@ class OrderRepeatOrderCard extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context) {
+    if (checkedRepeatOrder == false) return buildRepeatOrder(context);
     return buildRepeatOrderWithDropDown(context);
+  }
+
+  Widget buildRepeatOrder(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return CheckboxListTile(
+      dense: true,
+      contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          CustomText(
+            'Repeat Order',
+            textAlign: TextAlign.start,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Util.greenishColor(),
+          ),
+          Container(
+            width: size.width - 100,
+            child: CustomText(
+                'Select this option if you want to get this order on a regular basis',
+                textAlign: TextAlign.start,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 13),
+          )
+        ],
+      ),
+      value: checkedRepeatOrder,
+      onChanged: (newValue) {
+        setRepeatOrder(newValue);
+        callBackRefreshUI();
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
   }
 
   Widget buildRepeatOrderWithDropDown(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
+        CheckboxListTile(
+          dense: true,
+          contentPadding: const EdgeInsets.fromLTRB(20, 7, 0, 7),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CustomText(
+                'Repeat Order',
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Util.greenishColor(),
+              ),
+              Container(
+                width: size.width - 100,
+                child: CustomText(
+                    'Select this option if you want to get this order on a regular basis',
+                    textAlign: TextAlign.start,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13),
+              )
+            ],
+          ),
+          value: checkedRepeatOrder,
+          onChanged: (newValue) {
+            setRepeatOrder(newValue);
+            callBackRefreshUI();
+          },
+          controlAffinity: ListTileControlAffinity.leading,
+        ),
         Container(
           padding: const EdgeInsets.fromLTRB(30, 7, 30, 7),
           child: Column(
@@ -112,6 +180,7 @@ class OrderRepeatOrderCard extends StatelessWidget {
             SizedBox(width: 30),
             Expanded(
               child: TimeChooseButton(
+
                   callBackRefreshUI: callBackRefreshUI,
                   selectedTime: selectedRepeatDeliveryTime,
                   setSelectedTime: setSelectedRepeatDeliveryTime),

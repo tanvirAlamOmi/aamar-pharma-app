@@ -61,17 +61,6 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
-        // Dummy Response Add
-        // int x = 0;
-        // final FeedResponse dummyOrderFeedResponse =
-        //     await getDummyFeed(feedRequest);
-        // dummyOrderFeedResponse.feedItems.forEach((singleFeedItem) {
-        //   orderFeedResponse.feedItems.insert(x, singleFeedItem);
-        //   x = x + 1;
-        // });
-        // return Tuple2(dummyOrderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
-        // End Dummy Response
-
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in getOrderFeedData() in QueryRepo");
@@ -169,15 +158,8 @@ class QueryRepo {
             .getQueryClient()
             .getNotificationsFeed(jwtToken, notificationRequest);
 
-        if (feedResponse['message'] == ClientEnum.RESPONSE_UNAUTHORIZED) {
-          return Tuple2(
-              FeedResponse()
-                ..status = true
-                ..lastFeed = false
-                ..feedItems = []
-                ..response = ClientEnum.RESPONSE_CONNECTION_ERROR
-                ..error = false,
-              ClientEnum.RESPONSE_SUCCESS);
+        if (!(feedResponse is List)) {
+          return emptyResponse();
         }
 
         final List<NotificationItem> allNotifications = List<dynamic>.from(
@@ -236,6 +218,17 @@ class QueryRepo {
       return getRequestOrderFeedData(feedRequest);
 
     return null;
+  }
+
+  Tuple2<FeedResponse, String> emptyResponse() {
+    return Tuple2(
+        FeedResponse()
+          ..status = true
+          ..lastFeed = false
+          ..feedItems = []
+          ..response = ClientEnum.RESPONSE_CONNECTION_ERROR
+          ..error = false,
+        ClientEnum.RESPONSE_SUCCESS);
   }
 
   Future<FeedResponse> getDummyFeed(FeedRequest feedRequest) async {

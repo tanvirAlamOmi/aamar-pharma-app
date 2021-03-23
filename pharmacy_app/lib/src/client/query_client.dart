@@ -58,15 +58,17 @@ class QueryClient {
 
   Future<dynamic> getNotificationsFeed(
       String jwtToken, String notificationRequest) async {
-    final http.Response response = await http.post(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/appapi/notifications',
-      headers: {
-        'token': jwtToken,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    ).timeout(Duration(seconds: 300));
+    final http.Response response = await http
+        .post(
+            ServerConfig.SERVER_HOST +
+                ServerConfig.SERVER_PORT.toString() +
+                '/api/appapi/notifications',
+            headers: {
+              'token': jwtToken,
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: notificationRequest)
+        .timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);
     return jsonResponse;

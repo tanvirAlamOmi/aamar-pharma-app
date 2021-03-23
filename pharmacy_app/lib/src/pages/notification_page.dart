@@ -4,6 +4,7 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Enum_Data.dart';
 import 'package:pharmacy_app/src/models/general/Order_Enum.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -13,10 +14,12 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   Key key = UniqueKey();
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    UIState.instance.scaffoldKey = scaffoldKey;
   }
 
   void refreshUI() {
@@ -30,6 +33,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         elevation: 1,
         centerTitle: true,

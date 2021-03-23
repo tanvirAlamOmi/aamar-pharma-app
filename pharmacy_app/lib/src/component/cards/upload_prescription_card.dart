@@ -19,6 +19,8 @@ import 'package:pharmacy_app/src/util/util.dart';
 
 class UploadPrescriptionOrderCard extends StatefulWidget {
   final Order order;
+  final bool collectPrescriptionOnDelivery;
+  final Function(dynamic) setCollectPrescriptionOnDelivery;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final List<Uint8List> prescriptionImageFileList;
   final Function refreshUI;
@@ -27,7 +29,9 @@ class UploadPrescriptionOrderCard extends StatefulWidget {
       Key key,
       this.scaffoldKey,
       this.prescriptionImageFileList,
-      this.refreshUI})
+      this.refreshUI,
+      this.collectPrescriptionOnDelivery,
+      this.setCollectPrescriptionOnDelivery})
       : super(key: key);
 
   @override
@@ -73,17 +77,35 @@ class _UploadPrescriptionOrderCardState
   Widget buildBody(BuildContext context) {
     return Column(
       children: [
+        buildCollectPrescriptionOnDelivery(),
         buildUploadPrescriptionButton(),
         buildTotalUploadedPrescriptionNumber(),
       ],
     );
   }
 
+  Widget buildCollectPrescriptionOnDelivery() {
+    return CheckboxListTile(
+      contentPadding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
+      title: CustomText('Collect Prescription during delivery',
+          color: Colors.orangeAccent,
+          fontSize: 17,
+          fontWeight: FontWeight.bold),
+      value: widget.collectPrescriptionOnDelivery,
+      onChanged: (newValue) {
+        widget.setCollectPrescriptionOnDelivery(newValue);
+        widget.prescriptionImageFileList.clear();
+        widget.refreshUI();
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
   Widget buildUploadPrescriptionButton() {
     return GeneralActionRoundButton(
       title: 'UPLOAD PRESCRIPTION',
-      isProcessing: false,
-      color: Util.redishColor(),
+      isProcessing: widget.collectPrescriptionOnDelivery,
+      color: Colors.orangeAccent,
       callBackOnSubmit: uploadPrescriptionOption,
     );
   }

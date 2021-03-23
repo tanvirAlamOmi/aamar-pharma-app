@@ -18,7 +18,6 @@ import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-
 import 'confirm_order_success_with_repeat_order.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
@@ -37,6 +36,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   double deliveryCharge = 0;
   double totalAmount = 0;
   bool prescriptionRequired = false;
+  bool collectPrescriptionOnDelivery = false;
   List<Uint8List> prescriptionImageFileList = [];
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
@@ -58,6 +58,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     for (int i = 0; i < widget.order.invoiceItemList.length; i++) {
       if (widget.order.invoiceItemList[i].isPrescriptionRequired == 'true') {
         prescriptionRequired = true;
+        collectPrescriptionOnDelivery = true;
         break;
       }
     }
@@ -242,6 +243,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   Widget buildUploadPrescriptionCard() {
     if (prescriptionRequired)
       return UploadPrescriptionOrderCard(
+        collectPrescriptionOnDelivery: collectPrescriptionOnDelivery,
+        setCollectPrescriptionOnDelivery: setCollectPrescriptionOnDelivery,
         order: widget.order,
         scaffoldKey: _scaffoldKey,
         prescriptionImageFileList: prescriptionImageFileList,
@@ -249,6 +252,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       );
 
     return Container();
+  }
+
+  void setCollectPrescriptionOnDelivery(dynamic value) {
+    collectPrescriptionOnDelivery = value;
   }
 
   Widget buildCashWarningTitle() {
@@ -370,18 +377,20 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void confirmInvoiceOrder() async {
-    isProcessing = true;
-    refreshUI();
-
-    if (prescriptionRequired && prescriptionImageFileList.length == 0) {
+    if (prescriptionRequired &&
+        !collectPrescriptionOnDelivery &&
+        prescriptionImageFileList.length == 0) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
-          message: "Please Upload the required prescriptions}",
+          message: "Please Upload the required prescriptions",
           duration: 1500);
       return;
     }
 
-    if (prescriptionRequired) {
+    isProcessing = true;
+    refreshUI();
+
+    if (prescriptionRequired && !collectPrescriptionOnDelivery) {
       List<String> newPrescriptionList = [];
       for (final image in prescriptionImageFileList) {
         newPrescriptionList.add(await Util.uploadImageToFirebase(

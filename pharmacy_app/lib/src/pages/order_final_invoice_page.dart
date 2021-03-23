@@ -107,6 +107,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     final size = MediaQuery.of(context).size;
     switch (Store.instance.appState.tutorialBoxNumberOrderFinalInvoicePage) {
       case 0:
+        if (widget.order.status != OrderEnum.ORDER_STATUS_DELIVERED)
+          return Container();
         return Positioned(
           top: 60,
           left: 60,
@@ -142,10 +144,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     for (final singleItem in widget.order.invoiceItemList) {
       final unitPrice = singleItem.rate;
       final quantity = singleItem.quantity;
-      subTotal = subTotal + (unitPrice * quantity);
+      subTotal =
+          Util.twoDecimalDigit(number: subTotal + (unitPrice * quantity));
     }
 
-    totalAmount = subTotal + deliveryFee;
+    totalAmount = Util.twoDecimalDigit(number: subTotal + deliveryFee);
   }
 
   Widget buildReOrderButton() {

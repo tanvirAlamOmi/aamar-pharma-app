@@ -19,7 +19,6 @@ class User {
       this.loginToken,
       this.dynamicReferralLink});
 
-
   User.none()
       : id = null,
         name = "",
@@ -27,7 +26,6 @@ class User {
         phone = "",
         loginToken = "",
         dynamicReferralLink = "";
-
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(
