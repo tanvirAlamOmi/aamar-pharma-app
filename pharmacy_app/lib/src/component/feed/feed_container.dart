@@ -108,15 +108,13 @@ class _FeedContainerState extends State<FeedContainer>
 
     if (responseCode == ClientEnum.RESPONSE_SUCCESS) {
       feedResponse = response.item1;
-      if (feedResponse.status) {
-        addItems(feedResponse.feedItems, feedRequest);
-      }
+      addItems(feedResponse.feedItems, feedRequest);
     } else if (responseCode == ClientEnum.RESPONSE_CONNECTION_ERROR) {
       Util.showSnackBar(
           scaffoldKey: UIState.instance.scaffoldKey,
           message: "Something went wrong. Please try again");
     }
-    if (feedResponse.feedItems == null || feedResponse.feedItems.isEmpty) {
+    if (feedItems.isEmpty) {
       noItem = true;
     }
 
@@ -148,6 +146,11 @@ class _FeedContainerState extends State<FeedContainer>
           viewCardType: OrderEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
     }
 
+    if (feedRequest.feedInfo.feedType == OrderEnum.FEED_REPEAT_ORDER) {
+      feedItems.add(FeedItem(
+          viewCardType: OrderEnum.FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD));
+    }
+
     feedItems.addAll(items);
 
     feedItemsPermData = feedItems.sublist(0, feedItems.length);
@@ -157,8 +160,6 @@ class _FeedContainerState extends State<FeedContainer>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     if (noInternet == true) {
       return noInternetView(refreshFeed);
     }

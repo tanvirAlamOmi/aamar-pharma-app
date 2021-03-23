@@ -14,6 +14,7 @@ import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -420,8 +421,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ConfirmOrderSuccessWithRepeatOrder(
-                  orderId: widget.order.id,
+            builder: (context) => RequestReceivedSuccessPage(
+                  icon: Icons.shopping_cart,
+                  pageTitle: 'ORDER AND INVOICE CONFIRMED',
+                  title: 'Your order and invoice is confirmed.',
+                  message: 'We will get back to you as soon as possible',
                 )),
       );
     } else {

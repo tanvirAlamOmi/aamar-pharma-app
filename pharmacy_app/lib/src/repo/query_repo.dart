@@ -82,6 +82,7 @@ class QueryRepo {
             .getQueryClient()
             .getRepeatOrderFeed(jwtToken, feedRequest, userId);
 
+
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
@@ -226,7 +227,7 @@ class QueryRepo {
           ..status = true
           ..lastFeed = false
           ..feedItems = []
-          ..response = ClientEnum.RESPONSE_CONNECTION_ERROR
+          ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false,
         ClientEnum.RESPONSE_SUCCESS);
   }

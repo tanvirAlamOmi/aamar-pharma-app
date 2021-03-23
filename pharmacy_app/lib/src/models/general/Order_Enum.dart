@@ -9,6 +9,8 @@ class OrderEnum {
   static const String FEED_ITEM_REQUEST_ORDER_CARD = "Request Order Card";
   static const String FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD =
       "Request Order Page Button Card";
+  static const String FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD =
+      "Repeat Order Page Button Card";
   static const String FEED_ITEM_ORDER_FILTER_CARD = "Order Filter Card";
   static const String FEED_ITEM_NOTIFICATION_CARD = "Notification Card";
 

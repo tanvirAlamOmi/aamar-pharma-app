@@ -7,7 +7,7 @@ class FeedItem {
   Order order;
   RequestOrder requestOrder;
   NotificationItem notificationItem;
-  FeedItem({this.order,this.viewCardType,this.notificationItem});
+  FeedItem({this.order, this.viewCardType, this.notificationItem});
 
   factory FeedItem.fromJson(Map<String, dynamic> json) {
     return FeedItem(
