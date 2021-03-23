@@ -6,7 +6,7 @@ class InvoiceItem {
   String itemName;
   String unit;
   int quantity;
-  int rate;
+  double rate;
   String isPrescriptionRequired;
 
   InvoiceItem(
@@ -21,7 +21,7 @@ class InvoiceItem {
       itemName: jsonData['item_name'],
       unit: jsonData['unit'],
       quantity: jsonData['quantity'],
-      rate: double.parse(jsonData['rate']).toInt(),
+      rate: double.parse(jsonData['rate']),
       isPrescriptionRequired: jsonData['is_prescription_required'],
     );
   }

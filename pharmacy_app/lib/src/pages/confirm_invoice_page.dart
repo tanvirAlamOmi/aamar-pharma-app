@@ -361,11 +361,12 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     for (final singleItem in widget.order.invoiceItemList) {
       final unitPrice = singleItem.rate;
       final quantity = singleItem.quantity;
-      subTotal = subTotal + (unitPrice * quantity);
+      subTotal =
+          Util.twoDecimalDigit(number: subTotal + (unitPrice * quantity));
     }
 
-    totalAmount = subTotal + deliveryCharge;
-    if (mounted) setState(() {});
+    totalAmount = Util.twoDecimalDigit(number: subTotal + deliveryCharge);
+    refreshUI();
   }
 
   void confirmInvoiceOrder() async {

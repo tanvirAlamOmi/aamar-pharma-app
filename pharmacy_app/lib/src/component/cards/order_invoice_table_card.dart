@@ -261,8 +261,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: double.infinity,
-        child: Text(
-            EnBnDict.en_bn_number_convert(number: singleItem.rate),
+        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.rate),
             style: dataTextStyle));
   }
 
@@ -271,8 +270,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
       return Container(
           alignment: Alignment.center,
           width: 25,
-          child:
-              Text(singleItem.quantity.toString(), style: dataTextStyle));
+          child: Text(singleItem.quantity.toString(), style: dataTextStyle));
     else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -297,8 +295,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
                 alignment: Alignment.center,
                 width: 25,
                 child: Text(
-                    EnBnDict.en_bn_number_convert(
-                        number: singleItem.quantity),
+                    EnBnDict.en_bn_number_convert(number: singleItem.quantity),
                     style: dataTextStyle)),
             GestureDetector(
               onTap: () {
@@ -320,8 +317,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: 25,
-        child: Text(
-            EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.quantity),
             style: dataTextStyle));
   }
 
@@ -336,7 +332,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   String getPrice(InvoiceItem singleItem) {
     final unitPrice = singleItem.rate;
     final quantity = singleItem.quantity;
-    final price = (unitPrice * quantity) ;
+    final price = Util.twoDecimalDigit(number: unitPrice * quantity);
     return EnBnDict.en_bn_number_convert(number: price);
   }
 }

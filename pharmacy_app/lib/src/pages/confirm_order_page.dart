@@ -298,7 +298,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     switch (Store.instance.appState.tutorialBoxNumberConfirmOrderPage) {
       case 0:
         return Positioned(
-          top: 60,
+          top: 20,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,
@@ -320,7 +320,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           break;
         }
         return Positioned(
-          top: 120,
+          top: 80,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,

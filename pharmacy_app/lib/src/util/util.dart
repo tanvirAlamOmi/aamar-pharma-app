@@ -246,6 +246,10 @@ class Util {
     ];
   }
 
+  static double twoDecimalDigit({double number}){
+    return double.parse(number.toStringAsFixed(2));
+  }
+
   static String getReferralCode() {
     return Uuid().v4().toString().split("-")[0];
   }

@@ -15,7 +15,7 @@ class Store {
 
   Future _initAppDataFromDB() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove(_APP_DATA_KEY);
+    //prefs.remove(_APP_DATA_KEY);
     if (prefs.containsKey(_APP_DATA_KEY)) {
       print("SharedPreference Key found");
       try {
