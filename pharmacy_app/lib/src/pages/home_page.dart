@@ -4,6 +4,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
+import 'package:pharmacy_app/src/component/cards/notify_on_delivery_area.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
@@ -118,6 +119,16 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     switch (Store.instance.appState.tutorialBoxNumberHomePage) {
       case 0:
+        return Positioned.fill(
+          child: Align(
+              alignment: Alignment.centerRight,
+              child: NotifyOnDeliveryArea(
+                scaffoldKey: _scaffoldKey,
+                callBackAction: updateTutorialBox,
+                callBackRefreshUI: refreshUI,
+              )),
+        );
+      case 1:
         return Positioned(
           top: 100,
           left: 20,
@@ -130,12 +141,13 @@ class _HomePageState extends State<HomePage> {
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle:
-                "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
+            messageTitle: "You can order medicines or other items by "
+                "simply uploading a photo of your prescription or a photo of a "
+                "paper with your item list on it or even just a photo of the items",
           ),
         );
         break;
-      case 1:
+      case 2:
         return Positioned(
           top: 100,
           left: 20,
@@ -149,10 +161,11 @@ class _HomePageState extends State<HomePage> {
               callBackAction: updateTutorialBox,
               callBackRefreshUI: refreshUI,
               messageTitle:
-                  "You can also order by adding the name of the items you want to order and stating their unit and quantity manually"),
+                  "You can also order by adding the name of the items you want "
+                  "to order and stating their unit and quantity manually"),
         );
         break;
-      case 2:
+      case 3:
         return Positioned(
             bottom: 50,
             left: 20,
@@ -165,8 +178,8 @@ class _HomePageState extends State<HomePage> {
                 arrowDirection: ClientEnum.ARROW_BOTTOM,
                 callBackRefreshUI: refreshUI,
                 callBackAction: updateTutorialBox,
-                messageTitle:
-                    "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
+                messageTitle: "Call us on our hotline number anytime between "
+                    "10 AM to 10 PM for any kind of queries you have"));
         break;
       case 3:
         return Positioned(

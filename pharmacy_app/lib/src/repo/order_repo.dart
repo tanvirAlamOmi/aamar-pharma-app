@@ -271,4 +271,32 @@ class OrderRepo {
     }
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
+
+  Future<Tuple2<void, String>> notifyOnDeliveryArea(
+      {String name, String phone}) async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final notifyOnDeliveryAreaRequest =
+            jsonEncode(<String, dynamic>{'name': name, 'phone': phone});
+
+        final notifyOnDeliveryAreaResponse = await OrderRepo.instance
+            .getOrderClient()
+            .notifyOnDeliveryArea(jwtToken, notifyOnDeliveryAreaRequest);
+
+        if (notifyOnDeliveryAreaResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(null, notifyOnDeliveryAreaResponse['result']);
+        }
+      } catch (err) {
+        print("Error in notifyOnDeliveryArea() in OrderRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
 }

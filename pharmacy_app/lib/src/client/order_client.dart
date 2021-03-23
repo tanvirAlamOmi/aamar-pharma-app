@@ -180,6 +180,24 @@ class OrderClient {
     return jsonResponse;
   }
 
+  Future<dynamic> notifyOnDeliveryArea(
+      String jwtToken, String notifyOnDeliveryAreaRequest) async {
+    final http.Response response = await http
+        .post(
+        ServerConfig.SERVER_HOST +
+            ServerConfig.SERVER_PORT.toString() +
+            '/api/appapi/notify-delivery-area',
+        headers: {
+          'token': jwtToken,
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: notifyOnDeliveryAreaRequest)
+        .timeout(Duration(seconds: 300));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   static OrderClient _instance;
   static OrderClient get instance => _instance ??= OrderClient();
 }
