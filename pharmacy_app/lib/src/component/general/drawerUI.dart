@@ -119,7 +119,10 @@ class _MainDrawerState extends State<MainDrawer> {
               fontSize: 15),
           leading:
               Icon(Icons.mark_email_read_rounded, color: Util.purplishColor()),
-          onTap: () {}),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/help_faq');
+          }),
     );
     children.add(
       ListTile(

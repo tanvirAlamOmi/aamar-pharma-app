@@ -126,7 +126,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Subtotal'),
             style: columnTextStyle)),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: order.subTotal),
+            Text('৳' + EnBnDict.en_bn_number_convert(number: order.subTotal),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -139,7 +139,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Delivery Fee'),
             style: columnTextStyle)),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: order.deliveryCharge),
+            Text(
+                '৳' +
+                    EnBnDict.en_bn_number_convert(number: order.deliveryCharge),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -149,11 +151,14 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
-        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Discount (%)'),
+        customTableCell(Text(
+            EnBnDict.en_bn_convert(text: 'Discount') +
+                '(' +
+                EnBnDict.en_bn_number_convert(number: order.discount) +
+                '%' +
+                ')',
             style: columnTextStyle)),
-        customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: order.discount),
-                style: dataTextStyle),
+        customTableCell(Text('৳' + getDiscountAmount(), style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
     }
@@ -178,7 +183,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
                 color: Util.purplishColor(),
                 fontWeight: FontWeight.bold))),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: order.grandTotal),
+            Text('৳' + EnBnDict.en_bn_number_convert(number: order.grandTotal),
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             alignment: Alignment.centerRight),
@@ -349,5 +354,13 @@ class OrderInvoiceTableCard extends StatelessWidget {
     final quantity = singleItem.quantity;
     final price = Util.twoDecimalDigit(number: unitPrice * quantity);
     return EnBnDict.en_bn_number_convert(number: price);
+  }
+
+  String getDiscountAmount() {
+    final double subTotal = double.parse(order.subTotal);
+    final double discount = double.parse(order.discount);
+    final discountAmount =
+        Util.twoDecimalDigit(number: (subTotal * discount / 100)).toString();
+    return EnBnDict.en_bn_number_convert(number: discountAmount);
   }
 }

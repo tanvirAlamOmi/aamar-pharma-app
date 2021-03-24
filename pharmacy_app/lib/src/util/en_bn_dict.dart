@@ -233,9 +233,9 @@ class EnBnDict {
     'Unit Cost': 'ইউনিট মূল্য',
     'Amount': 'টাকার অঙ্ক',
     'Subtotal': 'সাবটোটাল',
-    'Discount (%)': 'ডিস্কাউন্ট (%)',
+    'Discount': 'ডিস্কাউন্ট',
     'Delivery Fee': 'ডেলিভারি ফী',
-    'Total': 'মোট টাকা',
+    'Total': 'মোট',
     'Are you sure to confirm this invoice for this order?':
         'আপনি কি এই অর্ডারটির জন্য এই চালান এবং দামের বিষয়টি নিশ্চিত করেছেন?',
     'CANCEL REPEAT ORDER': 'অর্ডারের পুনরাবৃত্তি বন্ধ করুন',

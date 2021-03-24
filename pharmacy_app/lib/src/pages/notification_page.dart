@@ -35,7 +35,7 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         elevation: 1,
         centerTitle: true,
-        title: CustomText('Notifications',
+        title: CustomText('NOTIFICATIONS',
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
       body: FeedContainer(FeedInfo(AppEnum.FEED_NOTIFICATION), key: key),
