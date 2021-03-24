@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
-import 'package:pharmacy_app/src/store/store.dart';
-
 class User {
   int id;
   String name;
@@ -27,7 +22,8 @@ class User {
         email = "",
         phone = "",
         loginToken = "",
-        dynamicReferralLink = "";
+        dynamicReferralLink = "",
+        rank = 'normal';
 
   factory User.fromJson(Map<String, dynamic> jsonData) {
     return User(

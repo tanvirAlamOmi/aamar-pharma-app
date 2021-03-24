@@ -122,7 +122,7 @@ class EnBnDict {
     // Confirm Order Page
     'CONFIRM ORDER': 'অর্ডার নিশ্চিত করুন',
     'DELIVERY TIME (EVERYDAY 10 AM TO 10 PM)':
-        'ডেলিভারির সময়(প্রতিদিন সকাল ১০টা থেকে রাত ১০টা)',
+        'ডেলিভারির সময় (প্রতিদিন সকাল ১০টা থেকে রাত ১০টা)',
     'Day': 'দিন',
     'Time': 'সময়',
     'Today': 'আজ',
@@ -143,9 +143,9 @@ class EnBnDict {
     'Friday': 'শুক্রবার',
     'Add New Address': 'নতুন ঠিকানা যুক্ত করুন',
     'PERSONAL DETAILS': 'ব্যক্তিগত তত্থ্য',
-    'NAME': 'নাম',
+    'NAME*': 'নাম*',
     'EMAIL': 'ইমেইল',
-    'Phone Number': 'ফোন নাম্বার',
+    'Phone Number*': 'ফোন নাম্বার*',
     'Mr. XYZ': 'উদাঃ জনাব সৈকত',
     'Your Phone Number': 'আপনার মোবাইল নাম্বার',
     'Please add a delivery address': 'অনুগ্রহপূর্বক ডেলিভারি ঠিকানা যুক্ত করুন',
@@ -157,6 +157,23 @@ class EnBnDict {
     'Order is submitted.': 'অর্ডারটি গৃহীত হয়েছে।',
     'Submitting Order...': 'অর্ডারটি নেয়া হচ্ছে',
     'UPLOADED PRESCRIPTION(s)': 'টি প্রেসক্রিপশন আপলোড',
+
+    // Request Received Success Page
+    'ORDER RECEIVED': 'অর্ডার গ্রহণ',
+    'Your order has been placed.': 'আপনার অর্ডারটি গৃহীত হয়েছে',
+    'We will get back to you within 30 minutes.':
+        '৩০ মিনিটের মধ্যে আপনার সাথে যোগাযোগ করা হবে।',
+    'ORDER AND INVOICE CONFIRMED': 'অর্ডার এবং চালান গ্রহণ',
+    'Your order and invoice is confirmed.':
+        'আপনার অর্ডার এবং চালান গৃহীত হয়েছে',
+    'We will get back to you as soon as possible.':
+        'অতি দ্রুত আপনার সাথে যোগাযোগ করা হবে।',
+    'REQUEST RECEIVED': 'অনুরোধ গ্রহণ',
+    'Your request has been received.': 'আপনার অনুরোধটি গৃহীত হয়েছে',
+    'You will get a call back within 30 minutes.':
+        '৩০ মিনিটের মধ্যে আপনার সাথে যোগাযোগ করা হবে।',
+    'We will notify you when we have your requested product.':
+        'আপনার প্রয়োজনীয় পণ্যটির ব্যবস্থাপূর্বক আপনাকে জানানো হবে।',
 
     // Order Page
     'ORDERS': 'অর্ডারসমূহ',
@@ -216,6 +233,7 @@ class EnBnDict {
     'Unit Cost': 'ইউনিট মূল্য',
     'Amount': 'টাকার অঙ্ক',
     'Subtotal': 'সাবটোটাল',
+    'Discount (%)': 'ডিস্কাউন্ট (%)',
     'Delivery Fee': 'ডেলিভারি ফী',
     'Total': 'মোট টাকা',
     'Are you sure to confirm this invoice for this order?':
@@ -246,14 +264,27 @@ class EnBnDict {
     'Confirmed': 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
     'Delivered': 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
     'Canceled': 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
+    'Rejected': 'রিজেক্ট করা হয়েছে এমন অর্ডারসমূহ',
     'PENDING': 'প্রক্রিয়াধীন',
     'INVOICE SENT': 'চালান দেয়া হয়েছে',
     'CONFIRMED': 'নিশ্চিত করা হয়েছে',
     'DELIVERED': 'ডেলিভারি সম্পন্ন হয়েছে',
     'CANCELED': 'ক্যান্সেল করা হয়েছে',
+    'REJECTED': 'রিজেক্ট করা হয়েছে',
 
     // Repeat Order Card
     'NEXT DELIVERY ON': 'পরবর্তী ডেলিভারি',
+
+    // Repeat Order Page Button Card
+    'ADD A NEW REPEAT ORDER': 'নতুন রিপিট অর্ডার করুন',
+
+    // Repeat Order Choice Page
+    'REPEAT ORDER': 'অর্ডার পুনরাবৃত্তি',
+    'Please select the interval and time you would like to get this order delivered on regular basis':
+        'অনুগ্রহপূর্বক কতদিন পর পর অর্ডারটি চাচ্ছেন তা ঠিক করুন',
+    'Deliver every': 'ডেলিভারি প্রতি',
+    'Day(s)': 'দিন পর পর',
+    'Select Time': 'সময়',
 
     // Time Choose Button
     'SELECT DELIVERY TIME': 'ডেলিভারি টাইম নির্ধারণ করুন',
@@ -265,10 +296,6 @@ class EnBnDict {
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
     'REQUEST PRODUCT': 'পণ্যের আবেদন',
     'ADD PHOTO': 'ছবি যুক্ত করুন',
-    'REQUEST RECEIVED': 'আবেদন গ্রহন',
-    'Your request has been received.': 'আপনার আবেদনটি গৃহীত হয়েছে।',
-    'We will notify you when we have your requested product.':
-        'আপনার প্রয়োজনীয় পণ্যটির ব্যবস্থাপূর্বক আপনাকে জানানো হবে।',
 
     // Consult Pharmacist Page
     'REQUEST CALL BACK': 'কল ব্যাকের আবেদন',

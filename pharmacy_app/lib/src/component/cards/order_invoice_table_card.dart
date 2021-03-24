@@ -22,7 +22,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   final bool showAmountColumn;
   final bool showIncDecButtons;
   final bool showSubTotalRow;
-  final bool showTotalRow;
+  final bool showGrandTotalRow;
 
   final EdgeInsetsGeometry padding;
 
@@ -47,7 +47,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
       this.showAmountColumn,
       this.showIncDecButtons,
       this.showSubTotalRow,
-      this.showTotalRow,
+      this.showGrandTotalRow,
       this.showItemNameColumn,
       this.padding})
       : super(key: key);
@@ -78,6 +78,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
   Widget buildInvoice() {
     final children = List<TableRow>();
 
+    // Top Row with Column Name
     children.add(TableRow(children: [
       customTableCell(Text(showCrossColumn ? "" : "", style: columnTextStyle)),
       customTableCell(
@@ -97,6 +98,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     ]));
 
     order.invoiceItemList.forEach((singleItem) {
+      // Table Values
       children.add(TableRow(children: [
         customTableCell(buildCrossColumn(singleItem)),
         customTableCell(buildItemNameColumn(singleItem),
@@ -150,13 +152,13 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Discount (%)'),
             style: columnTextStyle)),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: order.discount) ,
+            Text(EnBnDict.en_bn_number_convert(number: order.discount),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
     }
 
-    if (showTotalRow) {
+    if (showGrandTotalRow) {
       children.add(TableRow(children: [
         customTableCell(Divider(height: 2, thickness: 2)),
         customTableCell(Divider(height: 2, thickness: 2)),
@@ -279,7 +281,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
       return Container(
           alignment: Alignment.center,
           width: 25,
-          child: Text(singleItem.quantity.toString(), style: dataTextStyle));
+          child: Text(
+              EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+              style: dataTextStyle));
     else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),

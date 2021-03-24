@@ -83,7 +83,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   showIncDecButtons: false,
                   showAmountColumn: true,
                   showSubTotalRow: true,
-                  showTotalRow: true,
+                  showGrandTotalRow: true,
                 ),
                 SizedBox(height: 20)
               ],

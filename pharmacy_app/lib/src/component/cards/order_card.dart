@@ -84,7 +84,9 @@ class _OrderCardState extends State<OrderCard> {
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
                 Text(getDeliveryTimeText(),
-                    style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: new Color.fromARGB(255, 4, 72, 71)))
               ],
             ),
             Row(

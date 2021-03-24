@@ -56,7 +56,8 @@ class OrderDeliveryTimeScheduleCard extends StatelessWidget {
           SizedBox(height: 15),
           Row(
             children: [
-              Expanded(
+              Container(
+                width: 120,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

@@ -239,7 +239,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       showIncDecButtons: true,
       showAmountColumn: false,
       showSubTotalRow: false,
-      showTotalRow: false,
+      showGrandTotalRow: false,
       padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
     );
   }

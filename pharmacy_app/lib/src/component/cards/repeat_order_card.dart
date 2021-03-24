@@ -84,8 +84,9 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
                 Text(
                     EnBnDict.en_bn_convert(text: 'Every') +
                         ' ' +
-                        EnBnDict.en_bn_convert(text: order.every) +
-                        " day(s) " +
+                        EnBnDict.en_bn_number_convert(number: order.every) +
+                        ' ' +
+                        EnBnDict.en_bn_convert(text: 'Day(s)') +
                         ',' +
                         EnBnDict.time_bn_convert_with_time_type(
                             text: order.time),

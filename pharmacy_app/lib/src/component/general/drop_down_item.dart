@@ -96,11 +96,13 @@ class DropDownItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
-            child: CustomText(processEnBn(text: menuItem),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-                color: dropDownTextColor ?? Colors.grey,
-                fontSize: 15),
+            child: Text(
+              processEnBn(text: menuItem),
+              textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: dropDownTextColor ?? Colors.grey, fontSize: 15),
+            ),
           ),
         ],
       ),
@@ -123,6 +125,10 @@ class DropDownItem extends StatelessWidget {
 
       return timeDeliveryScheduleInBangla;
     }
-    return text;
+    if (int.tryParse(text) != null) {
+      // Means this is integer data
+      return EnBnDict.en_bn_number_convert(number: text);
+    }
+    return EnBnDict.en_bn_convert(text: text);
   }
 }

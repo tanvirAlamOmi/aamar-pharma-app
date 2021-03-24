@@ -103,7 +103,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   showIncDecButtons: true,
                   showAmountColumn: true,
                   showSubTotalRow: true,
-                  showTotalRow: true,
+                  showGrandTotalRow: true,
                 ),
                 buildIsPrescriptionRequiredTitle(),
                 SizedBox(height: 10),
@@ -404,7 +404,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   icon: Icons.shopping_cart,
                   pageTitle: 'ORDER AND INVOICE CONFIRMED',
                   title: 'Your order and invoice is confirmed.',
-                  message: 'We will get back to you as soon as possible',
+                  message: 'We will get back to you as soon as possible.',
                 )),
       );
     } else {

@@ -319,7 +319,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomText('Phone Number',
+                      CustomText('Phone Number*',
                           color: Util.purplishColor(),
                           fontWeight: FontWeight.bold),
                       SizedBox(height: 3),
