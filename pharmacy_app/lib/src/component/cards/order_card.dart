@@ -114,9 +114,42 @@ class _OrderCardState extends State<OrderCard> {
           fontSize: 13,
           textAlign: TextAlign.center,
         ),
-        color: Util.purplishColor(),
+        color: getOrderStatusColor(),
       ),
     );
+  }
+
+  Color getOrderStatusColor() {
+    switch (order.status) {
+      case AppEnum.ORDER_STATUS_PENDING:
+        return Util.redishColor();
+        break;
+
+      case AppEnum.ORDER_STATUS_INVOICE_SENT:
+        return Colors.orangeAccent;
+        break;
+
+      case AppEnum.ORDER_STATUS_CONFIRMED:
+        return Util.greenishColor();
+
+        break;
+
+      case AppEnum.ORDER_STATUS_DELIVERED:
+        return Util.purplishColor();
+        break;
+
+      case AppEnum.ORDER_STATUS_CANCELED:
+        return Colors.red;
+        break;
+
+      case AppEnum.ORDER_STATUS_REJECTED:
+        return Colors.redAccent;
+        break;
+
+      default:
+        return Util.purplishColor();
+        break;
+    }
   }
 
   String getDeliveryTimeText() {
@@ -129,48 +162,68 @@ class _OrderCardState extends State<OrderCard> {
   }
 
   void navigateToSpecificPage() {
-    if (order.status == AppEnum.ORDER_STATUS_PENDING) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OrderDetailsPage(
-                  order: order,
-                  showRepeatOrderCancelButton: false,
-                )),
-      );
-    }
+    switch (order.status) {
+      case AppEnum.ORDER_STATUS_PENDING:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderDetailsPage(
+                    order: order,
+                    showRepeatOrderCancelButton: false,
+                  )),
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_INVOICE_SENT) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConfirmInvoicePage(order: order)),
-      );
-    }
+      case AppEnum.ORDER_STATUS_INVOICE_SENT:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmInvoicePage(order: order)),
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_CONFIRMED) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OrderFinalInvoicePage(order: order)),
-      );
-    }
+      case AppEnum.ORDER_STATUS_CONFIRMED:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderFinalInvoicePage(order: order)),
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_DELIVERED) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OrderFinalInvoicePage(order: order)),
-      );
-    }
+      case AppEnum.ORDER_STATUS_DELIVERED:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderFinalInvoicePage(order: order)),
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_CANCELED) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => OrderDetailsPage(
-                showRepeatOrderCancelButton: false, order: order)),
-      );
+      case AppEnum.ORDER_STATUS_CANCELED:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderDetailsPage(
+                  showRepeatOrderCancelButton: false, order: order)),
+        );
+        break;
+
+      case AppEnum.ORDER_STATUS_REJECTED:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderDetailsPage(
+                  showRepeatOrderCancelButton: false, order: order)),
+        );
+        break;
+
+      default:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderDetailsPage(
+                  showRepeatOrderCancelButton: false, order: order)),
+        );
+        break;
     }
   }
 

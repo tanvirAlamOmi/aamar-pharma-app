@@ -27,7 +27,7 @@ class OrderUtil {
     double subTotal = 0;
     double grandTotal = 0;
     double deliveryCharge = double.parse(order.deliveryCharge);
-    double discount = double.parse(order.discount);
+    int discount = order.discount;
     for (final singleItem in order.invoiceItemList) {
       final unitPrice = singleItem.rate;
       final quantity = singleItem.quantity;

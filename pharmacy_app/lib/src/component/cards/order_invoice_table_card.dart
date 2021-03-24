@@ -277,7 +277,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: double.infinity,
-        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.rate),
+        child: Text('৳' + EnBnDict.en_bn_number_convert(number: singleItem.rate),
             style: dataTextStyle));
   }
 
@@ -346,7 +346,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.centerRight,
         width: double.infinity,
-        child: Text(getPrice(singleItem), style: dataTextStyle));
+        child: Text('৳' + getPrice(singleItem), style: dataTextStyle));
   }
 
   String getPrice(InvoiceItem singleItem) {
@@ -358,7 +358,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
 
   String getDiscountAmount() {
     final double subTotal = double.parse(order.subTotal);
-    final double discount = double.parse(order.discount);
+    final int discount = order.discount;
     final discountAmount =
         Util.twoDecimalDigit(number: (subTotal * discount / 100)).toString();
     return EnBnDict.en_bn_number_convert(number: discountAmount);

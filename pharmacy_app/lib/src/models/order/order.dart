@@ -17,7 +17,7 @@ class Order {
   String deliveryTime;
   String deliveryDate;
   String deliveryCharge;
-  String discount;
+  int discount;
   String subTotal;
   String grandTotal;
   String createdAt;

@@ -33,12 +33,20 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
         elevation: 0,
         clipBehavior: Clip.antiAlias, // Add This
-        child: GeneralActionRoundButton(
-          padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-          title: "ADD A NEW REPEAT ORDER",
-          height: 40,
-          isProcessing: false,
-          callBackOnSubmit: () => showAlertDialog(context),
+        child: Column(
+          children: [
+            GeneralActionRoundButton(
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+              title: "ADD A NEW REPEAT ORDER",
+              height: 40,
+              isProcessing: false,
+              color: Util.greenishColor(),
+              callBackOnSubmit: () => showAlertDialog(context),
+            ),
+            SizedBox(height: 10),
+            CustomText('YOU CAN CANCEL ANYTIME',
+                color: Util.greenishColor(), fontWeight: FontWeight.bold)
+          ],
         ),
       ),
     );

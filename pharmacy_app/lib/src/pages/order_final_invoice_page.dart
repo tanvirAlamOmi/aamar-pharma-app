@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
+import 'package:pharmacy_app/src/component/cards/aamar_pharma_address_card.dart';
+import 'package:pharmacy_app/src/component/cards/order_invoice_address_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
@@ -68,9 +70,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
               children: <Widget>[
                 SizedBox(height: 10),
                 buildReOrderButton(),
-                buildPharmaAddress(),
+                AamarPharmaAddressCard(),
                 buildDivider(),
-                buildOrderAddress(),
+                OrderInvoiceAddressCard(order: widget.order),
                 buildDivider(),
                 buildViewOrderDetailsButton(),
                 SizedBox(height: 20),
@@ -139,167 +141,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     );
   }
 
-  Widget buildPharmaAddress() {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            child: CustomText(
-              'Aamar Pharma',
-              color: Util.purplishColor(),
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: size.width / 2 - 50,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "31 Street, Mirpur DOHS \n"
-                  "Dhaka, Bangladesh. ",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 11),
-                ),
-              ),
-              Container(
-                width: size.width / 2 - 50,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "+88012-35359552\n"
-                  "arbree@amarpharma.com",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 11),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget buildOrderAddress() {
-    final size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 10, 22, 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: size.width / 2 - 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: CustomText(
-                    'Invoice Number',
-                    color: Util.purplishColor(),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    EnBnDict.en_bn_number_convert(number: widget.order.id),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 11),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: CustomText(
-                    'Date Of Issue',
-                    color: Util.purplishColor(),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    EnBnDict.en_bn_number_convert(
-                        number: widget.order.deliveryDate),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 11),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            width: size.width / 2 - 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: CustomText(
-                    'Billed to',
-                    color: Util.purplishColor(),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.order.deliveryAddressDetails.address,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 11),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.order.deliveryAddressDetails.area,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 11),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.order.mobileNo,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 11),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
   Widget buildViewOrderDetailsButton() {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
@@ -334,7 +175,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
 
   Widget buildDivider() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       child: Divider(height: 3, thickness: 2),
     );
   }

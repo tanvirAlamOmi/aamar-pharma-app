@@ -15,17 +15,53 @@ class HelpFAQPage extends StatefulWidget {
 class _HelpFAQPageState extends State<HelpFAQPage> {
   List<UIViewData> faqList = [
     UIViewData(
-        title: 'DELIVERY CHARGE',
-        textData: 'We do not take any delivery charge right now',
+        title: 'HOW IT WORKS',
+        textData:
+            '1. Place your prescription or item list, and wait a while. \n\n'
+            '2. Pharmacy starts preparing your medicine just after you place an order.\n\n'
+            '3. One of our troopers takes your medicine safely and drives to your home.\n\n'
+            '4. You take the delivery having no anxiety of safety.\n',
         collapseData: true),
     UIViewData(
-        title: 'DELIVERY CHARGE 2',
-        textData: 'We do not take any delivery charge right now',
+        title: 'Do you take delivery charges?',
+        textData:
+            'We only take BDT 20 as the delivery charges for the orders below 500.',
         collapseData: true),
     UIViewData(
-        title: 'DELIVERY CHARGE 4',
-        textData: 'We do not take any delivery charge right now We do not ta',
-        collapseData: true)
+        title: 'Can I select the pharmacy?',
+        textData: 'No. It’s an automated process. Our software does the task.',
+        collapseData: true),
+    UIViewData(
+        title: 'How do you select the pharmacy?',
+        textData:
+            'It’s automatically selected by the distance and availability.',
+        collapseData: true),
+    UIViewData(
+        title: 'Do you take very large or small orders?',
+        textData: 'Yes. We pay the same attention for every delivery.',
+        collapseData: true),
+    UIViewData(
+        title: 'Do you courier medicines to other cities?',
+        textData: 'No. We have selected areas where we can reach fast.',
+        collapseData: true),
+    UIViewData(
+        title: 'Do you have other options of order except the app?',
+        textData: 'No. You have to order from the app.',
+        collapseData: true),
+    UIViewData(
+        title: 'Do you have emergency customer support?',
+        textData: 'Yes. Call **** for customer support from 10 am to 10 pm.',
+        collapseData: true),
+    UIViewData(
+        title: 'Do you deliver medicines without prescription?',
+        textData:
+            'We only deliver OTC (Over the Counter) medicines without prescription.',
+        collapseData: true),
+    UIViewData(
+        title: 'Can I save my order in the app?',
+        textData:
+            'It’s automatically saved when you place an order. You can repeat it whenever you want.',
+        collapseData: true),
   ];
 
   Widget build(BuildContext context) {
@@ -34,7 +70,7 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
           leading: AppBarBackButton(),
           elevation: 1,
           centerTitle: true,
-          title: CustomText('FAQ',
+          title: CustomText('FAQs',
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
         ),
         body: Center(child: SingleChildScrollView(child: buildBody())));
@@ -52,8 +88,9 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
   }
 
   Widget buildFAQ(UIViewData uiViewData) {
+    final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: Container(
         width: double.infinity,
         child: Material(
@@ -72,19 +109,23 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
                 child: Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                  height: 35,
+                  height: 50,
                   color: Util.purplishColor(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        uiViewData.title,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
+                      Container(
+                        width: size.width - 100,
+                        child: Text(
+                          uiViewData.title,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       (uiViewData.collapseData)
                           ? Padding(
