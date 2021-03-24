@@ -10,6 +10,7 @@ class User {
   String phone;
   String loginToken;
   String dynamicReferralLink;
+  String rank;
 
   User(
       {this.id,
@@ -17,7 +18,8 @@ class User {
       this.email,
       this.phone,
       this.loginToken,
-      this.dynamicReferralLink});
+      this.dynamicReferralLink,
+      this.rank});
 
   User.none()
       : id = null,
@@ -35,6 +37,7 @@ class User {
       phone: jsonData['verified_phone'],
       loginToken: jsonData['login_token'],
       dynamicReferralLink: jsonData['dynamic_referral_link'],
+      rank: jsonData['rank'],
     );
   }
 
@@ -46,6 +49,7 @@ class User {
     data['verified_phone'] = phone;
     data['login_token'] = loginToken;
     data['dynamic_referral_link'] = dynamicReferralLink;
+    data['rank'] = rank;
     return data;
   }
 }

@@ -95,7 +95,8 @@ class OrderRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<void, String>> confirmInvoiceOrder({Order order}) async {
+  Future<Tuple2<void, String>> confirmInvoiceOrder(
+      {Order order, bool collectPrescriptionOnDelivery}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
@@ -108,7 +109,12 @@ class OrderRepo {
                   singleInvoiceItem.toJsonEncodedString())
               .toList()
               .toString(),
+          'grandtotal': order.grandTotal,
+          'subtotal': order.subTotal,
+          'discount': order.discount,
           'id_order': order.id,
+          'collect_prescription':
+              collectPrescriptionOnDelivery ? ClientEnum.YES : ClientEnum.NO
         });
 
         final confirmInvoiceOrderResponse = await OrderRepo.instance

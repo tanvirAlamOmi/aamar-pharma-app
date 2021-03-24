@@ -7,13 +7,12 @@ class AppEnum {
       "ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER";
   static const String ON_VERIFICATION_FROM_USER_DETAILS_PAGE =
       "ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER";
-  static const String LOGIN_USING_REFERRAL_CODE =
-      "LOGIN_USING_REFERRAL_CODE";
-  static const String HOME_PAGE =
-      "HOME PAGE";
-  static const String CONFIRM_INVOICE_PAGE =
-      "CONFIRM INVOICE PAGE";
+  static const String LOGIN_USING_REFERRAL_CODE = "LOGIN_USING_REFERRAL_CODE";
+  static const String HOME_PAGE = "HOME PAGE";
+  static const String CONFIRM_INVOICE_PAGE = "CONFIRM INVOICE PAGE";
 
+  static const String USER_RANK_NORMAL = "normal";
+  static const String USER_RANK_AP_STAR = "ap_star";
 
   static const String FEED_ORDER = "ORDER FEED";
   static const String FEED_REPEAT_ORDER = "REPEAT ORDER FEED";

@@ -5,17 +5,14 @@ import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
+import 'package:pharmacy_app/src/util/order_util.dart';
 
 class OrderInvoiceTableCard extends StatelessWidget {
   final Order order;
-  final double subTotal;
-  final double deliveryFee;
-  final double totalAmount;
 
   final Function(InvoiceItem singleItem) callBackIncrementItemQuantity;
   final Function(InvoiceItem singleItem) callBackDecrementItemQuantity;
   final Function(InvoiceItem singleItem) callBackRemoveItem;
-  final Function() callBackCalculatePricing;
   final Function() callBackRefreshUI;
 
   final bool showCrossColumn;
@@ -40,12 +37,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
   OrderInvoiceTableCard(
       {Key key,
       this.order,
-      this.subTotal,
-      this.deliveryFee,
-      this.totalAmount,
       this.callBackIncrementItemQuantity,
       this.callBackDecrementItemQuantity,
-      this.callBackCalculatePricing,
       this.callBackRefreshUI,
       this.callBackRemoveItem,
       this.showCrossColumn,
@@ -131,7 +124,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Subtotal'),
             style: columnTextStyle)),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: subTotal),
+            Text(EnBnDict.en_bn_number_convert(number: order.subTotal),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -144,7 +137,20 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Delivery Fee'),
             style: columnTextStyle)),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: deliveryFee),
+            Text(EnBnDict.en_bn_number_convert(number: order.deliveryCharge),
+                style: dataTextStyle),
+            alignment: Alignment.centerRight),
+      ]));
+
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Discount (%)'),
+            style: columnTextStyle)),
+        customTableCell(
+            Text(EnBnDict.en_bn_number_convert(number: order.discount) ,
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -170,7 +176,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
                 color: Util.purplishColor(),
                 fontWeight: FontWeight.bold))),
         customTableCell(
-            Text(EnBnDict.en_bn_number_convert(number: totalAmount),
+            Text(EnBnDict.en_bn_number_convert(number: order.grandTotal),
                 style: TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold)),
             alignment: Alignment.centerRight),
@@ -229,7 +235,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
       callBackDeleteItem: callBackRemoveItem,
       objectIdentifier: singleItem,
       refreshUI: callBackRefreshUI,
-      callBackAdditional: callBackCalculatePricing,
+      callBackAdditional: () {
+        OrderUtil.calculatePricing(order);
+        callBackRefreshUI();
+      },
       width: 15.5,
       height: 15.5,
       iconSize: 13,
@@ -281,7 +290,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 callBackDecrementItemQuantity(singleItem);
-                callBackCalculatePricing();
+                OrderUtil.calculatePricing(order);
+                callBackRefreshUI();
               },
               child: Container(
                   width: 20,
@@ -300,7 +310,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 callBackIncrementItemQuantity(singleItem);
-                callBackCalculatePricing();
+                OrderUtil.calculatePricing(order);
+                callBackRefreshUI();
               },
               child: Container(
                   width: 20,

@@ -59,10 +59,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   bool isProcessing = false;
   String uploadStatus = "";
 
-  double subTotal = 0;
-  double deliveryFee = 20;
-  double totalAmount = 0;
-
   DateTime currentTime;
   DateTime officeTime;
   DateTime timeLimit;
@@ -231,13 +227,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     if (widget.orderType != AppEnum.ORDER_WITH_ITEM_NAME_REORDER)
       return Container();
     return OrderInvoiceTableCard(
-      subTotal: subTotal,
-      deliveryFee: deliveryFee,
-      totalAmount: totalAmount,
       order: widget.order,
       callBackIncrementItemQuantity: incrementItemQuantity,
       callBackDecrementItemQuantity: decrementItemQuantity,
-      callBackCalculatePricing: calculatePricing,
       callBackRemoveItem: removeItem,
       callBackRefreshUI: refreshUI,
       showCrossColumn: true,
@@ -281,19 +273,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         break;
       }
     }
-  }
-
-  void calculatePricing() {
-    subTotal = 0;
-    totalAmount = 0;
-    for (final singleItem in widget.order.invoiceItemList) {
-      final unitPrice = singleItem.rate;
-      final quantity = singleItem.quantity;
-      subTotal = subTotal + (unitPrice * quantity);
-    }
-
-    totalAmount = subTotal + deliveryFee;
-    if (mounted) setState(() {});
   }
 
   Widget buildTutorialBox() {

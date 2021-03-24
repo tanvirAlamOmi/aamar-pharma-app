@@ -82,7 +82,6 @@ class QueryRepo {
             .getQueryClient()
             .getRepeatOrderFeed(jwtToken, feedRequest, userId);
 
-
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();

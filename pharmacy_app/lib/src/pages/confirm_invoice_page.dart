@@ -33,9 +33,6 @@ class ConfirmInvoicePage extends StatefulWidget {
 class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
-  double subTotal = 0;
-  double deliveryCharge = 0;
-  double totalAmount = 0;
   bool prescriptionRequired = false;
   bool collectPrescriptionOnDelivery = false;
   List<Uint8List> prescriptionImageFileList = [];
@@ -45,8 +42,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   @override
   void initState() {
     super.initState();
-    deliveryCharge = double.parse(widget.order.deliveryCharge);
-    calculatePricing();
     checkIfPrescriptionRequired();
   }
 
@@ -96,13 +91,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 buildWarningTitle(),
                 SizedBox(height: 20),
                 OrderInvoiceTableCard(
-                  subTotal: subTotal,
-                  deliveryFee: deliveryCharge,
-                  totalAmount: totalAmount,
                   order: widget.order,
                   callBackIncrementItemQuantity: incrementItemQuantity,
                   callBackDecrementItemQuantity: decrementItemQuantity,
-                  callBackCalculatePricing: calculatePricing,
                   callBackRemoveItem: removeItem,
                   callBackRefreshUI: refreshUI,
                   showCrossColumn: true,
@@ -363,20 +354,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     }
   }
 
-  void calculatePricing() {
-    subTotal = 0;
-    totalAmount = 0;
-    for (final singleItem in widget.order.invoiceItemList) {
-      final unitPrice = singleItem.rate;
-      final quantity = singleItem.quantity;
-      subTotal =
-          Util.twoDecimalDigit(number: subTotal + (unitPrice * quantity));
-    }
-
-    totalAmount = Util.twoDecimalDigit(number: subTotal + deliveryCharge);
-    refreshUI();
-  }
-
   void confirmInvoiceOrder() async {
     if (prescriptionRequired &&
         !collectPrescriptionOnDelivery &&
@@ -406,8 +383,10 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           Util.imageURLAsCSV(imageList: newPrescriptionList);
     }
 
-    Tuple2<void, String> confirmInvoiceOrderResponse =
-        await OrderRepo.instance.confirmInvoiceOrder(order: widget.order);
+    Tuple2<void, String> confirmInvoiceOrderResponse = await OrderRepo.instance
+        .confirmInvoiceOrder(
+            order: widget.order,
+            collectPrescriptionOnDelivery: collectPrescriptionOnDelivery);
 
     if (confirmInvoiceOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
       Util.showSnackBar(

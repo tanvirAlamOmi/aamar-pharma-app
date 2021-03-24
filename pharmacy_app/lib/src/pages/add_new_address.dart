@@ -4,9 +4,11 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
@@ -164,6 +166,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   }
 
   Widget buildAreaSelectionDropDown() {
+    if (Store.instance.appState.user.rank == AppEnum.USER_RANK_AP_STAR)
+      return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
       child: Column(

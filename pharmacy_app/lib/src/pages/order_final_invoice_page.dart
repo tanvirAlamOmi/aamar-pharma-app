@@ -28,16 +28,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isProcessing = false;
 
-  double subTotal = 0;
-  double deliveryFee = 0;
-  double totalAmount = 0;
-
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
   @override
   void initState() {
     super.initState();
-    calculatePricing();
   }
 
   @override
@@ -80,9 +75,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                 buildViewOrderDetailsButton(),
                 SizedBox(height: 20),
                 OrderInvoiceTableCard(
-                  subTotal: subTotal,
-                  deliveryFee: deliveryFee,
-                  totalAmount: totalAmount,
                   order: widget.order,
                   showCrossColumn: false,
                   showItemNameColumn: true,
@@ -135,20 +127,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void updateTutorialBox() async {
     Store.instance.appState.tutorialBoxNumberOrderFinalInvoicePage += 1;
     await Store.instance.putAppData();
-  }
-
-  void calculatePricing() {
-    subTotal = 0;
-    deliveryFee = 20;
-    totalAmount = 0;
-    for (final singleItem in widget.order.invoiceItemList) {
-      final unitPrice = singleItem.rate;
-      final quantity = singleItem.quantity;
-      subTotal =
-          Util.twoDecimalDigit(number: subTotal + (unitPrice * quantity));
-    }
-
-    totalAmount = Util.twoDecimalDigit(number: subTotal + deliveryFee);
   }
 
   Widget buildReOrderButton() {
@@ -376,5 +354,3 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     if (mounted) setState(() {});
   }
 }
-
-enum CHOICE_ENUM { DELIVERY_DAY, DELIVERY_TIME }

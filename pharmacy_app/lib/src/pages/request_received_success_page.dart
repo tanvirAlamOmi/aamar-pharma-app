@@ -21,7 +21,7 @@ class RequestReceivedSuccessPage extends StatelessWidget {
           elevation: 1,
           centerTitle: true,
           title: CustomText(pageTitle,
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
         ),
         body: buildBody());
   }

@@ -17,6 +17,9 @@ class Order {
   String deliveryTime;
   String deliveryDate;
   String deliveryCharge;
+  String discount;
+  String subTotal;
+  String grandTotal;
   String createdAt;
   String status; // Order Status
   String rejectionReason;
@@ -42,6 +45,9 @@ class Order {
       this.deliveryTime,
       this.deliveryDate,
       this.deliveryCharge,
+      this.discount,
+      this.subTotal,
+      this.grandTotal,
       this.createdAt,
       this.status,
       this.rejectionReason,
@@ -74,6 +80,9 @@ class Order {
         deliveryTime: jsonData['delivery_time'],
         deliveryDate: jsonData['delivery_date'],
         deliveryCharge: jsonData['del_charge'],
+        discount: jsonData['discount'],
+        subTotal: jsonData['subtotal'],
+        grandTotal: jsonData['grandtotal'],
         createdAt: jsonData['created_at'],
         status: jsonData['status'],
         rejectionReason: jsonData['rejection_reason'],
@@ -108,11 +117,14 @@ class Order {
       'name': name,
       'email': email,
       'mobile_no': mobileNo,
-      'note' : note,
+      'note': note,
       'repeat_order': repeatOrder,
       'delivery_time': deliveryTime,
       'delivery_date': deliveryDate,
       'del_charge': deliveryCharge,
+      'discount': discount,
+      'subtotal': subTotal,
+      'grandtotal': grandTotal,
       'created_at': createdAt,
       'status': status,
       'rejection_reason': rejectionReason,

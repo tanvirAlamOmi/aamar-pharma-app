@@ -41,10 +41,10 @@ class AuthRepo {
         final signInResponse =
             await AuthRepo.instance.getAuthClient().signIn(signInRequest);
 
+        print(signInResponse);
 
         if (signInResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
-          final user =
-              PharmaUser.User.fromJson(signInResponse['user']);
+          final user = PharmaUser.User.fromJson(signInResponse['user']);
 
           await Store.instance.updateUser(user);
           await Store.instance.setReferralCode('');

@@ -56,7 +56,8 @@ class AuthClient {
               userResponse.item1 != null) {
             Streamer.putEventStream(Event(EventType.REFRESH_VERIFICATION_PAGE));
           } else {
-            Streamer.putErrorStream('Auto Verification Failed. ' + userResponse.item2);
+            Streamer.putErrorStream(
+                'Auto Verification Failed. ' + userResponse.item2);
           }
         } catch (error) {
           Streamer.putErrorStream(error.toString());
