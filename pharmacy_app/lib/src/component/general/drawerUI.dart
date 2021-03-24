@@ -124,17 +124,17 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.of(context).pushNamed('/help_faq');
           }),
     );
-    children.add(
-      ListTile(
-          dense: true,
-          title: CustomText('ABOUT',
-              textAlign: TextAlign.start,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-              fontSize: 15),
-          leading: Icon(Icons.info, color: Util.purplishColor()),
-          onTap: () {}),
-    );
+    // children.add(
+    //   ListTile(
+    //       dense: true,
+    //       title: CustomText('ABOUT',
+    //           textAlign: TextAlign.start,
+    //           fontWeight: FontWeight.bold,
+    //           color: Colors.grey[700],
+    //           fontSize: 15),
+    //       leading: Icon(Icons.info, color: Util.purplishColor()),
+    //       onTap: () {}),
+    // );
     children.add(
       ListTile(
           dense: true,

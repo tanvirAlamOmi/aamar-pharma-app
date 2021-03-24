@@ -37,14 +37,14 @@ class NotificationRepo {
               notificationCountResponse['notification'];
           return Tuple2(totalNotification, ClientEnum.RESPONSE_SUCCESS);
         } else {
-          return Tuple2(null, notificationCountResponse['result']);
+          return Tuple2(0, notificationCountResponse['result']);
         }
       } catch (err) {
         print("Error in notificationCount() in NotificationRepo");
         print(err);
       }
     }
-    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+    return Tuple2(0, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
   Future<Tuple2<void, String>> changeNotificationStatus(

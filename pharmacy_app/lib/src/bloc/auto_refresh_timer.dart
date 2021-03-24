@@ -16,12 +16,8 @@ class AutoRefreshTimer {
         Tuple2<int, String> notificationCountResponse =
             await NotificationRepo.instance.notificationCount();
 
-        if (notificationCountResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
-          Streamer.putTotalNotificationCountStream(
-              notificationCountResponse.item1);
-        } else {
-          Streamer.putTotalNotificationCountStream(0);
-        }
+        Streamer.putTotalNotificationCountStream(
+            notificationCountResponse.item1);
       }
 
       notificationTimer += 1;

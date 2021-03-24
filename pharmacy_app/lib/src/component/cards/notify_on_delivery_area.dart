@@ -60,7 +60,10 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
                 height: 430,
                 child: buildBody(),
               ));
-        });
+        }).then((value) {
+      widget.callBackAction();
+      widget.callBackRefreshUI();
+    });
   }
 
   Widget buildBody() {
@@ -100,7 +103,6 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
                 )),
             onTap: () {
               Navigator.pop(context);
-              widget.callBackAction();
               widget.callBackRefreshUI();
             },
           ),
