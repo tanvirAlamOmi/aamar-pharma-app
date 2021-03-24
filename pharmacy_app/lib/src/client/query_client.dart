@@ -11,9 +11,10 @@ class QueryClient {
   Future<dynamic> getOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/appapi/my-orders/${userId}/',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/my-orders/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -27,9 +28,10 @@ class QueryClient {
   Future<dynamic> getRepeatOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/appapi/repeat-orders/${userId}/',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/repeat-orders/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -43,9 +45,10 @@ class QueryClient {
   Future<dynamic> getRequestOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/appapi/request-list/${userId}/',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/request-list/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -60,9 +63,10 @@ class QueryClient {
       String jwtToken, String notificationRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/notifications',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/notifications'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',

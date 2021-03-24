@@ -9,9 +9,10 @@ class OrderClient {
 
   Future<dynamic> getOrderItems(String jwtToken, int orderItemsById) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/adminapi/orderedItemsById/${orderItemsById}',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/adminapi/orderedItemsById/${orderItemsById}'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -26,9 +27,10 @@ class OrderClient {
       String jwtToken, String orderRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/order-prescription',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/order-prescription'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -43,9 +45,10 @@ class OrderClient {
   Future<dynamic> orderWithItems(String jwtToken, String orderRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/order-with-items',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/order-with-items'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -61,9 +64,10 @@ class OrderClient {
       String jwtToken, String confirmInvoiceOrderItemListRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/invoice-confirm',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/invoice-confirm'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -79,9 +83,10 @@ class OrderClient {
       String jwtToken, String orderCancelRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/cancelorder',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/cancelorder'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -97,9 +102,10 @@ class OrderClient {
       String jwtToken, int orderId, String allowRepeatOrderRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/repeat-order/${orderId}',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/repeat-order/${orderId}'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -115,9 +121,10 @@ class OrderClient {
       String jwtToken, String repeatOrderCancelRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/cancelrepeat',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/cancelrepeat'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -133,9 +140,10 @@ class OrderClient {
       String jwtToken, String specialRequestOrderProductRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/request-product',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/request-product'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -149,9 +157,10 @@ class OrderClient {
 
   Future<dynamic> singleOrder(String jwtToken, int orderId) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT.toString() +
-          '/api/appapi/order-details/${orderId}',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/order-details/${orderId}'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -166,9 +175,10 @@ class OrderClient {
       String jwtToken, String consultPharmacistOrderRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT.toString() +
-                '/api/appapi/consult-pharmacist',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/consult-pharmacist'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -184,14 +194,15 @@ class OrderClient {
       String jwtToken, String notifyOnDeliveryAreaRequest) async {
     final http.Response response = await http
         .post(
-        ServerConfig.SERVER_HOST +
-            ServerConfig.SERVER_PORT.toString() +
-            '/api/appapi/notify-delivery-area',
-        headers: {
-          'token': jwtToken,
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: notifyOnDeliveryAreaRequest)
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/notify-delivery-area'),
+            headers: {
+              'token': jwtToken,
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: notifyOnDeliveryAreaRequest)
         .timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);

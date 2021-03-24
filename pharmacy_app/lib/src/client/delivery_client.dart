@@ -11,9 +11,10 @@ class DeliveryClient {
       String jwtToken, String addDeliveryAddressRequest) async {
     final http.Response response = await http
         .post(
-            ServerConfig.SERVER_HOST +
-                ServerConfig.SERVER_PORT +
-                '/api/appapi/addDeliveryAddress',
+            Uri(
+                host: ServerConfig.SERVER_HOST,
+                port: ServerConfig.SERVER_PORT,
+                path: '/api/appapi/addDeliveryAddress'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
@@ -28,9 +29,10 @@ class DeliveryClient {
   Future<dynamic> deliveryAddressListCustomer(
       String jwtToken, int customerId) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT +
-          '/api/appapi/addresslist/${customerId}',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/addresslist/${customerId}'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -43,9 +45,10 @@ class DeliveryClient {
 
   Future<dynamic> coveredDeliveryPlaces(String jwtToken) async {
     final http.Response response = await http.get(
-      ServerConfig.SERVER_HOST +
-          ServerConfig.SERVER_PORT +
-          '/api/appapi/area-covered',
+      Uri(
+          host: ServerConfig.SERVER_HOST,
+          port: ServerConfig.SERVER_PORT,
+          path: '/api/appapi/area-covered'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
