@@ -451,18 +451,20 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                   onVerificationNextStep: AppEnum.ON_VERIFICATION_CONFIRM_ORDER,
                 )),
       );
-    } else {
-      if (AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  RepeatOrderChoicePage(pageName: AppEnum.CONFIRM_ORDER_PAGE)),
-        );
-      } else {
-        AppVariableStates.instance.submitFunction();
-      }
+      return;
     }
+    if (Store.instance.appState.user.id != null &&
+        AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                RepeatOrderChoicePage(pageName: AppEnum.CONFIRM_ORDER_PAGE)),
+      );
+      return;
+    }
+    AppVariableStates.instance.submitFunction();
+    Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
   }
 
   void submitOrder() async {
