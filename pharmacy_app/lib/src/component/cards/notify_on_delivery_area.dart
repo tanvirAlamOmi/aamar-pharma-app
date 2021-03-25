@@ -39,7 +39,7 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
     super.initState();
 
     Timer(Duration(seconds: 2), () {
-      showAlertDialog();
+      showOrderDialog();
     });
   }
 
@@ -51,7 +51,7 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
     );
   }
 
-  void showAlertDialog() {
+  void showOrderDialog() {
     showDialog(
         context: context,
         builder: (BuildContext dialogContext) {

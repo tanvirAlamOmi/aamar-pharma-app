@@ -8,8 +8,13 @@ class AppEnum {
   static const String ON_VERIFICATION_FROM_USER_DETAILS_PAGE =
       "ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER";
   static const String LOGIN_USING_REFERRAL_CODE = "LOGIN_USING_REFERRAL_CODE";
-  static const String HOME_PAGE = "HOME PAGE";
-  static const String CONFIRM_INVOICE_PAGE = "CONFIRM INVOICE PAGE";
+
+  // Pages Constant
+  static const String HOME_PAGE = "HOME_PAGE";
+  static const String VERIFICATION_PAGE = "VERIFICATION_PAGE";
+  static const String ORDER_FINAL_INVOICE_PAGE = "ORDER_FINAL_INVOICE_PAGE";
+  static const String CONFIRM_INVOICE_PAGE = "CONFIRM_INVOICE_PAGE";
+  static const String CONFIRM_ORDER_PAGE = "CONFIRM_ORDER_PAGE";
 
   static const String USER_RANK_NORMAL = "normal";
   static const String USER_RANK_AP_STAR = "ap_star";

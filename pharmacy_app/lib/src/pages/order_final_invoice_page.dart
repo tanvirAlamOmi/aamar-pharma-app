@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
@@ -12,6 +13,7 @@ import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -21,9 +23,16 @@ class OrderFinalInvoicePage extends StatefulWidget {
   final Order order;
   final bool showReOrder;
   final bool showOrderDetails;
+  final bool showDoneButton;
+  final String pageName;
 
   OrderFinalInvoicePage(
-      {this.order, Key key, this.showReOrder, this.showOrderDetails})
+      {this.order,
+      Key key,
+      this.showReOrder,
+      this.showOrderDetails,
+      this.pageName,
+      this.showDoneButton})
       : super(key: key);
 
   @override
@@ -39,6 +48,11 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   @override
   void initState() {
     super.initState();
+    if (widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
+      Timer(Duration(seconds: 2), () {
+        showOrderDialog();
+      });
+    }
   }
 
   @override
@@ -55,7 +69,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
           appBar: AppBar(
             elevation: 1,
             centerTitle: true,
-            leading: AppBarBackButton(),
+            leading: (widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE)
+                ? AppBarBackButtonCross()
+                : AppBarBackButton(),
             title: CustomText('ORDER INVOICE DETAILS',
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
@@ -66,7 +82,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   Widget buildBody(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        alignment: Alignment.center,
         child: Stack(
           children: [
             Column(
@@ -91,7 +106,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
                   showSubTotalRow: true,
                   showGrandTotalRow: true,
                 ),
-                SizedBox(height: 20)
+                SizedBox(height: 20),
+                buildDoneButton(),
               ],
             ),
             buildTutorialBox()
@@ -183,6 +199,114 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       child: Divider(height: 3, thickness: 2),
+    );
+  }
+
+  Widget buildDoneButton() {
+    if (!widget.showDoneButton) return Container();
+    return GeneralActionRoundButton(
+      title: "DONE",
+      isProcessing: isProcessing,
+      callBackOnSubmit: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  void showOrderDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)), //this right here
+              child: Container(
+                height: 430,
+                child: buildDialogBody(context, dialogContext),
+              ));
+        });
+  }
+
+  Widget buildDialogBody(BuildContext context, BuildContext dialogContext) {
+    return Column(children: [
+      SizedBox(height: 20),
+      buildCrossButton(context, dialogContext),
+      SizedBox(height: 20),
+      buildNotifyTitle(),
+      SizedBox(height: 25),
+      GeneralActionRoundButton(
+        isProcessing: false,
+        title: 'YES, REPEAT THIS ORDER',
+        callBackOnSubmit: () {
+          Navigator.pop(dialogContext);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => RepeatOrderChoicePage(
+                    order: widget.order,
+                    pageName: AppEnum.CONFIRM_INVOICE_PAGE)),
+          );
+        },
+      ),
+      SizedBox(height: 10),
+      GeneralActionRoundButton(
+        isProcessing: false,
+        color: Util.redishColor(),
+        title: 'NO THANKS',
+        callBackOnSubmit: () {
+          Navigator.pop(dialogContext);
+        },
+      )
+    ]);
+  }
+
+  Widget buildCrossButton(BuildContext context, BuildContext dialogContext) {
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
+      child: ClipOval(
+        child: Material(
+          color: Util.purplishColor(), // button color
+          child: InkWell(
+            splashColor: Util.purplishColor(), // inkwell color
+            child: SizedBox(
+                width: 25,
+                height: 25,
+                child: Icon(
+                  Icons.clear,
+                  size: 18,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.pop(dialogContext);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildNotifyTitle() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(8),
+          child: CustomText(
+              'Do you want to get this order delivered on a regular basis?',
+              color: Util.greenishColor(),
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.all(8),
+          child: CustomText(
+              'Have the order delivered without having to order it again and again',
+              color: Colors.grey[700],
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+        )
+      ],
     );
   }
 

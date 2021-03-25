@@ -9,11 +9,13 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/component/cards/upload_prescription_card.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
+import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -355,6 +357,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void confirmInvoiceOrder() async {
+
     if (prescriptionRequired &&
         !collectPrescriptionOnDelivery &&
         prescriptionImageFileList.length == 0) {
@@ -400,13 +403,24 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => RequestReceivedSuccessPage(
-                  icon: Icons.shopping_cart,
-                  pageTitle: 'ORDER AND INVOICE CONFIRMED',
-                  title: 'Your order and invoice is confirmed.',
-                  message: 'We will get back to you as soon as possible.',
-                )),
+            builder: (context) => OrderFinalInvoicePage(
+              order: widget.order,
+              showReOrder: false,
+              showOrderDetails: false,
+              showDoneButton: true,
+              pageName: AppEnum.CONFIRM_INVOICE_PAGE,
+            )),
       );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) => RequestReceivedSuccessPage(
+      //             icon: Icons.shopping_cart,
+      //             pageTitle: 'ORDER AND INVOICE CONFIRMED',
+      //             title: 'Your order and invoice is confirmed.',
+      //             message: 'We will get back to you as soon as possible.',
+      //           )),
+      // );
     } else {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,

@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/component/general/loading_widget.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 
-import '../component/buttons/general_action_round_button.dart';
-import '../component/general/common_ui.dart';
-import '../component/general/drop_down_item.dart';
-import '../models/general/Client_Enum.dart';
-import '../repo/order_repo.dart';
-
 class RepeatOrderChoicePage extends StatefulWidget {
-  const RepeatOrderChoicePage({
-    Key key,
-  }) : super(key: key);
+  final String pageName;
+  final Order order;
+
+  const RepeatOrderChoicePage({Key key, this.pageName, this.order})
+      : super(key: key);
 
   @override
   _RepeatOrderChoicePageState createState() => _RepeatOrderChoicePageState();
@@ -165,12 +167,50 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
   }
 
   void submit() async {
-    AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
-    AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
-    AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
+    switch (widget.pageName) {
+      case AppEnum.CONFIRM_ORDER_PAGE:
+        AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
+        AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
+        AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
+        Navigator.pop(context);
+        AppVariableStates.instance.submitFunction();
+        break;
 
-    Navigator.pop(context);
-    AppVariableStates.instance.submitFunction();
+      case AppEnum.VERIFICATION_PAGE:
+        AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
+        AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
+        AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
+        Navigator.pop(context);
+        AppVariableStates.instance.submitFunction();
+        break;
+
+      case AppEnum.CONFIRM_INVOICE_PAGE:
+        isProcessing = true;
+        refreshUI();
+        Tuple2<void, String> allowRepeatOrderResponse = await OrderRepo.instance
+            .allowRepeatOrder(
+                orderId: widget.order.id,
+                dayInterval: selectedDeliveryDayInterval,
+                deliveryTime: selectedDeliveryTimeTime);
+
+        if (allowRepeatOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+          Util.showSnackBar(
+              scaffoldKey: _scaffoldKey,
+              message: "Repeat order submission success.",
+              duration: 1500);
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.pop(context);
+        } else {
+          Util.showSnackBar(
+              scaffoldKey: _scaffoldKey,
+              message: "Something went wrong. Please try again.",
+              duration: 1500);
+        }
+
+        isProcessing = false;
+        refreshUI();
+        break;
+    }
   }
 
   void setSelectedDeliveryDayInterval(dynamic value) {

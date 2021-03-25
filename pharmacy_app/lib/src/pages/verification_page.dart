@@ -253,7 +253,9 @@ class VerificationPageState extends State<VerificationPage> {
           if (AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => RepeatOrderChoicePage()),
+              MaterialPageRoute(
+                  builder: (context) => RepeatOrderChoicePage(
+                      pageName: AppEnum.VERIFICATION_PAGE)),
             );
           } else {
             AppVariableStates.instance.submitFunction();

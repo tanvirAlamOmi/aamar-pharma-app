@@ -190,6 +190,7 @@ class _OrderCardState extends State<OrderCard> {
                     order: order,
                     showReOrder: false,
                     showOrderDetails: true,
+                    showDoneButton: false,
                   )),
         );
         break;
@@ -200,8 +201,9 @@ class _OrderCardState extends State<OrderCard> {
           MaterialPageRoute(
               builder: (context) => OrderFinalInvoicePage(
                     order: order,
-                    showReOrder: false,
-                    showOrderDetails: false,
+                    showReOrder: true,
+                    showOrderDetails: true,
+                    showDoneButton: false,
                   )),
         );
         break;

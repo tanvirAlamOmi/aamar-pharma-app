@@ -455,7 +455,9 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       if (AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RepeatOrderChoicePage()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  RepeatOrderChoicePage(pageName: AppEnum.CONFIRM_ORDER_PAGE)),
         );
       } else {
         AppVariableStates.instance.submitFunction();

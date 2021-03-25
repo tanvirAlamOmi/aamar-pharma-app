@@ -107,6 +107,7 @@ class _NotificationToOrderPageState extends State<NotificationToOrderPage> {
           order: order,
           showReOrder: false,
           showOrderDetails: true,
+          showDoneButton: false,
         );
         break;
 
@@ -115,6 +116,7 @@ class _NotificationToOrderPageState extends State<NotificationToOrderPage> {
           order: order,
           showReOrder: true,
           showOrderDetails: true,
+          showDoneButton: false,
         );
         break;
 
