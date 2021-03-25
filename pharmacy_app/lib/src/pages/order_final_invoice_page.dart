@@ -19,8 +19,12 @@ import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 
 class OrderFinalInvoicePage extends StatefulWidget {
   final Order order;
+  final bool showReOrder;
+  final bool showOrderDetails;
 
-  OrderFinalInvoicePage({this.order, Key key}) : super(key: key);
+  OrderFinalInvoicePage(
+      {this.order, Key key, this.showReOrder, this.showOrderDetails})
+      : super(key: key);
 
   @override
   _OrderFinalInvoicePageState createState() => _OrderFinalInvoicePageState();
@@ -132,7 +136,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildReOrderButton() {
-    if (widget.order.status != AppEnum.ORDER_STATUS_DELIVERED)
+    if (!widget.showReOrder ||
+        widget.order.status != AppEnum.ORDER_STATUS_DELIVERED)
       return Container();
     return GeneralActionRoundButton(
       title: "REORDER",
@@ -142,6 +147,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   }
 
   Widget buildViewOrderDetailsButton() {
+    if (!widget.showOrderDetails) return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       color: Colors.transparent,

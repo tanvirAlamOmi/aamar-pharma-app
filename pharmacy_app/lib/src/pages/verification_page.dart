@@ -250,19 +250,15 @@ class VerificationPageState extends State<VerificationPage> {
       switch (widget.onVerificationNextStep) {
         case AppEnum.ON_VERIFICATION_CONFIRM_ORDER:
           Navigator.of(context).pop(); // pop verification Page
-          if(AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
+          if (AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => RepeatOrderChoicePage(
-
-                  )),
+              MaterialPageRoute(builder: (context) => RepeatOrderChoicePage()),
             );
+          } else {
+            AppVariableStates.instance.submitFunction();
+            Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
           }
-
-          break;
-          AppVariableStates.instance.submitFunction();
-          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
           break;
 
         case AppEnum.ON_VERIFICATION_CONFIRM_REQUEST_ORDER:

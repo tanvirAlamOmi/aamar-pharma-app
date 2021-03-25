@@ -74,7 +74,7 @@ class Store {
     await putAppData();
   }
 
-  setDynamicReferralLink(String deepLink)async {
+  setDynamicReferralLink(String deepLink) async {
     appState.user.dynamicReferralLink = deepLink;
     await putAppData();
   }

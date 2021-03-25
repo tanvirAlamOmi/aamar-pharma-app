@@ -186,7 +186,11 @@ class _OrderCardState extends State<OrderCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => OrderFinalInvoicePage(order: order)),
+              builder: (context) => OrderFinalInvoicePage(
+                    order: order,
+                    showReOrder: false,
+                    showOrderDetails: true,
+                  )),
         );
         break;
 
@@ -194,7 +198,11 @@ class _OrderCardState extends State<OrderCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => OrderFinalInvoicePage(order: order)),
+              builder: (context) => OrderFinalInvoicePage(
+                    order: order,
+                    showReOrder: false,
+                    showOrderDetails: false,
+                  )),
         );
         break;
 

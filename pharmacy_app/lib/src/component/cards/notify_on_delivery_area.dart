@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -36,7 +38,7 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
   void initState() {
     super.initState();
 
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    Timer(Duration(seconds: 2), () {
       showAlertDialog();
     });
   }
@@ -45,7 +47,7 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Util.removeFocusNode(context),
-      child: buildBody(),
+      child: Container(),
     );
   }
 

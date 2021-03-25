@@ -90,38 +90,58 @@ class _NotificationToOrderPageState extends State<NotificationToOrderPage> {
   }
 
   Widget navigateToSpecificPage({Order order}) {
-    if (order.status == AppEnum.ORDER_STATUS_PENDING) {
-      return OrderDetailsPage(
-        order: order,
-        showRepeatOrderCancelButton: false,
-      );
-    }
+    switch (order.status) {
+      case AppEnum.ORDER_STATUS_PENDING:
+        return OrderDetailsPage(
+          order: order,
+          showRepeatOrderCancelButton: false,
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_INVOICE_SENT) {
-      return ConfirmInvoicePage(order: order);
-    }
+      case AppEnum.ORDER_STATUS_INVOICE_SENT:
+        return ConfirmInvoicePage(order: order);
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_CONFIRMED) {
-      return OrderFinalInvoicePage(order: order);
-    }
+      case AppEnum.ORDER_STATUS_CONFIRMED:
+        return OrderFinalInvoicePage(
+          order: order,
+          showReOrder: false,
+          showOrderDetails: true,
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_DELIVERED) {
-      return OrderFinalInvoicePage(order: order);
-    }
+      case AppEnum.ORDER_STATUS_DELIVERED:
+        return OrderFinalInvoicePage(
+          order: order,
+          showReOrder: true,
+          showOrderDetails: true,
+        );
+        break;
 
-    if (order.status == AppEnum.ORDER_STATUS_CANCELED) {
-      return OrderDetailsPage(showRepeatOrderCancelButton: false, order: order);
-    }
+      case AppEnum.ORDER_STATUS_CANCELED:
+        return OrderDetailsPage(
+            showRepeatOrderCancelButton: false, order: order);
+        break;
 
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 1,
-          centerTitle: true,
-          leading: AppBarBackButton(),
-          title: CustomText('ORDER DETAILS',
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
-        ),
-        body: LoadingWidget(status: "Loading Data"));
+      case AppEnum.ORDER_STATUS_REJECTED:
+        return OrderDetailsPage(
+            showRepeatOrderCancelButton: false, order: order);
+        break;
+
+      default:
+        return Scaffold(
+            appBar: AppBar(
+              elevation: 1,
+              centerTitle: true,
+              leading: AppBarBackButton(),
+              title: CustomText('ORDER DETAILS',
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
+            ),
+            body: LoadingWidget(status: "Loading Data"));
+        break;
+    }
   }
 
   void closePage() {

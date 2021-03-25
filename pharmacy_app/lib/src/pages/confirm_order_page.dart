@@ -458,7 +458,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           MaterialPageRoute(builder: (context) => RepeatOrderChoicePage()),
         );
       } else {
-        submitOrder();
+        AppVariableStates.instance.submitFunction();
       }
     }
   }
