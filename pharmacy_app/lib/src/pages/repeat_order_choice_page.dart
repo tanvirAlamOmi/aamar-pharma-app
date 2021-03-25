@@ -117,7 +117,7 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoadingWidget(status: 'Submitting Order...'),
+        LoadingWidget(status: 'Processing...'),
       ],
     );
   }
@@ -169,14 +169,6 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
   void submit() async {
     switch (widget.pageName) {
       case AppEnum.CONFIRM_ORDER_PAGE:
-        AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
-        AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
-        AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
-        Navigator.pop(context);
-        AppVariableStates.instance.submitFunction();
-        break;
-
-      case AppEnum.VERIFICATION_PAGE:
         AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
         AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
         AppVariableStates.instance.order.time = selectedDeliveryTimeTime;

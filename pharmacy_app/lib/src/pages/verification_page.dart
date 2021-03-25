@@ -250,6 +250,7 @@ class VerificationPageState extends State<VerificationPage> {
       switch (widget.onVerificationNextStep) {
         case AppEnum.ON_VERIFICATION_CONFIRM_ORDER:
           Navigator.of(context).pop(); // pop verification Page
+
           if (Store.instance.appState.user.id != null &&
               AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
             Navigator.push(
@@ -275,12 +276,12 @@ class VerificationPageState extends State<VerificationPage> {
           AppVariableStates.instance.submitFunction();
           break;
 
-        case AppEnum.LOGIN_USING_REFERRAL_CODE:
+        case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
           Navigator.of(context).pop(); // pop verification Page
           AppVariableStates.instance.submitFunction();
           break;
 
-        case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
+        case AppEnum.LOGIN_USING_REFERRAL_CODE:
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
           break;

@@ -19,6 +19,7 @@ import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
 import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/order_util.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'repeat_order_choice_page.dart';
@@ -45,6 +46,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     checkIfPrescriptionRequired();
+    OrderUtil.calculatePricing(widget.order);
   }
 
   @override
@@ -112,7 +114,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 buildUploadPrescriptionCard(),
                 SizedBox(height: 10),
                 buildCashWarningTitle(),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 GeneralActionRoundButton(
                   title: "CONFIRM ORDER",
                   isProcessing: false,
@@ -124,7 +126,8 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                             "Are you sure to confirm this invoice for this order?",
                         acceptFunc: confirmInvoiceOrder);
                   },
-                )
+                ),
+                SizedBox(height: 20),
               ],
             ),
             buildTutorialBox()
@@ -357,13 +360,12 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   }
 
   void confirmInvoiceOrder() async {
-
     if (prescriptionRequired &&
         !collectPrescriptionOnDelivery &&
         prescriptionImageFileList.length == 0) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
-          message: "Please Upload the required prescriptions",
+          message: "Please upload the required prescriptions",
           duration: 1500);
       return;
     }
@@ -399,28 +401,20 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       await Future.delayed(Duration(milliseconds: 1000));
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 100));
       Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => OrderFinalInvoicePage(
-              order: widget.order,
-              showReOrder: false,
-              showOrderDetails: false,
-              showDoneButton: true,
-              pageName: AppEnum.CONFIRM_INVOICE_PAGE,
-            )),
+                  order: widget.order,
+                  showReOrder: false,
+                  showOrderDetails: false,
+                  showDoneButton: true,
+                  pageName: AppEnum.CONFIRM_INVOICE_PAGE,
+                )),
       );
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) => RequestReceivedSuccessPage(
-      //             icon: Icons.shopping_cart,
-      //             pageTitle: 'ORDER AND INVOICE CONFIRMED',
-      //             title: 'Your order and invoice is confirmed.',
-      //             message: 'We will get back to you as soon as possible.',
-      //           )),
-      // );
     } else {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,

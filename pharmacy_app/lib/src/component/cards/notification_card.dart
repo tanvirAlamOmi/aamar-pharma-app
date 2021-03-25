@@ -5,10 +5,15 @@ import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
 
-class NotificationCard extends StatelessWidget {
+class NotificationCard extends StatefulWidget {
   final NotificationItem notificationItem;
   NotificationCard({this.notificationItem, Key key}) : super(key: key);
 
+  @override
+  _NotificationCardState createState() => _NotificationCardState();
+}
+
+class _NotificationCardState extends State<NotificationCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -41,16 +46,17 @@ class NotificationCard extends StatelessWidget {
   Widget buildTitle(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        switch (notificationItem.status) {
+        switch (widget.notificationItem.status) {
           case ClientEnum.NOTIFICATION_SEEN:
             break;
           case ClientEnum.NOTIFICATION_UNSEEN:
-            notificationItem.status = ClientEnum.NOTIFICATION_SEEN;
+            widget.notificationItem.status = ClientEnum.NOTIFICATION_SEEN;
+            if (mounted) setState(() {});
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => NotificationToOrderPage(
-                        notificationItem: notificationItem,
+                        notificationItem: widget.notificationItem,
                       )),
             );
         }
@@ -67,7 +73,8 @@ class NotificationCard extends StatelessWidget {
               width: 30,
               child: Icon(
                 Icons.shopping_bag,
-                color: (notificationItem.status == ClientEnum.NOTIFICATION_SEEN)
+                color: (widget.notificationItem.status ==
+                        ClientEnum.NOTIFICATION_SEEN)
                     ? Colors.grey
                     : Util.greenishColor(),
                 size: 28,
@@ -80,21 +87,21 @@ class NotificationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      notificationItem.orderStatus +
-                          (' (Order #${notificationItem.idOrder})'),
+                      widget.notificationItem.orderStatus +
+                          (' (Order #${widget.notificationItem.idOrder})'),
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: (notificationItem.status ==
+                          color: (widget.notificationItem.status ==
                                   ClientEnum.NOTIFICATION_SEEN)
                               ? Colors.grey[600]
                               : Colors.black,
                           fontWeight: FontWeight.bold)),
-                  Text(notificationItem.message ?? '',
+                  Text(widget.notificationItem.message ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: (notificationItem.status ==
+                          color: (widget.notificationItem.status ==
                                   ClientEnum.NOTIFICATION_SEEN)
                               ? Colors.grey[600]
                               : Colors.black,
@@ -102,7 +109,7 @@ class NotificationCard extends StatelessWidget {
                 ],
               ),
             ),
-            (notificationItem.status == ClientEnum.NOTIFICATION_SEEN)
+            (widget.notificationItem.status == ClientEnum.NOTIFICATION_SEEN)
                 ? Container()
                 : Container(
                     width: 30,

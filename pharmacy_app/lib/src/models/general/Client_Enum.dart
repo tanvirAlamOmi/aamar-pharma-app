@@ -27,8 +27,8 @@ class ClientEnum {
   static const String LANGUAGE_ENGLISH = "ENGLISH";
   static const String LANGUAGE_BANGLA = "BANGLA";
 
-  static const String YES = "yes";
-  static const String NO = "no";
+  static const String YES = "Yes";
+  static const String NO = "No";
 
   static const String NA = "N/A";
 }

@@ -87,7 +87,7 @@ class _UploadPrescriptionOrderCardState
   Widget buildCollectPrescriptionOnDelivery() {
     return CheckboxListTile(
       contentPadding: const EdgeInsets.fromLTRB(20, 0, 40, 0),
-      title: CustomText('Collect Prescription during delivery',
+      title: CustomText('Collect prescription during delivery',
           color: Colors.orangeAccent,
           fontSize: 17,
           fontWeight: FontWeight.bold),
@@ -112,10 +112,12 @@ class _UploadPrescriptionOrderCardState
 
   Widget buildTotalUploadedPrescriptionNumber() {
     if (widget.prescriptionImageFileList.length > 0)
-      return CustomText(
-          '${widget.prescriptionImageFileList.length} Prescription(s) selected',
-          color: Colors.grey,
-          fontSize: 12);
+      return Text(
+        EnBnDict.en_bn_number_convert(
+                number: widget.prescriptionImageFileList.length) +
+            EnBnDict.en_bn_convert(text: 'Prescription(s) selected'),
+        style: TextStyle(color: Colors.grey, fontSize: 12),
+      );
 
     return Container();
   }
@@ -144,7 +146,7 @@ class _UploadPrescriptionOrderCardState
           cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
           materialOptions: MaterialOptions(
             actionBarColor: "#473FA8",
-            actionBarTitle: "Amar Pharma",
+            actionBarTitle: "Aamar Pharma",
             allViewTitle: "All Photos",
             useDetailsView: false,
             selectCircleStrokeColor: "#000000",

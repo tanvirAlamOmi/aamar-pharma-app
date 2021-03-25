@@ -85,6 +85,30 @@ class EnBnDict {
     'Orders': 'অর্ডারসমূহ',
     'Account': 'একাউন্ট',
 
+    //Order Invoice Address Card
+    'INVOICE TOTAL': 'মোট',
+
+    // Order Card
+    'Order ID: ': 'অর্ডার ক্রমিক নং: ',
+    'Delivery: ': 'ডেলিভারি: ',
+
+    // Repeat Order Card
+    'NEXT DELIVERY ON': 'পরবর্তী ডেলিভারি',
+
+    // Repeat Order Page Button Card
+    'ADD A NEW REPEAT ORDER': 'নতুন রিপিট অর্ডার করুন',
+
+    //Order Invoice Address Card
+    'Collect prescription during delivery':
+        'ডেলিভারির সময় প্রেসক্রিপশন সংগ্রহ করুন',
+    'Prescription(s) selected': 'টি প্রেসক্রিপশন নির্বাচন করা হয়েছে',
+
+    // Time Choose Button
+    'SELECT DELIVERY TIME': 'ডেলিভারি টাইম নির্ধারণ করুন',
+    'OK': 'ঠিক আছে',
+    'Please select a time between 10 AM to 10 PM':
+        'অনুগ্রহপূর্বক সকাল ১০টা থেকে রাত ১০টার মধ্যেকার কোন একটা সময়  করুন',
+
     // HomePage
     'HOME': 'হোম',
     'ORDER MEDICINES AND MORE': 'ওষুধ এবং অন্যান্য অর্ডার করুন',
@@ -106,6 +130,7 @@ class EnBnDict {
     'Notes e.g. I need all the medicines': 'উদাঃ আমার সবগুলো ওষুধ প্রয়োজনীয়',
     '1 image is mandatory for the prescription':
         'প্রেসক্রিপশনের জন্য অন্তত একটি ছবি আবশ্যক',
+    'CONFIRM': 'নিশ্চিত',
 
     //Add Items Page
     'ADD ITEMS': 'আইটেম যুক্ত করুন ',
@@ -245,6 +270,10 @@ class EnBnDict {
     'Order is cancelled': 'অর্ডারটি ক্যান্সেল করা হয়েছে।',
     'Order is confirmed.': 'অর্ডারটি নিশ্চিত করা হয়েছে।',
     'Confirming Order and Invoice...': 'অর্ডার এবং চালান নিশ্চিত করা হচ্ছে...',
+    'You can not remove the last item': 'শেষের আইটেমটি রিমুভ করা যাবে না',
+    'Please upload the required prescriptions':
+        'প্রয়োজনীয় প্রেসক্রিপশন আপলোড করুন',
+    '*Prescription required': '*প্রেসক্রিপশন আবশ্যক',
 
     // Order Final Invoice Page
     'ORDER INVOICE DETAILS': 'অর্ডার চালান',
@@ -252,10 +281,13 @@ class EnBnDict {
     'Invoice Number': 'চালান ক্রমিক নং',
     'Date Of Issue': 'চালানের তারিখ',
     'Billed to': 'বিল',
-
-    // Order Card
-    'Order ID: ': 'অর্ডার ক্রমিক নং: ',
-    'Delivery: ': 'ডেলিভারি: ',
+    'DONE': 'সম্পন্ন',
+    'Do you want to get this order delivered on a regular basis?':
+        'আপনি কি এই অর্ডারটি নিয়মিত পেতে চান?',
+    'Have the order delivered without having to order it again and again':
+        'বারবার অর্ডার না করেই অর্ডারটি পেয়ে যান',
+    'YES, REPEAT THIS ORDER': 'অর্ডারটি পুনরাবৃত্তি করুন',
+    'NO THANKS': 'এখন প্রয়োজন নেই',
 
     // Drop Down Filter Card
     'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
@@ -272,12 +304,6 @@ class EnBnDict {
     'CANCELED': 'ক্যান্সেল করা হয়েছে',
     'REJECTED': 'রিজেক্ট করা হয়েছে',
 
-    // Repeat Order Card
-    'NEXT DELIVERY ON': 'পরবর্তী ডেলিভারি',
-
-    // Repeat Order Page Button Card
-    'ADD A NEW REPEAT ORDER': 'নতুন রিপিট অর্ডার করুন',
-
     // Repeat Order Choice Page
     'REPEAT ORDER': 'অর্ডার পুনরাবৃত্তি',
     'Please select the interval and time you would like to get this order delivered on regular basis':
@@ -285,12 +311,7 @@ class EnBnDict {
     'Deliver every': 'ডেলিভারি প্রতি',
     'Day(s)': 'দিন পর পর',
     'Select Time': 'সময়',
-
-    // Time Choose Button
-    'SELECT DELIVERY TIME': 'ডেলিভারি টাইম নির্ধারণ করুন',
-    'OK': 'ঠিক আছে',
-    'Please select a time between 10 AM to 10 PM':
-        'অনুগ্রহপূর্বক সকাল ১০টা থেকে রাত ১০টার মধ্যেকার কোন একটা সময়  করুন',
+    'Processing...': 'প্রসেস করা হচ্ছে...'
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',

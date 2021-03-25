@@ -453,6 +453,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       );
       return;
     }
+    // Below codes are exactly replicated in Verification Page for submitting order
     if (Store.instance.appState.user.id != null &&
         AppVariableStates.instance.order.repeatOrder == ClientEnum.YES) {
       Navigator.push(

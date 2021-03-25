@@ -48,10 +48,10 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   @override
   void initState() {
     super.initState();
-    if (widget.order.repeatOrder == ClientEnum.YES &&
+    if (widget.order.repeatOrder == ClientEnum.NO &&
         widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
       Timer(Duration(seconds: 2), () {
-        showOrderDialog();
+        showRepeatOrderDialog();
       });
     }
   }
@@ -214,7 +214,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     );
   }
 
-  void showOrderDialog() {
+  void showRepeatOrderDialog() {
     showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
