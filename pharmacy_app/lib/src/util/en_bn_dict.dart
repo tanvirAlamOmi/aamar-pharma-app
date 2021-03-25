@@ -329,6 +329,11 @@ class EnBnDict {
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
     'REQUEST PRODUCT': 'পণ্যের আবেদন',
     'ADD PHOTO': 'ছবি যুক্ত করুন',
+    'Are you sure to submit this request?':
+        'আপনি কি এই পণ্যের আবেদন করতে নিশ্চিত?',
+    'Please provide the name of the item': 'পণ্যের নাম আবশ্যক',
+    'Please provide the quantity of the item': 'পণ্যের পরিমাণ আবশ্যক',
+    'Phone Number': 'মোবাইল নাম্বার',
 
     // Consult Pharmacist Page
     'REQUEST CALL BACK': 'কল ব্যাকের আবেদন',
