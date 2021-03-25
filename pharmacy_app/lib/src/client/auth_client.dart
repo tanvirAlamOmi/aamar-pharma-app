@@ -21,10 +21,7 @@ class AuthClient {
   Future<dynamic> signIn(String signInRequest) async {
     final http.Response response = await http
         .post(
-          Uri(
-              host: ServerConfig.SERVER_HOST,
-              port: ServerConfig.SERVER_PORT,
-              path: '/api/appapi/login'),
+          ServerConfig.Address(path: '/api/appapi/login'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
           },

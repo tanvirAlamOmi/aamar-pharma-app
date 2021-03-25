@@ -11,10 +11,7 @@ class QueryClient {
   Future<dynamic> getOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      Uri(
-          host: ServerConfig.SERVER_HOST,
-          port: ServerConfig.SERVER_PORT,
-          path: '/api/appapi/my-orders/${userId}/'),
+      ServerConfig.Address(path: '/api/appapi/my-orders/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -28,10 +25,7 @@ class QueryClient {
   Future<dynamic> getRepeatOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      Uri(
-          host: ServerConfig.SERVER_HOST,
-          port: ServerConfig.SERVER_PORT,
-          path: '/api/appapi/repeat-orders/${userId}/'),
+      ServerConfig.Address(path: '/api/appapi/repeat-orders/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -45,10 +39,7 @@ class QueryClient {
   Future<dynamic> getRequestOrderFeed(
       String jwtToken, FeedRequest feedRequest, int userId) async {
     final http.Response response = await http.get(
-      Uri(
-          host: ServerConfig.SERVER_HOST,
-          port: ServerConfig.SERVER_PORT,
-          path: '/api/appapi/request-list/${userId}/'),
+      ServerConfig.Address(path: '/api/appapi/request-list/${userId}/'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -62,16 +53,11 @@ class QueryClient {
   Future<dynamic> getNotificationsFeed(
       String jwtToken, String notificationRequest) async {
     final http.Response response = await http
-        .post(
-            Uri(
-                host: ServerConfig.SERVER_HOST,
-                port: ServerConfig.SERVER_PORT,
-                path: '/api/appapi/notifications'),
+        .post(ServerConfig.Address(path: '/api/appapi/notifications'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: notificationRequest)
+            },)
         .timeout(Duration(seconds: 300));
 
     final jsonResponse = json.decode(response.body);

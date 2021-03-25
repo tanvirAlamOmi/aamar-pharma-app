@@ -11,10 +11,7 @@ class NotificationClient {
 
   Future<dynamic> notificationCount(String jwtToken) async {
     final http.Response response = await http.post(
-      Uri(
-          host: ServerConfig.SERVER_HOST,
-          port: ServerConfig.SERVER_PORT,
-          path: '/api/appapi/notification-count'),
+      ServerConfig.Address(path: '/api/appapi/notification-count'),
       headers: {
         'token': jwtToken,
         'Content-Type': 'application/json; charset=UTF-8',
@@ -28,11 +25,7 @@ class NotificationClient {
   Future<dynamic> changeNotificationStatus(
       String jwtToken, String changeNotificationStatusRequest) async {
     final http.Response response = await http
-        .post(
-            Uri(
-                host: ServerConfig.SERVER_HOST,
-                port: ServerConfig.SERVER_PORT,
-                path: '/api/appapi/change-notif-status'),
+        .post(ServerConfig.Address(path: '/api/appapi/change-notif-status'),
             headers: {
               'token': jwtToken,
               'Content-Type': 'application/json; charset=UTF-8',

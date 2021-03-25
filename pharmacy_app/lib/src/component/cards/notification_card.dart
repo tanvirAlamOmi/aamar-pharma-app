@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
@@ -40,13 +41,19 @@ class NotificationCard extends StatelessWidget {
   Widget buildTitle(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => NotificationToOrderPage(
-                    notificationItem: notificationItem,
-                  )),
-        );
+        switch (notificationItem.status) {
+          case ClientEnum.NOTIFICATION_SEEN:
+            break;
+          case ClientEnum.NOTIFICATION_UNSEEN:
+            notificationItem.status = ClientEnum.NOTIFICATION_SEEN;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NotificationToOrderPage(
+                        notificationItem: notificationItem,
+                      )),
+            );
+        }
       },
       child: Container(
         height: 90,
@@ -60,7 +67,9 @@ class NotificationCard extends StatelessWidget {
               width: 30,
               child: Icon(
                 Icons.shopping_bag,
-                color: Util.greenishColor(),
+                color: (notificationItem.status == ClientEnum.NOTIFICATION_SEEN)
+                    ? Colors.grey
+                    : Util.greenishColor(),
                 size: 28,
               ),
             ),
@@ -70,23 +79,35 @@ class NotificationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(notificationItem.orderStatus ?? '',
+                  Text(
+                      notificationItem.orderStatus +
+                          (' (Order #${notificationItem.idOrder})'),
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
+                          color: (notificationItem.status ==
+                                  ClientEnum.NOTIFICATION_SEEN)
+                              ? Colors.grey[600]
+                              : Colors.black,
+                          fontWeight: FontWeight.bold)),
                   Text(notificationItem.message ?? '',
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
+                          color: (notificationItem.status ==
+                                  ClientEnum.NOTIFICATION_SEEN)
+                              ? Colors.grey[600]
+                              : Colors.black,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            Container(
-              width: 30,
-              child: Icon(Icons.chevron_right, size: 28.0),
-            )
+            (notificationItem.status == ClientEnum.NOTIFICATION_SEEN)
+                ? Container()
+                : Container(
+                    width: 30,
+                    child: Icon(Icons.chevron_right, size: 28.0),
+                  )
           ],
         ),
       ),

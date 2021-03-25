@@ -11,10 +11,17 @@ class ServerConfig {
 
   static final String environmentMode = getEnvironment();
 
+  static Uri Address({String path}) {
+    switch (getEnvironment()) {
+      case 'dev':
+        return Uri.https('pharmacy.arbreesolutions.com', path);
+      case 'prod':
+        return Uri.https('pharmacy.arbreesolutions.com', path);
+    }
+  }
 
   static final String SERVER_HOST = (getEnvironment() == "dev")
       ? 'http://192.168.0.5'
       : 'https://pharmacy.arbreesolutions.com';
-  static final int SERVER_PORT =
-      (getEnvironment() == "dev") ? 8989 : 443;
+  static final int SERVER_PORT = (getEnvironment() == "dev") ? 8989 : 443;
 }

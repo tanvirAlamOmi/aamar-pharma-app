@@ -85,7 +85,7 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
           switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
             case 0:
               return Positioned(
-                top: 150,
+                top: 250,
                 right: 20,
                 child: CustomMessageBox(
                   width: 190,
