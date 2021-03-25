@@ -120,6 +120,7 @@ class EnBnDict {
 
     // Repeat Order Page Button Card
     'ADD A NEW REPEAT ORDER': 'নতুন রিপিট অর্ডার করুন',
+    'YOU CAN CANCEL ANYTIME': 'যেকোনো সময় ক্যান্সেল করুন',
 
     //Order Invoice Address Card
     'Collect prescription during delivery':
