@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -32,13 +31,16 @@ class NotifyOnDeliveryArea extends StatefulWidget {
 
 class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
   final TextEditingController nameController = new TextEditingController();
+  final TextEditingController areaNameController = new TextEditingController();
   final TextEditingController phoneController = new TextEditingController();
+
+  final List<String> areaDeliveryList = ['Mirpur DOHS'];
 
   @override
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 1), () {
       showOrderDialog();
     });
   }
@@ -59,7 +61,7 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)), //this right here
               child: Container(
-                height: 430,
+                height: 500,
                 child: buildBody(),
               ));
         }).then((value) {
@@ -69,21 +71,24 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
   }
 
   Widget buildBody() {
-    return Column(children: [
-      SizedBox(height: 20),
-      buildCrossButton(),
-      SizedBox(height: 20),
-      buildAreaNameTitle(),
-      SizedBox(height: 20),
-      buildNotifyTitle(),
-      SizedBox(height: 20),
-      buildInputFields(),
-      GeneralActionRoundButton(
-        isProcessing: false,
-        title: 'YES, NOTIFY ME',
-        callBackOnSubmit: onSubmit,
-      )
-    ]);
+    return GestureDetector(
+      onTap: () => Util.removeFocusNode(context),
+      child: Column(children: [
+        SizedBox(height: 10),
+        buildCrossButton(),
+        SizedBox(height: 10),
+        buildAreaNameTitle(),
+        SizedBox(height: 10),
+        buildNotifyTitle(),
+        SizedBox(height: 10),
+        buildInputFields(),
+        GeneralActionRoundButton(
+          isProcessing: false,
+          title: 'YES, NOTIFY ME',
+          callBackOnSubmit: onSubmit,
+        )
+      ]),
+    );
   }
 
   Widget buildCrossButton() {
@@ -113,6 +118,19 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
     );
   }
 
+  Widget buildAreaNameTitle() {
+    return Container(
+      child: Text(
+        '${EnBnDict.en_bn_convert(text: 'We are currently delivering in:')} \n ${getAreaNames()}',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            color: Util.greenishColor(),
+            fontSize: 15,
+            fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
   Widget buildNotifyTitle() {
     return Column(
       children: [
@@ -130,15 +148,6 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
               fontWeight: FontWeight.normal),
         )
       ],
-    );
-  }
-
-  Widget buildAreaNameTitle() {
-    return Container(
-      child: CustomText('We are currently delivering in: \n Mirpur DOHS',
-          color: Util.greenishColor(),
-          fontSize: 16,
-          fontWeight: FontWeight.bold),
     );
   }
 
@@ -172,7 +181,33 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
               )
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CustomText('Area*',
+                  color: Util.purplishColor(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11),
+              SizedBox(height: 3),
+              SizedBox(
+                height: 35, // set this
+                child: TextField(
+                  controller: areaNameController,
+                  decoration: new InputDecoration(
+                    isDense: true,
+                    hintText: EnBnDict.en_bn_convert(text: 'Mirpur, Banani...'),
+                    hintStyle: TextStyle(fontSize: 11),
+                    fillColor: Colors.white,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -204,6 +239,17 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
     );
   }
 
+  String getAreaNames() {
+    String areaName = '';
+    for (int i = 0; i < areaDeliveryList.length; i++) {
+      areaName += areaDeliveryList[i];
+      if (i != areaDeliveryList.length - 1) {
+        areaName += ', ';
+      }
+    }
+    return areaName;
+  }
+
   void onSubmit() async {
     if (phoneController.text.isEmpty || nameController.text.isEmpty) {
       Util.showSnackBar(
@@ -213,10 +259,11 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
     }
 
     OrderRepo.instance.notifyOnDeliveryArea(
-        name: nameController.text, phone: phoneController.text);
+        name: nameController.text,
+        area: areaNameController.text,
+        phone: phoneController.text);
 
     Navigator.pop(context);
-    widget.callBackAction();
     widget.callBackRefreshUI();
   }
 }

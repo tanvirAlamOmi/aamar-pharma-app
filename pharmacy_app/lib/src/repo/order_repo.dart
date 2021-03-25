@@ -279,14 +279,14 @@ class OrderRepo {
   }
 
   Future<Tuple2<void, String>> notifyOnDeliveryArea(
-      {String name, String phone}) async {
+      {String name, String area, String phone}) async {
     int retry = 0;
     while (retry++ < 2) {
       try {
         String jwtToken = Store.instance.appState.user.loginToken;
 
-        final notifyOnDeliveryAreaRequest =
-            jsonEncode(<String, dynamic>{'name': name, 'phone': phone});
+        final notifyOnDeliveryAreaRequest = jsonEncode(
+            <String, dynamic>{'name': name, 'area': area, 'phone': phone});
 
         final notifyOnDeliveryAreaResponse = await OrderRepo.instance
             .getOrderClient()

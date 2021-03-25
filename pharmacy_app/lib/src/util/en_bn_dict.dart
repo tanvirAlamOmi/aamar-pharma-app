@@ -85,8 +85,31 @@ class EnBnDict {
     'Orders': 'অর্ডারসমূহ',
     'Account': 'একাউন্ট',
 
+    // Drop Down Filter Card
+    'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
+    'Pending': 'প্রক্রিয়াধীন অর্ডারসমূহ',
+    'Invoice sent': 'চালান দেয়া হয়েছে এমন অর্ডারসমূহ',
+    'Confirmed': 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
+    'Delivered': 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
+    'Canceled': 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
+    'Rejected': 'রিজেক্ট করা হয়েছে এমন অর্ডারসমূহ',
+    'PENDING': 'প্রক্রিয়াধীন',
+    'INVOICE SENT': 'চালান দেয়া হয়েছে',
+    'CONFIRMED': 'নিশ্চিত করা হয়েছে',
+    'DELIVERED': 'ডেলিভারি সম্পন্ন হয়েছে',
+    'CANCELED': 'ক্যান্সেল করা হয়েছে',
+    'REJECTED': 'রিজেক্ট করা হয়েছে',
+
     //Order Invoice Address Card
     'INVOICE TOTAL': 'মোট',
+
+    //Notify On Delivery Area Card
+    'We are currently delivering in:': 'বর্তমানে ডেলিভারির আওতাধীন এলাকাসমূহ:',
+    'Don\'t have your area in our delivering area list?':
+        'আমাদের ডেলিভারির তালিকায় আপনার এলাকা নেই?',
+    'Want us to notify you when we do?': 'আমরা যখন করব তখন আপনাকে জানিয়ে দিবো?',
+    'Area*': 'এলাকা*',
+    'Mirpur, Banani...': 'মিরপুর, বনানী...',
 
     // Order Card
     'Order ID: ': 'অর্ডার ক্রমিক নং: ',
@@ -122,6 +145,9 @@ class EnBnDict {
     'ORDER DELIVERY TIME': 'অর্ডার ডেলিভারির সময়',
     '10 AM TO 10 PM': 'সকাল ১০ টা থেকে রাত ১০ টা ',
     'CALL US': 'কল করুন',
+
+    // Notification Page
+    'NOTIFICATIONS': 'নোটিফিকেশন',
 
     // Upload Prescription Verify Page
     'UPLOAD PRESCRIPTION': 'প্রেসক্রিপশন আপলোড',
@@ -289,21 +315,6 @@ class EnBnDict {
     'YES, REPEAT THIS ORDER': 'অর্ডারটি পুনরাবৃত্তি করুন',
     'NO THANKS': 'এখন প্রয়োজন নেই',
 
-    // Drop Down Filter Card
-    'SORT BY ORDER STATUS / ALL': 'অর্ডারের অবস্থা অনুযায়ী দেখুন / সকল অর্ডার',
-    'Pending': 'প্রক্রিয়াধীন অর্ডারসমূহ',
-    'Invoice sent': 'চালান দেয়া হয়েছে এমন অর্ডারসমূহ',
-    'Confirmed': 'নিশ্চিত করা হয়েছে এমন অর্ডারসমূহ',
-    'Delivered': 'ডেলিভারি সম্পন্ন হয়েছে এমন অর্ডারসমূহ',
-    'Canceled': 'ক্যান্সেল করা হয়েছে এমন অর্ডারসমূহ',
-    'Rejected': 'রিজেক্ট করা হয়েছে এমন অর্ডারসমূহ',
-    'PENDING': 'প্রক্রিয়াধীন',
-    'INVOICE SENT': 'চালান দেয়া হয়েছে',
-    'CONFIRMED': 'নিশ্চিত করা হয়েছে',
-    'DELIVERED': 'ডেলিভারি সম্পন্ন হয়েছে',
-    'CANCELED': 'ক্যান্সেল করা হয়েছে',
-    'REJECTED': 'রিজেক্ট করা হয়েছে',
-
     // Repeat Order Choice Page
     'REPEAT ORDER': 'অর্ডার পুনরাবৃত্তি',
     'Please select the interval and time you would like to get this order delivered on regular basis':
@@ -311,7 +322,7 @@ class EnBnDict {
     'Deliver every': 'ডেলিভারি প্রতি',
     'Day(s)': 'দিন পর পর',
     'Select Time': 'সময়',
-    'Processing...': 'প্রসেস করা হচ্ছে...'
+    'Processing...': 'প্রসেস করা হচ্ছে...',
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
