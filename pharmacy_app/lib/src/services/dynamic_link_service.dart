@@ -51,7 +51,7 @@ class DynamicLinksApi {
     if (Store.instance.appState.user.id != null) return null;
 
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-      uriPrefix: 'https://aamarpharma.page.link',
+      uriPrefix: 'https://aamarpharmarefer.page.link',
       link: Uri.parse(
           'https://arbreesolutions.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(

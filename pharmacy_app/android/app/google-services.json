@@ -1,49 +1,33 @@
 {
   "project_info": {
-    "project_number": "551801128348",
-    "project_id": "pharmacy-project-419ca",
-    "storage_bucket": "pharmacy-project-419ca.appspot.com"
+    "project_number": "452298642011",
+    "project_id": "aamar-pharma",
+    "storage_bucket": "aamar-pharma.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:551801128348:android:6e2c7088aa74ed5d6fb459",
+        "mobilesdk_app_id": "1:452298642011:android:1eb2b225b30f67ed83257e",
         "android_client_info": {
           "package_name": "com.arbree.pharmacy_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "551801128348-12dspqdto1ol1ib3ps8up23avfkgrpk3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.arbree.pharmacy_app",
-            "certificate_hash": "5a0f01204fed49e97be5c75d32751e4878e22ff0"
-          }
-        },
-        {
-          "client_id": "551801128348-6k8ek0s1l0d1m6tpmi1lh80b3itulick.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.arbree.pharmacy_app",
-            "certificate_hash": "925fc2179a3eea2095540f755329f0c7948b46d6"
-          }
-        },
-        {
-          "client_id": "551801128348-0i52dc3dt8napr5p6m0cve3kkel498q3.apps.googleusercontent.com",
+          "client_id": "452298642011-kl0n4n28tcfnhrjh8o424v086dipb6o8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDA13yFoBFruWMdbSEcPQnmYXkcI3QqfL0"
+          "current_key": "AIzaSyDOz5TUqJWMyvIVmfO4CAlx0du2dKIQypo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "551801128348-0i52dc3dt8napr5p6m0cve3kkel498q3.apps.googleusercontent.com",
+              "client_id": "452298642011-kl0n4n28tcfnhrjh8o424v086dipb6o8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
