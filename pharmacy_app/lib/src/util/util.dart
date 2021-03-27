@@ -111,6 +111,13 @@ class Util {
     return formattedDate;
   }
 
+  static String formatDateToDD_MM_YY(String date) {
+    DateTime parsedDate = DateTime.parse(date);
+    final DateFormat formatterNew = DateFormat('dd/MM/yy');
+    final String formattedNewDate = formatterNew.format(parsedDate);
+    return formattedNewDate;
+  }
+
   static String formatDateToStringOnlyHourMinute(DateTime dateTime) {
     String hour;
     String minute;
@@ -246,7 +253,7 @@ class Util {
     ];
   }
 
-  static double twoDecimalDigit({double number}){
+  static double twoDecimalDigit({double number}) {
     return double.parse(number.toStringAsFixed(2));
   }
 
@@ -254,7 +261,7 @@ class Util {
     return Uuid().v4().toString().split("-")[0];
   }
 
-  static void printBig(dynamic text){
+  static void printBig(dynamic text) {
     debugPrint(text.toString(), wrapWidth: 1024);
   }
 

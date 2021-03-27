@@ -16,6 +16,7 @@ import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
+import 'package:pharmacy_app/src/util/order_util.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 
@@ -317,6 +318,9 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
                 order: widget.order,
+                note: widget.order.note,
+                isRepeatOrder:
+                    (widget.order.repeatOrder == ClientEnum.YES) ? true : false,
                 orderType: AppEnum.ORDER_WITH_ITEM_NAME_REORDER,
               )),
     );

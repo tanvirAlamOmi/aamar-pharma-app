@@ -87,7 +87,7 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
                         EnBnDict.en_bn_number_convert(number: order.every) +
                         ' ' +
                         EnBnDict.en_bn_convert(text: 'Day(s)') +
-                        ',' +
+                        ', ' +
                         EnBnDict.time_bn_convert_with_time_type(
                             text: order.time),
                     style: TextStyle(color: new Color.fromARGB(255, 4, 72, 71)))
@@ -116,7 +116,7 @@ class _RepeatOrderCardState extends State<RepeatOrderCard> {
           EnBnDict.en_bn_convert(text: 'NEXT DELIVERY ON') +
               ' - ' +
               EnBnDict.en_bn_number_convert(
-                  number: order.nextOrderDay.replaceAll("-", "/")),
+                  number: Util.formatDateToDD_MM_YY(order.nextOrderDay)),
           style: TextStyle(color: Colors.white, fontSize: 12),
           textAlign: TextAlign.center,
         ),

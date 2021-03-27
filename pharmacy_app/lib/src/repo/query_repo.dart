@@ -46,6 +46,10 @@ class QueryRepo {
             .getQueryClient()
             .getOrderFeed(jwtToken, feedRequest, userId);
 
+        if (!(feedResponse is List)) {
+          return emptyResponse();
+        }
+
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
@@ -82,6 +86,10 @@ class QueryRepo {
             .getQueryClient()
             .getRepeatOrderFeed(jwtToken, feedRequest, userId);
 
+        if (!(feedResponse is List)) {
+          return emptyResponse();
+        }
+
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
             .cast<Order>();
@@ -117,6 +125,10 @@ class QueryRepo {
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
             .getRequestOrderFeed(jwtToken, feedRequest, userId);
+
+        if (!(feedResponse is List)) {
+          return emptyResponse();
+        }
 
         final List<RequestOrder> allRequestOrders = List<dynamic>.from(
                 feedResponse.map((singleRequestOrder) =>
@@ -157,6 +169,10 @@ class QueryRepo {
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
             .getNotificationsFeed(jwtToken, notificationRequest);
+
+        if (!(feedResponse is List)) {
+          return emptyResponse();
+        }
 
         if (!(feedResponse is List)) {
           return emptyResponse();

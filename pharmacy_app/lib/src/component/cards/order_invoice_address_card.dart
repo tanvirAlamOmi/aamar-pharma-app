@@ -158,7 +158,7 @@ class OrderInvoiceAddressCard extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                    EnBnDict.en_bn_number_convert(number: order.id),
+                  EnBnDict.en_bn_number_convert(number: order.id),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
@@ -179,7 +179,8 @@ class OrderInvoiceAddressCard extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  EnBnDict.en_bn_number_convert(number: order.deliveryDate),
+                  EnBnDict.en_bn_number_convert(
+                      number: Util.formatDateToDD_MM_YY(order.deliveryDate)),
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
