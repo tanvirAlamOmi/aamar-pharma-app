@@ -122,7 +122,7 @@ class _OrderCardState extends State<OrderCard> {
   Color getOrderStatusColor() {
     switch (order.status) {
       case AppEnum.ORDER_STATUS_PENDING:
-        return Util.redishColor();
+        return Util.purplishColor();
         break;
 
       case AppEnum.ORDER_STATUS_INVOICE_SENT:
@@ -131,11 +131,10 @@ class _OrderCardState extends State<OrderCard> {
 
       case AppEnum.ORDER_STATUS_CONFIRMED:
         return Util.greenishColor();
-
         break;
 
       case AppEnum.ORDER_STATUS_DELIVERED:
-        return Util.purplishColor();
+        return Colors.blueAccent;
         break;
 
       case AppEnum.ORDER_STATUS_CANCELED:
@@ -157,7 +156,8 @@ class _OrderCardState extends State<OrderCard> {
       return 'Delivery: ${Util.formatDateToDD_MM_YY(order.deliveryDate)} (${order.deliveryTime})';
     }
     return EnBnDict.en_bn_convert(text: 'Delivery: ') +
-        EnBnDict.en_bn_number_convert(number: Util.formatDateToDD_MM_YY(order.deliveryDate)) +
+        EnBnDict.en_bn_number_convert(
+            number: Util.formatDateToDD_MM_YY(order.deliveryDate)) +
         "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0]) + '-' + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
   }
 

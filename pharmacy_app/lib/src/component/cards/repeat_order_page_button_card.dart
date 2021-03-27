@@ -12,6 +12,7 @@ import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
@@ -19,9 +20,7 @@ import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 
 class RepeatOrderPageButtonCard extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  RepeatOrderPageButtonCard({Key key, this.scaffoldKey}) : super(key: key);
+  RepeatOrderPageButtonCard({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
               height: 40,
               isProcessing: false,
               color: Util.greenishColor(),
-              callBackOnSubmit: () => showAlertDialog(context),
+              callBackOnSubmit: () => showAlertDialog(),
             ),
             SizedBox(height: 10),
             CustomText('YOU CAN CANCEL ANYTIME',
@@ -52,33 +51,34 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     );
   }
 
-  void showAlertDialog(BuildContext context) {
+  void showAlertDialog() {
     showDialog(
-        context: context,
+        context: UIState.instance.scaffoldKey.currentContext,
         builder: (BuildContext dialogContext) {
           return Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)), //this right here
               child: Container(
                 height: 400,
-                child: buildBody(context),
+                child: buildBody(
+                    UIState.instance.scaffoldKey.currentContext, dialogContext),
               ));
         });
   }
 
-  Widget buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context, BuildContext dialogContext) {
     return Column(children: [
       SizedBox(height: 20),
-      buildCrossButton(context),
+      buildCrossButton(context, dialogContext),
       SizedBox(height: 20),
       buildTitle(),
       SizedBox(height: 20),
-      buildProcessBox(context),
+      buildProcessBox(context, dialogContext),
       SizedBox(height: 20),
     ]);
   }
 
-  Widget buildCrossButton(BuildContext context) {
+  Widget buildCrossButton(BuildContext context, BuildContext dialogContext) {
     return Container(
       alignment: Alignment.centerRight,
       padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
@@ -96,7 +96,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
                   color: Colors.white,
                 )),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pop(dialogContext);
             },
           ),
         ),
@@ -132,19 +132,21 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     );
   }
 
-  Widget buildProcessBox(BuildContext context) {
+  Widget buildProcessBox(BuildContext context, BuildContext dialogContext) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildContainer(
             context,
+            dialogContext,
             'UPLOAD PRESCRIPTION / PHOTO',
             Icon(Icons.add_shopping_cart, color: Colors.white),
             uploadPrescriptionOption),
         SizedBox(width: 10),
         buildContainer(
             context,
+            dialogContext,
             'ADD ITEMS MANUALLY',
             Icon(Icons.add_shopping_cart, color: Colors.white),
             navigateToAddItems)
@@ -152,11 +154,15 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     );
   }
 
-  Widget buildContainer(BuildContext context, String title, Icon icon,
-      Function(BuildContext context) callBack) {
+  Widget buildContainer(
+      BuildContext context,
+      BuildContext dialogContext,
+      String title,
+      Icon icon,
+      Function(BuildContext context, BuildContext dialogContext) callBack) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () => callBack(context),
+      onTap: () => callBack(context, dialogContext),
       child: Container(
         height: 175,
         width: size.width / 2 - 60,
@@ -196,18 +202,19 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     );
   }
 
-  void uploadPrescriptionOption(BuildContext context) async {
+  void uploadPrescriptionOption(
+      BuildContext context, BuildContext dialogContext) async {
     var cameraStatus = await Permission.camera.status;
     var storageStatus = await Permission.storage.status;
     if (cameraStatus == PermissionStatus.permanentlyDenied ||
         storageStatus == PermissionStatus.permanentlyDenied) {
       Util.showSnackBar(
-          scaffoldKey: scaffoldKey,
+          scaffoldKey: UIState.instance.scaffoldKey,
           message:
               "Please provide Camera and Storage permissions from Settings");
     } else {
       try {
-        Navigator.pop(context);
+        Navigator.pop(dialogContext);
         List<Asset> resultList = List<Asset>();
         final List<Uint8List> prescriptionImageFileList = new List();
 
@@ -234,8 +241,8 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
     }
   }
 
-  void navigateToAddItems(BuildContext context) {
-    Navigator.pop(context);
+  void navigateToAddItems(BuildContext context, BuildContext dialogContext) {
+    Navigator.pop(dialogContext);
     Navigator.push(
       context,
       MaterialPageRoute(
