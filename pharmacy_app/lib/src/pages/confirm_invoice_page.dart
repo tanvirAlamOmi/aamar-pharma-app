@@ -13,6 +13,7 @@ import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
@@ -46,7 +47,14 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     checkIfPrescriptionRequired();
+    setDeliveryCharge();
     OrderUtil.calculatePricing(widget.order);
+  }
+
+  setDeliveryCharge() {
+    if ((widget.order.deliveryCharge != null))
+      AppVariableStates.instance.orderDeliveryCharge =
+          widget.order.deliveryCharge;
   }
 
   @override

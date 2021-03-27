@@ -279,7 +279,6 @@ class VerificationPageState extends State<VerificationPage> {
         case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
           Navigator.of(context).pop(); // pop verification Page
           AppVariableStates.instance.submitFunction();
-          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
           break;
 
         case AppEnum.LOGIN_USING_REFERRAL_CODE:

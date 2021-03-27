@@ -249,6 +249,8 @@ class LoginPageState extends State<LoginPage> {
   void onVerificationNextStep() {
     Navigator.of(context).pop();
     Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
+    Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+    Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));
   }
 
   void refreshUI() {

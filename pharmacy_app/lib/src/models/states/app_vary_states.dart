@@ -10,6 +10,7 @@ class AppVariableStates {
   String initialLanguageChoose = "LANGUAGE (ENGLISH)";
   DateTime selectedRepeatedTime = DateTime.now();
   Order order = new Order();
+  String orderDeliveryCharge = '0';
   BuildContext context;
   bool loginWithReferral = false;
   String dynamicLink = "";
