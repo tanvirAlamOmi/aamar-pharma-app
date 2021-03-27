@@ -26,6 +26,8 @@ class OrderUtil {
   static void calculatePricing(Order order) {
     double subTotal = 0;
     double grandTotal = 0;
+    if (order.deliveryCharge == null) order.deliveryCharge = '0';
+    if (order.discount == null) order.discount = 0;
     double deliveryCharge = double.parse(order.deliveryCharge);
     int discount = order.discount;
     for (final singleItem in order.invoiceItemList) {
