@@ -112,6 +112,7 @@ class OrderRepo {
           'grandtotal': order.grandTotal,
           'subtotal': order.subTotal,
           'discount': order.discount,
+          'del_charge': order.deliveryCharge,
           'id_order': order.id,
           'collect_prescription':
               collectPrescriptionOnDelivery ? ClientEnum.YES : ClientEnum.NO
