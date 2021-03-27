@@ -256,15 +256,15 @@ class OrderInvoiceTableCard extends StatelessWidget {
     if (showItemNameColumn != true) return Text("");
     if (singleItem.isPrescriptionRequired == 'true') {
       return Container(
-        width: 80,
         child: Row(
           children: [
+            Expanded(
+              child: Text(singleItem.itemName, style: dataTextStyle),
+            ),
             Container(
-                alignment: Alignment.topLeft,
-                child: Text(singleItem.itemName, style: dataTextStyle)),
-            Container(
-                alignment: Alignment.topLeft,
-                child: Text('*', style: TextStyle(color: Util.redishColor())))
+                width: 5,
+                alignment: Alignment.centerRight,
+                child: Text('*', style: TextStyle(color: Util.redishColor()))),
           ],
         ),
       );

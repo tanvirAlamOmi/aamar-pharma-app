@@ -227,7 +227,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
               child: CustomText('*Prescription required',
                   color: Util.redishColor(),
                   fontWeight: FontWeight.bold,
-                  fontSize: 12,
+                  fontSize: 15,
                   textAlign: TextAlign.start),
             ),
           ],
