@@ -319,8 +319,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
           builder: (context) => ConfirmOrderPage(
                 order: widget.order,
                 note: widget.order.note,
-                isRepeatOrder:
-                    (widget.order.repeatOrder == ClientEnum.YES) ? true : false,
+                isRepeatOrder: false,
                 orderType: AppEnum.ORDER_WITH_ITEM_NAME_REORDER,
               )),
     );

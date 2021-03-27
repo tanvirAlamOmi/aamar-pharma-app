@@ -24,7 +24,6 @@ class OrderManualItem {
     data['item_name'] = itemName;
     data['unit'] = unit;
     data['quantity'] = quantity;
-
     return json.encode(data);
   }
 
