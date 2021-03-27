@@ -33,6 +33,24 @@ class AuthClient {
     return jsonResponse;
   }
 
+  // Bulk Third Party SMS
+  Future<dynamic> sendPhoneNumberForSMS(
+      String sendPhoneNumberForSMSRequest) async {
+    final http.Response response = await http
+        .post(
+          ServerConfig.Address(path: '/api/appapi/login'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: sendPhoneNumberForSMSRequest,
+        )
+        .timeout(Duration(seconds: 20));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
+  // Firebase Auth SMS
   Future<void> sendSMSCode(String phoneNumber) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,

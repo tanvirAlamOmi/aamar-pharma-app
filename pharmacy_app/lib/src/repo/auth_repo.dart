@@ -61,10 +61,40 @@ class AuthRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  // Firebase Phone Auth SMS
   Future<void> sendSMSCode(String phoneNumber) async {
     // No need to check for Server_Down. Because FireBase Server
     // Handles it, Not our server. Just check internet connection
     await AuthRepo.instance.getAuthClient().sendSMSCode(phoneNumber);
+  }
+
+  // Will be needed if Bulk SMS system introduced
+  Future<void> sendPhoneNumberForSMS(String phoneNumber) async {
+    int retry = 0;
+
+    while (retry++ < 2) {
+      try {
+        String sendPhoneNumberForSMSRequest = jsonEncode(<String, dynamic>{
+          'phone_number': phoneNumber,
+        });
+
+        final sendPhoneNumberForSMSResponse = await AuthRepo.instance
+            .getAuthClient()
+            .sendPhoneNumberForSMS(sendPhoneNumberForSMSRequest);
+
+        if (sendPhoneNumberForSMSResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          return Tuple2(null, ClientEnum.RESPONSE_SUCCESS);
+        } else {
+          return Tuple2(
+              null, sendPhoneNumberForSMSResponse['RESPONSE_MESSAGE']);
+        }
+      } catch (err) {
+        print("Error in sendPhoneNumberForSMS() in AuthRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
   Future<Tuple2<PharmaUser.User, String>> signInWithPhoneNumber(
