@@ -5,6 +5,7 @@ import 'package:pharmacy_app/src/pages/initial_tutorial_scrolling_page.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/main_page.dart';
 import 'package:pharmacy_app/src/pages/no_internet_page.dart';
+import 'package:pharmacy_app/src/pages/notification_page.dart';
 import 'package:pharmacy_app/src/pages/referral_link_page.dart';
 import 'package:pharmacy_app/src/pages/splash_page.dart';
 import 'package:pharmacy_app/src/pages/verification_page.dart';
@@ -53,6 +54,14 @@ final Map<String, RouterMethod> _definitions = {
       settings: settings,
       builder: (context) {
         return MainPage();
+      },
+    );
+  },
+  '/notification': (settings, params) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (context) {
+        return NotificationPage();
       },
     );
   },

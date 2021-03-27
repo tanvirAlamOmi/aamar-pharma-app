@@ -99,6 +99,7 @@ Future<void> firebaseCloudMessagingListeners() async {
       }
       Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessage ${message.data['code']}');
+      navigateToSpecificScreen();
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
@@ -114,8 +115,10 @@ Future<void> firebaseCloudMessagingListeners() async {
 }
 
 void navigateToSpecificScreen() async {
-  // AppVariableStates.instance.navigatorKey.currentState
-  //     .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+  AppVariableStates.instance.navigatorKey.currentState
+      .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+  AppVariableStates.instance.navigatorKey.currentState
+      .pushNamed('/notification');
 }
 
 void iOSPermission() {

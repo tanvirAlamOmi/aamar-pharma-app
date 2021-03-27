@@ -291,6 +291,10 @@ class VerificationPageState extends State<VerificationPage> {
               scaffoldKey: _scaffoldKey,
               message: "Something went wrong. Please try again.");
       }
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again.");
     }
 
     isProcessing = false;
