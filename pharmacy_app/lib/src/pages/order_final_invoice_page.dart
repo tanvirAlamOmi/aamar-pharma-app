@@ -50,6 +50,8 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void initState() {
     super.initState();
     if (widget.order.repeatOrder == ClientEnum.NO &&
+        widget.order.idParentOrder ==
+            null && // Means this new order is not from a repeated order
         widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
       Timer(Duration(seconds: 2), () {
         showRepeatOrderDialog();

@@ -24,6 +24,7 @@ class Order {
   String status; // Order Status
   String rejectionReason;
   String orderedWith; // Order Type. List of Prescription or Items
+  int idParentOrder; // Repeat Order - Parent of the order
   String every; // Repeat Order -  Month, Week or 15 days.
   String day; // Repeat Order - Saturday, Sunday...
   String time; // Repeat Order - time
@@ -52,6 +53,7 @@ class Order {
       this.status,
       this.rejectionReason,
       this.orderedWith,
+      this.idParentOrder,
       this.every,
       this.day,
       this.time,
@@ -87,6 +89,7 @@ class Order {
         status: jsonData['status'],
         rejectionReason: jsonData['rejection_reason'],
         orderedWith: jsonData['ordered_with'],
+        idParentOrder: jsonData['id_parent_order'],
         every: jsonData['every'],
         day: jsonData['day'],
         time: jsonData['time'],
@@ -129,6 +132,7 @@ class Order {
       'status': status,
       'rejection_reason': rejectionReason,
       'ordered_with': orderedWith,
+      'id_parent_order': idParentOrder,
       'every': every,
       'day': day,
       'time': time,
