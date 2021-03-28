@@ -509,7 +509,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         for (final invoiceItem in widget.order.invoiceItemList) {
           items.add(OrderManualItem()
             ..itemName = invoiceItem.itemName
-            ..unit = ClientEnum.NA
+            ..unit = invoiceItem.unit
             ..quantity = invoiceItem.quantity);
         }
         AppVariableStates.instance.order.items = items;
