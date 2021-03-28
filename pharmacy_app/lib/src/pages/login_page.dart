@@ -143,7 +143,7 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
             child: TextFormField(
-              autofocus: false,
+              autofocus: true,
               controller: TextEditingController(text: countryCode),
               enabled: false,
               keyboardType: TextInputType.phone,

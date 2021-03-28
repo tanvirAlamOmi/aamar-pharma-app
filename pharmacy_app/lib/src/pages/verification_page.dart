@@ -166,7 +166,7 @@ class VerificationPageState extends State<VerificationPage> {
       padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
       height: 55,
       child: TextFormField(
-        autofocus: true,
+        autofocus: false,
         controller: codeController,
         keyboardType: TextInputType.number,
         style: TextStyle(

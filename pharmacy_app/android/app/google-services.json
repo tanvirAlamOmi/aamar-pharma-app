@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:452298642011:android:1eb2b225b30f67ed83257e",
+        "mobilesdk_app_id": "1:452298642011:android:baa6f599ce35f99f83257e",
         "android_client_info": {
-          "package_name": "com.arbree.pharmacy_app"
+          "package_name": "com.arbree.aamarpharma"
         }
       },
       "oauth_client": [

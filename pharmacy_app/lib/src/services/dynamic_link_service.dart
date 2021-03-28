@@ -70,7 +70,5 @@ class DynamicLinksApi {
 
     final Uri dynamicUrl = shortLink.shortUrl;
     return dynamicUrl.toString();
-    AppVariableStates.instance.dynamicLink = dynamicUrl.toString();
-    print("User Based Dynamic Link: " + AppVariableStates.instance.dynamicLink);
   }
 }
