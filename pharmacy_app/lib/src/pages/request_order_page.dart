@@ -87,7 +87,7 @@ class _RequestOrderPageState extends State<RequestOrderPage> {
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshTutorialBox,
             messageTitle:
-            "Request a product by adding the name, photo, quantity and short notes about the product",
+                "Request a product by adding the name, photo, quantity and short notes about the product",
           ),
         );
         break;

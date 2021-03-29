@@ -431,6 +431,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
       ..mobileNo = phoneController.text
       ..note = widget.note
       ..repeatOrder = (widget.isRepeatOrder) ? ClientEnum.YES : ClientEnum.NO
+      ..idParentOrder = widget?.order?.id
       ..deliveryTime = selectedDeliveryTimeTime
       ..deliveryDate = deliveryDate;
 

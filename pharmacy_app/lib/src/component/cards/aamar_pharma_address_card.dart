@@ -35,13 +35,12 @@ class AamarPharmaAddressCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            alignment: Alignment.centerLeft,
             child: Image.asset(
-              'assets/images/amar_pharma_small.png',
+              'assets/images/amar_pharma_small_logo.png',
               alignment: Alignment.center,
-              fit: BoxFit.contain,
-              // width: 128.0,
-              height: 56.0,
+              fit: BoxFit.cover,
+              width: 100.0,
+              height: 70.0,
             ),
           ),
           Expanded(

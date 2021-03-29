@@ -148,11 +148,11 @@ class _HomePageState extends State<HomePage> {
         break;
       case 2:
         return Positioned(
-          top: 170,
+          top: 190,
           left: 40,
           child: CustomMessageBox(
               width: size.width - 100,
-              height: 200,
+              height: 170,
               startPoint: size.width - 180,
               midPoint: size.width - 175,
               endPoint: size.width - 200,
@@ -166,11 +166,11 @@ class _HomePageState extends State<HomePage> {
         break;
       case 3:
         return Positioned(
-            bottom: 50,
+            bottom: 60,
             left: 20,
             child: CustomMessageBox(
                 width: size.width - 100,
-                height: 200,
+                height: 150,
                 startPoint: 40,
                 midPoint: 50,
                 endPoint: 60,

@@ -9,6 +9,8 @@ class Streamer {
 
   static StreamController<int> _streamControllerTotalOrder =
       new StreamController.broadcast();
+  static StreamController<int> _streamControllerTotalRepeatOrder =
+      new StreamController.broadcast();
   static StreamController<int> _streamControllerNotificationCount =
       new StreamController.broadcast();
 
@@ -34,6 +36,14 @@ class Streamer {
 
   static void putTotalOrderStream(int totalOrder) {
     _streamControllerTotalOrder.sink.add(totalOrder);
+  }
+
+  static Stream<int> getTotalRepeatOrderStream() {
+    return _streamControllerTotalRepeatOrder.stream;
+  }
+
+  static void putTotalRepeatOrderStream(int totalOrder) {
+    _streamControllerTotalRepeatOrder.sink.add(totalOrder);
   }
 
   static Stream<int> getTotalNotificationCountStream() {

@@ -93,8 +93,7 @@ class _FeedContainerState extends State<FeedContainer>
       setState(() {
         feedItemsPermData.clear();
         feedItems.clear();
-        AppVariableStates.instance.orderFilterStatus =
-            AppEnum.ORDER_STATUS_ALL;
+        AppVariableStates.instance.orderFilterStatus = AppEnum.ORDER_STATUS_ALL;
       });
   }
 
@@ -124,9 +123,11 @@ class _FeedContainerState extends State<FeedContainer>
 
     // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
     if (feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER ||
-        feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER ||
         feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
       Streamer.putTotalOrderStream(feedResponse.feedItems.length);
+    }
+    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER) {
+      Streamer.putTotalRepeatOrderStream(feedResponse.feedItems.length);
     }
 
     if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {

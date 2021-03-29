@@ -110,6 +110,7 @@ class EnBnDict {
     'Want us to notify you when we do?': 'আমরা যখন করব তখন আপনাকে জানিয়ে দিবো?',
     'Area*': 'এলাকা*',
     'Mirpur, Banani...': 'মিরপুর, বনানী...',
+    'YES, NOTIFY ME': 'হ্যাঁ, আমাকে জানাবেন',
 
     // Order Card
     'Order ID: ': 'অর্ডার ক্রমিক নং: ',

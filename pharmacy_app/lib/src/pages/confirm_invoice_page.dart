@@ -211,6 +211,26 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           ),
         );
         break;
+      case 3:
+        if (collectPrescriptionOnDelivery)
+          return Positioned(
+            bottom: 250,
+            left: 30,
+            child: CustomMessageBox(
+              width: size.width - 60,
+              height: 150,
+              startPoint: 90,
+              midPoint: 100,
+              endPoint: 110,
+              arrowDirection: ClientEnum.ARROW_BOTTOM,
+              callBackAction: updateTutorialBox,
+              callBackRefreshUI: refreshUI,
+              messageTitle:
+                  "Upload a picture of your prescription or have your prescription ready upon delivery",
+            ),
+          );
+        return Container();
+        break;
       default:
         return Container();
         break;
@@ -359,9 +379,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         if (singleItem.quantity == 1) {
           return;
         }
-
         singleItem.quantity = singleItem.quantity - 1;
-
         break;
       }
     }

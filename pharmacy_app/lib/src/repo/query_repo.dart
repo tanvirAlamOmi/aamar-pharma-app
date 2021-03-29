@@ -152,7 +152,7 @@ class QueryRepo {
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
-        print("Error in getOrderFeedData() in QueryRepo");
+        print("Error in getRequestOrderFeedData() in QueryRepo");
         print(err);
       }
     }

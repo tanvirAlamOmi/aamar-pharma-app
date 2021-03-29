@@ -72,18 +72,36 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
   }
 
   Widget buildTutorialBox() {
-    return StreamBuilder<int>(
-      stream: Streamer.getTotalOrderStream(),
-      builder: (context, snapshot) {
-        if (snapshot.data == null) {
-          return Container();
-        }
-        // snapshot.data means total order in one's list. So for the first time there would be
-        // no order list hence we do not show them the tutorial box. When order list arrives
-        // then we render the tutorial box for only one time
-        if (snapshot.hasData && snapshot.data > 0) {
-          switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
-            case 0:
+    switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
+      case 0:
+        return Positioned(
+          top: 60,
+          right: 20,
+          child: CustomMessageBox(
+            width: 250,
+            height: 170,
+            startPoint: 40,
+            midPoint: 50,
+            endPoint: 60,
+            arrowDirection: ClientEnum.ARROW_TOP,
+            callBackAction: updateTutorialBox,
+            callBackRefreshUI: refreshTutorialBox,
+            messageTitle:
+                "Tap to add a new order you would like to get delivered multiple times on a regular basis",
+          ),
+        );
+        break;
+      case 1:
+        return StreamBuilder<int>(
+          stream: Streamer.getTotalRepeatOrderStream(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return Container();
+            }
+            // snapshot.data means total order in one's list. So for the first time there would be
+            // no order list hence we do not show them the tutorial box. When order list arrives
+            // then we render the tutorial box for only one time
+            if (snapshot.hasData && snapshot.data > 0) {
               return Positioned(
                 top: 250,
                 right: 20,
@@ -100,19 +118,21 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
                       "This states the date you’ll have this order delivered next",
                 ),
               );
-              break;
-            default:
-              return Container();
-              break;
-          }
-        }
+            }
+            return Container();
+          },
+        );
+        break;
+      default:
         return Container();
-      },
-    );
+        break;
+    }
   }
 
   void updateTutorialBox() async {
     Store.instance.appState.tutorialBoxNumberRepeatOrderPage += 1;
     await Store.instance.putAppData();
+    if (Store.instance.appState.tutorialBoxNumberRepeatOrderPage == 1)
+      refreshUI(); // Only to refresh this page only . This is limited to repeat Order Page only.
   }
 }
