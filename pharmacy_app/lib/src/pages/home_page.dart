@@ -81,10 +81,11 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   SizedBox(height: 20),
                   HomePageCarouselSliderCard(),
+                  SizedBox(height: 10),
                   buildTitle(),
                   SizedBox(height: 15),
                   buildPrescriptionWantedTitle(),
-                  SizedBox(height: 20),
+                  SizedBox(height: 15),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           navigateToAddItems)
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   buildHotlineText(),
                   SizedBox(height: 20),
                 ],
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
         );
       case 1:
         return Positioned(
-          top: 100,
+          top: 170,
           left: 20,
           child: CustomMessageBox(
             width: size.width - 100,
@@ -147,8 +148,8 @@ class _HomePageState extends State<HomePage> {
         break;
       case 2:
         return Positioned(
-          top: 100,
-          left: 20,
+          top: 170,
+          left: 40,
           child: CustomMessageBox(
               width: size.width - 100,
               height: 200,
@@ -203,7 +204,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildTitle() {
     return Container(
-      padding: EdgeInsets.only(top: 10),
       child: CustomText(
         'ORDER MEDICINES AND MORE',
         textAlign: TextAlign.center,
@@ -217,8 +217,7 @@ class _HomePageState extends State<HomePage> {
   Widget buildPrescriptionWantedTitle() {
     return Container(
       width: 250,
-      height: 50,
-      padding: EdgeInsets.only(top: 10),
+      height: 40,
       child: CustomText(
           'All medicines except OTC medicines require prescription*',
           textAlign: TextAlign.center,

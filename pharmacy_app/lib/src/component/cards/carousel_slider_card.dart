@@ -25,7 +25,7 @@ class _HomePageCarouselSliderCardState
     return Container(
       color: Colors.transparent,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(27, 0, 27, 0),
+      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
       child: Material(
         shadowColor: Colors.grey[100].withOpacity(0.4),
         shape:

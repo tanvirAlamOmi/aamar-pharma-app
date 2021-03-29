@@ -64,10 +64,10 @@ class SplashPageState extends State<SplashPage> {
 
   Widget buildLogo() {
     return Container(
-      height: 100,
-      width: 180,
+      height: 200,
+      width: 200,
       child: Image.asset(
-        'assets/images/amar_pharma_small.png',
+        'assets/images/amar_pharma_small_logo.png',
         alignment: Alignment.center,
         fit: BoxFit.contain,
       ),

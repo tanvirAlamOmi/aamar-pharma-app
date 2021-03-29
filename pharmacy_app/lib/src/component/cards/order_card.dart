@@ -134,15 +134,15 @@ class _OrderCardState extends State<OrderCard> {
         break;
 
       case AppEnum.ORDER_STATUS_DELIVERED:
-        return Colors.blueAccent;
+        return Util.colorFromHex('#72D67A');
         break;
 
       case AppEnum.ORDER_STATUS_CANCELED:
-        return Colors.red;
+        return Util.colorFromHex('#FA5353');
         break;
 
       case AppEnum.ORDER_STATUS_REJECTED:
-        return Colors.redAccent;
+        return Util.colorFromHex('#FA0000');
         break;
 
       default:
