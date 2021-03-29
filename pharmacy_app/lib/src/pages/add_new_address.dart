@@ -208,7 +208,10 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
         new DeliveryAddressDetails()
           ..addType = addressTypeController.text
           ..address = fullAddressController.text
-          ..area = selectedArea;
+          ..area =
+              (Store.instance.appState.user.rank == AppEnum.USER_RANK_AP_STAR)
+                  ? ClientEnum.NA
+                  : selectedArea;
 
     Util.showSnackBar(
         scaffoldKey: _scaffoldKey, message: "Please wait", duration: 1500);
