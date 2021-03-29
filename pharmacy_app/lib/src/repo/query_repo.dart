@@ -42,13 +42,13 @@ class QueryRepo {
         final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
+        if (userId == null) return emptyResponse();
+
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
             .getOrderFeed(jwtToken, feedRequest, userId);
 
-        if (!(feedResponse is List)) {
-          return emptyResponse();
-        }
+        if (!(feedResponse is List)) return emptyResponse();
 
         final List<Order> allOrders = List<dynamic>.from(
                 feedResponse.map((singleOrder) => Order.fromJson(singleOrder)))
@@ -81,6 +81,8 @@ class QueryRepo {
       try {
         final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
+
+        if (userId == null) return emptyResponse();
 
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
@@ -122,6 +124,8 @@ class QueryRepo {
         final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
+        if (userId == null) return emptyResponse();
+
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
             .getRequestOrderFeed(jwtToken, feedRequest, userId);
@@ -161,6 +165,9 @@ class QueryRepo {
     while (retry++ < 2) {
       try {
         final String jwtToken = Store.instance.appState.user.loginToken;
+        final int userId = Store.instance.appState.user.id;
+
+        if (userId == null) return emptyResponse();
 
         final String notificationRequest = jsonEncode(<String, dynamic>{
           'status': ClientEnum.NOTIFICATION_UNSEEN,

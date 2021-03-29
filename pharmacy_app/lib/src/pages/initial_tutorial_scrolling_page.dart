@@ -109,10 +109,12 @@ class _InitialTutorialScrollingPageState
 
   List<Widget> buildScrollBar() {
     final children = List<Widget>();
+    // Left Arrow button
     children.add(GestureDetector(
       onTap: () {
-        _carouselController.previousPage(
-            duration: Duration(milliseconds: 500), curve: Curves.linear);
+        if (_currentIndex > 0)
+          _carouselController.previousPage(
+              duration: Duration(milliseconds: 500), curve: Curves.linear);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -127,6 +129,7 @@ class _InitialTutorialScrollingPageState
         ),
       ),
     ));
+
     listItems.forEach((image) {
       int index = listItems.indexOf(image);
       children.add(Container(
@@ -159,6 +162,11 @@ class _InitialTutorialScrollingPageState
       ),
     ));
 
+    if (_currentIndex == listItems.length - 1) {
+      children.clear();
+      children.add(Container());
+      return children;
+    }
     return children;
   }
 

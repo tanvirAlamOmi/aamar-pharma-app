@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
@@ -50,7 +51,8 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
         collapseData: true),
     UIViewData(
         title: 'Do you have emergency customer support?',
-        textData: 'Yes. Call **** for customer support from 10 am to 10 pm.',
+        textData:
+            'Yes. Call ${AppEnum.HOTLINE_NUMBER} for customer support from 10 am to 10 pm.',
         collapseData: true),
     UIViewData(
         title: 'Do you deliver medicines without prescription?',

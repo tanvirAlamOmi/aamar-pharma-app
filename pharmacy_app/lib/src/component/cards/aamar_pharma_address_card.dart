@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
@@ -49,13 +50,13 @@ class AamarPharmaAddressCard extends StatelessWidget {
               width: size.width / 2 - 50,
               alignment: Alignment.centerRight,
               child: Text(
-                "01874761111\n"
+                "${AppEnum.HOTLINE_NUMBER}\n"
                 "info@aamarpharma.com\n"
                 "aamarpharma.com\n",
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,
-                    fontSize: 12),
+                    fontSize: 11),
               ),
             ),
           )

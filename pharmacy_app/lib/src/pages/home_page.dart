@@ -18,8 +18,6 @@ import 'package:pharmacy_app/src/pages/add_items_page.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'repeat_order_choice_page.dart';
-
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -293,7 +291,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             GestureDetector(
               onTap: () {
-                launch("tel:${01301958612}");
+                launch("tel:${AppEnum.HOTLINE_NUMBER}");
               },
               child: Container(
                 color: Util.purplishColor(),

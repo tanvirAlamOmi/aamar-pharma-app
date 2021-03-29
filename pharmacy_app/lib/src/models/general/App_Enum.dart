@@ -65,4 +65,6 @@ class AppEnum {
 
   static const String ORDER_PAYMENT_STATUS_PAID = "Paid";
   static const String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
+
+  static const String HOTLINE_NUMBER = '+8801874761111';
 }
