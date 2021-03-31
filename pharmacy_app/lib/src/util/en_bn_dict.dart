@@ -414,6 +414,7 @@ class EnBnDict {
     'Day(s)': 'দিন পর পর',
     'Select Time': 'সময়',
     'Processing...': 'প্রসেস করা হচ্ছে...',
+    'Repeat order submission success.': 'অর্ডার পুনরাবৃত্তি গৃহীত হয়েছে।',
 
     // Special Request Product Page
     'REQUEST A PRODUCT': 'পণ্যের আবেদন জানান',
