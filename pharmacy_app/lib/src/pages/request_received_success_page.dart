@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -23,10 +24,10 @@ class RequestReceivedSuccessPage extends StatelessWidget {
           title: CustomText(pageTitle,
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
         ),
-        body: buildBody());
+        body: buildBody(context));
   }
 
-  Widget buildBody() {
+  Widget buildBody(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -49,8 +50,20 @@ class RequestReceivedSuccessPage extends StatelessWidget {
           alignment: Alignment.center,
           child: CustomText(message,
               textAlign: TextAlign.center, color: Colors.grey),
-        )
+        ),
+        SizedBox(height: 30),
+        buildDoneButton(context)
       ],
+    );
+  }
+
+  Widget buildDoneButton(BuildContext context) {
+    return GeneralActionRoundButton(
+      title: "DONE",
+      isProcessing: false,
+      callBackOnSubmit: () {
+        Navigator.pop(context);
+      },
     );
   }
 }

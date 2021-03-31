@@ -42,21 +42,23 @@ class OrderFinalInvoicePage extends StatefulWidget {
 
 class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool isProcessing = false;
+  bool isProcessing = true;
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
   @override
   void initState() {
     super.initState();
-    if (widget.order.repeatOrder == ClientEnum.NO &&
-        widget.order.idParentOrder ==
-            null && // Means this new order is not from a repeated order
-        widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
-      Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 2), () {
+      isProcessing = false;
+      refreshUI();
+      if (widget.order.repeatOrder == ClientEnum.NO &&
+          widget.order.idParentOrder ==
+              null && // Means this new order is not from a repeated order
+          widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
         showRepeatOrderDialog();
-      });
-    }
+      }
+    });
   }
 
   @override
