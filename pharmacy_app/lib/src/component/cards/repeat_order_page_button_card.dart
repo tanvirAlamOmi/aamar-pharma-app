@@ -34,6 +34,8 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias, // Add This
         child: Column(
           children: [
+            CustomText('Tap to add a new order you would like to get delivered multiple times on a regular basis',
+                color: Util.greenishColor(), fontWeight: FontWeight.bold),
             GeneralActionRoundButton(
               padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
               title: "ADD A NEW REPEAT ORDER",
