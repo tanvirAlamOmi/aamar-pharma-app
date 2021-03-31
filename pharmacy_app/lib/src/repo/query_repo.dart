@@ -201,6 +201,14 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
+        notificationFeedResponse.feedItems.forEach((singleFeedItem) async {
+          if (singleFeedItem.notificationItem.status ==
+              ClientEnum.NOTIFICATION_UNSEEN)
+            NotificationRepo.instance.changeNotificationStatus(
+                id: singleFeedItem.notificationItem.id,
+                notificationStatus: ClientEnum.NOTIFICATION_SEEN);
+        });
+
         return Tuple2(notificationFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in getNotificationFeed() in QueryRepo");
