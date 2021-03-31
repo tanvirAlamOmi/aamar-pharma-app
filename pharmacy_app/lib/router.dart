@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/consult_pharmacist_page.dart';
-import 'package:pharmacy_app/src/pages/halp_faq_page.dart';
+import 'package:pharmacy_app/src/pages/help_faq_page.dart';
 import 'package:pharmacy_app/src/pages/initial_tutorial_scrolling_page.dart';
 import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/main_page.dart';

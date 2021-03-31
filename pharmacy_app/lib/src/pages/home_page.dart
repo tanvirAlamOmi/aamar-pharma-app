@@ -140,9 +140,8 @@ class _HomePageState extends State<HomePage> {
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle: "You can order medicines or other items by "
-                "simply uploading a photo of your prescription or a photo of a "
-                "paper with your item list on it or even just a photo of the items",
+            messageTitle:
+                "You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items",
           ),
         );
         break;
@@ -160,8 +159,7 @@ class _HomePageState extends State<HomePage> {
               callBackAction: updateTutorialBox,
               callBackRefreshUI: refreshUI,
               messageTitle:
-                  "You can also order by adding the name of the items you want "
-                  "to order and stating their unit and quantity manually"),
+                  "You can also order by adding the name of the items you want to order and stating their unit and quantity manually"),
         );
         break;
       case 3:
@@ -177,8 +175,8 @@ class _HomePageState extends State<HomePage> {
                 arrowDirection: ClientEnum.ARROW_BOTTOM,
                 callBackRefreshUI: refreshUI,
                 callBackAction: updateTutorialBox,
-                messageTitle: "Call us on our hotline number anytime between "
-                    "10 AM to 10 PM for any kind of queries you have"));
+                messageTitle:
+                    "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
         break;
       case 3:
         return Positioned(
@@ -195,6 +193,22 @@ class _HomePageState extends State<HomePage> {
                 callBackAction: updateTutorialBox,
                 messageTitle:
                     "Look out for notifications once you request an order to receive order invoice and other details"));
+        break;
+      case 4:
+        return Positioned(
+            left: 10,
+            bottom: 0,
+            child: CustomMessageBox(
+                width: size.width - 100,
+                height: 130,
+                startPoint: (size.width / 2) - 30,
+                midPoint: size.width / 2 - 10,
+                endPoint: (size.width / 2) + 10,
+                arrowDirection: ClientEnum.ARROW_BOTTOM,
+                callBackRefreshUI: refreshUI,
+                callBackAction: updateTutorialBox,
+                messageTitle:
+                    "Always click here to get all the information of your orders"));
         break;
       default:
         return Container();

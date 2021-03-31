@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
+import 'package:pharmacy_app/src/repo/notification_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
 
@@ -50,6 +51,9 @@ class _NotificationCardState extends State<NotificationCard> {
           case ClientEnum.NOTIFICATION_SEEN:
             break;
           case ClientEnum.NOTIFICATION_UNSEEN:
+            NotificationRepo.instance.changeNotificationStatus(
+                id: widget.notificationItem.id,
+                notificationStatus: ClientEnum.NOTIFICATION_SEEN);
             widget.notificationItem.status = ClientEnum.NOTIFICATION_SEEN;
             if (mounted) setState(() {});
             Navigator.push(

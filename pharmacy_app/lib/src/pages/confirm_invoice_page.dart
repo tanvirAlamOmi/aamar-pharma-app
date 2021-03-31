@@ -207,7 +207,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
             arrowDirection: ClientEnum.ARROW_BOTTOM,
             callBackAction: updateTutorialBox,
             callBackRefreshUI: refreshUI,
-            messageTitle: "plus or minus the quantity of items",
+            messageTitle: "Plus or minus the quantity of items",
           ),
         );
         break;
@@ -429,6 +429,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
           .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
       await Future.delayed(Duration(milliseconds: 100));
       Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));
+      Streamer.putEventStream(Event(EventType.REFRESH_NOTIFICATION_PAGE));
       Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
       Navigator.push(
         context,

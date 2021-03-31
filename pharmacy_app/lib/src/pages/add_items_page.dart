@@ -96,7 +96,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
           right: 30,
           child: CustomMessageBox(
             width: size.width - 200,
-            height: 120,
+            height: 140,
             startPoint: 40,
             midPoint: 50,
             endPoint: 60,

@@ -60,6 +60,11 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
             'We only deliver OTC (Over the Counter) medicines without prescription.',
         collapseData: true),
     UIViewData(
+        title: 'Do you check the expiration date?',
+        textData:
+            'Yes. We check the expiration date before taking the medicines from the pharmacy.',
+        collapseData: true),
+    UIViewData(
         title: 'Can I save my order in the app?',
         textData:
             'It’s automatically saved when you place an order. You can repeat it whenever you want.',
@@ -119,15 +124,12 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
                     children: [
                       Container(
                         width: size.width - 100,
-                        child: Text(
-                          uiViewData.title,
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        child: CustomText(uiViewData.title,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
                       ),
                       (uiViewData.collapseData)
                           ? Padding(
@@ -160,14 +162,11 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
                       child: Column(
                         children: [
                           SizedBox(height: 5),
-                          Text(
-                            uiViewData.textData,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          CustomText(uiViewData.textData,
+                              textAlign: TextAlign.start,
+                              color: Colors.grey,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
                           SizedBox(height: 5),
                         ],
                       ),

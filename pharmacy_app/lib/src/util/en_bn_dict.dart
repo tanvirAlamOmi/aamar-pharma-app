@@ -1,3 +1,4 @@
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:intl/intl.dart';
@@ -79,6 +80,44 @@ class EnBnDict {
     'LANGUAGE (BANGLA)': 'ভাষা(বাংলা)',
     'REFER A FRIEND': 'পরিচিতজনকে রেফার করুন',
     'LOG OUT': 'লগ আউট',
+
+    // Tutorial
+    'You can order medicines or other items by simply uploading a photo of your prescription or a photo of a paper with your item list on it or even just a photo of the items':
+        'প্রেসক্রিপশন অথবা আইটেমের তালিকার ছবি, এমনকি শুধু আইটেমের ছবি আপলোড করে  আপনি খুব সহজেই ওষুধ অথবা অন্যান্য আইটেম অর্ডার করতে পারবেন।',
+    'You can also order by adding the name of the items you want to order and stating their unit and quantity manually':
+        'ম্যানুয়্যালি আইটেমের নাম সংযুক্ত করে ইউনিট এবং পরিমাণ উল্লেখ করার মাধ্যমেও আপনি অর্ডার পাঠাতে পারবেন।”',
+    'Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have':
+        'আপনার যেকোনো জিজ্ঞাসার জন্য আমাদের হটলাইনে কল করুন সকাল ১০টা থেকে রাত ১০টার মধ্যে যেকোনো সময়।',
+    'Always click here to get all the information of your orders':
+        'আপনার অর্ডারসমূহের সমস্ত তথ্য পেতে সর্বদা এখানে ক্লিক করুন ',
+    'The items you add will be listed under this':
+        'যে আইটেমগুলো আপনি যুক্ত করবেন তা এর নিচে তালিকাভুক্ত হবে।',
+    'Tap to remove this uploaded photo':
+        'আপলোডকৃত এই ছবিটি রিমোভ করতে এখানে চাপুন',
+    'Add the address of the place you would like to get your order delivered to':
+        'যেখানে অর্ডারের ডেলিভারি পেতে চান সেই ঠিকানাটি যুক্ত করুন।',
+    'Select the address you would want this particular order to get delivered to. Selected address will have Green Border':
+        'এই অর্ডারটি যে ঠিকানায় ডেলিভারি পেতে চান সেই ঠিকানাটি নির্বাচন করুন। নির্বাচিত ঠিকানায় সবুজ বর্ডার থাকবে।',
+    'This indicates the current status of your order':
+        'এটি আপনার অর্ডারের বর্তমান অবস্থা নির্দেশ করে।',
+    'View your list of orders by specific order status':
+        'নির্ধারিত অর্ডার স্ট্যাটাসের মাধ্যমে আপনার অর্ডারসমূহ ফিল্টার করুন।',
+    'Request a product by adding the name, photo, quantity and short notes about the product':
+        'কোনো দ্রব্যের অনুরোধ জানাতে দ্রব্যটির নাম, ছবি, পরিমাণ এবং তা সম্পর্কে শর্ট নোট যুক্ত করুন',
+    'Tap to add a new order you would like to get delivered multiple times on a regular basis':
+        'একই অর্ডার নির্দিষ্ট সময় পর পর ডেলিভারি পেতে এটিতে চাপুন।',
+    'This states the date you’ll have this order delivered next':
+        'এটা এই অর্ডারের পরবর্তী ডেলিভারির তারিখ নির্দেশ করে।',
+    'Tap this if you want to order the same items again':
+        'আপনি যদি আবার একই আইটেম অর্ডার করতে চান তবে এটিতে চাপুন',
+    'View your order details to check if we got the correct item list':
+        'আমরা সঠিক আইটেমের তালিকা পেয়েছি কিনা তা দেখতে আপনার অর্ডার বৃত্তান্তটি দেখুন ',
+    'Tap to remove items from the list if you don’t want to order it':
+        'আপনি যদি এই আইটেমটি না চান তবে তালিকা থেকে এটি সরাতে এখানে চাপুন',
+    'Plus or minus the quantity of items':
+        'আইটেমের পরিমাণ বাড়াতে বা কমাতে এই বাটনে চাপুন',
+    'Upload a picture of your prescription or have your prescription ready upon delivery':
+        'আপনার প্রেসক্রিপশনের ছবি আপলোড করুন বা ডেলিভারির সময় আপনার প্রেসক্রিপশন প্রস্তুত রাখুন',
 
     // Bottom Navigation Bar
     'Home': 'হোম',
@@ -274,6 +313,54 @@ class EnBnDict {
     'Are you sure to cancel this order?':
         'আপনি কি এই অর্ডারটি ক্যান্সেল করতে চাচ্ছেন?',
 
+    // Help & FAQ Page
+    'FAQs': 'সচরাচর জিজ্ঞাস্য',
+    'HOW IT WORKS': 'এটি কিভাবে কাজ করে?',
+    '1. Place your prescription or item list, and wait a while. \n\n'
+            '2. Pharmacy starts preparing your medicine just after you place an order.\n\n'
+            '3. One of our troopers takes your medicine safely and drives to your home.\n\n'
+            '4. You take the delivery having no anxiety of safety.\n':
+        '১. আপনার প্রেসক্রিপশন বা আইটেমের তালিকা দেয়ার পর কিছুক্ষণ অপেক্ষা করুন। \n\n'
+            '২. অর্ডার দেয়ার পরে ফার্মাসি আপনার ওষুধ প্রস্তুত করা শুরু করে। \n\n'
+            '৩. তারপর আমরা আপনার ওষুধটি নিরাপদে নিয়ে আপনার বাড়িতে ডেলিভারি দিব। \n\n'
+            '৪. আপনি নিরাপত্তার কোনও উদ্বেগ ছাড়াই ডেলিভারিটি গ্রহণ করতে পারবেন। \n',
+    'Do you take delivery charges?': 'আপনারা কি ডেলিভারি চার্জ রাখেন?',
+    'We only take BDT 20 as the delivery charges for the orders below 500.':
+        'শুধু ৫০০ টাকার কম মূল্যের অর্ডারের জন্য আমরা ২০ টাকা ডেলিভারি চার্জ রাখি।',
+    'Can I select the pharmacy?': 'আমি কি ফার্মেসি নির্বাচন করতে পারবো?',
+    'No. It’s an automated process. Our software does the task.':
+        'না। এটি একটি স্বয়ংক্রিয় প্রক্রিয়া। আমাদের সফটওয়্যার এই কাজটি করে।',
+    'How do you select the pharmacy?': 'আপনারা ফার্মেসি নির্বাচন করেন কীভাবে?',
+    'It’s automatically selected by the distance and availability.':
+        'দূরত্ব এবং উপযোগিতা অনুযায়ী এটি স্বয়ংক্রিয়ভাবে নির্বাচিত হয়।',
+    'Do you take very large or small orders?':
+        'আপনারা কি খুব বড় বা ছোট অর্ডার গ্রহণ করেন?',
+    'Yes. We pay the same attention for every delivery.':
+        'হ্যাঁ। প্রতিটি ডেলিভারির ক্ষেত্রে  আমরা সমান মনোযোগ দিয়ে থাকি।',
+    'Do you courier medicines to other cities?':
+        'আপনারা কি অন্য শহরে ওষুধ কুরিয়ার করেন?',
+    'No. We have selected areas where we can reach fast.':
+        'না। আমাদের কিছু নির্ধারিত এলাকা আছে যেখানে আমরা দ্রুত পৌঁছাতে পারি।',
+    'Do you have other options of order except the app?':
+        'এপ ছাড়া অর্ডার করার আর কোনো বিকল্প ব্যবস্থা রয়েছে?',
+    'No. You have to order from the app.': 'না। আপনার এপ থেকে অর্ডার করতে হবে।',
+    'Do you have emergency customer support?':
+        'আপনাদের কি জরুরি গ্রাহক সেবা রয়েছে?',
+    'Yes. Call +8801874761111 for customer support from 10 am to 10 pm.':
+        'হ্যাঁ। গ্রাহক সেবার জন্য +৮৮০১৮৭৪৭৬১১১১ নাম্বারে সকাল ১০টা থেকে রাত ১০টার মধ্যে কল করুন।',
+    'Do you deliver medicines without prescription?':
+        'আপনারা কি প্রেসক্রিপশন ছাড়া ওষুধের ডেলিভারি করেন?',
+    'We only deliver OTC (Over the Counter) medicines without prescription.':
+        'আমরা শুধু ওটিসি (ওভার দ্য কাউন্টার) ওষুধগুলো প্রেসক্রিপশন ছাড়া ডেলিভারি দিয়ে থাকি।',
+    'Do you check the expiration date?':
+        'আপনারা কি মেয়াদোত্তীর্ণ হওয়ার তারিখ চেক করেন?',
+    'Yes. We check the expiration date before taking the medicines from the pharmacy.':
+        'হ্যাঁ। ফার্মেসি থেকে ওষুধ গ্রহন করার পূর্বে আমরা মেয়াদোত্তীর্ণ হওয়ার তারিখ চেক করি।',
+    'Can I save my order in the app?':
+        'আমি কি আমার অর্ডার এপে সংরক্ষণ করে রাখতে পারবো?',
+    'It’s automatically saved when you place an order. You can repeat it whenever you want.':
+        'আপনি অর্ডার করার পর তা স্বয়ংক্রিইয় ভাবেই সংরক্ষিত হয়। আপনি যখন চাইবেন তখন অর্ডার রিপিট করতে পারবেন।',
+
     // Confirm Invoice Page
     'We only accept cash on delivery.':
         'আমরা ডেলিভারিতে কেবল নগদ টাকা গ্রহণ করে থাকি।',
@@ -359,6 +446,7 @@ class EnBnDict {
     'PM': 'রাত',
 
     // Numbers
+    '+': '+',
     '.': '.',
     '-': '-',
     ':': ':',

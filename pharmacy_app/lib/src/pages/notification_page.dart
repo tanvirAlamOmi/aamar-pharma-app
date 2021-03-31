@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
-import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
+import 'package:pharmacy_app/src/models/states/ui_state.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 
 class NotificationPage extends StatefulWidget {
   @override
@@ -18,6 +21,15 @@ class _NotificationPageState extends State<NotificationPage> {
   void initState() {
     super.initState();
     UIState.instance.scaffoldKey = scaffoldKey;
+  }
+
+  void eventChecker() async {
+    Streamer.getEventStream().listen((data) {
+      if (data.eventType == EventType.REFRESH_NOTIFICATION_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
+        refreshUI();
+      }
+    });
   }
 
   void refreshUI() {

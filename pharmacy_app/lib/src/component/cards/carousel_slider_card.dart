@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/homepage_slider_single_card.dart';
+import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class HomePageCarouselSliderCard extends StatefulWidget {
@@ -13,15 +15,17 @@ class HomePageCarouselSliderCard extends StatefulWidget {
 
 class _HomePageCarouselSliderCardState
     extends State<HomePageCarouselSliderCard> {
-  final listItems = [
-    UIViewData()..imageUrl = 'assets/slider/1.png',
-    UIViewData()..imageUrl = 'assets/slider/2.png',
-    UIViewData()..imageUrl = 'assets/slider/3.png'
-  ];
+  List listItems;
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    listItems = getItems();
     return Container(
       color: Colors.transparent,
       width: double.infinity,
@@ -89,5 +93,20 @@ class _HomePageCarouselSliderCardState
         ).toList(),
       ),
     );
+  }
+
+  List getItems() {
+    if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH)
+      return [
+        UIViewData()..imageUrl = 'assets/slider/1e.png',
+        UIViewData()..imageUrl = 'assets/slider/2e.png',
+        UIViewData()..imageUrl = 'assets/slider/3e.png'
+      ];
+
+    return [
+      UIViewData()..imageUrl = 'assets/slider/1b.png',
+      UIViewData()..imageUrl = 'assets/slider/2b.png',
+      UIViewData()..imageUrl = 'assets/slider/3b.png'
+    ];
   }
 }

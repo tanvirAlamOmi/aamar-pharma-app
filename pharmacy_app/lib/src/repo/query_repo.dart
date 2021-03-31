@@ -201,26 +201,6 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
-        notificationFeedResponse.feedItems.forEach((singleFeedItem) async {
-          if (singleFeedItem.notificationItem.status ==
-              ClientEnum.NOTIFICATION_UNSEEN)
-            NotificationRepo.instance.changeNotificationStatus(
-                id: singleFeedItem.notificationItem.id,
-                notificationStatus: ClientEnum.NOTIFICATION_SEEN);
-        });
-
-        // Dummy Response Add
-        // int x = 0;
-        // final FeedResponse dummyNotificationFeedResponse =
-        //     await getDummyFeed(feedRequest);
-        // dummyNotificationFeedResponse.feedItems.forEach((singleFeedItem) {
-        //   notificationFeedResponse.feedItems.insert(x, singleFeedItem);
-        //   x = x + 1;
-        // });
-        // return Tuple2(
-        //     dummyNotificationFeedResponse, ClientEnum.RESPONSE_SUCCESS);
-        // End Dummy Response
-
         return Tuple2(notificationFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in getNotificationFeed() in QueryRepo");
