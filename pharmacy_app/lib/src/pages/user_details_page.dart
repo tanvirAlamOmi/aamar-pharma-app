@@ -128,12 +128,16 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void onSubmit() {
-    if (phoneController.text.isEmpty ||
-        nameController.text.isEmpty ||
-        emailController.text.isEmpty) {
+    if (phoneController.text.isEmpty) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey, message: "Please provide phone number");
+      return;
+    }
+
+    if (nameController.text.isEmpty) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey,
-          message: "Please fill all the information");
+          message: "Please provide your name");
       return;
     }
 

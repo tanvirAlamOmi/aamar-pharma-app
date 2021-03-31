@@ -86,7 +86,7 @@ class PersonalDetailsCard extends StatelessWidget {
                         controller: emailController,
                         decoration: new InputDecoration(
                           isDense: true,
-                          hintText:  EnBnDict.en_bn_convert(text: 'myemail@arbree.com'),
+                          hintText: 'myemail@pharma.com',
                           hintStyle: TextStyle(fontSize: 13),
                           fillColor: Colors.white,
                           contentPadding:

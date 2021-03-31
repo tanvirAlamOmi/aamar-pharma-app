@@ -303,6 +303,8 @@ class EnBnDict {
     'MY DETAILS': 'আমার বৃত্তান্ত',
     'SAVE': 'সেইভ করুন',
     'Please fill all the information': 'অনুগ্রহপূর্বক সবগুলো ঘর পূর্ণ করুন',
+    'Please provide phone number': 'অনুগ্রহপূর্বক ফোনের ঘর পূর্ণ করুন',
+    'Please provide your name': 'অনুগ্রহপূর্বক নামের ঘর পূর্ণ করুন',
     'Updated user': 'আপনার ব্যক্তিগত তথ্য পরিবর্তন করা হল।',
 
     // Order Details Page
