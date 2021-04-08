@@ -79,7 +79,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void initState() {
     super.initState();
     eventChecker();
-    setTime();
     setSelectionData();
     setUserTextControllerData();
     UIState.instance.scaffoldKey = _scaffoldKey;
@@ -135,13 +134,51 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
   void setSelectionData() {
     selectedDeliveryTimeDay = deliveryTimeDay[0];
     createDeliveryTimeTime();
-    setDeliveryDayOnTimeLimitCross();
   }
 
   void setDeliveryDayOnTimeLimitCross() {
-    if (currentTime.isAfter(timeLimit)) {
+    // Means Before 8.30 PM
+    if (currentTime.isAfter(timeLimit.subtract(Duration(minutes: 90)))) {
       selectedDeliveryTimeDay = deliveryTimeDay[1]; // Means Tomorrow
     }
+    // Means The day just started like 12.01 AM, So the time of the delivery starts from our office time
+    if (currentTime.isBefore(officeTime)) {
+      currentTime = officeTime;
+    }
+  }
+
+  void createDeliveryTimeTime() {
+    deliveryTimeTime.clear();
+    setTime();
+    setDeliveryDayOnTimeLimitCross();
+
+    if (selectedDeliveryTimeDay == deliveryTimeDay[0]) {
+      while (currentTime.isBefore(timeLimit)) {
+        if (currentTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
+
+        deliveryTimeTime.add(
+            Util.formatDateToStringOnlyHourMinute(currentTime) +
+                "-" +
+                Util.formatDateToStringOnlyHourMinute(
+                    currentTime.add(Duration(minutes: 90))));
+        currentTime = currentTime.add(Duration(minutes: 90));
+      }
+    }
+
+    if (selectedDeliveryTimeDay == deliveryTimeDay[1]) {
+      while (officeTime.isBefore(timeLimit)) {
+        if (officeTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
+
+        deliveryTimeTime.add(Util.formatDateToStringOnlyHourMinute(officeTime) +
+            "-" +
+            Util.formatDateToStringOnlyHourMinute(
+                officeTime.add(Duration(minutes: 90))));
+        officeTime = officeTime.add(Duration(minutes: 90));
+      }
+    }
+
+    selectedDeliveryTimeTime = deliveryTimeTime[0];
+    if (mounted) setState(() {});
   }
 
   @override
@@ -342,40 +379,6 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void setSelectedDeliveryAddressIndex(int index) {
     selectedDeliveryAddressIndex = index;
-  }
-
-  void createDeliveryTimeTime() {
-    deliveryTimeTime.clear();
-    setTime();
-    setDeliveryDayOnTimeLimitCross();
-
-    if (selectedDeliveryTimeDay == deliveryTimeDay[0]) {
-      while (currentTime.isBefore(timeLimit)) {
-        if (currentTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
-
-        deliveryTimeTime.add(
-            Util.formatDateToStringOnlyHourMinute(currentTime) +
-                "-" +
-                Util.formatDateToStringOnlyHourMinute(
-                    currentTime.add(Duration(minutes: 90))));
-        currentTime = currentTime.add(Duration(minutes: 90));
-      }
-    }
-
-    if (selectedDeliveryTimeDay == deliveryTimeDay[1]) {
-      while (officeTime.isBefore(timeLimit)) {
-        if (officeTime.add(Duration(minutes: 90)).isAfter(timeLimit)) break;
-
-        deliveryTimeTime.add(Util.formatDateToStringOnlyHourMinute(officeTime) +
-            "-" +
-            Util.formatDateToStringOnlyHourMinute(
-                officeTime.add(Duration(minutes: 90))));
-        officeTime = officeTime.add(Duration(minutes: 90));
-      }
-    }
-
-    selectedDeliveryTimeTime = deliveryTimeTime[0];
-    if (mounted) setState(() {});
   }
 
   Future<void> processOrder() async {
