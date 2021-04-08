@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
+import 'package:pharmacy_app/src/component/buttons/red_border_cancel_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';

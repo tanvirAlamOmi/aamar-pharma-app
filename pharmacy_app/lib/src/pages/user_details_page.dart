@@ -30,6 +30,7 @@ class _AccountPageState extends State<AccountPage> {
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController phoneController;
+  bool enableTextFields = true;
 
   @override
   void initState() {
@@ -54,7 +55,12 @@ class _AccountPageState extends State<AccountPage> {
 
   void setUserDetailsData() {
     user = Store.instance.appState.user;
-    if (user.id == null) user = User.none();
+    if (user.id == null) {
+      user = User.none();
+      enableTextFields = false;
+    } else {
+      enableTextFields = true;
+    }
 
     nameController = new TextEditingController(text: user.name);
     emailController = new TextEditingController(text: user.email);
@@ -83,6 +89,7 @@ class _AccountPageState extends State<AccountPage> {
     return Column(
       children: <Widget>[
         PersonalDetailsCard(
+            enableTextFields: enableTextFields,
             nameController: nameController,
             phoneController: phoneController,
             emailController: emailController),
@@ -136,8 +143,7 @@ class _AccountPageState extends State<AccountPage> {
 
     if (nameController.text.isEmpty) {
       Util.showSnackBar(
-          scaffoldKey: _scaffoldKey,
-          message: "Please provide your name");
+          scaffoldKey: _scaffoldKey, message: "Please provide your name");
       return;
     }
 

@@ -226,6 +226,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
                         setSelectedDeliveryAddressIndex,
                     callBackRefreshUI: refreshUI),
                 PersonalDetailsCard(
+                    enableTextFields: true,
                     nameController: nameController,
                     phoneController: phoneController,
                     emailController: emailController),

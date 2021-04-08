@@ -387,6 +387,7 @@ class EnBnDict {
     'Order is cancelled': 'অর্ডারটি ক্যান্সেল করা হয়েছে।',
     'Order is confirmed.': 'অর্ডারটি নিশ্চিত করা হয়েছে।',
     'Confirming Order and Invoice...': 'অর্ডার এবং চালান নিশ্চিত করা হচ্ছে...',
+    'Confirming...': 'নিশ্চিত করা হচ্ছে...',
     'You can not remove the last item': 'শেষের আইটেমটি রিমুভ করা যাবে না',
     'Please upload the required prescriptions':
         'প্রয়োজনীয় প্রেসক্রিপশন আপলোড করুন',

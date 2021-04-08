@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
+import 'package:pharmacy_app/src/component/buttons/red_border_cancel_button.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
@@ -135,6 +136,11 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                         acceptFunc: confirmInvoiceOrder);
                   },
                 ),
+                SizedBox(height: 7),
+                RedBorderCancelButton(
+                  isProcessing: isProcessing,
+                  callBackOnSubmit: cancelOrderSubmission,
+                ),
                 SizedBox(height: 20),
               ],
             ),
@@ -150,7 +156,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        LoadingWidget(status: 'Confirming Order and Invoice...'),
+        LoadingWidget(status: 'Confirming...'),
       ],
     );
   }
@@ -352,6 +358,31 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
         ),
       ),
     );
+  }
+
+  void cancelOrderSubmission() async {
+    isProcessing = true;
+    refreshUI();
+
+    final Tuple2<void, String> cancelOrderResponse =
+        await OrderRepo.instance.cancelOrder(orderId: widget.order.id);
+
+    if (cancelOrderResponse.item2 == ClientEnum.RESPONSE_SUCCESS) {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey, message: "Order is cancelled");
+      await Future.delayed(Duration(milliseconds: 1000));
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      await Future.delayed(Duration(milliseconds: 500));
+      Streamer.putEventStream(Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
+    } else {
+      Util.showSnackBar(
+          scaffoldKey: _scaffoldKey,
+          message: "Something went wrong. Please try again later.");
+    }
+
+    isProcessing = false;
+    refreshUI();
   }
 
   void removeItem(dynamic singleItem) {

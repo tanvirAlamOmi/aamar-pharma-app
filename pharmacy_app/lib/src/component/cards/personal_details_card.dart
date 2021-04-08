@@ -7,7 +7,7 @@ import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class PersonalDetailsCard extends StatelessWidget {
-  @override
+  final enableTextFields;
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -16,7 +16,8 @@ class PersonalDetailsCard extends StatelessWidget {
       {Key key,
       this.nameController,
       this.phoneController,
-      this.emailController})
+      this.emailController,
+      this.enableTextFields})
       : super(key: key);
 
   @override
@@ -54,6 +55,7 @@ class PersonalDetailsCard extends StatelessWidget {
                 child: TextField(
                   controller: nameController,
                   decoration: new InputDecoration(
+                    enabled: enableTextFields,
                     isDense: true,
                     hintText: EnBnDict.en_bn_convert(text: 'Mr. XYZ'),
                     hintStyle: TextStyle(fontSize: 13),
@@ -85,6 +87,7 @@ class PersonalDetailsCard extends StatelessWidget {
                       child: TextField(
                         controller: emailController,
                         decoration: new InputDecoration(
+                          enabled: enableTextFields,
                           isDense: true,
                           hintText: 'myemail@pharma.com',
                           hintStyle: TextStyle(fontSize: 13),
@@ -115,6 +118,7 @@ class PersonalDetailsCard extends StatelessWidget {
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         decoration: new InputDecoration(
+                          enabled: enableTextFields,
                           isDense: true,
                           hintText:
                               EnBnDict.en_bn_convert(text: 'Your Phone Number'),
