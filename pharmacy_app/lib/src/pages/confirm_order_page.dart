@@ -124,8 +124,10 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void setTime() {
     currentTime = DateTime.now();
+    // officeTime means when the delivery starts at 10 AM
     officeTime = DateTime(
         currentTime.year, currentTime.month, currentTime.day, 10, 00, 00);
+    // officeTime means upto which time we will deliver at 10 PM
     timeLimit = DateTime(
         currentTime.year, currentTime.month, currentTime.day, 22, 00, 00);
   }
@@ -138,7 +140,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
 
   void setDeliveryDayOnTimeLimitCross() {
     if (currentTime.isAfter(timeLimit)) {
-      selectedDeliveryTimeDay = deliveryTimeDay[1];
+      selectedDeliveryTimeDay = deliveryTimeDay[1]; // Means Tomorrow
     }
   }
 
