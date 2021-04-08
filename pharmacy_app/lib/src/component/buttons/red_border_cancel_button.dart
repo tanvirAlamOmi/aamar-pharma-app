@@ -17,17 +17,14 @@ class RedBorderCancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 5, 25, 5),
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-              Radius.circular(30.0) //                 <--- border radius here
-              ),
-          border: Border.all(width: 2, color: Colors.red),
-        ),
-        alignment: Alignment.center,
-        child: GestureDetector(
-          onTap: () => (isProcessing == false) ? callBackOnSubmit() : () {},
+      child: GestureDetector(
+        onTap: () => (isProcessing == false) ? callBackOnSubmit() : () {},
+        child: Container(
+          height: 40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              border: Border.all(width: 2, color: Colors.red)),
+          alignment: Alignment.center,
           child: CustomText('CANCEL ORDER',
               color: Colors.red, fontWeight: FontWeight.bold),
         ),
