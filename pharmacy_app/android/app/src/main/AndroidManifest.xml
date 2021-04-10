@@ -24,6 +24,12 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/MainTheme"
         android:requestLegacyExternalStorage="true">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_pharma_push" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPurple" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
