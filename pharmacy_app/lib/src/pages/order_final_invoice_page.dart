@@ -42,7 +42,8 @@ class OrderFinalInvoicePage extends StatefulWidget {
 
 class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool isProcessing = true;
+  bool isProcessing = false;
+  bool isDone = true;
 
   final TextStyle textStyle = new TextStyle(fontSize: 12, color: Colors.black);
 
@@ -50,7 +51,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 2), () {
-      isProcessing = false;
+      isDone = true;
       refreshUI();
       if (widget.order.repeatOrder == ClientEnum.NO &&
           widget.order.idParentOrder ==
@@ -212,7 +213,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     if (!widget.showDoneButton) return Container();
     return GeneralActionRoundButton(
       title: "DONE",
-      isProcessing: isProcessing,
+      isProcessing: isDone,
       callBackOnSubmit: () {
         Navigator.pop(context);
       },
