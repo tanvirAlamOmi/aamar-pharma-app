@@ -51,7 +51,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 2), () {
-      isDone = true;
+      isDone = false;
       refreshUI();
       if (widget.order.repeatOrder == ClientEnum.NO &&
           widget.order.idParentOrder ==

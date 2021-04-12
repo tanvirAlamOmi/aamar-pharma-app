@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pharmacy_app/src/util/util.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
@@ -61,7 +62,7 @@ Future<void> firebaseCloudMessagingListeners() async {
     if (Platform.isAndroid) {
       FirebaseMessaging.instance.subscribeToTopic("pharma-admin");
       if (ServerConfig.environmentMode == "dev")
-        FirebaseMessaging.instance.subscribeToTopic("pharma-admin-dev");
+        FirebaseMessaging.instance.subscribeToTopic("aamar-pharma-dev-push");
     }
 
     FirebaseMessaging.instance
@@ -86,11 +87,9 @@ Future<void> firebaseCloudMessagingListeners() async {
             notification.body,
             NotificationDetails(
                 android: AndroidNotificationDetails(
-                  channel.id,
-                  channel.name,
-                  channel.description,
-                  icon: 'launch_background',
-                ),
+                    channel.id, channel.name, channel.description,
+                    icon: 'ic_pharma_push',
+                    color: Util.colorFromHex('#473fa8')),
                 iOS: IOSNotificationDetails(
                   presentAlert: true,
                   presentBadge: true,

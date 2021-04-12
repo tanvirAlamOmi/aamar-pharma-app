@@ -6,7 +6,7 @@ class ServerConfig {
       // is Release Mode ??
       return "prod";
     }
-    return "prod";
+    return "dev";
   }
 
   static final String environmentMode = getEnvironment();
@@ -14,14 +14,9 @@ class ServerConfig {
   static Uri Address({String path}) {
     switch (getEnvironment()) {
       case 'dev':
-        return Uri.https('pharmacy.arbreesolutions.com', path);
+        return Uri.https('pharmacy.arbreefos.com', path);
       case 'prod':
         return Uri.https('pharmacy.arbreesolutions.com', path);
     }
   }
-
-  static final String SERVER_HOST = (getEnvironment() == "dev")
-      ? 'http://192.168.0.5'
-      : 'https://pharmacy.arbreesolutions.com';
-  static final int SERVER_PORT = (getEnvironment() == "dev") ? 8989 : 443;
 }
