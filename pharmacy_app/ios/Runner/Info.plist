@@ -22,7 +22,7 @@
 	<string>????</string>
 	<key>CFBundleSpokenName</key>
 	<string>Aamar Pharma</string>
-	key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
     <array>
     	<dict>
     		<key>CFBundleTypeRole</key>
