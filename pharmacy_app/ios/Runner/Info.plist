@@ -17,35 +17,39 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSpokenName</key>
 	<string>Aamar Pharma</string>
 	<key>CFBundleURLTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-    			<string>com.googleusercontent.apps.452298642011-qg4jelarof4fm0iqti0mkl6e79e62bej</string>
-    		</array>
-    	</dict>
-    </array>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.452298642011-qg4jelarof4fm0iqti0mkl6e79e62bej</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsLocalNetworking</key>
-        <true/>
-    </dict>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Aamar Pharma would like to access your apple music</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Aamar Pharma would like to access your Bluetooth</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Aamar Pharma would like to access your Bluetooth</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Aamar Pharma would like to access your calendar.</string>
 	<key>NSCameraUsageDescription</key>
@@ -66,11 +70,7 @@
 	<string>Aamar Pharma would like to access your Photo Library for taking prescription images. It is secure and private.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Aamar Pharma would like to access your speech recognition</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-    <string>Aamar Pharma would like to access your Bluetooth</string>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>Aamar Pharma would like to access your Bluetooth</string>
-    <key>UILaunchStoryboardName</key>
+	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
