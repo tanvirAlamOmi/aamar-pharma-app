@@ -30,6 +30,8 @@ class _MainPageState extends State<MainPage> {
     currentTabIndex = 0;
     Util.getPermissions();
     eventChecker();
+    AutoRefreshTimer.instance.stopTimer();
+    AutoRefreshTimer.instance.autoRefresh();
   }
 
   void eventChecker() async {
