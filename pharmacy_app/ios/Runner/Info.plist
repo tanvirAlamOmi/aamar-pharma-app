@@ -22,10 +22,28 @@
 	<string>????</string>
 	<key>CFBundleSpokenName</key>
 	<string>Aamar Pharma</string>
+	key>CFBundleURLTypes</key>
+    <array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>com.googleusercontent.apps.452298642011-qg4jelarof4fm0iqti0mkl6e79e62bej</string>
+    		</array>
+    	</dict>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Aamar Pharma would like to access your Camera for taking prescription images. It is secure and private</string>
 	<key>NSPhotoLibraryUsageDescription</key>
