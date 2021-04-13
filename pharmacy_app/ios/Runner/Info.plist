@@ -66,7 +66,11 @@
 	<string>Aamar Pharma would like to access your Photo Library for taking prescription images. It is secure and private.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Aamar Pharma would like to access your speech recognition</string>
-	<key>UILaunchStoryboardName</key>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Aamar Pharma would like to access your Bluetooth</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Aamar Pharma would like to access your Bluetooth</string>
+    <key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
