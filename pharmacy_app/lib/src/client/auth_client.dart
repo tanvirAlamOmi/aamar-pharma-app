@@ -90,6 +90,22 @@ class AuthClient {
     );
   }
 
+
+  Future<dynamic> updateProfile(String updateProfileRequest) async {
+    final http.Response response = await http
+        .post(
+      ServerConfig.Address(path: '/api/appapi/profile-update'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: updateProfileRequest,
+    )
+        .timeout(Duration(seconds: 20));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   static AuthClient _instance;
   static AuthClient get instance => _instance ??= AuthClient();
 }

@@ -124,6 +124,37 @@ class AuthRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
+  Future<Tuple2<void, String>> updateProfile(
+      {String name, String email, String phone}) async {
+    int retry = 0;
+
+    while (retry++ < 2) {
+      try {
+        String updateProfileRequest = jsonEncode(
+            <String, dynamic>{'name': name, 'email': email, 'phone': phone});
+
+        final updateProfileResponse = await AuthRepo.instance
+            .getAuthClient()
+            .updateProfile(updateProfileRequest);
+
+        if (updateProfileResponse['result'] == ClientEnum.RESPONSE_SUCCESS) {
+          final PharmaUser.User user = Store.instance.appState.user;
+          user.name = name;
+          user.email = email;
+          await Store.instance.updateUser(user);
+          return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
+        }
+        if (updateProfileResponse['STATUS'] == false) {
+          return Tuple2(null, updateProfileResponse['RESPONSE_MESSAGE']);
+        }
+      } catch (err) {
+        print("Error in signIn() in AuthRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
   Future<void> logout() async {
     await Store.instance.deleteAppData();
   }

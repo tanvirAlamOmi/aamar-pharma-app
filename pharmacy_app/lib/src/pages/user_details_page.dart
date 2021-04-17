@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart';
+import 'package:pharmacy_app/src/repo/auth_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class _AccountPageState extends State<AccountPage> {
   TextEditingController nameController;
   TextEditingController emailController;
   TextEditingController phoneController;
-  bool enableTextFields = true;
+  bool enableNameField = true;
+  bool enableEmailField = true;
+  bool enablePhoneField = false;
 
   @override
   void initState() {
@@ -57,9 +60,11 @@ class _AccountPageState extends State<AccountPage> {
     user = Store.instance.appState.user;
     if (user.id == null) {
       user = User.none();
-      enableTextFields = false;
+      enableNameField = false;
+      enableEmailField = false;
     } else {
-      enableTextFields = true;
+      enableNameField = true;
+      enableEmailField = true;
     }
 
     nameController = new TextEditingController(text: user.name);
@@ -89,7 +94,9 @@ class _AccountPageState extends State<AccountPage> {
     return Column(
       children: <Widget>[
         PersonalDetailsCard(
-            enableTextFields: enableTextFields,
+            enableNameField: enableNameField,
+            enableEmailField: enableEmailField,
+            enablePhoneField: enablePhoneField,
             nameController: nameController,
             phoneController: phoneController,
             emailController: emailController),
@@ -134,7 +141,7 @@ class _AccountPageState extends State<AccountPage> {
     Navigator.of(context).pushNamed('/login');
   }
 
-  void onSubmit() {
+  void onSubmit() async {
     if (phoneController.text.isEmpty) {
       Util.showSnackBar(
           scaffoldKey: _scaffoldKey, message: "Please provide phone number");
@@ -170,11 +177,10 @@ class _AccountPageState extends State<AccountPage> {
 
     Util.removeFocusNode(context);
 
-    user.phone = phoneController.text;
-    user.name = nameController.text;
-    user.email = emailController.text;
-
-    Store.instance.updateUser(user);
+    AuthRepo.instance.updateProfile(
+        name: nameController.text,
+        email: emailController.text,
+        phone: phoneController.text);
 
     Util.showSnackBar(
         scaffoldKey: _scaffoldKey, message: "Updated user", duration: 1000);
