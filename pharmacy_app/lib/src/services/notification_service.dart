@@ -16,7 +16,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
   print('on onBackgroundMessage ${message.data}');
   // Do not navigate route from here.
 }
@@ -96,14 +95,12 @@ Future<void> firebaseCloudMessagingListeners() async {
                   presentSound: true,
                 )));
       }
-      Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessage ${message.data['code']}');
       navigateToSpecificScreen();
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
       // On click the push message this is executed.
-      Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
       print('on onMessageOpenedApp ${message.data}');
       navigateToSpecificScreen();
     });
@@ -118,6 +115,8 @@ void navigateToSpecificScreen() async {
       .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   AppVariableStates.instance.navigatorKey.currentState
       .pushNamed('/notification');
+  await Future.delayed(Duration(seconds: 2));
+  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
 }
 
 void iOSPermission() {
