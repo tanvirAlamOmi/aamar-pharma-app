@@ -59,9 +59,9 @@ Future<void> firebaseCloudMessagingListeners() async {
     });
 
     if (Platform.isAndroid) {
-      FirebaseMessaging.instance.subscribeToTopic("pharma-admin");
+      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service");
       if (ServerConfig.environmentMode == "dev")
-        FirebaseMessaging.instance.subscribeToTopic("aamar-pharma-dev-push");
+        FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-dev");
     }
 
     FirebaseMessaging.instance
