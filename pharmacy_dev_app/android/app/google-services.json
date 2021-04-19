@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "19624671720",
+    "project_id": "aamar-pharma-test-server",
+    "storage_bucket": "aamar-pharma-test-server.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19624671720:android:c377f30aa8aadc0a454c5d",
+        "android_client_info": {
+          "package_name": "com.arbree.aamarpharmadev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19624671720-5d8a9d580kimv0s7dso34m3bnn73mp8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arbree.aamarpharmadev",
+            "certificate_hash": "88cd34c40dbf22ab4490ccd30dd6de87d6515d8a"
+          }
+        },
+        {
+          "client_id": "19624671720-i26csoehoevsjtnakamjelmeu6o1rk8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKzAgAp70XmTtoybOS4R7tNbgn4bod_vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19624671720-i26csoehoevsjtnakamjelmeu6o1rk8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
