@@ -25,8 +25,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
   void eventChecker() async {
     Streamer.getEventStream().listen((data) {
-      if (data.eventType == EventType.REFRESH_NOTIFICATION_PAGE ||
-          data.eventType == EventType.REFRESH_ALL_PAGES) {
+      if (data.eventType == EventType.REFRESH_NOTIFICATION_PAGE) {
         refreshUI();
       }
     });

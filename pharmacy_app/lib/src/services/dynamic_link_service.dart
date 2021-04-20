@@ -52,11 +52,9 @@ class DynamicLinksApi {
 
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
       uriPrefix: 'https://aamarpharmarefer.page.link',
-      link: Uri.parse(
-          'https://arbreesolutions.com?refer_code=${referralCode}'),
+      link: Uri.parse('https://arbreesolutions.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(
-        packageName: 'com.arbree.pharmacy_app',
-      ),
+          packageName: 'com.arbree.aamarpharma', minimumVersion: 4),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: 'Refer A Friend',
         description: 'Refer and earn',
