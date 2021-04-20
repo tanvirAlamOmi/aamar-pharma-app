@@ -378,10 +378,9 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
   }
 
   void submitRequestOrder() async {
+    Util.removeFocusNode(context);
     isProcessing = true;
     refreshUI();
-
-    Util.removeFocusNode(context);
 
     Util.showSnackBar(
         message: 'Please wait', scaffoldKey: _scaffoldKey, duration: 1000);
