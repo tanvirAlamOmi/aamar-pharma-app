@@ -58,11 +58,15 @@ Future<void> firebaseCloudMessagingListeners() async {
       await Store.instance.setFirebasePushNotificationToken(token);
     });
 
-    if (Platform.isAndroid) {
-      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service");
-      if (ServerConfig.environmentMode == "dev")
-        FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-dev");
-    }
+    FirebaseMessaging.instance.subscribeToTopic("pharma-push-service");
+    if (Platform.isAndroid)
+      FirebaseMessaging.instance
+          .subscribeToTopic("pharma-push-service-android");
+    if (Platform.isIOS)
+      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-ios");
+
+    if (ServerConfig.environmentMode == "dev")
+      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-dev");
 
     FirebaseMessaging.instance
         .getInitialMessage()
