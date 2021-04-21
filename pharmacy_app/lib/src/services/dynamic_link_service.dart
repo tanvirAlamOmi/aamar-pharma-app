@@ -67,6 +67,7 @@ class DynamicLinksApi {
         await dynamicLinkParameters.buildShortLink();
 
     final Uri dynamicUrl = shortLink.shortUrl;
+    print('Referral Link: ' + dynamicUrl.toString() + ' ' + referralCode);
     return dynamicUrl.toString();
   }
 }

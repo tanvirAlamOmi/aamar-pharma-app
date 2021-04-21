@@ -6,7 +6,7 @@ class ServerConfig {
       // is Release Mode ??
       return "prod";
     }
-    return "dev";
+    return "prod";
   }
 
   static final String environmentMode = getEnvironment();
