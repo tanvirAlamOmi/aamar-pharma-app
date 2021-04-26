@@ -205,6 +205,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
   }
 
   void submitConsultPharmacistOrder() async {
+    Util.removeFocusNode(context);
     isProcessing = true;
     refreshUI();
 

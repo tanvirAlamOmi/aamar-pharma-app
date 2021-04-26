@@ -36,7 +36,7 @@ class _AppSate extends State<App> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'Aamar Pharma Dev',
+      title: 'Dev Aamar Pharma',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Util.colorFromHex("#473FA8"),

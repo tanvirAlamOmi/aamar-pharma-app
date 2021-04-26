@@ -49,7 +49,8 @@ class _AccountPageState extends State<AccountPage> {
 
   void eventChecker() async {
     Streamer.getEventStream().listen((data) {
-      if (data.eventType == EventType.REFRESH_USER_DETAILS_PAGE) {
+      if (data.eventType == EventType.REFRESH_USER_DETAILS_PAGE ||
+          data.eventType == EventType.REFRESH_ALL_PAGES) {
         setUserDetailsData();
         refreshUI();
       }

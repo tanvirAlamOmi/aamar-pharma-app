@@ -274,6 +274,7 @@ class VerificationPageState extends State<VerificationPage> {
         case AppEnum.ON_VERIFICATION_CONFIRM_CONSULT_PHARMACIST_ORDER:
           Navigator.of(context).pop(); // pop verification Page
           AppVariableStates.instance.submitFunction();
+          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
           break;
 
         case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
