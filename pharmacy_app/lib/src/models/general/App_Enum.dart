@@ -49,6 +49,9 @@ class AppEnum {
   static const String DAY_THURSDAY = "Thursday";
   static const String DAY_FRIDAY = "Friday";
 
+  static const String ORDER_DELIVERY_CHARGE_AUTOMATIC = "automatic";
+  static const String ORDER_DELIVERY_CHARGE_MANUAL = "manual";
+
   static const String ORDER_STATUS_ALL = "SORT BY ORDER STATUS / ALL";
   static const String ORDER_STATUS_PENDING = "Pending";
   static const String ORDER_STATUS_INVOICE_SENT = "Invoice sent";

@@ -51,12 +51,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     OrderUtil.calculatePricing(widget.order);
   }
 
-  // setDeliveryCharge() {
-  //   if ((widget.order.deliveryCharge != null))
-  //     AppVariableStates.instance.orderDeliveryCharge =
-  //         widget.order.deliveryCharge;
-  // }
-
   @override
   void dispose() {
     super.dispose();

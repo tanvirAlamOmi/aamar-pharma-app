@@ -12,7 +12,6 @@ class AppVariableStates {
   DateTime selectedRepeatedTime = DateTime.now();
   Order order = new Order();
   List<DeliveryCharge> deliveryCharges = List<DeliveryCharge>();
-  String orderDeliveryCharge = '0';
   BuildContext context;
   bool loginWithReferral = false;
   String dynamicLink = "";
