@@ -49,6 +49,19 @@ class DeliveryClient {
     return jsonResponse;
   }
 
+  Future<dynamic> deliveryCharges(String jwtToken) async {
+    final http.Response response = await http.get(
+      ServerConfig.Address(path: '/api/appapi/delivery-charge'),
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ).timeout(Duration(seconds: 20));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
   static DeliveryClient _instance;
   static DeliveryClient get instance => _instance ??= DeliveryClient();
 }

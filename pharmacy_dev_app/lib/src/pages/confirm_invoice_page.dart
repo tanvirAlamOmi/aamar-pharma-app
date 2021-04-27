@@ -48,14 +48,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     checkIfPrescriptionRequired();
-    setDeliveryCharge();
     OrderUtil.calculatePricing(widget.order);
-  }
-
-  setDeliveryCharge() {
-    if ((widget.order.deliveryCharge != null))
-      AppVariableStates.instance.orderDeliveryCharge =
-          widget.order.deliveryCharge;
   }
 
   @override
@@ -101,6 +94,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 buildViewOrderDetailsButton(),
+                buildInvoiceNote(),
                 buildWarningTitle(),
                 SizedBox(height: 20),
                 OrderInvoiceTableCard(
@@ -309,6 +303,27 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                 fontSize: 12),
           )
         ],
+      ),
+    );
+  }
+
+  Widget buildInvoiceNote() {
+    if (widget.order.invoiceNote == null) return Container();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
+      child: Material(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        elevation: 1,
+        color: Util.colorFromHex('#D2F2F4'),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Text(widget.order.invoiceNote,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15)),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/order/delivery_charge.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 
 class AppVariableStates {
@@ -10,7 +11,7 @@ class AppVariableStates {
   String initialLanguageChoose = "LANGUAGE (ENGLISH)";
   DateTime selectedRepeatedTime = DateTime.now();
   Order order = new Order();
-  String orderDeliveryCharge = '0';
+  List<DeliveryCharge> deliveryCharges = List<DeliveryCharge>();
   BuildContext context;
   bool loginWithReferral = false;
   String dynamicLink = "";

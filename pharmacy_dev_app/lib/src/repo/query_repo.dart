@@ -242,118 +242,127 @@ class QueryRepo {
         ClientEnum.RESPONSE_SUCCESS);
   }
 
-  Future<FeedResponse> getDummyFeed(FeedRequest feedRequest) async {
+  Future<Tuple2<FeedResponse, String>> getDummyFeed(
+      FeedRequest feedRequest) async {
     switch (feedRequest.feedInfo.feedType) {
       case AppEnum.FEED_NOTIFICATION:
-        return FeedResponse(status: true, feedItems: [
-          FeedItem(
-              viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
-              notificationItem:
-                  NotificationItem(message: "Your Order has been confirmed")),
-          FeedItem(
-              viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
-              notificationItem: NotificationItem(
-                  message:
-                      "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
-        ]);
+        return Tuple2(
+            FeedResponse(status: true, feedItems: [
+              FeedItem(
+                  viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
+                  notificationItem: NotificationItem(
+                      message: "Your Order has been confirmed")),
+              FeedItem(
+                  viewCardType: AppEnum.FEED_ITEM_NOTIFICATION_CARD,
+                  notificationItem: NotificationItem(
+                      message:
+                          "Please wait some time. Aamar pharma is on the processing of your order. You will get it shortly")),
+            ]),
+            ClientEnum.RESPONSE_SUCCESS);
         break;
 
       case AppEnum.FEED_ORDER:
-        return FeedResponse(status: true, feedItems: [
-          FeedItem(
-            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
-            order: Order(
-              id: 1026,
-              prescription: Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  ",",
-              orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
-              status: AppEnum.ORDER_STATUS_DELIVERED,
-              idAddress: 0,
-              name: "ABC",
-              mobileNo: "01528285415",
-              email: "abc@gmail.com",
-              deliveryDate: '2021-02-29',
-              deliveryTime: '10:15 AM-12:08 PM',
-              deliveryAddressDetails: DeliveryAddressDetails()
-                ..area = 'Banani'
-                ..id = 1
-                ..address = '39/A Banani',
-              deliveryCharge: '20.00',
-              invoiceItemList: [
-                InvoiceItem()
-                  ..itemName = 'Napa'
-                  ..quantity = 12
-                  ..rate = 2
-              ],
-            ),
-          ),
-          FeedItem(
-            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
-            order: Order(
-              id: 1023,
-              prescription: Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  "," +
-                  Util.getStaticImageURL() +
-                  ",",
-              orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
-              status: AppEnum.ORDER_STATUS_PENDING,
-              idAddress: 0,
-              name: "ABC",
-              mobileNo: "01528285415",
-              email: "abc@gmail.com",
-              deliveryDate: '2021-02-29',
-              deliveryTime: '10:15 AM-12:08 PM',
-              deliveryAddressDetails: DeliveryAddressDetails()
-                ..area = 'Gulshan'
-                ..id = 1
-                ..address = '39/A Gulshan',
-              deliveryCharge: '150.00',
-            ),
-          ),
-          FeedItem(
-            viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
-            order: Order(
-              id: 1024,
-              items: [
-                OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
-                OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
-              ],
-              orderedWith: AppEnum.ORDER_WITH_ITEM_NAME,
-              status: AppEnum.ORDER_STATUS_INVOICE_SENT,
-              idAddress: 0,
-              name: "ABC",
-              mobileNo: "01528285415",
-              email: "abc@gmail.com",
-              deliveryDate: '2021-02-29',
-              deliveryTime: '10:15 AM-12:08 PM',
-              deliveryAddressDetails: DeliveryAddressDetails()
-                ..area = 'Mirpur'
-                ..id = 1
-                ..address = '39/A Mirpur',
-              deliveryCharge: '25.00',
-              invoiceItemList: [
-                InvoiceItem()
-                  ..itemName = 'Napa'
-                  ..quantity = 12
-                  ..rate = 2,
-                InvoiceItem()
-                  ..itemName = 'Dexpoten'
-                  ..quantity = 2
-                  ..rate = 50
-              ],
-            ),
-          )
-        ]);
+        return Tuple2(
+            FeedResponse(status: true, feedItems: [
+              FeedItem(
+                viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
+                order: Order(
+                  id: 1026,
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
+                  orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
+                  status: AppEnum.ORDER_STATUS_DELIVERED,
+                  idAddress: 0,
+                  name: "ABC",
+                  mobileNo: "01528285415",
+                  email: "abc@gmail.com",
+                  deliveryDate: '2021-02-29',
+                  deliveryTime: '10:15 AM-12:08 PM',
+                  deliveryAddressDetails: DeliveryAddressDetails()
+                    ..area = 'Banani'
+                    ..id = 1
+                    ..address = '39/A Banani',
+                  deliveryCharge: '20.00',
+                  invoiceItemList: [
+                    InvoiceItem()
+                      ..itemName = 'Napa'
+                      ..quantity = 12
+                      ..rate = 2
+                  ],
+                ),
+              ),
+              FeedItem(
+                viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
+                order: Order(
+                  id: 1023,
+                  prescription: Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      "," +
+                      Util.getStaticImageURL() +
+                      ",",
+                  orderedWith: AppEnum.ORDER_WITH_PRESCRIPTION,
+                  status: AppEnum.ORDER_STATUS_PENDING,
+                  idAddress: 0,
+                  name: "ABC",
+                  mobileNo: "01528285415",
+                  email: "abc@gmail.com",
+                  deliveryDate: '2021-02-29',
+                  deliveryTime: '10:15 AM-12:08 PM',
+                  deliveryAddressDetails: DeliveryAddressDetails()
+                    ..area = 'Gulshan'
+                    ..id = 1
+                    ..address = '39/A Gulshan',
+                  deliveryCharge: '150.00',
+                ),
+              ),
+              FeedItem(
+                viewCardType: AppEnum.FEED_ITEM_ORDER_CARD,
+                order: Order(
+                  id: 1024,
+                  items: [
+                    OrderManualItem(itemName: "ABC", unit: "mg", quantity: 10),
+                    OrderManualItem(itemName: "XYZ", unit: "g", quantity: 20)
+                  ],
+                  orderedWith: AppEnum.ORDER_WITH_ITEM_NAME,
+                  status: AppEnum.ORDER_STATUS_INVOICE_SENT,
+                  idAddress: 0,
+                  name: "ABC",
+                  mobileNo: "01528285415",
+                  email: "abc@gmail.com",
+                  deliveryDate: '2021-02-29',
+                  deliveryTime: '10:15 AM-12:08 PM',
+                  deliveryAddressDetails: DeliveryAddressDetails()
+                    ..area = 'Mirpur'
+                    ..id = 1
+                    ..address = '39/A Mirpur',
+                  deliveryCharge: '25.00',
+                  discount: 10,
+                  deliveryChargeType: AppEnum.ORDER_DELIVERY_CHARGE_AUTOMATIC,
+                  invoiceNote:
+                      'We do not have those items. PLease visit again.',
+                  invoiceItemList: [
+                    InvoiceItem()
+                      ..itemName = 'Napa'
+                      ..quantity = 25
+                      ..rate = 2,
+                    InvoiceItem()
+                      ..itemName = 'Dexpoten'
+                      ..quantity = 8
+                      ..rate = 50
+                  ],
+                ),
+              )
+            ]),
+            ClientEnum.RESPONSE_SUCCESS);
         break;
     }
   }
