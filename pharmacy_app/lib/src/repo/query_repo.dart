@@ -36,7 +36,6 @@ class QueryRepo {
 
   Future<Tuple2<FeedResponse, String>> getOrderFeedData(
       FeedRequest feedRequest) async {
-    return getDummyFeed(feedRequest);
     int retry = 0;
     while (retry++ < 2) {
       try {
@@ -348,6 +347,8 @@ class QueryRepo {
                   deliveryCharge: '25.00',
                   discount: 10,
                   deliveryChargeType: AppEnum.ORDER_DELIVERY_CHARGE_AUTOMATIC,
+                  invoiceNote:
+                      'We do not have those items. PLease visit again.',
                   invoiceItemList: [
                     InvoiceItem()
                       ..itemName = 'Napa'
