@@ -148,8 +148,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                       controller: itemNameController,
                       decoration: new InputDecoration(
                         isDense: true,
-                        hintText:
-                            EnBnDict.en_bn_convert(text: 'Napa, Histasin'),
+                        hintText: EnBnDict.en_bn_convert(text: 'Napa'),
                         hintStyle: TextStyle(
                             fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
                         fillColor: Colors.white,
@@ -181,8 +180,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemUnitController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText:
-                                  EnBnDict.en_bn_convert(text: 'e.g. mg,ml'),
+                              hintText: EnBnDict.en_bn_convert(text: 'mg/ml'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),
@@ -214,8 +212,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText:
-                                  EnBnDict.en_bn_convert(text: 'e.g. 10,15'),
+                              hintText: EnBnDict.en_bn_number_convert(number: '10'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),
@@ -345,7 +342,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
       context,
       MaterialPageRoute(
           builder: (context) => ConfirmOrderPage(
-            isRepeatOrder: widget.isRepeatOrder,
+                isRepeatOrder: widget.isRepeatOrder,
                 orderType: AppEnum.ORDER_WITH_ITEM_NAME,
                 orderManualItemList: orderManualItemList,
               )),

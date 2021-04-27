@@ -202,9 +202,9 @@ class EnBnDict {
     //Add Items Page
     'ADD ITEMS': 'আইটেম যুক্ত করুন ',
     'Item Name': 'আইটেমের নাম',
-    'Napa, Histasin': 'নাপা, হিস্টাসিন ',
+    'Napa': 'নাপা',
     'Unit': 'একক',
-    'e.g. mg,ml': 'উদাঃ মি,গ্রা, এমএল ',
+    'mg/ml': 'মি,গ্রা/এমএল ',
     'Quantity': 'পরিমাণ',
     'e.g. 10,15': 'উদাঃ ১০,১৫ ',
     'ADD ITEM': 'আইটেম যোগ করুন ',
