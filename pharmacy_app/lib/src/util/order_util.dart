@@ -31,6 +31,8 @@ class OrderUtil {
     order.grandTotal = OrderUtil.roundingGrandTotal(order.grandTotal);
   }
 
+  static String setDeliveryCharge(Order order) {}
+
   static String roundingGrandTotal(String orderGrandTotal) {
     final double grandTotalDoubleFormat = double.parse(orderGrandTotal);
     final int grandTotalIntFormat = grandTotalDoubleFormat.toInt();

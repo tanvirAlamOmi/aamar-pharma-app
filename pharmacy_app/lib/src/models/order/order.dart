@@ -13,10 +13,12 @@ class Order {
   String email;
   String mobileNo;
   String note;
+  String invoiceNote;
   String repeatOrder;
   String deliveryTime;
   String deliveryDate;
   String deliveryCharge;
+  String deliveryChargeType;
   int discount;
   String subTotal;
   String grandTotal;
@@ -42,10 +44,12 @@ class Order {
       this.email,
       this.mobileNo,
       this.note,
+      this.invoiceNote,
       this.repeatOrder,
       this.deliveryTime,
       this.deliveryDate,
       this.deliveryCharge,
+      this.deliveryChargeType,
       this.discount,
       this.subTotal,
       this.grandTotal,
@@ -78,10 +82,12 @@ class Order {
         email: jsonData['email'],
         mobileNo: jsonData['mobile_no'],
         note: jsonData['note'],
+        invoiceNote: jsonData['invoice_note'],
         repeatOrder: jsonData['repeat_order'],
         deliveryTime: jsonData['delivery_time'],
         deliveryDate: jsonData['delivery_date'],
         deliveryCharge: jsonData['del_charge'],
+        deliveryChargeType: jsonData['del_charge_type'],
         discount: jsonData['discount'],
         subTotal: jsonData['subtotal'],
         grandTotal: jsonData['grandtotal'],
@@ -121,10 +127,12 @@ class Order {
       'email': email,
       'mobile_no': mobileNo,
       'note': note,
+      'invoice_note': invoiceNote,
       'repeat_order': repeatOrder,
       'delivery_time': deliveryTime,
       'delivery_date': deliveryDate,
       'del_charge': deliveryCharge,
+      'del_charge_type': deliveryChargeType,
       'discount': discount,
       'subtotal': subTotal,
       'grandtotal': grandTotal,

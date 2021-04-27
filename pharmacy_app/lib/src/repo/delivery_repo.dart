@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/client/delivery_client.dart';
 import 'package:pharmacy_app/src/client/order_client.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/order/delivery_charge.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
@@ -103,5 +104,50 @@ class DeliveryRepo {
       }
     }
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<List<DeliveryCharge>> deliveryCharges() async {
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String jwtToken = Store.instance.appState.user.loginToken;
+
+        final getDeliveryChargeResponse = await DeliveryRepo.instance
+            .getDeliveryClient()
+            .deliveryCharges(jwtToken);
+
+        if (!(getDeliveryChargeResponse is List))
+          return defaultDeliveryCharge();
+
+        final List<DeliveryCharge> itemList = List<dynamic>.from(
+                getDeliveryChargeResponse
+                    .map((singleItem) => DeliveryCharge.fromJson(singleItem)))
+            .cast<DeliveryCharge>();
+
+        return itemList;
+      } catch (err) {
+        print("Error in deliveryCharges() in DeliveryRepo");
+        print(err);
+        return defaultDeliveryCharge();
+      }
+    }
+    return defaultDeliveryCharge();
+  }
+
+  List<DeliveryCharge> defaultDeliveryCharge() {
+    return [
+      DeliveryCharge()
+        ..amountFrom = 0
+        ..amountTo = 499
+        ..deliveryCharge = 20,
+      DeliveryCharge()
+        ..amountFrom = 0
+        ..amountTo = 999
+        ..deliveryCharge = 10,
+      DeliveryCharge()
+        ..amountFrom = 1000
+        ..amountTo = 9999999999
+        ..deliveryCharge = 0
+    ];
   }
 }

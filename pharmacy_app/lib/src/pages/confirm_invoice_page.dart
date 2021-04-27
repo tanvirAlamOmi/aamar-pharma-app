@@ -48,15 +48,14 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   void initState() {
     super.initState();
     checkIfPrescriptionRequired();
-    setDeliveryCharge();
     OrderUtil.calculatePricing(widget.order);
   }
 
-  setDeliveryCharge() {
-    if ((widget.order.deliveryCharge != null))
-      AppVariableStates.instance.orderDeliveryCharge =
-          widget.order.deliveryCharge;
-  }
+  // setDeliveryCharge() {
+  //   if ((widget.order.deliveryCharge != null))
+  //     AppVariableStates.instance.orderDeliveryCharge =
+  //         widget.order.deliveryCharge;
+  // }
 
   @override
   void dispose() {
