@@ -138,16 +138,12 @@ class DeliveryRepo {
     return [
       DeliveryCharge()
         ..amountFrom = 0
-        ..amountTo = 499
+        ..amountTo = '499.9999'
         ..deliveryCharge = 20,
       DeliveryCharge()
-        ..amountFrom = 0
-        ..amountTo = 999
-        ..deliveryCharge = 10,
-      DeliveryCharge()
-        ..amountFrom = 1000
-        ..amountTo = 9999999999
-        ..deliveryCharge = 0
+        ..amountFrom = 500
+        ..amountTo = '999999999999'
+        ..deliveryCharge = 0,
     ];
   }
 }

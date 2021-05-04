@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 class DeliveryCharge {
   int amountFrom;
-  double amountTo; // This is needed when fetching all covered area of delivery
+  String amountTo; // This is needed when fetching all covered area of delivery
   int deliveryCharge;
 
   DeliveryCharge({
