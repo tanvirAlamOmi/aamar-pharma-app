@@ -402,7 +402,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => UploadPrescriptionVerifyPage(
                 isRepeatOrder: false,
                 prescriptionImageFileList: prescriptionImageFileList,
-                nextStep: AppEnum.HOME_PAGE,
+                nextStep: AppEnum.PAGE_HOME,
               )),
     );
   }

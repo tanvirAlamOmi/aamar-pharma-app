@@ -169,7 +169,7 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
 
   void submit() async {
     switch (widget.pageName) {
-      case AppEnum.CONFIRM_ORDER_PAGE:
+      case AppEnum.PAGE_CONFIRM_ORDER:
         AppVariableStates.instance.order.repeatOrder = ClientEnum.YES;
         AppVariableStates.instance.order.every = selectedDeliveryDayInterval;
         AppVariableStates.instance.order.time = selectedDeliveryTimeTime;
@@ -177,7 +177,7 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
         AppVariableStates.instance.submitFunction();
         break;
 
-      case AppEnum.CONFIRM_INVOICE_PAGE:
+      case AppEnum.PAGE_CONFIRM_INVOICE:
         isProcessing = true;
         refreshUI();
         Tuple2<void, String> allowRepeatOrderResponse = await OrderRepo.instance

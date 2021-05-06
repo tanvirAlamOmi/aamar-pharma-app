@@ -486,7 +486,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   showReOrder: false,
                   showOrderDetails: false,
                   showDoneButton: true,
-                  pageName: AppEnum.CONFIRM_INVOICE_PAGE,
+                  pageName: AppEnum.PAGE_CONFIRM_INVOICE,
                 )),
       );
     } else {

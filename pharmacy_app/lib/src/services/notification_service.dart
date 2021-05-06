@@ -113,7 +113,7 @@ Future<void> firebaseCloudMessagingListeners() async {
 
 void navigateToSpecificScreen(dynamic code) async {
   print('PUSH DATA: ' + code['SERVER_DATA']);
-  await Future.delayed(Duration(milliseconds: 1500));
+  await Future.delayed(Duration(milliseconds: 2000));
   Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
 
   switch (AppVariableStates.instance.pageName) {
@@ -123,7 +123,7 @@ void navigateToSpecificScreen(dynamic code) async {
     case AppEnum.PAGE_ADD_NEW_ADDRESS:
       break;
 
-    case AppEnum.CONFIRM_INVOICE_PAGE:
+    case AppEnum.PAGE_CONFIRM_INVOICE:
       break;
 
     case AppEnum.PAGE_CONFIRM_ORDER:
@@ -131,31 +131,37 @@ void navigateToSpecificScreen(dynamic code) async {
 
     case AppEnum.PAGE_INITIAL_TUTORIAL_SCROLLING:
       break;
-  }
 
-  switch (code['SERVER_DATA']) {
-    case 'VALET_CANCEL':
-      AppVariableStates.instance.navigatorKey.currentState
-          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+    case AppEnum.PAGE_ORDER_FINAL_INVOICE:
       break;
+
+    case AppEnum.PAGE_REPEAT_ORDER_CHOICE:
+      break;
+
+    case AppEnum.PAGE_SPECIAL_REQUEST_PRODUCT:
+      break;
+
+    case AppEnum.PAGE_UPLOAD_PRESCRIPTION_VERIFY:
+      break;
+
+    case AppEnum.PAGE_VERIFICATION:
+      break;
+
     default:
-      AppVariableStates.instance.navigatorKey.currentState
-          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
-      AppVariableStates.instance.navigatorKey.currentState
-          .pushNamed('/notification');
-      break;
+      switch (code['SERVER_DATA']) {
+        case 'ANYTHING':
+          break;
+        default:
+          AppVariableStates.instance.navigatorKey.currentState
+              .pushNamedAndRemoveUntil(
+                  '/main', (Route<dynamic> route) => false);
+          AppVariableStates.instance.navigatorKey.currentState
+              .pushNamed('/notification');
+          break;
+      }
   }
-}
-
-void prevNavigateToSpecificScreen() async {
-  AppVariableStates.instance.navigatorKey.currentState
-      .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
-  AppVariableStates.instance.navigatorKey.currentState
-      .pushNamed('/notification');
 }
 
 void iOSPermission() {
   FirebaseMessaging.instance.requestPermission();
 }
-
-void processNotificationMessage(Map<String, dynamic> message) async {}

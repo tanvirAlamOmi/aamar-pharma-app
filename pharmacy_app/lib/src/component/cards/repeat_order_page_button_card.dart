@@ -3,21 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmacy_app/src/component/buttons/general_action_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
-import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
-import 'package:pharmacy_app/src/component/general/drop_down_item.dart';
-import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/pages/add_items_page.dart';
-import 'package:pharmacy_app/src/pages/special_request_product_page.dart';
 import 'package:pharmacy_app/src/pages/upload_prescription_verify_page.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:pharmacy_app/src/store/store.dart';
 
 class RepeatOrderPageButtonCard extends StatelessWidget {
   RepeatOrderPageButtonCard({Key key}) : super(key: key);
@@ -261,7 +253,7 @@ class RepeatOrderPageButtonCard extends StatelessWidget {
           builder: (context) => UploadPrescriptionVerifyPage(
                 prescriptionImageFileList: prescriptionImageFileList,
                 isRepeatOrder: true,
-                nextStep: AppEnum.HOME_PAGE,
+                nextStep: AppEnum.PAGE_HOME,
               )),
     );
   }

@@ -173,7 +173,7 @@ class _UploadPrescriptionOrderCardState
       MaterialPageRoute(
           builder: (context) => UploadPrescriptionVerifyPage(
                 prescriptionImageFileList: prescriptionImageFileList,
-                nextStep: AppEnum.CONFIRM_INVOICE_PAGE,
+                nextStep: AppEnum.PAGE_CONFIRM_INVOICE,
               )),
     );
   }

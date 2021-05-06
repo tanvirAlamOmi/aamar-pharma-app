@@ -6,7 +6,6 @@ import 'package:pharmacy_app/src/component/buttons/general_action_round_button.d
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_delivery_time_card.dart';
 import 'package:pharmacy_app/src/component/cards/order_invoice_table_card.dart';
-import 'package:pharmacy_app/src/component/cards/order_repeat_order_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
@@ -470,7 +469,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                RepeatOrderChoicePage(pageName: AppEnum.CONFIRM_ORDER_PAGE)),
+                RepeatOrderChoicePage(pageName: AppEnum.PAGE_CONFIRM_ORDER)),
       );
       return;
     }
