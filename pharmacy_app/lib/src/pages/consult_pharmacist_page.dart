@@ -32,6 +32,7 @@ class _ConsultPharmacistPageState extends State<ConsultPharmacistPage> {
     super.initState();
     phoneController = new TextEditingController(
         text: Store.instance.appState.user.phone ?? '');
+    AppVariableStates.instance.pageName = AppEnum.PAGE_CONSULT_PHARMACIST;
   }
 
   @override

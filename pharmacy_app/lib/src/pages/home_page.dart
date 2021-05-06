@@ -9,6 +9,7 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     eventChecker();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_HOME;
   }
 
   @override

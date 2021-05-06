@@ -43,6 +43,7 @@ class _RepeatOrderChoicePageState extends State<RepeatOrderChoicePage> {
   void initState() {
     super.initState();
     setTime();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_REPEAT_ORDER_CHOICE;
   }
 
   void setTime() {

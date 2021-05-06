@@ -5,6 +5,7 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -43,6 +44,7 @@ class _UploadPrescriptionVerifyPageState
   void initState() {
     super.initState();
     eventChecker();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_UPLOAD_PRESCRIPTION_VERIFY;
   }
 
   @override

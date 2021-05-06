@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/configs/server_config.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:package_info/package_info.dart';
@@ -18,6 +20,7 @@ class SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     initAppAndNavigate();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_SPLASH;
   }
 
   Future initAppAndNavigate() async {

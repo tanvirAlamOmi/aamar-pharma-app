@@ -3,6 +3,7 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -32,6 +33,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
   @override
   void initState() {
     super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_ADD_ITEMS;
   }
 
   @override
@@ -212,7 +214,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
                             controller: itemQuantityController,
                             decoration: new InputDecoration(
                               isDense: true,
-                              hintText: EnBnDict.en_bn_number_convert(number: '10'),
+                              hintText:
+                                  EnBnDict.en_bn_number_convert(number: '10'),
                               hintStyle: TextStyle(
                                   fontFamily: EnBnDict.en_bn_font(),
                                   fontSize: 13),

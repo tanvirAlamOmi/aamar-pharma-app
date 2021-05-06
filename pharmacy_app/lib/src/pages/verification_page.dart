@@ -38,6 +38,7 @@ class VerificationPageState extends State<VerificationPage> {
   void initState() {
     super.initState();
     eventChecker();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_VERIFICATION;
   }
 
   @override

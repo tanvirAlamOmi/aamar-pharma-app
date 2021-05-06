@@ -82,6 +82,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
     setSelectionData();
     setUserTextControllerData();
     UIState.instance.scaffoldKey = _scaffoldKey;
+    AppVariableStates.instance.pageName = AppEnum.PAGE_CONFIRM_ORDER;
   }
 
   @override

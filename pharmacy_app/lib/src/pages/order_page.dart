@@ -5,6 +5,7 @@ import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -26,6 +27,7 @@ class _OrderPageState extends State<OrderPage> {
     super.initState();
     eventChecker();
     UIState.instance.scaffoldKey = scaffoldKey;
+    AppVariableStates.instance.pageName = AppEnum.PAGE_ORDER;
   }
 
   void eventChecker() async {

@@ -26,6 +26,7 @@ class LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_LOGIN;
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class HelpFAQPage extends StatefulWidget {
@@ -71,6 +72,13 @@ class _HelpFAQPageState extends State<HelpFAQPage> {
         collapseData: true),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_HELP_FAQ;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

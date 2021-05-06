@@ -44,6 +44,7 @@ class _SpecialRequestProductPageState extends State<SpecialRequestProductPage> {
     super.initState();
     phoneNumberController = new TextEditingController(
         text: Store.instance.appState.user.phone ?? '');
+    AppVariableStates.instance.pageName = AppEnum.PAGE_SPECIAL_REQUEST_PRODUCT;
   }
 
   @override

@@ -11,6 +11,7 @@ import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
@@ -50,6 +51,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   @override
   void initState() {
     super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_ORDER_FINAL_INVOICE;
     Timer(Duration(seconds: 2), () {
       isDone = false;
       refreshUI();
