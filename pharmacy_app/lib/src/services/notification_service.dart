@@ -8,7 +8,6 @@ import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
@@ -34,7 +33,6 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 Future<void> firebaseCloudMessagingListeners() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  print("FIREBASE  initialized");
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await flutterLocalNotificationsPlugin
