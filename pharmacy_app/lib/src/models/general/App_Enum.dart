@@ -70,4 +70,35 @@ class AppEnum {
   static const String ORDER_PAYMENT_STATUS_NOT_PAID = "Not paid";
 
   static const String HOTLINE_NUMBER = '+8801874761111';
+
+  static const String PAGE_ADD_ITEMS = 'PAGE_ADD_ITEMS';
+  static const String PAGE_ADD_NEW_ADDRESS = 'PAGE_ADD_NEW_ADDRESS';
+  static const String PAGE_CONFIRM_INVOICE = 'PAGE_CONFIRM_INVOICE';
+  static const String PAGE_CONFIRM_ORDER = 'PAGE_CONFIRM_ORDER';
+  static const String PAGE_CONSULT_PHARMACIST = 'PAGE_CONSULT_PHARMACIST';
+  static const String PAGE_HELP_FAQ = 'PAGE_HELP_FAQ';
+  static const String PAGE_HOME = 'PAGE_HOME';
+  static const String PAGE_INITIAL_TUTORIAL_SCROLLING =
+      'PAGE_INITIAL_TUTORIAL_SCROLLING';
+  static const String PAGE_LOGIN = 'PAGE_LOGIN';
+  static const String PAGE_MAIN = 'PAGE_MAIN';
+  static const String PAGE_NO_INTERNET = 'PAGE_NO_INTERNET';
+  static const String PAGE_NOTIFICATION = 'PAGE_NOTIFICATION';
+  static const String PAGE_NOTIFICATION_TO_ORDER = 'PAGE_NOTIFICATION_TO_ORDER';
+  static const String PAGE_ORDER_DETAILS = 'PAGE_ORDER_DETAILS';
+  static const String PAGE_ORDER_FINAL_INVOICE = 'PAGE_ORDER_FINAL_INVOICE';
+  static const String PAGE_ORDER = 'PAGE_ORDER';
+  static const String PAGE_REFERRAL_LINK = 'PAGE_REFERRAL_LINK';
+  static const String PAGE_REPEAT_ORDER_CHOICE = 'PAGE_REPEAT_ORDER_CHOICE';
+  static const String PAGE_REPEAT_ORDER = 'PAGE_REPEAT_ORDER';
+  static const String PAGE_REQUEST_ORDER = 'PAGE_REQUEST_ORDER';
+  static const String PAGE_REQUEST_RECEIVED_SUCCESS =
+      'PAGE_REQUEST_RECEIVED_SUCCESS';
+  static const String PAGE_SPECIAL_REQUEST_PRODUCT =
+      'PAGE_SPECIAL_REQUEST_PRODUCT';
+  static const String PAGE_SPLASH = 'PAGE_SPLASH';
+  static const String PAGE_UPLOAD_PRESCRIPTION_VERIFY =
+      'PAGE_UPLOAD_PRESCRIPTION_VERIFY';
+  static const String PAGE_USER_DETAILS = 'PAGE_USER_DETAILS';
+  static const String PAGE_VERIFICATION = 'PAGE_VERIFICATION';
 }
