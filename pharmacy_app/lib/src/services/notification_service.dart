@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/services.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/configs/server_config.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -74,7 +71,7 @@ Future<void> firebaseCloudMessagingListeners() async {
       // On click to start the app from beginning, this is executed.
       if (message != null) {
         print('on getInitialMessage $message.data');
-        navigateToSpecificScreen();
+        navigateToSpecificScreen(message.data);
       }
     });
 
@@ -100,13 +97,13 @@ Future<void> firebaseCloudMessagingListeners() async {
                 )));
       }
       print('on onMessage ${message.data['code']}');
-      navigateToSpecificScreen();
+      navigateToSpecificScreen(message.data);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
       // On click the push message this is executed.
       print('on onMessageOpenedApp ${message.data}');
-      navigateToSpecificScreen();
+      navigateToSpecificScreen(message.data);
     });
   } catch (error) {
     print("ERROR in FCM Service");
@@ -114,13 +111,47 @@ Future<void> firebaseCloudMessagingListeners() async {
   }
 }
 
-void navigateToSpecificScreen() async {
+void navigateToSpecificScreen(dynamic code) async {
+  print('PUSH DATA: ' + code['SERVER_DATA']);
+  await Future.delayed(Duration(milliseconds: 1500));
+  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+
+  switch (AppVariableStates.instance.pageName) {
+    case AppEnum.PAGE_ADD_ITEMS:
+      break;
+
+    case AppEnum.PAGE_ADD_NEW_ADDRESS:
+      break;
+
+    case AppEnum.CONFIRM_INVOICE_PAGE:
+      break;
+
+    case AppEnum.PAGE_CONFIRM_ORDER:
+      break;
+
+    case AppEnum.PAGE_INITIAL_TUTORIAL_SCROLLING:
+      break;
+  }
+
+  switch (code['SERVER_DATA']) {
+    case 'VALET_CANCEL':
+      AppVariableStates.instance.navigatorKey.currentState
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      break;
+    default:
+      AppVariableStates.instance.navigatorKey.currentState
+          .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+      AppVariableStates.instance.navigatorKey.currentState
+          .pushNamed('/notification');
+      break;
+  }
+}
+
+void prevNavigateToSpecificScreen() async {
   AppVariableStates.instance.navigatorKey.currentState
       .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
   AppVariableStates.instance.navigatorKey.currentState
       .pushNamed('/notification');
-  await Future.delayed(Duration(seconds: 2));
-  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
 }
 
 void iOSPermission() {
