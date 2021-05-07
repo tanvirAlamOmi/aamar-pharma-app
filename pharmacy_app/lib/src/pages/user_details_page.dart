@@ -42,7 +42,6 @@ class _AccountPageState extends State<AccountPage> {
     super.initState();
     setUserDetailsData();
     eventChecker();
-    AppVariableStates.instance.pageName = AppEnum.PAGE_USER_DETAILS;
   }
 
   @override

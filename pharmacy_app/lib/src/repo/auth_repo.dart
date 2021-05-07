@@ -48,6 +48,11 @@ class AuthRepo {
           await Store.instance.setReferralCode('');
           AppVariableStates.instance.loginWithReferral = false;
 
+          if (user.dynamicReferralLink == null ||
+              user.dynamicReferralLink.isEmpty) {
+            await AuthRepo.instance.updateDynamicReferralLink();
+          }
+
           return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
         }
         if (signInResponse['STATUS'] == false) {
@@ -146,6 +151,43 @@ class AuthRepo {
         }
         if (updateProfileResponse['STATUS'] == false) {
           return Tuple2(null, updateProfileResponse['RESPONSE_MESSAGE']);
+        }
+      } catch (err) {
+        print("Error in signIn() in AuthRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<Tuple2<void, void>> updateDynamicReferralLink() async {
+    int retry = 0;
+
+    while (retry++ < 2) {
+      try {
+        final String self_referral_code = Util.getReferralCode();
+        final String dynamic_referral_link = await DynamicLinksApi.instance
+            .createDynamicReferralLink(referralCode: self_referral_code);
+
+        String updateDynamicReferralLinkRequest = jsonEncode(<String, dynamic>{
+          'self_referral_code': self_referral_code,
+          'dynamic_referral_link': dynamic_referral_link,
+        });
+
+        final updateDynamicReferralLinkResponse = await AuthRepo.instance
+            .getAuthClient()
+            .updateDynamicReferralLink(updateDynamicReferralLinkRequest);
+
+        if (updateDynamicReferralLinkResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          final PharmaUser.User user = Store.instance.appState.user;
+          user.dynamicReferralLink = dynamic_referral_link;
+          await Store.instance.updateUser(user);
+          return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
+        }
+        if (updateDynamicReferralLinkResponse['STATUS'] == false) {
+          return Tuple2(
+              null, updateDynamicReferralLinkResponse['RESPONSE_MESSAGE']);
         }
       } catch (err) {
         print("Error in signIn() in AuthRepo");

@@ -67,6 +67,7 @@ class _MainPageState extends State<MainPage> {
         index: currentTabIndex,
         children: pages,
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         key: bottomNavKey,
         type: BottomNavigationBarType.fixed,
@@ -80,6 +81,7 @@ class _MainPageState extends State<MainPage> {
 
   void selectTab(int tabIndex) {
     setState(() {
+      AppVariableStates.instance.pageName = AppEnum.PAGE_MAIN;
       currentTabIndex = tabIndex;
     });
   }

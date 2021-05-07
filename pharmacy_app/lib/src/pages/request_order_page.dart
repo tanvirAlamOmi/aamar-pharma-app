@@ -10,7 +10,6 @@ import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/store/store.dart';
-import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 
@@ -22,6 +21,7 @@ class RequestOrderPage extends StatefulWidget {
 class _RequestOrderPageState extends State<RequestOrderPage> {
   Key key = UniqueKey();
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool showTutorial = false;
 
   @override
   void initState() {
@@ -54,6 +54,11 @@ class _RequestOrderPageState extends State<RequestOrderPage> {
     }
   }
 
+  void showTutorialBox(dynamic value) {
+    showTutorial = true;
+    refreshTutorialBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,36 +72,41 @@ class _RequestOrderPageState extends State<RequestOrderPage> {
         ),
         body: Stack(
           children: [
-            FeedContainer(FeedInfo(AppEnum.FEED_REQUEST_ORDER), key: key),
+            FeedContainer(
+                FeedInfo(AppEnum.FEED_REQUEST_ORDER, feedFunc: showTutorialBox),
+                key: key),
             buildTutorialBox()
           ],
         ));
   }
 
   Widget buildTutorialBox() {
-    switch (Store.instance.appState.tutorialBoxNumberRequestOrderPage) {
-      case 0:
-        return Positioned(
-          top: 70,
-          right: 50,
-          child: CustomMessageBox(
-            width: 250,
-            height: 150,
-            startPoint: 60,
-            midPoint: 70,
-            endPoint: 80,
-            arrowDirection: ClientEnum.ARROW_TOP,
-            callBackAction: updateTutorialBox,
-            callBackRefreshUI: refreshTutorialBox,
-            messageTitle:
-                "Request a product by adding the name, photo, quantity and short notes about the product",
-          ),
-        );
-        break;
-      default:
-        return Container();
-        break;
+    if (showTutorial) {
+      switch (Store.instance.appState.tutorialBoxNumberRequestOrderPage) {
+        case 0:
+          return Positioned(
+            top: 70,
+            right: 50,
+            child: CustomMessageBox(
+              width: 250,
+              height: 150,
+              startPoint: 60,
+              midPoint: 70,
+              endPoint: 80,
+              arrowDirection: ClientEnum.ARROW_TOP,
+              callBackAction: updateTutorialBox,
+              callBackRefreshUI: refreshTutorialBox,
+              messageTitle:
+                  "Request a product by adding the name, photo, quantity and short notes about the product",
+            ),
+          );
+          break;
+        default:
+          return Container();
+          break;
+      }
     }
+    return Container();
   }
 
   void updateTutorialBox() async {

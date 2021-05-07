@@ -15,7 +15,6 @@ import 'package:pharmacy_app/src/repo/query_repo.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
 import 'feed_card_handler.dart';
-import 'package:pharmacy_app/src/store/store.dart';
 
 class FeedContainer extends StatefulWidget {
   final FeedInfo feedInfo;
@@ -116,46 +115,34 @@ class _FeedContainerState extends State<FeedContainer>
     if (feedItems.isEmpty) {
       noItem = true;
     }
-
     isProcessing = false;
-
     if (mounted) setState(() {});
-
-    // This is only added just to show Tutorial box on order Card. When length == 0 then no tutorial box
-    if (feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER ||
-        feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
-      Streamer.putTotalOrderStream(feedResponse.feedItems.length);
-    }
-    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER) {
-      Streamer.putTotalRepeatOrderStream(feedResponse.feedItems.length);
-    }
-
-    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
-      noItem = false;
-    }
   }
 
   void addItems(List<FeedItem> items, FeedRequest feedRequest) {
-    if (items.length > 0 &&
-        feedRequest.feedInfo.feedType == AppEnum.FEED_ORDER) {
-      feedItems
-          .add(FeedItem(viewCardType: AppEnum.FEED_ITEM_ORDER_FILTER_CARD));
-    }
+    switch (feedRequest.feedInfo.feedType) {
+      case AppEnum.FEED_ORDER:
+        if (items.length > 0)
+          feedItems
+              .add(FeedItem(viewCardType: AppEnum.FEED_ITEM_ORDER_FILTER_CARD));
+        break;
 
-    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REQUEST_ORDER) {
-      feedItems.add(FeedItem(
-          viewCardType: AppEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
-    }
+      case AppEnum.FEED_REQUEST_ORDER:
+        feedItems.add(FeedItem(
+            viewCardType: AppEnum.FEED_ITEM_REQUEST_ORDER_PAGE_BUTTON_CARD));
+        break;
 
-    if (feedRequest.feedInfo.feedType == AppEnum.FEED_REPEAT_ORDER) {
-      feedItems.add(FeedItem(
-          viewCardType: AppEnum.FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD));
+      case AppEnum.FEED_REPEAT_ORDER:
+        feedItems.add(FeedItem(
+            viewCardType: AppEnum.FEED_ITEM_REPEAT_ORDER_PAGE_BUTTON_CARD));
+        break;
+
+      default:
+        break;
     }
 
     feedItems.addAll(items);
-
     feedItemsPermData = feedItems.sublist(0, feedItems.length);
-
     if (mounted) setState(() {});
   }
 

@@ -90,16 +90,31 @@ class AuthClient {
     );
   }
 
-
   Future<dynamic> updateProfile(String updateProfileRequest) async {
     final http.Response response = await http
         .post(
-      ServerConfig.Address(path: '/api/appapi/profile-update'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: updateProfileRequest,
-    )
+          ServerConfig.Address(path: '/api/appapi/profile-update'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: updateProfileRequest,
+        )
+        .timeout(Duration(seconds: 20));
+
+    final jsonResponse = json.decode(response.body);
+    return jsonResponse;
+  }
+
+  Future<dynamic> updateDynamicReferralLink(
+      String updateDynamicReferralLinkRequest) async {
+    final http.Response response = await http
+        .post(
+          ServerConfig.Address(path: '/api/appapi/referral-update'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: updateDynamicReferralLink,
+        )
         .timeout(Duration(seconds: 20));
 
     final jsonResponse = json.decode(response.body);

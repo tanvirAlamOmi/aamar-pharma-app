@@ -21,13 +21,14 @@ class OrderPage extends StatefulWidget {
 class _OrderPageState extends State<OrderPage> {
   Key key = UniqueKey();
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool showTutorial = false;
+  int totalItems = 0;
 
   @override
   void initState() {
     super.initState();
     eventChecker();
     UIState.instance.scaffoldKey = scaffoldKey;
-    AppVariableStates.instance.pageName = AppEnum.PAGE_ORDER;
   }
 
   void eventChecker() async {
@@ -53,6 +54,12 @@ class _OrderPageState extends State<OrderPage> {
     }
   }
 
+  void showTutorialBox(dynamic value) {
+    showTutorial = true;
+    totalItems = value;
+    refreshTutorialBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,68 +73,57 @@ class _OrderPageState extends State<OrderPage> {
         ),
         body: Stack(
           children: [
-            FeedContainer(FeedInfo(AppEnum.FEED_ORDER), key: key),
+            FeedContainer(
+                FeedInfo(AppEnum.FEED_ORDER, feedFunc: showTutorialBox),
+                key: key),
             buildTutorialBox()
           ],
         ));
   }
 
   Widget buildTutorialBox() {
-    return StreamBuilder<int>(
-      stream: Streamer.getTotalOrderStream(),
-      builder: (context, snapshot) {
-        if (snapshot.data == null) {
+    if (showTutorial && totalItems > 0) {
+      switch (Store.instance.appState.tutorialBoxNumberOrderPage) {
+        case 0:
+          return Positioned(
+            top: 200,
+            right: 20,
+            child: CustomMessageBox(
+              width: 190,
+              height: 150,
+              startPoint: 40,
+              midPoint: 50,
+              endPoint: 60,
+              arrowDirection: ClientEnum.ARROW_TOP,
+              callBackAction: updateTutorialBox,
+              callBackRefreshUI: refreshTutorialBox,
+              messageTitle: "This indicates the current status of your order",
+            ),
+          );
+          break;
+        case 1:
+          return Positioned(
+            top: 50,
+            right: 50,
+            child: CustomMessageBox(
+              width: 190,
+              height: 150,
+              startPoint: 40,
+              midPoint: 50,
+              endPoint: 60,
+              arrowDirection: ClientEnum.ARROW_TOP,
+              callBackAction: updateTutorialBox,
+              callBackRefreshUI: refreshTutorialBox,
+              messageTitle: "View your list of orders by specific order status",
+            ),
+          );
+          break;
+        default:
           return Container();
-        }
-        // snapshot.data means total order in one's list. So for the first time there would be
-        // no order list hence we do not show them the tutorial box. When order list arrives
-        // then we render the tutorial box for only one time
-        if (snapshot.hasData && snapshot.data > 0) {
-          switch (Store.instance.appState.tutorialBoxNumberOrderPage) {
-            case 0:
-              return Positioned(
-                top: 200,
-                right: 20,
-                child: CustomMessageBox(
-                  width: 190,
-                  height: 150,
-                  startPoint: 40,
-                  midPoint: 50,
-                  endPoint: 60,
-                  arrowDirection: ClientEnum.ARROW_TOP,
-                  callBackAction: updateTutorialBox,
-                  callBackRefreshUI: refreshTutorialBox,
-                  messageTitle:
-                      "This indicates the current status of your order",
-                ),
-              );
-              break;
-            case 1:
-              return Positioned(
-                top: 50,
-                right: 50,
-                child: CustomMessageBox(
-                  width: 190,
-                  height: 150,
-                  startPoint: 40,
-                  midPoint: 50,
-                  endPoint: 60,
-                  arrowDirection: ClientEnum.ARROW_TOP,
-                  callBackAction: updateTutorialBox,
-                  callBackRefreshUI: refreshTutorialBox,
-                  messageTitle:
-                      "View your list of orders by specific order status",
-                ),
-              );
-              break;
-            default:
-              return Container();
-              break;
-          }
-        }
-        return Container();
-      },
-    );
+          break;
+      }
+    }
+    return Container();
   }
 
   void updateTutorialBox() async {

@@ -10,9 +10,10 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pharmacy_app/src/util/util.dart';
+import 'package:launch_review/launch_review.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('on onBackgroundMessage ${message.data}');
+  print('onBackgroundMessage Execution');
   // Do not navigate route from here.
 }
 
@@ -68,8 +69,8 @@ Future<void> firebaseCloudMessagingListeners() async {
         .then((RemoteMessage message) {
       // On click to start the app from beginning, this is executed.
       if (message != null) {
-        print('on getInitialMessage $message.data');
-        navigateToSpecificScreen(message.data);
+        print('getInitialMessage Execution');
+        navigateToSpecificScreen(data: message.data, pushMessageTapped: true);
       }
     });
 
@@ -94,14 +95,14 @@ Future<void> firebaseCloudMessagingListeners() async {
                   presentSound: true,
                 )));
       }
-      print('on onMessage ${message.data['code']}');
-      navigateToSpecificScreen(message.data);
+      print('onMessage Execution');
+      navigateToSpecificScreen(data: message.data, pushMessageTapped: false);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
       // On click the push message this is executed.
-      print('on onMessageOpenedApp ${message.data}');
-      navigateToSpecificScreen(message.data);
+      print('onMessageOpenedApp Execution');
+      navigateToSpecificScreen(data: message.data, pushMessageTapped: true);
     });
   } catch (error) {
     print("ERROR in FCM Service");
@@ -109,10 +110,21 @@ Future<void> firebaseCloudMessagingListeners() async {
   }
 }
 
-void navigateToSpecificScreen(dynamic code) async {
-  print('PUSH DATA: ' + code['SERVER_DATA']);
+void navigateToSpecificScreen({dynamic data, bool pushMessageTapped}) async {
+  print('PUSH DATA: ' + data['SERVER_DATA']);
   await Future.delayed(Duration(milliseconds: 2000));
-  Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+  Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));
+
+  print('PAGE NAME: ' + AppVariableStates.instance.pageName);
+
+  if (pushMessageTapped) {
+    print('PUSH MESSAGE TAPPED');
+    AppVariableStates.instance.navigatorKey.currentState
+        .pushNamedAndRemoveUntil('/main', (Route<dynamic> route) => false);
+    AppVariableStates.instance.navigatorKey.currentState
+        .pushNamed('/notification');
+    return;
+  }
 
   switch (AppVariableStates.instance.pageName) {
     case AppEnum.PAGE_ADD_ITEMS:
@@ -146,9 +158,15 @@ void navigateToSpecificScreen(dynamic code) async {
       break;
 
     default:
-      switch (code['SERVER_DATA']) {
+      switch (data['SERVER_DATA']) {
         case 'ANYTHING':
           break;
+
+        case 'UPDATE_APP':
+          LaunchReview.launch(
+              androidAppId: 'com.arbree.aamarpharma', iOSAppId: '123');
+          break;
+
         default:
           AppVariableStates.instance.navigatorKey.currentState
               .pushNamedAndRemoveUntil(
