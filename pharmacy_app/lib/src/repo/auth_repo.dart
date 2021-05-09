@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/client/auth_client.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/user/user.dart' as PharmaUser;
 import 'package:pharmacy_app/src/services/dynamic_link_service.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -26,16 +28,11 @@ class AuthRepo {
 
     while (retry++ < 2) {
       try {
-        final String self_referral_code = Util.getReferralCode();
-
         String signInRequest = jsonEncode(<String, dynamic>{
           // 'FIREBASE_AUTH_TOKEN': authToken,
           'verified_phone': phoneNumber,
           'fcm_token': Store.instance.appState.firebasePushNotificationToken,
           'referral_code': Store.instance.appState.referralCode,
-          'self_referral_code': self_referral_code,
-          'dynamic_referral_link': await DynamicLinksApi.instance
-              .createDynamicReferralLink(referralCode: self_referral_code)
         });
 
         final signInResponse =
@@ -53,7 +50,8 @@ class AuthRepo {
             await AuthRepo.instance.updateDynamicReferralLink();
           }
 
-          return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
+          return Tuple2(
+              Store.instance.appState.user, ClientEnum.RESPONSE_SUCCESS);
         }
         if (signInResponse['STATUS'] == false) {
           return Tuple2(null, signInResponse['RESPONSE_MESSAGE']);
@@ -96,6 +94,35 @@ class AuthRepo {
         }
       } catch (err) {
         print("Error in sendPhoneNumberForSMS() in AuthRepo");
+        print(err);
+      }
+    }
+    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
+  }
+
+  Future<void> getUserDetails() async {
+    if (Store.instance.appState.user.id == null) return;
+
+    int retry = 0;
+    while (retry++ < 2) {
+      try {
+        String getUserDetailsSMSRequest = jsonEncode(<String, dynamic>{
+          'customer_id': Store.instance.appState.user.id,
+        });
+
+        final getUserDetailsSMSResponse = await AuthRepo.instance
+            .getAuthClient()
+            .getUserDetails(getUserDetailsSMSRequest);
+
+        if (getUserDetailsSMSResponse['result'] ==
+            ClientEnum.RESPONSE_SUCCESS) {
+          final user =
+              PharmaUser.User.fromJson(getUserDetailsSMSResponse['user']);
+          await Store.instance.updateUser(user);
+          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+        }
+      } catch (err) {
+        print("Error in getUserDetails() in AuthRepo");
         print(err);
       }
     }
@@ -165,13 +192,14 @@ class AuthRepo {
 
     while (retry++ < 2) {
       try {
-        final String self_referral_code = Util.getReferralCode();
-        final String dynamic_referral_link = await DynamicLinksApi.instance
-            .createDynamicReferralLink(referralCode: self_referral_code);
+        final String selfReferralCode = Util.getReferralCode();
+        final String dynamicReferralLink = await DynamicLinksApi.instance
+            .createDynamicReferralLink(referralCode: selfReferralCode);
 
         String updateDynamicReferralLinkRequest = jsonEncode(<String, dynamic>{
-          'self_referral_code': self_referral_code,
-          'dynamic_referral_link': dynamic_referral_link,
+          'customer_id': Store.instance.appState.user.id,
+          'self_referral_code': selfReferralCode,
+          'dynamic_referral_link': dynamicReferralLink,
         });
 
         final updateDynamicReferralLinkResponse = await AuthRepo.instance
@@ -181,7 +209,7 @@ class AuthRepo {
         if (updateDynamicReferralLinkResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
           final PharmaUser.User user = Store.instance.appState.user;
-          user.dynamicReferralLink = dynamic_referral_link;
+          user.dynamicReferralLink = dynamicReferralLink;
           await Store.instance.updateUser(user);
           return Tuple2(user, ClientEnum.RESPONSE_SUCCESS);
         }
@@ -190,7 +218,7 @@ class AuthRepo {
               null, updateDynamicReferralLinkResponse['RESPONSE_MESSAGE']);
         }
       } catch (err) {
-        print("Error in signIn() in AuthRepo");
+        print("Error in updateDynamicReferralLink() in AuthRepo");
         print(err);
       }
     }

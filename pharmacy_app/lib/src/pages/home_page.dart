@@ -9,7 +9,6 @@ import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
-import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                 messageTitle:
                     "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
         break;
-      case 3:
+      case 4:
         return Positioned(
             top: 10,
             right: 10,
@@ -195,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                 messageTitle:
                     "Look out for notifications once you request an order to receive order invoice and other details"));
         break;
-      case 4:
+      case 5:
         return Positioned(
             left: 10,
             bottom: 0,

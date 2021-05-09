@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
     eventChecker();
     AutoRefreshTimer.instance.stopTimer();
     AutoRefreshTimer.instance.autoRefresh();
+    AuthRepo.instance.getUserDetails();
     AppVariableStates.instance.pageName = AppEnum.PAGE_MAIN;
   }
 
@@ -67,7 +68,6 @@ class _MainPageState extends State<MainPage> {
         index: currentTabIndex,
         children: pages,
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         key: bottomNavKey,
         type: BottomNavigationBarType.fixed,

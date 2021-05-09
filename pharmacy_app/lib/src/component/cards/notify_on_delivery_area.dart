@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:pharmacy_app/src/component/buttons/circle_cross_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
-import 'package:pharmacy_app/src/repo/delivery_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
-import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
-import 'package:tuple/tuple.dart';
 
 class NotifyOnDeliveryArea extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -61,7 +55,6 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)), //this right here
               child: Container(
-                height: 500,
                 child: buildBody(),
               ));
         }).then((value) {
@@ -71,23 +64,26 @@ class _NotifyOnDeliveryAreaState extends State<NotifyOnDeliveryArea> {
   }
 
   Widget buildBody() {
-    return GestureDetector(
-      onTap: () => Util.removeFocusNode(context),
-      child: Column(children: [
-        SizedBox(height: 10),
-        buildCrossButton(),
-        SizedBox(height: 10),
-        buildAreaNameTitle(),
-        SizedBox(height: 10),
-        buildNotifyTitle(),
-        SizedBox(height: 10),
-        buildInputFields(),
-        GeneralActionRoundButton(
-          isProcessing: false,
-          title: 'YES, NOTIFY ME',
-          callBackOnSubmit: onSubmit,
-        )
-      ]),
+    return SingleChildScrollView(
+      child: GestureDetector(
+        onTap: () => Util.removeFocusNode(context),
+        child: Column(children: [
+          SizedBox(height: 10),
+          buildCrossButton(),
+          SizedBox(height: 10),
+          buildAreaNameTitle(),
+          SizedBox(height: 10),
+          buildNotifyTitle(),
+          SizedBox(height: 10),
+          buildInputFields(),
+          GeneralActionRoundButton(
+            isProcessing: false,
+            title: 'YES, NOTIFY ME',
+            callBackOnSubmit: onSubmit,
+          ),
+          SizedBox(height: 20)
+        ]),
+      ),
     );
   }
 
