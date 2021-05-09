@@ -17,6 +17,7 @@ class AppVariableStates {
   bool loginWithReferral = false;
   String dynamicLink = "";
   GlobalKey<NavigatorState> navigatorKey;
+  bool userDetailsFetched = false;
   Function submitFunction;
 
   static AppVariableStates _appVaryState;

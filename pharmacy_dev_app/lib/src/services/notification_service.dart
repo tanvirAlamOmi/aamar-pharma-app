@@ -18,8 +18,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'aamar_pharma', // id
-    'Aamar Pharma', // title
+    'aamar_pharma_dev', // id
+    'Aamar Pharma Dev', // title
     'This channel is used for Aamar Pharma notifications.', // description
     importance: Importance.max,
     enableVibration: true,
@@ -166,7 +166,7 @@ void navigateToSpecificScreen({dynamic data, bool pushMessageTapped}) async {
 
         case 'UPDATE_APP':
           LaunchReview.launch(
-              androidAppId: 'com.arbree.aamarpharma', iOSAppId: '123');
+              androidAppId: 'com.arbree.aamarpharmadev', iOSAppId: '123');
           break;
 
         default:

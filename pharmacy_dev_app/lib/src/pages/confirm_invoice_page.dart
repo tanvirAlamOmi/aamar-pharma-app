@@ -311,17 +311,21 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       child: Material(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         elevation: 1,
-        color: Util.colorFromHex('#D2F2F4'),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Text(widget.order.invoiceNote,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        child: Container(
+          alignment: Alignment.centerLeft,
+          width: double.infinity,
+          color: Util.colorFromHex('#D2F2F4'),
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(widget.order.invoiceNote,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15)),
+          ),
         ),
       ),
     );

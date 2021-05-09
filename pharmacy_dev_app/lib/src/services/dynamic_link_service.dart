@@ -48,7 +48,7 @@ class DynamicLinksApi {
   }
 
   Future<String> createDynamicReferralLink({String referralCode}) async {
-    if (Store.instance.appState.user.id != null) return null;
+    //if (Store.instance.appState.user.id != null) return null;
 
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
       uriPrefix: 'https://aamarpharmadev.page.link',
