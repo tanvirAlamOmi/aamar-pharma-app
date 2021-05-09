@@ -6,6 +6,7 @@ import 'package:pharmacy_app/src/component/general/drawerUI.dart';
 import 'package:pharmacy_app/src/models/feed/feed_info.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/models/states/ui_state.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -21,12 +22,15 @@ class RepeatOrderPage extends StatefulWidget {
 class _RepeatOrderPageState extends State<RepeatOrderPage> {
   Key key = UniqueKey();
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool showTutorial = false;
+  int totalItems = 0;
 
   @override
   void initState() {
     super.initState();
     eventChecker();
     UIState.instance.scaffoldKey = scaffoldKey;
+    AppVariableStates.instance.pageName = AppEnum.PAGE_REPEAT_ORDER;
   }
 
   void eventChecker() async {
@@ -52,6 +56,12 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
     }
   }
 
+  void showTutorialBox(dynamic value) {
+    showTutorial = true;
+    totalItems = value;
+    refreshTutorialBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,68 +75,61 @@ class _RepeatOrderPageState extends State<RepeatOrderPage> {
         ),
         body: Stack(
           children: [
-            FeedContainer(FeedInfo(AppEnum.FEED_REPEAT_ORDER), key: key),
+            FeedContainer(
+                FeedInfo(AppEnum.FEED_REPEAT_ORDER, feedFunc: showTutorialBox),
+                key: key),
             buildTutorialBox()
           ],
         ));
   }
 
   Widget buildTutorialBox() {
-    switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
-      case 0:
-        return Positioned(
-          top: 100,
-          right: 20,
-          child: CustomMessageBox(
-            width: 250,
-            height: 170,
-            startPoint: 40,
-            midPoint: 50,
-            endPoint: 60,
-            arrowDirection: ClientEnum.ARROW_TOP,
-            callBackAction: updateTutorialBox,
-            callBackRefreshUI: refreshTutorialBox,
-            messageTitle:
-                "Tap to add a new order you would like to get delivered multiple times on a regular basis",
-          ),
-        );
-        break;
-      case 1:
-        return StreamBuilder<int>(
-          stream: Streamer.getTotalRepeatOrderStream(),
-          builder: (context, snapshot) {
-            if (snapshot.data == null) {
-              return Container();
-            }
-            // snapshot.data means total order in one's list. So for the first time there would be
-            // no order list hence we do not show them the tutorial box. When order list arrives
-            // then we render the tutorial box for only one time
-            if (snapshot.hasData && snapshot.data > 0) {
-              return Positioned(
-                top: 250,
-                right: 20,
-                child: CustomMessageBox(
-                  width: 190,
-                  height: 150,
-                  startPoint: 40,
-                  midPoint: 50,
-                  endPoint: 60,
-                  arrowDirection: ClientEnum.ARROW_TOP,
-                  callBackAction: updateTutorialBox,
-                  callBackRefreshUI: refreshTutorialBox,
-                  messageTitle:
-                      "This states the date you’ll have this order delivered next",
-                ),
-              );
-            }
-            return Container();
-          },
-        );
-        break;
-      default:
-        return Container();
-        break;
+    if (showTutorial) {
+      switch (Store.instance.appState.tutorialBoxNumberRepeatOrderPage) {
+        case 0:
+          return Positioned(
+            top: 100,
+            right: 20,
+            child: CustomMessageBox(
+              width: 250,
+              height: 170,
+              startPoint: 40,
+              midPoint: 50,
+              endPoint: 60,
+              arrowDirection: ClientEnum.ARROW_TOP,
+              callBackAction: updateTutorialBox,
+              callBackRefreshUI: refreshTutorialBox,
+              messageTitle:
+                  "Tap to add a new order you would like to get delivered multiple times on a regular basis",
+            ),
+          );
+          break;
+        case 1:
+          if (totalItems > 0)
+            return Positioned(
+              top: 250,
+              right: 20,
+              child: CustomMessageBox(
+                width: 190,
+                height: 150,
+                startPoint: 40,
+                midPoint: 50,
+                endPoint: 60,
+                arrowDirection: ClientEnum.ARROW_TOP,
+                callBackAction: updateTutorialBox,
+                callBackRefreshUI: refreshTutorialBox,
+                messageTitle:
+                    "This states the date you’ll have this order delivered next",
+              ),
+            );
+          return Container();
+          break;
+        default:
+          return Container();
+          break;
+      }
     }
+    return Container();
   }
 
   void updateTutorialBox() async {

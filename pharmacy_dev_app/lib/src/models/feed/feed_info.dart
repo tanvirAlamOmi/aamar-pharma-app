@@ -3,15 +3,10 @@ import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 class FeedInfo {
   int userId = 0;
   String feedType = ClientEnum.FEED_PENDING;
+  Function(dynamic value) feedFunc;
 
-  FeedInfo(String feedType) {
+  FeedInfo(String feedType, {Function feedFunc}) {
     this.feedType = feedType;
-  }
-
-  Map<String, dynamic> toJsonMap() {
-    final data = Map<String, dynamic>();
-    data['userId'] = userId.toString();
-    data['feedType'] = feedType.toString();
-    return data;
+    this.feedFunc = feedFunc;
   }
 }

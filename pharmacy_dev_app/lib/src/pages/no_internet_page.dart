@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class NoInternetPage extends StatefulWidget {
@@ -11,6 +13,7 @@ class _NoInternetPageState extends State<NoInternetPage> {
   @override
   void initState() {
     super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_NO_INTERNET;
   }
 
   @override

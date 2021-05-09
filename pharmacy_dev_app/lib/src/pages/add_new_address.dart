@@ -7,6 +7,7 @@ import 'package:pharmacy_app/src/component/general/loading_widget.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/repo/delivery_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
@@ -35,6 +36,7 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   void initState() {
     super.initState();
     selectedArea = areaList[0];
+    AppVariableStates.instance.pageName = AppEnum.PAGE_ADD_NEW_ADDRESS;
   }
 
   @override

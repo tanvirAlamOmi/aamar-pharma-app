@@ -3,12 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
-class ReferralLinkPage extends StatelessWidget {
+class ReferralLinkPage extends StatefulWidget {
+  @override
+  _ReferralLinkPageState createState() => _ReferralLinkPageState();
+}
+
+class _ReferralLinkPageState extends State<ReferralLinkPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
+  @override
+  void initState() {
+    super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_REFERRAL_LINK;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,

@@ -10,6 +10,7 @@ class AppVariableStates {
   String orderFilterStatus = AppEnum.ORDER_STATUS_ALL;
   String initialLanguageChoose = "LANGUAGE (ENGLISH)";
   DateTime selectedRepeatedTime = DateTime.now();
+  String pageName = '';
   Order order = new Order();
   List<DeliveryCharge> deliveryCharges = List<DeliveryCharge>();
   BuildContext context;

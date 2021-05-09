@@ -11,6 +11,7 @@ import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/pages/confirm_order_page.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/repeat_order_choice_page.dart';
@@ -50,13 +51,14 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   @override
   void initState() {
     super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_ORDER_FINAL_INVOICE;
     Timer(Duration(seconds: 2), () {
       isDone = false;
       refreshUI();
       if (widget.order.repeatOrder == ClientEnum.NO &&
           widget.order.idParentOrder ==
               null && // Means this new order is not from a repeated order
-          widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE) {
+          widget.pageName == AppEnum.PAGE_CONFIRM_INVOICE) {
         showRepeatOrderDialog();
       }
     });
@@ -76,7 +78,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
           appBar: AppBar(
             elevation: 1,
             centerTitle: true,
-            leading: (widget.pageName == AppEnum.CONFIRM_INVOICE_PAGE)
+            leading: (widget.pageName == AppEnum.PAGE_CONFIRM_INVOICE)
                 ? AppBarBackButtonCross()
                 : AppBarBackButton(),
             title: CustomText('ORDER INVOICE DETAILS',
@@ -251,7 +253,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
             MaterialPageRoute(
                 builder: (context) => RepeatOrderChoicePage(
                     order: widget.order,
-                    pageName: AppEnum.CONFIRM_INVOICE_PAGE)),
+                    pageName: AppEnum.PAGE_CONFIRM_INVOICE)),
           );
         },
       ),

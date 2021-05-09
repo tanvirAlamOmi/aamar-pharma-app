@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/component/cards/initial_tutorial_card.dart';
+import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/models/general/ui_view_data.dart';
 
@@ -53,6 +55,13 @@ class _InitialTutorialScrollingPageState
   ];
   int _currentIndex = 0;
   CarouselController _carouselController = CarouselController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_INITIAL_TUTORIAL_SCROLLING;
+  }
 
   @override
   Widget build(BuildContext context) {

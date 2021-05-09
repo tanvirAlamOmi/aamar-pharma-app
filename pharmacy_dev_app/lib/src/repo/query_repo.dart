@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:pharmacy_app/src/client/query_client.dart';
 import 'package:pharmacy_app/src/models/feed/feed_item.dart';
 import 'package:pharmacy_app/src/models/feed/feed_request.dart';
@@ -65,6 +62,9 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
+        if (feedRequest.feedInfo.feedFunc != null)
+          feedRequest.feedInfo.feedFunc(orderFeedResponse.feedItems.length);
+
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in getOrderFeedData() in QueryRepo");
@@ -82,7 +82,12 @@ class QueryRepo {
         final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
-        if (userId == null) return emptyResponse();
+        if (userId == null) {
+          await Future.delayed(Duration(milliseconds: 100));
+          if (feedRequest.feedInfo.feedFunc != null)
+            feedRequest.feedInfo.feedFunc(0);
+          return emptyResponse();
+        }
 
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
@@ -107,6 +112,9 @@ class QueryRepo {
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
 
+        if (feedRequest.feedInfo.feedFunc != null)
+          feedRequest.feedInfo.feedFunc(orderFeedResponse.feedItems.length);
+
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {
         print("Error in getRepeatOrderFeedData() in QueryRepo");
@@ -124,15 +132,18 @@ class QueryRepo {
         final String jwtToken = Store.instance.appState.user.loginToken;
         final int userId = Store.instance.appState.user.id;
 
-        if (userId == null) return emptyResponse();
+        if (userId == null) {
+          await Future.delayed(Duration(milliseconds: 100));
+          if (feedRequest.feedInfo.feedFunc != null)
+            feedRequest.feedInfo.feedFunc(0);
+          return emptyResponse();
+        }
 
         final feedResponse = await QueryRepo.instance
             .getQueryClient()
             .getRequestOrderFeed(jwtToken, feedRequest, userId);
 
-        if (!(feedResponse is List)) {
-          return emptyResponse();
-        }
+        if (!(feedResponse is List)) return emptyResponse();
 
         final List<RequestOrder> allRequestOrders = List<dynamic>.from(
                 feedResponse.map((singleRequestOrder) =>
@@ -149,6 +160,9 @@ class QueryRepo {
               .toList()
           ..response = ClientEnum.RESPONSE_SUCCESS
           ..error = false;
+
+        if (feedRequest.feedInfo.feedFunc != null)
+          feedRequest.feedInfo.feedFunc(orderFeedResponse.feedItems.length);
 
         return Tuple2(orderFeedResponse, ClientEnum.RESPONSE_SUCCESS);
       } catch (err) {

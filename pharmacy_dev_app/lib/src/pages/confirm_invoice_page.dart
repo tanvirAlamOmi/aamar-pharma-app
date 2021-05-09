@@ -18,13 +18,11 @@ import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
-import 'package:pharmacy_app/src/pages/request_received_success_page.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/order_util.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:tuple/tuple.dart';
-import 'repeat_order_choice_page.dart';
 
 class ConfirmInvoicePage extends StatefulWidget {
   final Order order;
@@ -49,6 +47,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     super.initState();
     checkIfPrescriptionRequired();
     OrderUtil.calculatePricing(widget.order);
+    AppVariableStates.instance.pageName = AppEnum.PAGE_CONFIRM_INVOICE;
   }
 
   @override
@@ -485,7 +484,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
                   showReOrder: false,
                   showOrderDetails: false,
                   showDoneButton: true,
-                  pageName: AppEnum.CONFIRM_INVOICE_PAGE,
+                  pageName: AppEnum.PAGE_CONFIRM_INVOICE,
                 )),
       );
     } else {

@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                 messageTitle:
                     "Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have"));
         break;
-      case 3:
+      case 4:
         return Positioned(
             top: 10,
             right: 10,
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                 messageTitle:
                     "Look out for notifications once you request an order to receive order invoice and other details"));
         break;
-      case 4:
+      case 5:
         return Positioned(
             left: 10,
             bottom: 0,
@@ -400,7 +400,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context) => UploadPrescriptionVerifyPage(
                 isRepeatOrder: false,
                 prescriptionImageFileList: prescriptionImageFileList,
-                nextStep: AppEnum.HOME_PAGE,
+                nextStep: AppEnum.PAGE_HOME,
               )),
     );
   }

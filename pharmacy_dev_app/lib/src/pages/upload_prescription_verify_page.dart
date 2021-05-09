@@ -4,7 +4,7 @@ import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/general/App_Enum.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
@@ -43,6 +43,7 @@ class _UploadPrescriptionVerifyPageState
   void initState() {
     super.initState();
     eventChecker();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_UPLOAD_PRESCRIPTION_VERIFY;
   }
 
   @override
@@ -177,7 +178,7 @@ class _UploadPrescriptionVerifyPageState
   }
 
   Widget buildNoteBox() {
-    if (widget.nextStep == AppEnum.CONFIRM_INVOICE_PAGE) return Container();
+    if (widget.nextStep == AppEnum.PAGE_CONFIRM_INVOICE) return Container();
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
       color: Colors.white,
@@ -234,10 +235,10 @@ class _UploadPrescriptionVerifyPageState
 
   void proceedToConfirmOrderPage() {
     switch (widget.nextStep) {
-      case AppEnum.CONFIRM_INVOICE_PAGE:
+      case AppEnum.PAGE_CONFIRM_INVOICE:
         Navigator.pop(context);
         break;
-      case AppEnum.HOME_PAGE:
+      case AppEnum.PAGE_HOME:
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -254,10 +255,10 @@ class _UploadPrescriptionVerifyPageState
 
   String buttonText() {
     switch (widget.nextStep) {
-      case AppEnum.CONFIRM_INVOICE_PAGE:
+      case AppEnum.PAGE_CONFIRM_INVOICE:
         return 'CONFIRM';
         break;
-      case AppEnum.HOME_PAGE:
+      case AppEnum.PAGE_HOME:
         return 'PROCEED';
         break;
     }
