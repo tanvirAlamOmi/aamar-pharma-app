@@ -102,6 +102,7 @@ class AuthRepo {
 
   Future<void> getUserDetails() async {
     if (Store.instance.appState.user.id == null) return;
+    if (AppVariableStates.instance.userDetailsFetched) return;
 
     int retry = 0;
     while (retry++ < 2) {
@@ -109,6 +110,8 @@ class AuthRepo {
         String getUserDetailsSMSRequest = jsonEncode(<String, dynamic>{
           'customer_id': Store.instance.appState.user.id,
         });
+
+        AppVariableStates.instance.userDetailsFetched = true;
 
         final getUserDetailsSMSResponse = await AuthRepo.instance
             .getAuthClient()
