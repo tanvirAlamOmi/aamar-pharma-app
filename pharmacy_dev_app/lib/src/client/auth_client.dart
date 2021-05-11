@@ -50,16 +50,14 @@ class AuthClient {
     return jsonResponse;
   }
 
-  Future<dynamic> getUserDetails(String sendPhoneNumberForSMSRequest) async {
-    final http.Response response = await http
-        .post(
-          ServerConfig.Address(path: '/api/appapi/user-details'),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: sendPhoneNumberForSMSRequest,
-        )
-        .timeout(Duration(seconds: 20));
+  Future<dynamic> getUserDetails(String jwtToken, customerId) async {
+    final http.Response response = await http.get(
+      ServerConfig.Address(path: '/api/appapi/customer-details/${customerId}'),
+      headers: {
+        'token': jwtToken,
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    ).timeout(Duration(seconds: 20));
 
     final jsonResponse = json.decode(response.body);
     return jsonResponse;
@@ -124,11 +122,11 @@ class AuthClient {
       String updateDynamicReferralLinkRequest) async {
     final http.Response response = await http
         .post(
-          ServerConfig.Address(path: '/api/appapi/referral-update'),
+          ServerConfig.Address(path: '/api/appapi/add_referral'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
           },
-          body: updateDynamicReferralLink,
+          body: updateDynamicReferralLinkRequest,
         )
         .timeout(Duration(seconds: 20));
 
