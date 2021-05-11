@@ -107,15 +107,10 @@ class AuthRepo {
     int retry = 0;
     while (retry++ < 2) {
       try {
-        String getUserDetailsSMSRequest = jsonEncode(<String, dynamic>{
-          'customer_id': Store.instance.appState.user.id,
-        });
-
-        AppVariableStates.instance.userDetailsFetched = true;
-
         final getUserDetailsSMSResponse = await AuthRepo.instance
             .getAuthClient()
-            .getUserDetails(getUserDetailsSMSRequest);
+            .getUserDetails(Store.instance.appState.user.loginToken,
+                Store.instance.appState.user.id);
 
         if (getUserDetailsSMSResponse['result'] ==
             ClientEnum.RESPONSE_SUCCESS) {
@@ -123,6 +118,7 @@ class AuthRepo {
               PharmaUser.User.fromJson(getUserDetailsSMSResponse['user']);
           await Store.instance.updateUser(user);
           Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
+          AppVariableStates.instance.userDetailsFetched = true;
         }
       } catch (err) {
         print("Error in getUserDetails() in AuthRepo");
