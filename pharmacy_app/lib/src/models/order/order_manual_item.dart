@@ -4,12 +4,10 @@ class OrderManualItem {
   String itemName;
   String unit;
   int quantity;
+  String itemContainerTypeChoice;
 
-  OrderManualItem({
-    this.itemName,
-    this.unit,
-    this.quantity,
-  });
+  OrderManualItem(
+      {this.itemName, this.unit, this.quantity, this.itemContainerTypeChoice});
 
   factory OrderManualItem.fromJson(Map<String, dynamic> jsonData) {
     return OrderManualItem(

@@ -210,6 +210,9 @@ class EnBnDict {
     'ADD ITEM': 'আইটেম যোগ করুন ',
     'ADDED ITEMS': 'আপনার আইটেমসমূহ',
     'QUANTITY: ': 'পরিমাণ: ',
+    'Piece': 'পিস',
+    'Box': 'বক্স',
+    'Strip': 'পাতা',
 
     // Confirm Order Page
     'CONFIRM ORDER': 'অর্ডার নিশ্চিত করুন',
