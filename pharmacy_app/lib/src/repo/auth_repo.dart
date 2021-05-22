@@ -104,28 +104,21 @@ class AuthRepo {
     if (Store.instance.appState.user.id == null) return;
     if (AppVariableStates.instance.userDetailsFetched) return;
 
-    int retry = 0;
-    while (retry++ < 2) {
-      try {
-        final getUserDetailsSMSResponse = await AuthRepo.instance
-            .getAuthClient()
-            .getUserDetails(Store.instance.appState.user.loginToken,
-                Store.instance.appState.user.id);
+    try {
+      final getUserDetailsResponse = await AuthRepo.instance
+          .getAuthClient()
+          .getUserDetails(Store.instance.appState.user.loginToken,
+              Store.instance.appState.user.id);
 
-        if (getUserDetailsSMSResponse['result'] ==
-            ClientEnum.RESPONSE_SUCCESS) {
-          final user =
-              PharmaUser.User.fromJson(getUserDetailsSMSResponse['user']);
-          await Store.instance.updateUser(user);
-          Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
-          AppVariableStates.instance.userDetailsFetched = true;
-        }
-      } catch (err) {
-        print("Error in getUserDetails() in AuthRepo");
-        print(err);
+      if (getUserDetailsResponse['id'] != null) {
+        final user = PharmaUser.User.fromJson(getUserDetailsResponse);
+        await Store.instance.updateUser(user);
+        AppVariableStates.instance.userDetailsFetched = true;
       }
+    } catch (err) {
+      print("Error in getUserDetails() in AuthRepo");
+      print(err);
     }
-    return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
   Future<Tuple2<PharmaUser.User, String>> signInWithPhoneNumber(

@@ -18,6 +18,7 @@ import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/order_details_page.dart';
 import 'package:pharmacy_app/src/pages/order_final_invoice_page.dart';
+import 'package:pharmacy_app/src/repo/delivery_repo.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/order_util.dart';
@@ -48,7 +49,9 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     checkIfPrescriptionRequired();
     OrderUtil.calculatePricing(widget.order);
     AppVariableStates.instance.pageName = AppEnum.PAGE_CONFIRM_INVOICE;
+    DeliveryRepo.instance.deliveryCharges();
   }
+
 
   @override
   void dispose() {
