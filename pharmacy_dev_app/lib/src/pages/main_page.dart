@@ -1,6 +1,5 @@
 import 'package:pharmacy_app/src/bloc/auto_refresh_timer.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
-import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';

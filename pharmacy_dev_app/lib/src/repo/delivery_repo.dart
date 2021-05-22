@@ -5,6 +5,7 @@ import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/delivery_charge.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
+import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/store/store.dart';
 import 'package:tuple/tuple.dart';
 
@@ -106,32 +107,28 @@ class DeliveryRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<List<DeliveryCharge>> deliveryCharges() async {
-    int retry = 0;
-    while (retry++ < 2) {
-      try {
-        String jwtToken = Store.instance.appState.user.loginToken;
+  Future<void> deliveryCharges() async {
+    try {
+      String jwtToken = Store.instance.appState.user.loginToken;
 
-        final getDeliveryChargeResponse = await DeliveryRepo.instance
-            .getDeliveryClient()
-            .deliveryCharges(jwtToken);
+      final getDeliveryChargeResponse = await DeliveryRepo.instance
+          .getDeliveryClient()
+          .deliveryCharges(jwtToken);
 
-        if (!(getDeliveryChargeResponse is List))
-          return defaultDeliveryCharge();
+      if (!(getDeliveryChargeResponse is List))
+        AppVariableStates.instance.deliveryCharges = defaultDeliveryCharge();
 
-        final List<DeliveryCharge> itemList = List<dynamic>.from(
-                getDeliveryChargeResponse
-                    .map((singleItem) => DeliveryCharge.fromJson(singleItem)))
-            .cast<DeliveryCharge>();
+      final List<DeliveryCharge> itemList = List<dynamic>.from(
+              getDeliveryChargeResponse
+                  .map((singleItem) => DeliveryCharge.fromJson(singleItem)))
+          .cast<DeliveryCharge>();
 
-        return itemList;
-      } catch (err) {
-        print("Error in deliveryCharges() in DeliveryRepo");
-        print(err);
-        return defaultDeliveryCharge();
-      }
+      AppVariableStates.instance.deliveryCharges = itemList;
+    } catch (err) {
+      print("Error in deliveryCharges() in DeliveryRepo");
+      print(err);
+      AppVariableStates.instance.deliveryCharges = defaultDeliveryCharge();
     }
-    return defaultDeliveryCharge();
   }
 
   List<DeliveryCharge> defaultDeliveryCharge() {
@@ -139,7 +136,7 @@ class DeliveryRepo {
       DeliveryCharge()
         ..amountFrom = 0
         ..amountTo = '499.9999'
-        ..deliveryCharge = 20,
+        ..deliveryCharge = 25,
       DeliveryCharge()
         ..amountFrom = 500
         ..amountTo = '999999999999'

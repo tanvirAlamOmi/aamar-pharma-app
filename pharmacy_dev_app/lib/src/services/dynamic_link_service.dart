@@ -54,7 +54,7 @@ class DynamicLinksApi {
       uriPrefix: 'https://aamarpharmadev.page.link',
       link: Uri.parse('https://aamarpharma.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(
-        packageName: 'com.arbree.aamarpharmadev',
+        packageName: 'com.arbree.aamarpharma',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: 'Refer A Friend',

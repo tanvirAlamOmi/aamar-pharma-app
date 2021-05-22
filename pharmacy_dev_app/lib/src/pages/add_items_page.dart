@@ -29,6 +29,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
   final TextEditingController itemQuantityController =
       new TextEditingController();
   final List<OrderManualItem> orderManualItemList = new List();
+  final List<String> itemContainerTypeChoiceList = ['Piece', 'Box', 'Strip'];
+  String itemContainerTypeChoice = 'Piece';
 
   @override
   void initState() {
@@ -134,7 +136,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
         clipBehavior: Clip.antiAlias, // Add This
         child: Column(
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 7),
             Container(
               padding: const EdgeInsets.fromLTRB(15, 7, 15, 7),
               child: Column(
@@ -162,73 +164,70 @@ class _AddItemsPageState extends State<AddItemsPage> {
                 ],
               ),
             ),
+            SizedBox(height: 7),
+            Container(
+              padding: const EdgeInsets.fromLTRB(15, 0, 10, 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomText('Unit',
+                      fontWeight: FontWeight.bold, color: Util.purplishColor()),
+                  SizedBox(height: 3),
+                  SizedBox(
+                    height: 35, // set this
+                    child: TextField(
+                      controller: itemUnitController,
+                      decoration: new InputDecoration(
+                        isDense: true,
+                        hintText: EnBnDict.en_bn_convert(text: 'mg/ml'),
+                        hintStyle: TextStyle(
+                            fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
+                        fillColor: Colors.white,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
             SizedBox(height: 10),
             Row(
               children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 10, 7),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CustomText('Unit',
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor()),
-                        SizedBox(height: 3),
-                        SizedBox(
-                          height: 35, // set this
-                          child: TextField(
-                            controller: itemUnitController,
-                            decoration: new InputDecoration(
-                              isDense: true,
-                              hintText: EnBnDict.en_bn_convert(text: 'mg/ml'),
-                              hintStyle: TextStyle(
-                                  fontFamily: EnBnDict.en_bn_font(),
-                                  fontSize: 13),
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 5),
-                            ),
+                Container(
+                  width: 135,
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 7),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CustomText('Quantity',
+                          fontWeight: FontWeight.bold,
+                          color: Util.purplishColor()),
+                      SizedBox(height: 3),
+                      SizedBox(
+                        height: 35, // set this
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: itemQuantityController,
+                          decoration: new InputDecoration(
+                            isDense: true,
+                            hintText:
+                                EnBnDict.en_bn_number_convert(number: '10'),
+                            hintStyle: TextStyle(
+                                fontFamily: EnBnDict.en_bn_font(),
+                                fontSize: 13),
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 5),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 15, 7),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CustomText('Quantity',
-                            fontWeight: FontWeight.bold,
-                            color: Util.purplishColor()),
-                        SizedBox(height: 3),
-                        SizedBox(
-                          height: 35, // set this
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            controller: itemQuantityController,
-                            decoration: new InputDecoration(
-                              isDense: true,
-                              hintText:
-                                  EnBnDict.en_bn_number_convert(number: '10'),
-                              hintStyle: TextStyle(
-                                  fontFamily: EnBnDict.en_bn_font(),
-                                  fontSize: 13),
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 5),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                buildItemTypeChipChoiceList(),
               ],
             ),
             Container(
@@ -250,6 +249,41 @@ class _AddItemsPageState extends State<AddItemsPage> {
     );
   }
 
+  Widget buildItemTypeChipChoiceList() {
+    final children = List<Widget>();
+    children.addAll(itemContainerTypeChoiceList.map((singleChoice) {
+      return Container(
+        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+        child: ChoiceChip(
+          elevation: 3.0,
+          label: CustomText(
+            singleChoice,
+            color: Colors.white,
+          ),
+          selected: itemContainerTypeChoice == singleChoice,
+          selectedColor: Util.purplishColor(),
+          onSelected: (value) {
+            itemContainerTypeChoice = singleChoice;
+            refreshUI();
+          },
+          backgroundColor: Colors.grey[600],
+          shape: StadiumBorder(
+              side: BorderSide(
+            width: 1,
+            color: Colors.transparent,
+          )),
+        ),
+      );
+    }).toList());
+
+    return Expanded(
+        child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: children,
+    ));
+  }
+
   Widget buildTitle() {
     if (orderManualItemList.length == 0) return Container();
     return Container(
@@ -260,7 +294,6 @@ class _AddItemsPageState extends State<AddItemsPage> {
 
   Widget buildItemList() {
     final children = List<Widget>();
-
     orderManualItemList.forEach((singleItem) {
       children.add(Container(
         padding: const EdgeInsets.fromLTRB(27, 7, 27, 7),
@@ -273,18 +306,21 @@ class _AddItemsPageState extends State<AddItemsPage> {
           elevation: 3,
           clipBehavior: Clip.antiAlias, // Add This
           child: ListTile(
-            title: Text(singleItem.itemName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            title: Text(singleItem.itemName + ' ' + singleItem.unit,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.grey[700])),
             subtitle: CustomText(
                 EnBnDict.en_bn_convert(text: 'QUANTITY: ') +
                     EnBnDict.en_bn_number_convert(number: singleItem.quantity),
-                textAlign: TextAlign.start),
+                textAlign: TextAlign.start,
+                color: Colors.grey[500]),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
       ));
     });
-
     return Column(children: children);
   }
 

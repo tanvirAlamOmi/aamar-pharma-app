@@ -31,8 +31,7 @@ class _AppSate extends State<App> {
     await firebaseCloudMessagingListeners();
     await DynamicLinksApi.instance.handleReferralLink();
     AppVariableStates.instance.navigatorKey = navigatorKey;
-    AppVariableStates.instance.deliveryCharges =
-        await DeliveryRepo.instance.deliveryCharges();
+    await DeliveryRepo.instance.deliveryCharges();
   }
 
   @override
