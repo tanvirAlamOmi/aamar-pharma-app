@@ -196,7 +196,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             Row(
               children: [
                 Container(
-                  width: 135,
+                  width: 100,
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 7),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,11 +253,12 @@ class _AddItemsPageState extends State<AddItemsPage> {
     final children = List<Widget>();
     children.addAll(itemContainerTypeChoiceList.map((singleChoice) {
       return Container(
-        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         child: ChoiceChip(
           elevation: 3.0,
           label: CustomText(
             singleChoice,
+            fontSize: 14,
             color: Colors.white,
           ),
           selected: itemContainerTypeChoice == singleChoice,
@@ -279,7 +280,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
     return Expanded(
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: children,
     ));
   }
