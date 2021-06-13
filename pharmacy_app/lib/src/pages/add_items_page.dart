@@ -327,10 +327,10 @@ class _AddItemsPageState extends State<AddItemsPage> {
                     fontSize: 17,
                     color: Colors.grey[700])),
             subtitle: CustomText(
-                EnBnDict.en_bn_convert(text: 'QUANTITY: ') +
-                    EnBnDict.en_bn_number_convert(number: singleItem.quantity) +
+                EnBnDict.en_bn_number_convert(number: singleItem.quantity) +
                     ' ' +
-                    EnBnDict.en_bn_convert(text: itemContainerTypeChoice),
+                    EnBnDict.en_bn_convert(
+                        text: singleItem.itemContainerTypeChoice),
                 textAlign: TextAlign.start,
                 color: Colors.grey[600]),
             trailing: buildRemoveItemButton(singleItem),
@@ -365,7 +365,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
 
   Widget buildSubmitButton() {
     if (orderManualItemList.length == 0) return Container();
-    if(keyBoardVisible) return Container();
+    if (keyBoardVisible) return Container();
     return GeneralActionRoundButton(
       title: "PROCEED",
       height: 40,
@@ -385,7 +385,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
     orderManualItemList.add(OrderManualItem()
       ..itemName = itemNameController.text
       ..unit = itemUnitController.text
-      ..quantity = int.parse(itemQuantityController.text));
+      ..quantity = int.parse(itemQuantityController.text)
+      ..itemContainerTypeChoice = itemContainerTypeChoice);
 
     itemNameController.clear();
     itemUnitController.clear();
