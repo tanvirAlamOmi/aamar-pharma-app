@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/custom_message_box.dart';
@@ -32,10 +33,18 @@ class _AddItemsPageState extends State<AddItemsPage> {
   final List<String> itemContainerTypeChoiceList = ['Piece', 'Box', 'Strip'];
   String itemContainerTypeChoice = 'Piece';
 
+  final keyboardVisibilityController = KeyboardVisibilityController();
+  bool keyBoardVisible = false;
+
   @override
   void initState() {
     super.initState();
     AppVariableStates.instance.pageName = AppEnum.PAGE_ADD_ITEMS;
+
+    keyboardVisibilityController.onChange.listen((bool visible) {
+      keyBoardVisible = visible;
+      refreshUI();
+    });
   }
 
   @override
@@ -154,7 +163,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                         isDense: true,
                         hintText: EnBnDict.en_bn_convert(text: 'Napa'),
                         hintStyle: TextStyle(
-                            fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
+                            fontFamily: EnBnDict.en_bn_font(),
+                            fontSize: 13,
+                            color: Colors.grey[400]),
                         fillColor: Colors.white,
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -182,7 +193,9 @@ class _AddItemsPageState extends State<AddItemsPage> {
                         isDense: true,
                         hintText: EnBnDict.en_bn_convert(text: 'mg/ml'),
                         hintStyle: TextStyle(
-                            fontFamily: EnBnDict.en_bn_font(), fontSize: 13),
+                            fontFamily: EnBnDict.en_bn_font(),
+                            fontSize: 13,
+                            color: Colors.grey[400]),
                         fillColor: Colors.white,
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 0, vertical: 5),
@@ -217,7 +230,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
                                 EnBnDict.en_bn_number_convert(number: '10'),
                             hintStyle: TextStyle(
                                 fontFamily: EnBnDict.en_bn_font(),
-                                fontSize: 13),
+                                fontSize: 13,
+                                color: Colors.grey[400]),
                             fillColor: Colors.white,
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 0, vertical: 5),
@@ -314,9 +328,11 @@ class _AddItemsPageState extends State<AddItemsPage> {
                     color: Colors.grey[700])),
             subtitle: CustomText(
                 EnBnDict.en_bn_convert(text: 'QUANTITY: ') +
-                    EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+                    EnBnDict.en_bn_number_convert(number: singleItem.quantity) +
+                    ' ' +
+                    EnBnDict.en_bn_convert(text: itemContainerTypeChoice),
                 textAlign: TextAlign.start,
-                color: Colors.grey[500]),
+                color: Colors.grey[600]),
             trailing: buildRemoveItemButton(singleItem),
           ),
         ),
@@ -349,6 +365,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
 
   Widget buildSubmitButton() {
     if (orderManualItemList.length == 0) return Container();
+    if(keyBoardVisible) return Container();
     return GeneralActionRoundButton(
       title: "PROCEED",
       height: 40,
