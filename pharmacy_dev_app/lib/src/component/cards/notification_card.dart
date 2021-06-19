@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/notification.dart';
+import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/pages/notification_to_order_page.dart';
 
@@ -48,6 +50,9 @@ class _NotificationCardState extends State<NotificationCard> {
       onTap: () {
         switch (widget.notificationItem.status) {
           case ClientEnum.NOTIFICATION_SEEN:
+            Navigator.pop(context);
+            Streamer.putEventStream(
+                Event(EventType.SWITCH_TO_ORDER_NAVIGATION_PAGE));
             break;
           case ClientEnum.NOTIFICATION_UNSEEN:
             widget.notificationItem.status = ClientEnum.NOTIFICATION_SEEN;

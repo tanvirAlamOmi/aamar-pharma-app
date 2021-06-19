@@ -148,7 +148,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     ));
 
     order.items.forEach((singleItem) {
-      print(singleItem.unitType);
       children.add(Container(
         padding: const EdgeInsets.fromLTRB(25, 7, 25, 7),
         color: Colors.transparent,
