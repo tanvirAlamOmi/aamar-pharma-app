@@ -30,8 +30,8 @@ class _AddItemsPageState extends State<AddItemsPage> {
   final TextEditingController itemQuantityController =
       new TextEditingController();
   final List<OrderManualItem> orderManualItemList = new List();
-  final List<String> itemContainerTypeChoiceList = ['Piece', 'Box', 'Strip'];
-  String itemContainerTypeChoice = 'Piece';
+  final List<String> itemContainerTypeChoiceList = ['pieces', 'box', 'strip'];
+  String itemContainerTypeChoice = 'pieces';
 
   final keyboardVisibilityController = KeyboardVisibilityController();
   bool keyBoardVisible = false;
@@ -329,8 +329,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
             subtitle: CustomText(
                 EnBnDict.en_bn_number_convert(number: singleItem.quantity) +
                     ' ' +
-                    EnBnDict.en_bn_convert(
-                        text: singleItem.itemContainerTypeChoice),
+                    EnBnDict.en_bn_convert(text: singleItem.unitType),
                 textAlign: TextAlign.start,
                 color: Colors.grey[600]),
             trailing: buildRemoveItemButton(singleItem),
@@ -386,7 +385,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
       ..itemName = itemNameController.text
       ..unit = itemUnitController.text
       ..quantity = int.parse(itemQuantityController.text)
-      ..itemContainerTypeChoice = itemContainerTypeChoice);
+      ..unitType = itemContainerTypeChoice);
 
     itemNameController.clear();
     itemUnitController.clear();

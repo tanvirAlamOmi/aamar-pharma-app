@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 class EnBnDict {
   static String en_bn_convert({String text}) {
+    if(text == null) return '';
     String textMessage = text;
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
       return textMessage;
@@ -210,9 +211,9 @@ class EnBnDict {
     'ADD ITEM': 'আইটেম যোগ করুন ',
     'ADDED ITEMS': 'আপনার আইটেমসমূহ',
     'QUANTITY: ': 'পরিমাণ: ',
-    'Piece': 'পিস',
-    'Box': 'বক্স',
-    'Strip': 'পাতা',
+    'pieces': 'পিস',
+    'box': 'বক্স',
+    'strip': 'পাতা',
 
     // Confirm Order Page
     'CONFIRM ORDER': 'অর্ডার নিশ্চিত করুন',

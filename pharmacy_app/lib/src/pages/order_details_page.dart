@@ -1,21 +1,17 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
-import 'package:pharmacy_app/src/component/buttons/red_border_cancel_button.dart';
 import 'package:pharmacy_app/src/component/general/app_bar_back_button.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
-import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/order.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/repo/order_repo.dart';
 import 'package:pharmacy_app/src/store/store.dart';
+import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:pharmacy_app/src/component/general/custom_caousel_slider.dart';
 import 'package:tuple/tuple.dart';
@@ -152,6 +148,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     ));
 
     order.items.forEach((singleItem) {
+      print(singleItem.unitType);
       children.add(Container(
         padding: const EdgeInsets.fromLTRB(25, 7, 25, 7),
         color: Colors.transparent,
@@ -166,7 +163,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             title: Text(singleItem.itemName,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             subtitle: Text(
-              "QUANTITY: " + singleItem.quantity.toString(),
+              "QUANTITY: " +
+                  singleItem.quantity.toString() +
+                  ' ' +
+                  EnBnDict.en_bn_convert(
+                      text: (singleItem.unitType != null)
+                          ? singleItem.unitType
+                          : 'strip'),
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
             ),
           ),

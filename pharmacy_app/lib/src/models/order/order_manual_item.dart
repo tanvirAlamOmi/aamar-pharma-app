@@ -4,25 +4,17 @@ class OrderManualItem {
   String itemName;
   String unit;
   int quantity;
-  String itemContainerTypeChoice;
+  String unitType;
 
   OrderManualItem(
-      {this.itemName, this.unit, this.quantity, this.itemContainerTypeChoice});
+      {this.itemName, this.unit, this.quantity, this.unitType});
 
   factory OrderManualItem.fromJson(Map<String, dynamic> jsonData) {
     return OrderManualItem(
-      itemName: jsonData['item_name'],
-      unit: jsonData['unit'],
-      quantity: jsonData['quantity'],
-    );
-  }
-
-  String toJsonString() {
-    final data = Map<String, dynamic>();
-    data['item_name'] = itemName;
-    data['unit'] = unit;
-    data['quantity'] = quantity;
-    return json.encode(data);
+        itemName: jsonData['item_name'],
+        unit: jsonData['unit'],
+        quantity: jsonData['quantity'],
+        unitType: jsonData['unit_type']);
   }
 
   String toJsonEncodedString() {
@@ -32,15 +24,7 @@ class OrderManualItem {
       'unit': unit,
       'image': 'abc.jpg',
       'quantity': quantity,
+      'unit_type': unitType
     });
-  }
-
-  Map<String, dynamic> toJsonMap() {
-    final data = Map<String, dynamic>();
-    data['item_name'] = itemName;
-    data['unit'] = unit;
-    data['quantity'] = quantity;
-
-    return data;
   }
 }
