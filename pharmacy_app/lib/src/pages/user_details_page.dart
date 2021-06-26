@@ -1,6 +1,7 @@
 import 'package:pharmacy_app/src/bloc/stream.dart';
 import 'package:pharmacy_app/src/component/buttons/add_delivery_address_button.dart';
 import 'package:pharmacy_app/src/component/buttons/general_action_round_button.dart';
+import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
 import 'package:pharmacy_app/src/component/cards/all_address_card.dart';
 import 'package:pharmacy_app/src/component/cards/personal_details_card.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
@@ -87,6 +88,7 @@ class _AccountPageState extends State<AccountPage> {
           centerTitle: true,
           title: CustomText('MY DETAILS',
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          actions: [NotificationActionButton()],
         ),
         body: SingleChildScrollView(child: buildBody(context)),
       ),

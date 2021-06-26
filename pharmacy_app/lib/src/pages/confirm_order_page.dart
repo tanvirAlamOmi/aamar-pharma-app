@@ -519,7 +519,8 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage> {
           items.add(OrderManualItem()
             ..itemName = invoiceItem.itemName
             ..unit = invoiceItem.unit
-            ..quantity = invoiceItem.quantity);
+            ..quantity = invoiceItem.quantity
+            ..unitType = invoiceItem.unitType);
         }
         AppVariableStates.instance.order.items = items;
         orderSubmitResponse = await OrderRepo.instance

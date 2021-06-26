@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/src/component/buttons/notification_action_button.dart';
 import 'package:pharmacy_app/src/component/feed/feed_container.dart';
 import 'package:pharmacy_app/src/component/general/common_ui.dart';
 import 'package:pharmacy_app/src/component/general/drawerUI.dart';
@@ -70,6 +71,7 @@ class _OrderPageState extends State<OrderPage> {
           centerTitle: true,
           title: CustomText('ORDERS',
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          actions: [NotificationActionButton()],
         ),
         body: Stack(
           children: [
