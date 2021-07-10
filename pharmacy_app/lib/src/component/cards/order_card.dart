@@ -158,7 +158,8 @@ class _OrderCardState extends State<OrderCard> {
     return EnBnDict.en_bn_convert(text: 'Delivery: ') +
         EnBnDict.en_bn_number_convert(
             number: Util.formatDateToDD_MM_YY(order.deliveryDate)) +
-        "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0]) + '-' + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
+        "(${EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[0])
+            + '-' + EnBnDict.time_bn_convert_with_time_type(text: order.deliveryTime.split('-')[1])}) ";
   }
 
   void navigateToSpecificPage() {
