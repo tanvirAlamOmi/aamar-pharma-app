@@ -62,14 +62,7 @@ class _AccountPageState extends State<AccountPage> {
 
   void setUserDetailsData() {
     user = Store.instance.appState.user;
-    if (user.id == null) {
-      user = User.none();
-      enableNameField = false;
-      enableEmailField = false;
-    } else {
-      enableNameField = true;
-      enableEmailField = true;
-    }
+    if (user.id == null) user = User.none();
 
     nameController = new TextEditingController(text: user.name);
     emailController = new TextEditingController(text: user.email);
@@ -99,9 +92,7 @@ class _AccountPageState extends State<AccountPage> {
     return Column(
       children: <Widget>[
         PersonalDetailsCard(
-            enableNameField: enableNameField,
-            enableEmailField: enableEmailField,
-            enablePhoneField: enablePhoneField,
+            enablePhoneController: false,
             nameController: nameController,
             phoneController: phoneController,
             emailController: emailController),

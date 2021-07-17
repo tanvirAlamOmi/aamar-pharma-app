@@ -7,9 +7,7 @@ import 'package:pharmacy_app/src/util/en_bn_dict.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class PersonalDetailsCard extends StatelessWidget {
-  final enableNameField;
-  final enableEmailField;
-  final enablePhoneField;
+  final bool enablePhoneController;
   final TextEditingController nameController;
   final TextEditingController phoneController;
   final TextEditingController emailController;
@@ -19,9 +17,7 @@ class PersonalDetailsCard extends StatelessWidget {
       this.nameController,
       this.phoneController,
       this.emailController,
-      this.enableNameField,
-      this.enableEmailField,
-      this.enablePhoneField})
+      this.enablePhoneController})
       : super(key: key);
 
   @override
@@ -59,7 +55,7 @@ class PersonalDetailsCard extends StatelessWidget {
                 child: TextField(
                   controller: nameController,
                   decoration: new InputDecoration(
-                    enabled: enableNameField,
+                    enabled: true,
                     isDense: true,
                     hintText: EnBnDict.en_bn_convert(text: 'Mr. XYZ'),
                     hintStyle: TextStyle(fontSize: 13),
@@ -91,7 +87,7 @@ class PersonalDetailsCard extends StatelessWidget {
                       child: TextField(
                         controller: emailController,
                         decoration: new InputDecoration(
-                          enabled: enableEmailField,
+                          enabled: true,
                           isDense: true,
                           hintText: 'myemail@pharma.com',
                           hintStyle: TextStyle(fontSize: 13),
@@ -121,13 +117,17 @@ class PersonalDetailsCard extends StatelessWidget {
                       child: TextField(
                         controller: phoneController,
                         keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            color: enablePhoneController
+                                ? Colors.black
+                                : Colors.grey),
                         decoration: new InputDecoration(
-                          enabled: enablePhoneField,
+                          enabled: enablePhoneController,
                           isDense: true,
                           hintText:
                               EnBnDict.en_bn_convert(text: 'Your Phone Number'),
                           hintStyle: TextStyle(fontSize: 13),
-                          fillColor: Colors.white,
+                          fillColor: Colors.black,
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                         ),

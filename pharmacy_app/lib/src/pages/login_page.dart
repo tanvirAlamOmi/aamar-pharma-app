@@ -13,6 +13,9 @@ import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 
 class LoginPage extends StatefulWidget {
+  final bool showBackButton;
+
+  const LoginPage({Key key, this.showBackButton}) : super(key: key);
   @override
   State<StatefulWidget> createState() => new LoginPageState();
 }
@@ -70,12 +73,17 @@ class LoginPageState extends State<LoginPage> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(3, 30, 0, 0),
-          child: (AppVariableStates.instance.loginWithReferral == false)
-              ? AppBarBackButton()
-              : Container(),
+          child: buildBackButton(),
         ),
       ],
     );
+  }
+
+  Widget buildBackButton() {
+    if (!widget.showBackButton) return Container();
+    if (AppVariableStates.instance.loginWithReferral == true)
+      return Container();
+    return AppBarBackButton();
   }
 
   Widget buildBody() {
@@ -172,7 +180,7 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: TextFormField(
-                autofocus: true,
+                autofocus: false,
                 controller: phoneController,
                 enabled: true,
                 keyboardType: TextInputType.phone,
@@ -233,21 +241,22 @@ class LoginPageState extends State<LoginPage> {
                   onVerificationNextStep: AppEnum.LOGIN_USING_REFERRAL_CODE,
                 )),
       );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => VerificationPage(
-                  phoneNumber: phoneController.text,
-                  onVerificationNextStep:
-                      AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
-                )),
-      );
+      return;
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => VerificationPage(
+                phoneNumber: phoneController.text,
+                onVerificationNextStep:
+                    AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE,
+              )),
+    );
   }
 
   void onVerificationNextStep() {
     Navigator.of(context).pop();
+    Streamer.putEventStream(Event(EventType.REFRESH_MAIN_PAGE));
     Streamer.putEventStream(Event(EventType.REFRESH_USER_DETAILS_PAGE));
     Streamer.putEventStream(Event(EventType.REFRESH_ALL_PAGES));
     Streamer.putEventStream(Event(EventType.REFRESH_ORDER_PAGE));

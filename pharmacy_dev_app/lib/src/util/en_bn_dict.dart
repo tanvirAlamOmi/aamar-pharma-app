@@ -33,35 +33,39 @@ class EnBnDict {
     if (Store.instance.appState.language == ClientEnum.LANGUAGE_ENGLISH) {
       return text;
     }
-    DateTime date = DateFormat.jm().parse(text);
-    String timeType = '';
+    try{
+      DateTime date = DateFormat.jm().parse(text);
+      String timeType = '';
 
-    if (date.hour >= 0 && date.hour < 6) {
-      timeType = 'রাত';
-    } else if (date.hour >= 6 && date.hour < 12) {
-      timeType = 'সকাল';
-    } else if (date.hour >= 12 && date.hour < 17) {
-      timeType = 'দুপুর';
-    } else if (date.hour >= 17 && date.hour < 19) {
-      timeType = 'সন্ধ্যা';
-    } else if (date.hour >= 19 && date.hour <= 23) {
-      timeType = 'রাত';
-    }
-
-    text = text.replaceAll('AM', '');
-    text = text.replaceAll('PM', '');
-    text = text.replaceAll(' ', '');
-
-    String numberBangla = '';
-    for (int i = 0; i < text.length; i++) {
-      if (EnBnDict.DICTINARY.containsKey(text[i])) {
-        numberBangla += EnBnDict.DICTINARY[text[i]];
-      } else {
-        numberBangla += text[i];
+      if (date.hour >= 0 && date.hour < 6) {
+        timeType = 'রাত';
+      } else if (date.hour >= 6 && date.hour < 12) {
+        timeType = 'সকাল';
+      } else if (date.hour >= 12 && date.hour < 17) {
+        timeType = 'দুপুর';
+      } else if (date.hour >= 17 && date.hour < 19) {
+        timeType = 'সন্ধ্যা';
+      } else if (date.hour >= 19 && date.hour <= 23) {
+        timeType = 'রাত';
       }
+
+      text = text.replaceAll('AM', '');
+      text = text.replaceAll('PM', '');
+      text = text.replaceAll(' ', '');
+
+      String numberBangla = '';
+      for (int i = 0; i < text.length; i++) {
+        if (EnBnDict.DICTINARY.containsKey(text[i])) {
+          numberBangla += EnBnDict.DICTINARY[text[i]];
+        } else {
+          numberBangla += text[i];
+        }
+      }
+      numberBangla += ' ' + timeType;
+      return numberBangla;
+    }catch(error){
+      return text;
     }
-    numberBangla += ' ' + timeType;
-    return numberBangla;
   }
 
   static String en_bn_font() {

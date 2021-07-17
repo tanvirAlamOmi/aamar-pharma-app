@@ -4,8 +4,10 @@ import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/models/states/event.dart';
 import 'package:pharmacy_app/src/pages/home_page.dart';
+import 'package:pharmacy_app/src/pages/login_page.dart';
 import 'package:pharmacy_app/src/pages/user_details_page.dart';
 import 'package:pharmacy_app/src/repo/auth_repo.dart';
+import 'package:pharmacy_app/src/store/store.dart';
 import 'package:pharmacy_app/src/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/pages/order_page.dart';
@@ -39,7 +41,9 @@ class _MainPageState extends State<MainPage> {
 
   void eventChecker() async {
     Streamer.getEventStream().listen((data) {
-      if (data.eventType == EventType.REFRESH_MAIN_PAGE) {}
+      if (data.eventType == EventType.REFRESH_MAIN_PAGE) {
+        refreshUI();
+      }
 
       if (data.eventType == EventType.CHANGE_LANGUAGE) {
         refreshUI();
@@ -86,11 +90,15 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<Widget> getBottomNavPages() {
-    return [
-      HomePage(),
-      OrderPage(),
-      AccountPage(),
-    ];
+    return [HomePage(), OrderPage(), buildAccountPage()];
+  }
+
+  Widget buildAccountPage() {
+    if (Store.instance.appState.user.id == null)
+      return LoginPage(
+        showBackButton: false,
+      );
+    return AccountPage();
   }
 
   List<BottomNavigationBarItem> buildBottomBarItems() {

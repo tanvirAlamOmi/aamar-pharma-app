@@ -279,7 +279,6 @@ class VerificationPageState extends State<VerificationPage> {
           break;
 
         case AppEnum.ON_VERIFICATION_FROM_USER_DETAILS_PAGE:
-          Navigator.of(context).pop(); // pop verification Page
           AppVariableStates.instance.submitFunction();
           break;
 
