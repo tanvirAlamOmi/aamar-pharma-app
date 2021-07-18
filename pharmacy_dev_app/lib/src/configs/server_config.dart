@@ -4,7 +4,7 @@ class ServerConfig {
   static String getEnvironment() {
     if (kReleaseMode) {
       // is Release Mode ??
-      return "dev";
+      return "prod";
     }
     return "dev";
   }
@@ -16,7 +16,7 @@ class ServerConfig {
       case 'dev':
         return Uri.https('pharmacy.arbreefos.com', path);
       case 'prod':
-        return Uri.https('pharmacy.arbreefos.com', path);
+        return Uri.https('pharmacy.arbreesolutions.com', path);
     }
   }
 }

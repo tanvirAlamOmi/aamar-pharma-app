@@ -51,11 +51,10 @@ class DynamicLinksApi {
     //if (Store.instance.appState.user.id != null) return null;
 
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-      uriPrefix: 'https://aamarpharmadev.page.link',
+      uriPrefix: 'https://aamarpharmarefer.page.link',
       link: Uri.parse('https://aamarpharma.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(
-        packageName: 'com.arbree.aamarpharma',
-      ),
+          packageName: 'com.arbree.aamarpharma', minimumVersion: 4),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: 'Refer A Friend',
         description: 'Refer and earn',
@@ -68,6 +67,7 @@ class DynamicLinksApi {
         await dynamicLinkParameters.buildShortLink();
 
     final Uri dynamicUrl = shortLink.shortUrl;
+    print('Referral Link: ' + dynamicUrl.toString() + ' ' + referralCode);
     return dynamicUrl.toString();
   }
 }

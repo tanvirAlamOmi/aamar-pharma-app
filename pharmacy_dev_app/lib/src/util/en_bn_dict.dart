@@ -93,6 +93,8 @@ class EnBnDict {
         'ম্যানুয়্যালি আইটেমের নাম সংযুক্ত করে ইউনিট এবং পরিমাণ উল্লেখ করার মাধ্যমেও আপনি অর্ডার পাঠাতে পারবেন।”',
     'Call us on our hotline number anytime between 10 AM to 10 PM for any kind of queries you have':
         'আপনার যেকোনো জিজ্ঞাসার জন্য আমাদের হটলাইনে কল করুন সকাল ১০টা থেকে রাত ১০টার মধ্যে যেকোনো সময়।',
+    'Look out for notifications once you request an order to receive order invoice and other details':
+      'অর্ডার সম্পন্ন হওয়ার পর অর্ডার চালান এবং অন্যান্য বিবরণ পাওয়ার জন্য নোটিফিকেশনের সন্ধান করুন ',
     'Always click here to get all the information of your orders':
         'আপনার অর্ডারসমূহের সমস্ত তথ্য পেতে সর্বদা এখানে ক্লিক করুন ',
     'The items you add will be listed under this':
