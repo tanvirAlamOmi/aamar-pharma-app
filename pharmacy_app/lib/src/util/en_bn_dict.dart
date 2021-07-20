@@ -297,7 +297,7 @@ class EnBnDict {
     'LOGIN': 'লগিন',
     'Enter your mobile number': 'আপনার মোবাইল নাম্বারটি দিন',
     'We will send you a verification code by text message(SMS)':
-        'আমরা আপ্নকে এস,এম,এস এর মাধ্যমে একটি ভেরিফিকেসন কোড পাঠাবো',
+        'আমরা আপনাকে এস,এম,এস এর মাধ্যমে একটি ভেরিফিকেসন কোড পাঠাবো',
 
     // Verification Page
     'PHONE VERIFICATION': 'ফোন ভেরিফিকেইসন',

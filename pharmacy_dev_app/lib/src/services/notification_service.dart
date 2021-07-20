@@ -18,8 +18,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'aamar_pharma', // id
-    'Aamar Pharma', // title
+    'aamar_pharma_dev', // id
+    'Aamar Pharma Dev', // title
     'This channel is used for Aamar Pharma notifications.', // description
     importance: Importance.max,
     enableVibration: true,
@@ -54,15 +54,17 @@ Future<void> firebaseCloudMessagingListeners() async {
       await Store.instance.setFirebasePushNotificationToken(token);
     });
 
-    FirebaseMessaging.instance.subscribeToTopic("pharma-push-service");
+    FirebaseMessaging.instance.subscribeToTopic("pharma-push-dev-service");
     if (Platform.isAndroid)
       FirebaseMessaging.instance
-          .subscribeToTopic("pharma-push-service-android");
+          .subscribeToTopic("pharma-push-dev-service-android");
     if (Platform.isIOS)
-      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-ios");
+      FirebaseMessaging.instance
+          .subscribeToTopic("pharma-push-dev-service-ios");
 
     if (ServerConfig.environmentMode == "dev")
-      FirebaseMessaging.instance.subscribeToTopic("pharma-push-service-dev");
+      FirebaseMessaging.instance
+          .subscribeToTopic("pharma-push-dev-service-dev");
 
     FirebaseMessaging.instance
         .getInitialMessage()
@@ -164,7 +166,7 @@ void navigateToSpecificScreen({dynamic data, bool pushMessageTapped}) async {
 
         case 'UPDATE_APP':
           LaunchReview.launch(
-              androidAppId: 'com.arbree.aamarpharma', iOSAppId: '123');
+              androidAppId: 'com.arbree.aamarpharmadev', iOSAppId: '123');
           break;
 
         default:
