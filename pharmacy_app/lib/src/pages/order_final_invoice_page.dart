@@ -52,6 +52,15 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
   void initState() {
     super.initState();
     AppVariableStates.instance.pageName = AppEnum.PAGE_ORDER_FINAL_INVOICE;
+    showDialogBox();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void showDialogBox(){
     Timer(Duration(seconds: 2), () {
       isDone = false;
       refreshUI();
@@ -62,11 +71,6 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
         showRepeatOrderDialog();
       }
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
