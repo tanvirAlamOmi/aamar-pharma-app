@@ -80,7 +80,8 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget buildBackButton() {
-    if (!widget.showBackButton) return Container();
+    if (widget.showBackButton == null) return Container();
+    if (widget.showBackButton == false) return Container();
     if (AppVariableStates.instance.loginWithReferral == true)
       return Container();
     return AppBarBackButton();

@@ -45,10 +45,7 @@ class AuthRepo {
           await Store.instance.setReferralCode('');
           AppVariableStates.instance.loginWithReferral = false;
 
-          if (user.dynamicReferralLink == null ||
-              user.dynamicReferralLink.isEmpty) {
-            await AuthRepo.instance.updateDynamicReferralLink();
-          }
+          await AuthRepo.instance.updateDynamicReferralLink();
 
           return Tuple2(
               Store.instance.appState.user, ClientEnum.RESPONSE_SUCCESS);
@@ -114,6 +111,8 @@ class AuthRepo {
         final user = PharmaUser.User.fromJson(getUserDetailsResponse);
         await Store.instance.updateUser(user);
         AppVariableStates.instance.userDetailsFetched = true;
+
+        await AuthRepo.instance.updateDynamicReferralLink();
       }
     } catch (err) {
       print("Error in getUserDetails() in AuthRepo");
@@ -179,9 +178,12 @@ class AuthRepo {
     return Tuple2(null, ClientEnum.RESPONSE_CONNECTION_ERROR);
   }
 
-  Future<Tuple2<void, void>> updateDynamicReferralLink() async {
-    int retry = 0;
+  Future<void> updateDynamicReferralLink() async {
+    final user = Store.instance.appState.user;
+    if (user.dynamicReferralLink != null && user.dynamicReferralLink.isNotEmpty)
+      return;
 
+    int retry = 0;
     while (retry++ < 2) {
       try {
         final String selfReferralCode = Util.getReferralCode();

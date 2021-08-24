@@ -257,7 +257,8 @@ class Util {
   }
 
   static String getReferralCode() {
-    return Uuid().v4().toString().split("-")[0];
+    return (Uuid().v4().toString().split("-")[0] +
+        Uuid().v4().toString().split("-")[0]);
   }
 
   static void printBig(dynamic text) {

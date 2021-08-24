@@ -68,30 +68,32 @@ class AuthClient {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       timeout: const Duration(seconds: 120),
-      verificationCompleted: (AuthCredential authCredential) async {
-        try {
-          final User firebaseUser =
-              (await FirebaseAuth.instance.signInWithCredential(authCredential))
-                  .user;
-
-          final authToken = await firebaseUser.getIdToken();
-
-          Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
-              .signIn(
-                  authToken: authToken,
-                  phoneNumber: Store.instance.appState.user.phone);
-
-          if (userResponse.item2 == ClientEnum.RESPONSE_SUCCESS &&
-              userResponse.item1 != null) {
-            Streamer.putEventStream(Event(EventType.REFRESH_VERIFICATION_PAGE));
-          } else {
-            Streamer.putErrorStream(
-                'Auto Verification Failed. ' + userResponse.item2);
-          }
-        } catch (error) {
-          Streamer.putErrorStream(error.toString());
-        }
-      },
+      verificationCompleted: (AuthCredential authCredential) => {},
+      // This is auto verification code
+      // verificationCompleted: (AuthCredential authCredential) async {
+      //   try {
+      //     final User firebaseUser =
+      //         (await FirebaseAuth.instance.signInWithCredential(authCredential))
+      //             .user;
+      //
+      //     final authToken = await firebaseUser.getIdToken();
+      //
+      //     Tuple2<PharmaUser.User, String> userResponse = await AuthRepo.instance
+      //         .signIn(
+      //             authToken: authToken,
+      //             phoneNumber: Store.instance.appState.user.phone);
+      //
+      //     if (userResponse.item2 == ClientEnum.RESPONSE_SUCCESS &&
+      //         userResponse.item1 != null) {
+      //       Streamer.putEventStream(Event(EventType.REFRESH_VERIFICATION_PAGE));
+      //     } else {
+      //       Streamer.putErrorStream(
+      //           'Auto Verification Failed. ' + userResponse.item2);
+      //     }
+      //   } catch (error) {
+      //     Streamer.putErrorStream(error.toString());
+      //   }
+      // },
       codeSent: (token, [force]) async {
         AppVariableStates.instance.firebaseSMSToken = token;
       },
