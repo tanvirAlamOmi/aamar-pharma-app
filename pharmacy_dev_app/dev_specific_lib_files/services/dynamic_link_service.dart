@@ -16,8 +16,9 @@ class DynamicLinksApi {
     final PendingDynamicLinkData data = await dynamicLink.getInitialLink();
     handleSuccessLinking(data);
 
+    // If app is installed, this will work. No code to execute here currently
     dynamicLink.onLink(onSuccess: (PendingDynamicLinkData data) async {
-      // If app is installed, this will work. No code to execute here currently
+      print('Dynamic Link Access');
     }, onError: (OnLinkErrorException error) async {
       print(error.message.toString());
     });
@@ -30,17 +31,18 @@ class DynamicLinksApi {
     print("Dynamic Deep Link Referral Data: " + deepLink.toString());
 
     if (Store.instance.appState.user.id == null && deepLink != null) {
+      print('Saving Deep Link data as referral');
       bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
         String code = deepLink.queryParameters['refer_code'];
         if (code != null) {
-          await Future.delayed(Duration(seconds: 5));
           await Store.instance.setReferralCode(code);
+          await Future.delayed(Duration(seconds: 5));
           AppVariableStates.instance.loginWithReferral = true;
           AppVariableStates.instance.navigatorKey.currentState
               .pushNamedAndRemoveUntil(
             '/login',
-            (Route<dynamic> route) => false,
+                (Route<dynamic> route) => false,
           );
         }
       }
@@ -54,7 +56,7 @@ class DynamicLinksApi {
       uriPrefix: 'https://aamarpharmadev.page.link',
       link: Uri.parse('https://aamarpharma.com?refer_code=${referralCode}'),
       androidParameters: AndroidParameters(
-        packageName: 'com.arbree.aamarpharma',
+        packageName: 'com.arbree.aamarpharmadev',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: 'Refer A Friend',

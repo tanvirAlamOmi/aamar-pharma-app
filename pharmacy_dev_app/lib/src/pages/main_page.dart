@@ -25,18 +25,21 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey bottomNavKey = new GlobalKey();
-  int currentTabIndex;
+  int currentTabIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    currentTabIndex = 0;
-    Util.getPermissions();
+    loadData();
     eventChecker();
+    AppVariableStates.instance.pageName = AppEnum.PAGE_MAIN;
+  }
+
+  void loadData() {
+    Util.getPermissions();
     AutoRefreshTimer.instance.stopTimer();
     AutoRefreshTimer.instance.autoRefresh();
     AuthRepo.instance.getUserDetails();
-    AppVariableStates.instance.pageName = AppEnum.PAGE_MAIN;
   }
 
   void eventChecker() async {

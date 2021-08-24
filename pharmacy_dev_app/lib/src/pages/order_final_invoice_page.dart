@@ -60,7 +60,7 @@ class _OrderFinalInvoicePageState extends State<OrderFinalInvoicePage> {
     super.dispose();
   }
 
-  void showDialogBox(){
+  void showDialogBox() {
     Timer(Duration(seconds: 2), () {
       isDone = false;
       refreshUI();
