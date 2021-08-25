@@ -1,5 +1,5 @@
 name: pharmacy_app
-description: A new Flutter application for medicine delivery.
+description: A mobile application for medicine delivery.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.8.8+8
+version: 1.9.9+9
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -36,17 +36,16 @@ dependencies:
   launch_review: ^3.0.1
   cached_network_image: ^2.5.1
   url_launcher: ^6.0.2
-  package_info: 0.4.3
+  package_info: ^2.0.2
   carousel_slider: ^3.0.0
   flutter_keyboard_visibility: ^5.0.2
 
-  firebase_core: ^1.0.3
-  firebase_storage: ^8.0.3
-  firebase_auth: ^1.0.3
-  firebase_analytics: ^7.1.1
-  firebase_messaging: ^9.1.1
-  flutter_local_notifications: ^5.0.0+1
-  firebase_dynamic_links: ^0.8.0
+  firebase_core: ^1.5.0
+  firebase_storage: ^10.0.2
+  firebase_auth: ^3.0.2
+  firebase_messaging: ^10.0.5
+  flutter_local_notifications: ^8.1.1+1
+  firebase_dynamic_links: ^2.0.8
   intl: ^0.17.0
 
   path_provider: ^2.0.1

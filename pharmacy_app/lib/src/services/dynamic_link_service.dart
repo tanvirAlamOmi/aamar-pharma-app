@@ -1,5 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
 import 'package:pharmacy_app/src/models/states/app_vary_states.dart';
 import 'package:pharmacy_app/src/store/store.dart';
@@ -11,39 +12,47 @@ class DynamicLinksApi {
   static DynamicLinksApi _instance;
   static DynamicLinksApi get instance => _instance ??= DynamicLinksApi();
 
-  Future<void> handleReferralLink() async {
+  Future<void> handleReferralLink(
+      {GlobalKey<ScaffoldState> scaffoldKey}) async {
     // Install the app and get first dynamic link data.
     final PendingDynamicLinkData data = await dynamicLink.getInitialLink();
-    handleSuccessLinking(data);
+    handleSuccessLinking(data, 'FROM_INIT', scaffoldKey);
 
-    // If app is installed, this will work. No code to execute here currently
+    // If app is installed, this will work.
     dynamicLink.onLink(onSuccess: (PendingDynamicLinkData data) async {
-      print('Dynamic Link Access');
+      print('Dynamic Link Access Success');
+      handleSuccessLinking(data, 'FROM_ONLINK', scaffoldKey);
     }, onError: (OnLinkErrorException error) async {
+      print('Link Error');
       print(error.message.toString());
     });
   }
 
-  void handleSuccessLinking(PendingDynamicLinkData data) async {
-    print("Handling Dynamic Link Click");
+  void handleSuccessLinking(PendingDynamicLinkData data, String fromState,
+      GlobalKey<ScaffoldState> scaffoldKey) async {
+    print("Handling Dynamic Link Click ${fromState}");
+
     final Uri deepLink = data?.link;
 
     print("Dynamic Deep Link Referral Data: " + deepLink.toString());
 
     if (Store.instance.appState.user.id == null && deepLink != null) {
-      print('Saving Deep Link data as referral');
+      Util.showSnackBar(
+          scaffoldKey: scaffoldKey,
+          message: "Referral Link ${deepLink}:${fromState}",
+          duration: 3000);
       bool isRefer = deepLink.toString().contains('refer_code');
       if (isRefer) {
         String code = deepLink.queryParameters['refer_code'];
         if (code != null) {
           await Store.instance.setReferralCode(code);
           await Future.delayed(Duration(seconds: 5));
-          AppVariableStates.instance.loginWithReferral = true;
-          AppVariableStates.instance.navigatorKey.currentState
-              .pushNamedAndRemoveUntil(
-            '/login',
-            (Route<dynamic> route) => false,
-          );
+          // AppVariableStates.instance.loginWithReferral = true;
+          // AppVariableStates.instance.navigatorKey.currentState
+          //     .pushNamedAndRemoveUntil(
+          //   '/login',
+          //   (Route<dynamic> route) => false,
+          // );
         }
       }
     }

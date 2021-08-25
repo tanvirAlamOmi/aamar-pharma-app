@@ -19,6 +19,7 @@ class App extends StatefulWidget {
 class _AppSate extends State<App> {
   final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "navigator");
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -27,10 +28,11 @@ class _AppSate extends State<App> {
   }
 
   void initProject() async {
+    AppVariableStates.instance.navigatorKey = navigatorKey;
     await Store.initStore();
     await firebaseCloudMessagingListeners();
-    await DynamicLinksApi.instance.handleReferralLink();
-    AppVariableStates.instance.navigatorKey = navigatorKey;
+    await DynamicLinksApi.instance
+        .handleReferralLink(scaffoldKey: _scaffoldKey);
     await DeliveryRepo.instance.deliveryCharges();
   }
 
@@ -46,7 +48,10 @@ class _AppSate extends State<App> {
       ),
       builder: (context, child) {
         return MediaQuery(
-          child: child,
+          child: Scaffold(
+            key: _scaffoldKey,
+            body: child,
+          ),
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         );
       },

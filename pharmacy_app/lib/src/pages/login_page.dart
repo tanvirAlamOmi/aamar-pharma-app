@@ -110,7 +110,7 @@ class LoginPageState extends State<LoginPage> {
     if (Store.instance.appState.referralCode.isNotEmpty) {
       children.addAll([
         SizedBox(height: 3),
-        CustomText('Referral Code ${Store.instance.appState.referralCode}',
+        CustomText('Referral Code: ${Store.instance.appState.referralCode}',
             color: Colors.red[500], fontWeight: FontWeight.bold, fontSize: 15),
       ]);
     }
