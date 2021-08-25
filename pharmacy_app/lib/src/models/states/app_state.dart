@@ -5,8 +5,7 @@ import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 class AppState {
   String language = ClientEnum.LANGUAGE_ENGLISH;
   User user = new User();
-  List<DeliveryAddressDetails> allDeliveryAddress =
-      new List<DeliveryAddressDetails>();
+  List<DeliveryAddressDetails> allDeliveryAddress = [];
   String firebasePushNotificationToken = "";
   String referralCode = "";
   int initialTutorialScrollingPage = 0;

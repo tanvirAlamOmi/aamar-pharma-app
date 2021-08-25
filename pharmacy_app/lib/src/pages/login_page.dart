@@ -107,13 +107,14 @@ class LoginPageState extends State<LoginPage> {
   Widget buildTitle() {
     final children = List<Widget>();
 
-    if (Store.instance.appState.referralCode.isNotEmpty) {
-      children.addAll([
-        SizedBox(height: 3),
-        CustomText('Referral Code: ${Store.instance.appState.referralCode}',
-            color: Colors.red[500], fontWeight: FontWeight.bold, fontSize: 15),
-      ]);
-    }
+    // Show Referral Code in Login Page
+    // if (Store.instance.appState.referralCode.isNotEmpty) {
+    //   children.addAll([
+    //     SizedBox(height: 3),
+    //     CustomText('Referral Code: ${Store.instance.appState.referralCode}',
+    //         color: Colors.red[500], fontWeight: FontWeight.bold, fontSize: 15),
+    //   ]);
+    // }
 
     children.addAll([
       SizedBox(height: 30),
