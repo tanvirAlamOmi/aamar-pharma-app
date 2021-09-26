@@ -172,7 +172,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
             Text(
                 '৳' +
                     EnBnDict.en_bn_number_convert(
-                        number: getTotalItemDiscountAmount()),
+                        number: OrderUtil.getTotalItemDiscountAmount(order)),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -187,14 +187,14 @@ class OrderInvoiceTableCard extends StatelessWidget {
             EnBnDict.en_bn_convert(text: 'Discount') +
                 '(' +
                 EnBnDict.en_bn_number_convert(number: order.discount) +
-                '%' +
+                (order.discountType != null ? order.discountType : '') +
                 ')',
             style: columnTextStyle)),
         customTableCell(
             Text(
                 '৳' +
                     EnBnDict.en_bn_number_convert(
-                        number: getMainDiscountAmount()),
+                        number: OrderUtil.getMainDiscountAmount(order)),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -210,8 +210,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(
             Text(
                 '৳' +
-                    EnBnDict.en_bn_number_convert(
-                        number: getAllTotalDiscount()),
+                    order.grandTotalDiscount,
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
@@ -418,7 +417,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         child: Text(
             '৳' +
                 EnBnDict.en_bn_number_convert(
-                    number: getSingleItemPrice(singleItem)),
+                    number: OrderUtil.getSingleItemPrice(singleItem)),
             style: dataTextStyle));
   }
 
@@ -429,46 +428,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
         child: Text(
             '-৳' +
                 EnBnDict.en_bn_number_convert(
-                    number: getSingleItemDiscountMinusAmount(singleItem)),
+                    number:
+                        OrderUtil.getSingleItemDiscountMinusAmount(singleItem)),
             style: dataTextRedStyle));
-  }
-
-  double getSingleItemDiscountMinusAmount(InvoiceItem singleItem) {
-    final unitPrice = singleItem.rate;
-    final quantity = singleItem.quantity;
-    final itemDiscountAmount = singleItem.itemDiscount;
-    final price = Util.twoDecimalDigit(
-        number: (unitPrice * itemDiscountAmount / 100) * quantity);
-    return price;
-  }
-
-  double getSingleItemPrice(InvoiceItem singleItem) {
-    final unitPrice = singleItem.rate;
-    final quantity = singleItem.quantity;
-    final price = Util.twoDecimalDigit(number: unitPrice * quantity);
-    return price;
-  }
-
-  double getTotalItemDiscountAmount() {
-    double totalItemDiscountAmount = 0;
-    for (int i = 0; i < order.invoiceItemList.length; i++) {
-      var singleItem = order.invoiceItemList[i];
-      totalItemDiscountAmount = getSingleItemDiscountMinusAmount(singleItem) +
-          totalItemDiscountAmount;
-    }
-
-    return totalItemDiscountAmount;
-  }
-
-  double getMainDiscountAmount() {
-    final double subTotal = double.parse(order.subTotal);
-    final int discount = order.discount;
-    final double discountAmount =
-        Util.twoDecimalDigit(number: (subTotal * discount / 100));
-    return discountAmount;
-  }
-
-  double getAllTotalDiscount() {
-    return getTotalItemDiscountAmount() + getMainDiscountAmount();
   }
 }

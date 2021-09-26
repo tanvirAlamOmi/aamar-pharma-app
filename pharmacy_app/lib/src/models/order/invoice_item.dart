@@ -9,6 +9,7 @@ class InvoiceItem {
   double rate;
   String unitType;
   dynamic itemDiscount; // Double or Int
+  String itemDiscountType;
   String isPrescriptionRequired;
 
   InvoiceItem(
@@ -18,6 +19,7 @@ class InvoiceItem {
       this.rate,
       this.unitType,
       this.itemDiscount,
+        this.itemDiscountType,
       this.isPrescriptionRequired});
 
   factory InvoiceItem.fromJson(Map<String, dynamic> jsonData) {
@@ -28,6 +30,7 @@ class InvoiceItem {
       rate: double.parse(jsonData['rate']),
       unitType: jsonData['unit_type'],
       itemDiscount: jsonData['item_discount'],
+      itemDiscountType: jsonData['item_discount_type'],
       isPrescriptionRequired: jsonData['is_prescription_required'],
     );
   }
@@ -40,6 +43,7 @@ class InvoiceItem {
       'rate': rate.toString(),
       'unit_type': unitType,
       'item_discount': itemDiscount.toString(),
+      'item_discount_type': itemDiscountType,
       'image': ClientEnum.NA,
       'is_prescription_required': isPrescriptionRequired,
     });
