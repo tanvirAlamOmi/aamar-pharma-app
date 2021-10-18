@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pharmacy_app/src/models/general/Client_Enum.dart';
 import 'package:pharmacy_app/src/models/general/App_Enum.dart';
@@ -12,10 +13,11 @@ class AppVariableStates {
   DateTime selectedRepeatedTime = DateTime.now();
   String pageName = '';
   Order order = new Order();
-  List<DeliveryCharge> deliveryCharges = List<DeliveryCharge>();
-  BuildContext context;
+  List<DeliveryCharge> deliveryCharges = [];
   bool loginWithReferral = false;
   String dynamicLink = "";
+  BuildContext context;
+  GlobalKey<ScaffoldState> scaffoldKey;
   GlobalKey<NavigatorState> navigatorKey;
   bool userDetailsFetched = false;
   Function submitFunction;

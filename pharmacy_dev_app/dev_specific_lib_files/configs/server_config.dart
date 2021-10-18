@@ -14,7 +14,7 @@ class ServerConfig {
   static Uri Address({String path}) {
     switch (getEnvironment()) {
       case 'dev':
-        return Uri.https('pharmacy.arbreefos.com', path);
+        return Uri.http('137.184.156.117', path);
       case 'prod':
         return Uri.https('pharmacy.arbreefos.com', path);
     }

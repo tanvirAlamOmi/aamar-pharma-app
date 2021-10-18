@@ -20,7 +20,10 @@ class Order {
   String deliveryCharge;
   String deliveryChargeType;
   int discount;
+  String discountType;
   String subTotal;
+  String
+      grandTotalDiscount; // Local variable, only to display final amount of discount
   String grandTotal;
   String createdAt;
   String status; // Order Status
@@ -51,6 +54,7 @@ class Order {
       this.deliveryCharge,
       this.deliveryChargeType,
       this.discount,
+      this.discountType,
       this.subTotal,
       this.grandTotal,
       this.createdAt,
@@ -89,6 +93,7 @@ class Order {
         deliveryCharge: jsonData['del_charge'],
         deliveryChargeType: jsonData['del_charge_type'],
         discount: jsonData['discount'],
+        discountType: jsonData['discount_type'],
         subTotal: jsonData['subtotal'],
         grandTotal: jsonData['grandtotal'],
         createdAt: jsonData['created_at'],
@@ -134,6 +139,7 @@ class Order {
       'del_charge': deliveryCharge,
       'del_charge_type': deliveryChargeType,
       'discount': discount,
+      'discount_type': discountType,
       'subtotal': subTotal,
       'grandtotal': grandTotal,
       'created_at': createdAt,

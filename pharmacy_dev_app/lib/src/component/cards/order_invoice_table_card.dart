@@ -34,6 +34,9 @@ class OrderInvoiceTableCard extends StatelessWidget {
   final TextStyle dataTextStyle = new TextStyle(
       fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold);
 
+  final TextStyle dataTextRedStyle = new TextStyle(
+      fontSize: 10, color: Colors.red, fontWeight: FontWeight.bold);
+
   OrderInvoiceTableCard(
       {Key key,
       this.order,
@@ -118,6 +121,8 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Divider(height: 2, thickness: 2)),
         customTableCell(Divider(height: 2, thickness: 2)),
       ]));
+
+      // SubTotal Row Show
       children.add(TableRow(children: [
         customTableCell(Text("", style: columnTextStyle)),
         customTableCell(Text("", style: columnTextStyle),
@@ -131,6 +136,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
             alignment: Alignment.centerRight),
       ]));
 
+      // Delivery Fee Row Show
       children.add(TableRow(children: [
         customTableCell(Text("", style: columnTextStyle)),
         customTableCell(Text("", style: columnTextStyle),
@@ -147,6 +153,32 @@ class OrderInvoiceTableCard extends StatelessWidget {
       ]));
 
       children.add(TableRow(children: [
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+        customTableCell(Divider(height: 2, thickness: 2)),
+      ]));
+
+      // Showing Item Discount Row
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Item Discount'),
+            style: columnTextStyle)),
+        customTableCell(
+            Text(
+                '৳' +
+                    EnBnDict.en_bn_number_convert(
+                        number: OrderUtil.getTotalItemDiscountAmount(order)),
+                style: dataTextStyle),
+            alignment: Alignment.centerRight),
+      ]));
+
+      // Showing Main Discount Row
+      children.add(TableRow(children: [
         customTableCell(Text("", style: columnTextStyle)),
         customTableCell(Text("", style: columnTextStyle),
             alignment: Alignment.centerLeft),
@@ -155,10 +187,29 @@ class OrderInvoiceTableCard extends StatelessWidget {
             EnBnDict.en_bn_convert(text: 'Discount') +
                 '(' +
                 EnBnDict.en_bn_number_convert(number: order.discount) +
-                '%' +
+                (order.discountType != null ? order.discountType : '') +
                 ')',
             style: columnTextStyle)),
-        customTableCell(Text('৳' + getDiscountAmount(), style: dataTextStyle),
+        customTableCell(
+            Text(
+                '৳' +
+                    EnBnDict.en_bn_number_convert(
+                        number: OrderUtil.getMainDiscountAmount(order)),
+                style: dataTextStyle),
+            alignment: Alignment.centerRight),
+      ]));
+
+      // Showing All Together Discount Row
+      children.add(TableRow(children: [
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text("", style: columnTextStyle),
+            alignment: Alignment.centerLeft),
+        customTableCell(Text("", style: columnTextStyle)),
+        customTableCell(Text(EnBnDict.en_bn_convert(text: 'Total Discount'),
+            style: columnTextStyle)),
+        customTableCell(
+            Text('৳' + OrderUtil.getAllTotalDiscount(order).toString(),
+                style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
     }
@@ -172,6 +223,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Divider(height: 2, thickness: 2)),
       ]));
 
+      // Showing Total Price Row after deducting the discount
       children.add(TableRow(children: [
         customTableCell(Text("", style: columnTextStyle)),
         customTableCell(Text("", style: columnTextStyle),
@@ -347,24 +399,35 @@ class OrderInvoiceTableCard extends StatelessWidget {
 
   Widget buildAmountColumn(InvoiceItem singleItem) {
     if (showAmountColumn != true) return Text("");
+
+    return Column(
+      children: [
+        buildMainAmount(singleItem),
+        buildItemWiseDiscountMinusAmount(singleItem),
+      ],
+    );
+  }
+
+  Widget buildMainAmount(InvoiceItem singleItem) {
     return Container(
         alignment: Alignment.centerRight,
         width: double.infinity,
-        child: Text('৳' + getPrice(singleItem), style: dataTextStyle));
+        child: Text(
+            '৳' +
+                EnBnDict.en_bn_number_convert(
+                    number: OrderUtil.getSingleItemPrice(singleItem)),
+            style: dataTextStyle));
   }
 
-  String getPrice(InvoiceItem singleItem) {
-    final unitPrice = singleItem.rate;
-    final quantity = singleItem.quantity;
-    final price = Util.twoDecimalDigit(number: unitPrice * quantity);
-    return EnBnDict.en_bn_number_convert(number: price);
-  }
-
-  String getDiscountAmount() {
-    final double subTotal = double.parse(order.subTotal);
-    final int discount = order.discount;
-    final discountAmount =
-        Util.twoDecimalDigit(number: (subTotal * discount / 100)).toString();
-    return EnBnDict.en_bn_number_convert(number: discountAmount);
+  Widget buildItemWiseDiscountMinusAmount(InvoiceItem singleItem) {
+    return Container(
+        alignment: Alignment.centerRight,
+        width: double.infinity,
+        child: Text(
+            '-৳' +
+                EnBnDict.en_bn_number_convert(
+                    number:
+                        OrderUtil.getSingleItemDiscountMinusAmount(singleItem)),
+            style: dataTextRedStyle));
   }
 }

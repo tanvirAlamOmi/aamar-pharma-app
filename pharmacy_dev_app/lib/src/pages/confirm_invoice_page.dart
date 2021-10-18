@@ -52,7 +52,6 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
     DeliveryRepo.instance.deliveryCharges();
   }
 
-
   @override
   void dispose() {
     super.dispose();
