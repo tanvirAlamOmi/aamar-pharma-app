@@ -52,7 +52,8 @@ class OrderUtil {
       subTotal = subTotal + (unitPrice * quantity);
     }
 
-    return subTotal;
+    order.subTotal = subTotal.toString();
+    return double.parse(order.subTotal);
   }
 
   static double getSingleItemDiscountMinusAmount(InvoiceItem singleItem) {
@@ -120,6 +121,7 @@ class OrderUtil {
   static double getAllTotalDiscount(Order order) {
     final totalDiscount =
         getTotalItemDiscountAmount(order) + getMainDiscountAmount(order);
+
     return totalDiscount;
   }
 

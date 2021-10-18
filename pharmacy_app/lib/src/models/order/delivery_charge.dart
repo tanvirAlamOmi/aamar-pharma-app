@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class DeliveryCharge {
   int amountFrom;
   String amountTo; // This is needed when fetching all covered area of delivery
@@ -15,5 +17,13 @@ class DeliveryCharge {
       amountTo: jsonData['amount_to'],
       deliveryCharge: jsonData['delivery_charge'],
     );
+  }
+
+  String toJsonEncodedString() {
+    return jsonEncode(<String, dynamic>{
+      'amount_from': amountFrom,
+      'amount_to': amountTo,
+      'delivery_charge': deliveryCharge,
+    });
   }
 }

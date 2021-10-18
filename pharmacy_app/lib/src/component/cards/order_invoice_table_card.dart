@@ -208,9 +208,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
         customTableCell(Text(EnBnDict.en_bn_convert(text: 'Total Discount'),
             style: columnTextStyle)),
         customTableCell(
-            Text(
-                '৳' +
-                    order.grandTotalDiscount,
+            Text('৳' + OrderUtil.getAllTotalDiscount(order).toString(),
                 style: dataTextStyle),
             alignment: Alignment.centerRight),
       ]));
