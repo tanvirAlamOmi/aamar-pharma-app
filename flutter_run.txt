@@ -1,2 +1,0 @@
-cd D:\Arbree\pharmacy-app\pharmacy_app
-flutter run
