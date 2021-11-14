@@ -71,7 +71,9 @@ class OrderUtil {
         break;
 
       case '৳':
-        price = Util.twoDecimalDigit(number: (itemDiscountAmount) * quantity);
+        price =
+            Util.twoDecimalDigit(number: (itemDiscountAmount / 1) * quantity);
+        // Divided by 1 means converting int to double
         break;
     }
 
