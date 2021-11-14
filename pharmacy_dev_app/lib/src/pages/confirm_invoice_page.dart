@@ -46,6 +46,7 @@ class _ConfirmInvoicePageState extends State<ConfirmInvoicePage> {
   @override
   void initState() {
     super.initState();
+    print(widget.order.toJsonEncodedString());
     checkIfPrescriptionRequired();
     OrderUtil.calculatePricing(widget.order);
     AppVariableStates.instance.pageName = AppEnum.PAGE_CONFIRM_INVOICE;
