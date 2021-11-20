@@ -29,6 +29,8 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
   final TextEditingController fullAddressController =
       new TextEditingController();
 
+  bool isProcessing = false;
+
   List<String> areaList = ["Mirpur", "Banani", "Gulshan"];
   String selectedArea;
 
@@ -37,11 +39,36 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
     super.initState();
     selectedArea = areaList[0];
     AppVariableStates.instance.pageName = AppEnum.PAGE_ADD_NEW_ADDRESS;
+    loadDeliveryAddress();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void loadDeliveryAddress() async {
+    isProcessing = true;
+    refreshUI();
+    Tuple2<List<DeliveryAddressDetails>, String>
+        coveredDeliveryAddressListResponse =
+        await DeliveryRepo.instance.coveredDeliveryPlaces();
+
+    List<DeliveryAddressDetails> coveredDeliveryAddressList =
+        coveredDeliveryAddressListResponse.item1;
+
+    String response = coveredDeliveryAddressListResponse.item2;
+
+    if (response == ClientEnum.RESPONSE_SUCCESS &&
+        coveredDeliveryAddressList.isNotEmpty) {
+      areaList.clear();
+      coveredDeliveryAddressList.forEach((singleDeliveryAddress) {
+        areaList.add(singleDeliveryAddress.name);
+      });
+    }
+    selectedArea = areaList[0];
+    isProcessing = false;
+    refreshUI();
   }
 
   @override
@@ -57,34 +84,13 @@ class _AddNewAddressPageState extends State<AddNewAddressPage> {
             title: CustomText('ADD ADDRESS',
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          body: FutureBuilder(
-              future: DeliveryRepo.instance.coveredDeliveryPlaces(),
-              builder: (_, snapshot) {
-                if (snapshot.data == null) {
-                  return LoadingWidget(status: "Loading Data");
-                } else if (snapshot.data != null) {
-                  Tuple2<List<DeliveryAddressDetails>, String>
-                      coveredDeliveryAddressListResponse = snapshot.data;
-                  List<DeliveryAddressDetails> coveredDeliveryAddressList =
-                      coveredDeliveryAddressListResponse.item1;
-                  String response = coveredDeliveryAddressListResponse.item2;
-
-                  if (response == ClientEnum.RESPONSE_SUCCESS &&
-                      coveredDeliveryAddressList.isNotEmpty) {
-                    areaList.clear();
-                    coveredDeliveryAddressList.forEach((singleDeliveryAddress) {
-                      areaList.add(singleDeliveryAddress.name);
-                    });
-                    selectedArea = areaList[0];
-                  }
-                  return buildBody(context);
-                }
-                return LoadingWidget(status: "Loading Data");
-              })),
+          body: buildBody(context)),
     );
   }
 
   Widget buildBody(BuildContext context) {
+    if (isProcessing) return LoadingWidget(status: "Loading Data");
+
     return SingleChildScrollView(
       child: Container(
         child: Column(

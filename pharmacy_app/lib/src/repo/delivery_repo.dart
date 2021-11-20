@@ -93,6 +93,7 @@ class DeliveryRepo {
             .getDeliveryClient()
             .coveredDeliveryPlaces(jwtToken);
 
+
         final List<DeliveryAddressDetails> itemList = List<dynamic>.from(
                 deliveryAddressListResponse.map((singleItem) =>
                     DeliveryAddressDetails.fromJson(singleItem)))
