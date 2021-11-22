@@ -136,11 +136,11 @@ class DeliveryRepo {
     return [
       DeliveryCharge()
         ..amountFrom = 0
-        ..amountTo = '499.9999'
+        ..amountTo = 499.9999
         ..deliveryCharge = 25,
       DeliveryCharge()
         ..amountFrom = 500
-        ..amountTo = '999999999999'
+        ..amountTo = 999999999999
         ..deliveryCharge = 0,
     ];
   }

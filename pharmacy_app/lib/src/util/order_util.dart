@@ -31,7 +31,7 @@ class OrderUtil {
       for (DeliveryCharge deliveryChargeData
           in AppVariableStates.instance.deliveryCharges) {
         if (subTotal >= deliveryChargeData.amountFrom &&
-            subTotal < double.parse(deliveryChargeData.amountTo)) {
+            subTotal < deliveryChargeData.amountTo) {
           order.deliveryCharge = deliveryChargeData.deliveryCharge.toString();
           break;
         }
