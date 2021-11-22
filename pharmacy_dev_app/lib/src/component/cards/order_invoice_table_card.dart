@@ -184,7 +184,10 @@ class OrderInvoiceTableCard extends StatelessWidget {
             alignment: Alignment.centerLeft),
         customTableCell(Text("", style: columnTextStyle)),
         customTableCell(Text(
-            EnBnDict.en_bn_convert(text: 'Discount') +
+            EnBnDict.en_bn_convert(
+                    text: order.discountName != null
+                        ? order.discountName
+                        : 'Discount') +
                 '(' +
                 EnBnDict.en_bn_number_convert(number: order.discount) +
                 (order.discountType != null ? order.discountType : '') +
@@ -338,14 +341,14 @@ class OrderInvoiceTableCard extends StatelessWidget {
   }
 
   Widget buildQuantityColumn(InvoiceItem singleItem) {
-    if (showQuantityColumn == true && showIncDecButtons == false)
-      return Container(
-          alignment: Alignment.center,
-          width: 25,
-          child: Text(
-              EnBnDict.en_bn_number_convert(number: singleItem.quantity),
-              style: dataTextStyle));
-    else if (showQuantityColumn == true && showIncDecButtons == true)
+    if (showQuantityColumn == true && showIncDecButtons == false) {
+      return Column(
+        children: [
+          buildQuantityAmount(singleItem),
+          buildUnitTypeAmount(singleItem),
+        ],
+      );
+    } else if (showQuantityColumn == true && showIncDecButtons == true)
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Row(
@@ -366,12 +369,12 @@ class OrderInvoiceTableCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.redAccent))),
             ),
-            Container(
-                alignment: Alignment.center,
-                width: 25,
-                child: Text(
-                    EnBnDict.en_bn_number_convert(number: singleItem.quantity),
-                    style: dataTextStyle)),
+            Column(
+              children: [
+                buildQuantityAmount(singleItem),
+                buildUnitTypeAmount(singleItem),
+              ],
+            ),
             GestureDetector(
               onTap: () {
                 callBackIncrementItemQuantity(singleItem);
@@ -394,6 +397,22 @@ class OrderInvoiceTableCard extends StatelessWidget {
         alignment: Alignment.center,
         width: 25,
         child: Text(EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+            style: dataTextStyle));
+  }
+
+  Widget buildQuantityAmount(InvoiceItem singleItem) {
+    return Container(
+        alignment: Alignment.center,
+        width: 25,
+        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.quantity),
+            style: dataTextStyle));
+  }
+
+  Widget buildUnitTypeAmount(InvoiceItem singleItem) {
+    return Container(
+        alignment: Alignment.center,
+        width: 50,
+        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.unitType),
             style: dataTextStyle));
   }
 

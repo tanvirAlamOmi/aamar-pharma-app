@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class DeliveryCharge {
-  int amountFrom;
-  String amountTo; // This is needed when fetching all covered area of delivery
+  double amountFrom;
+  double amountTo; // This is needed when fetching all covered area of delivery
   int deliveryCharge;
 
   DeliveryCharge({
@@ -13,8 +13,8 @@ class DeliveryCharge {
 
   factory DeliveryCharge.fromJson(Map<String, dynamic> jsonData) {
     return DeliveryCharge(
-      amountFrom: jsonData['amount_from'],
-      amountTo: jsonData['amount_to'],
+      amountFrom: double.parse(jsonData['amount_from']),
+      amountTo: double.parse(jsonData['amount_to']),
       deliveryCharge: jsonData['delivery_charge'],
     );
   }

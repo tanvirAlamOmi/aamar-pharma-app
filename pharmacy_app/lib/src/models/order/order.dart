@@ -19,6 +19,7 @@ class Order {
   String deliveryDate;
   String deliveryCharge;
   String deliveryChargeType;
+  String discountName;
   int discount;
   String discountType;
   String subTotal;
@@ -55,6 +56,7 @@ class Order {
       this.deliveryChargeType,
       this.discount,
       this.discountType,
+      this.discountName,
       this.subTotal,
       this.grandTotal,
       this.createdAt,
@@ -94,6 +96,7 @@ class Order {
         deliveryChargeType: jsonData['del_charge_type'],
         discount: jsonData['discount'],
         discountType: jsonData['discount_type'],
+        discountName: jsonData['discount_name'],
         subTotal: jsonData['subtotal'],
         grandTotal: jsonData['grandtotal'],
         createdAt: jsonData['created_at'],
@@ -140,6 +143,7 @@ class Order {
       'del_charge_type': deliveryChargeType,
       'discount': discount,
       'discount_type': discountType,
+      'discount_name': discountName,
       'subtotal': subTotal,
       'grandtotal': grandTotal,
       'created_at': createdAt,
