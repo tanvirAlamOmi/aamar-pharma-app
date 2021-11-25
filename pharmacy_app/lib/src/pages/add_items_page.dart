@@ -394,6 +394,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
     if (mounted) setState(() {});
   }
 
+
   void proceedToConfirmOrderPage() {
     Navigator.push(
       context,

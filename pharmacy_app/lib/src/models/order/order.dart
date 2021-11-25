@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:pharmacy_app/src/models/order/deliver_address_details.dart';
 import 'package:pharmacy_app/src/models/order/invoice_item.dart';
 import 'package:pharmacy_app/src/models/order/order_manual_item.dart';
@@ -115,8 +116,9 @@ class Order {
                     InvoiceItem.fromJson(singleInvoiceItem))
                 .toList()
                 .cast<InvoiceItem>(),
-        deliveryAddressDetails:
-            DeliveryAddressDetails.fromJson(jsonData['addressDetails']));
+        deliveryAddressDetails: (jsonData['addressDetails'] == null)
+            ? null
+            : DeliveryAddressDetails.fromJson(jsonData['addressDetails']));
   }
 
   String toJsonEncodedString() {

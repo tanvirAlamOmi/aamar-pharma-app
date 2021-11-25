@@ -386,6 +386,8 @@ class EnBnDict {
     'Amount': 'টাকার অঙ্ক',
     'Subtotal': 'সাবটোটাল',
     'Discount': 'ডিস্কাউন্ট',
+    'Item Discount': 'আইটেম ডিস্কাউন্ট',
+    'Total Discount': 'মোট ডিস্কাউন্ট',
     'Delivery Fee': 'ডেলিভারি ফী',
     'Total': 'মোট',
     'Are you sure to confirm this invoice for this order?':

@@ -45,6 +45,8 @@ class QueryRepo {
             .getQueryClient()
             .getOrderFeed(jwtToken, feedRequest, userId);
 
+        Util.printBig(feedResponse[0]);
+
         if (!(feedResponse is List)) return emptyResponse();
 
         final List<Order> allOrders = List<dynamic>.from(
