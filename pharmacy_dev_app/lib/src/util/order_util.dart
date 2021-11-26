@@ -7,7 +7,6 @@ import 'package:pharmacy_app/src/util/util.dart';
 
 class OrderUtil {
   static void calculatePricing(Order order) {
-    Util.printBig(order.toJsonEncodedString());
     double subTotal = 0;
     double grandTotal = 0;
     double deliveryCharge = 0;

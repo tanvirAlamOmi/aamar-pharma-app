@@ -412,7 +412,7 @@ class OrderInvoiceTableCard extends StatelessWidget {
     return Container(
         alignment: Alignment.center,
         width: 50,
-        child: Text(EnBnDict.en_bn_number_convert(number: singleItem.unitType),
+        child: Text(EnBnDict.en_bn_convert(text: singleItem.unitType),
             style: dataTextStyle));
   }
 

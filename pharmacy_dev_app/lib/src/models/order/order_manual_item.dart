@@ -22,7 +22,7 @@ class OrderManualItem {
       'id_order': 0,
       'item_name': itemName,
       'unit': unit,
-      'image': 'abc.jpg',
+      'image': 'N/A',
       'quantity': quantity,
       'unit_type': unitType
     });

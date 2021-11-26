@@ -30,7 +30,7 @@ class _AddItemsPageState extends State<AddItemsPage> {
   final TextEditingController itemQuantityController =
       new TextEditingController();
   final List<OrderManualItem> orderManualItemList = new List();
-  final List<String> itemContainerTypeChoiceList = ['pieces', 'box', 'strip'];
+  final List<String> itemContainerTypeChoiceList = ['pieces', 'boxes', 'strips'];
   String itemContainerTypeChoice = 'pieces';
 
   final keyboardVisibilityController = KeyboardVisibilityController();

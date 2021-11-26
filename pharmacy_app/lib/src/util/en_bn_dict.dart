@@ -218,8 +218,8 @@ class EnBnDict {
     'ADDED ITEMS': 'আপনার আইটেমসমূহ',
     'QUANTITY: ': 'পরিমাণ: ',
     'pieces': 'পিস',
-    'box': 'বক্স',
-    'strip': 'পাতা',
+    'boxes': 'বক্স',
+    'strips': 'পাতা',
 
     // Confirm Order Page
     'CONFIRM ORDER': 'অর্ডার নিশ্চিত করুন',
