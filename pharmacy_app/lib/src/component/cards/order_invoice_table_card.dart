@@ -309,6 +309,18 @@ class OrderInvoiceTableCard extends StatelessWidget {
 
   Widget buildItemNameColumn(InvoiceItem singleItem) {
     if (showItemNameColumn != true) return Text("");
+    return Column(
+      children: [
+        buildItemName(singleItem),
+        buildUnitName(singleItem),
+      ],
+    );
+  }
+
+  Widget buildItemName(InvoiceItem singleItem) {
+    final TextStyle dataTextStyle = new TextStyle(
+        fontSize: 13, color: Colors.grey, fontWeight: FontWeight.bold);
+
     if (singleItem.isPrescriptionRequired == 'true') {
       return Container(
         child: Row(
@@ -328,6 +340,15 @@ class OrderInvoiceTableCard extends StatelessWidget {
         alignment: Alignment.topLeft,
         width: 80,
         child: Text(singleItem.itemName, style: dataTextStyle));
+  }
+
+  Widget buildUnitName(InvoiceItem singleItem) {
+    final TextStyle dataTextStyle = new TextStyle(
+        fontSize: 12, color: Colors.grey[600], fontWeight: FontWeight.normal);
+    return Container(
+        alignment: Alignment.centerLeft,
+        child: Text(EnBnDict.en_bn_convert(text: singleItem.unit),
+            style: dataTextStyle));
   }
 
   Widget buildUnitCostColumn(InvoiceItem singleItem) {

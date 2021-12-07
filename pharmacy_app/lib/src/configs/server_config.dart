@@ -4,7 +4,7 @@ class ServerConfig {
   static String getEnvironment() {
     if (kReleaseMode) {
       // is Release Mode ??
-      return "prod";
+      return "dev";
     }
     return "dev";
   }
