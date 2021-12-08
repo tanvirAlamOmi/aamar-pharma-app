@@ -116,6 +116,7 @@ class DeliveryRepo {
           .getDeliveryClient()
           .deliveryCharges(jwtToken);
 
+
       if (!(getDeliveryChargeResponse is List))
         AppVariableStates.instance.deliveryCharges = defaultDeliveryCharge();
 
